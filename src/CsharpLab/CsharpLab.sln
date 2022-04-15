@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorServerApp", "BlazorSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWasmApp", "BlazorWasmApp\BlazorWasmApp.csproj", "{F833782D-0F46-4E0D-B19D-CCFEAA1C9A74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary-windows", "ClassLibrary-windows\ClassLibrary-windows.csproj", "{AB660190-6A23-4DC2-9F29-E1AB9B72494E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary.Windows", "ClassLibrary.Windows\ClassLibrary.Windows.csproj", "{AB660190-6A23-4DC2-9F29-E1AB9B72494E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

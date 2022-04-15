@@ -27,7 +27,7 @@ jobs:
           [
             "BlazorServerApp",
             "ClassLibrary",
-            "ClassLibrary-windows",
+            "ClassLibrary.Windows",
             "ConsoleApp",
             "GrpcService",
             "WpfApp",
