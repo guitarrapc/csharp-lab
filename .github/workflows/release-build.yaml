@@ -39,4 +39,4 @@ jobs:
       - run: dotnet --version
       - run: dotnet --list-sdks
       - name: dotnet build
-        run: dotnet build ./src/CsharpLab.sln -c ${{ env.BUILD_CONFIG }}
+        run: dotnet build ./src/CsharpLab/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
