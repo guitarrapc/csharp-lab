@@ -1,0 +1,34 @@
+name: Release build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+
+env:
+  DOTNET_VERSION: 6.0.x
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+  NUGET_XMLDOC_MODE: skip
+
+jobs:
+  linux:
+    strategy:
+      fail-fast: false
+      matrix:
+        build-config: ["Debug", "Release"]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - run: dotnet --version
+      - run: dotnet --list-sdks
+      - name: dotnet build
+        run: dotnet build ./src/CsharpLab.sln -c ${{ matrix.build-config }}
