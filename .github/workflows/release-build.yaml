@@ -1,4 +1,4 @@
-name: Release build
+name: Linux Build
 
 on:
   workflow_dispatch:
@@ -10,6 +10,7 @@ on:
       - "main"
 
 env:
+  BUILD_CONFIG: Release
   DOTNET_VERSION: 6.0.x
   DOTNET_CLI_TELEMETRY_OPTOUT: 1
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
@@ -20,7 +21,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        build-config: ["Debug", "Release"]
+        project:
+          [
+            "BlazorServerApp",
+            "ClassLibrary",
+            "ConsoleApp",
+            "GrpcService",
+            "WpfApp",
+          ]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -31,4 +39,4 @@ jobs:
       - run: dotnet --version
       - run: dotnet --list-sdks
       - name: dotnet build
-        run: dotnet build ./src/CsharpLab.sln -c ${{ matrix.build-config }}
+        run: dotnet build ./src/CsharpLab.sln -c ${{ env.BUILD_CONFIG }}
