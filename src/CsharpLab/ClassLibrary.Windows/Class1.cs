@@ -1,4 +1,4 @@
-﻿namespace ClassLibrary_windows
+﻿namespace ClassLibrary.Windows
 {
     public class Class1
     {
