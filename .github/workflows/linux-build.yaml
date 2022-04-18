@@ -19,7 +19,7 @@ env:
   NUGET_XMLDOC_MODE: skip
 
 jobs:
-  linux:
+  build:
     strategy:
       fail-fast: false
       matrix:
@@ -42,4 +42,4 @@ jobs:
       - run: dotnet --version
       - run: dotnet --list-sdks
       - name: dotnet build
-        run: dotnet build ./src/CsharpLab/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
+        run: dotnet build ./src/LinuxBuild/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
