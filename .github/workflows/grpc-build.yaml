@@ -45,6 +45,8 @@ jobs:
       fail-fast: false
       matrix:
         project: ["AspNetCore60", "AspNetCore60.HealthCheckSupport"]
+    env:
+      DOCKER_BUILDKIT: 1
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -58,5 +60,32 @@ jobs:
         with:
           string: ${{ matrix.project }}
       - name: docker build
-        run: docker build -t "${{ steps.repository.outputs.lowercase }}:latest-grpc-${{ steps.project.outputs.lowercase }}" -f ${{ matrix.project}}/Dockerfile .
+        run: docker build -t "${{ env.REPOSITORY }}:${{ env.IMAGETAG }}" -f ${{ matrix.project}}/Dockerfile .
         working-directory: ./src/Grpc
+        env:
+          REPOSITORY: ${{ steps.repository.outputs.lowercase }}
+          IMAGETAG: latest-grpc-${{ steps.project.outputs.lowercase }}
+      # docker push
+      - if: ${{ github.event_name == 'push' }}
+        run: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+        env:
+          DOCKER_USER: ${{ secrets.SYNCED_DOCKER_USER }}
+          DOCKER_PASS: ${{ secrets.SYNCED_DOCKER_PASS }}
+      - if: ${{ github.event_name == 'push' }}
+        name: docker push (latest)
+        run: docker push -t "${{ env.REPOSITORY }}:${{ env.IMAGETAG }}"
+        working-directory: ./src/Grpc
+        env:
+          REPOSITORY: ${{ steps.repository.outputs.lowercase }}
+          IMAGETAG: latest-grpc-${{ steps.project.outputs.lowercase }}
+      - if: ${{ github.event_name == 'push' }}
+        name: docker push (tag)
+        run: |
+          VERSION=$(git log -1 --pretty=%h)
+          docker tag "${{ env.REPOSITORY }}:${{ env.IMAGETAG }}" "${{ env.REPOSITORY }}:${VERSION}${{ env.IMAGETAG_NEW }}"
+          docker push -t "${{ env.REPOSITORY }}:${VERSION}${{ env.IMAGETAG_NEW }}"
+        working-directory: ./src/Grpc
+        env:
+          REPOSITORY: ${{ steps.repository.outputs.lowercase }}
+          IMAGETAG: latest-grpc-${{ steps.project.outputs.lowercase }}
+          IMAGETAG_NEW: -grpc-${{ steps.project.outputs.lowercase }}
