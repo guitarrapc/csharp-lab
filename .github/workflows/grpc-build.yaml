@@ -1,4 +1,4 @@
-name: Grpc
+name: Grpc Build
 
 on:
   workflow_dispatch:
