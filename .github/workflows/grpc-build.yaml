@@ -74,7 +74,7 @@ jobs:
           password: ${{ secrets.SYNCED_DOCKER_PASS }}
       - if: ${{ github.event_name == 'push' }}
         name: docker push (latest)
-        run: docker push -t "${{ env.REPOSITORY }}:${{ env.IMAGETAG }}"
+        run: docker push "${{ env.REPOSITORY }}:${{ env.IMAGETAG }}"
         working-directory: ./src/Grpc
         env:
           REPOSITORY: ${{ steps.repository.outputs.lowercase }}
@@ -84,7 +84,7 @@ jobs:
         run: |
           VERSION=$(git log -1 --pretty=%h)
           docker tag "${{ env.REPOSITORY }}:${{ env.IMAGETAG }}" "${{ env.REPOSITORY }}:${VERSION}${{ env.IMAGETAG_NEW }}"
-          docker push -t "${{ env.REPOSITORY }}:${VERSION}${{ env.IMAGETAG_NEW }}"
+          docker push "${{ env.REPOSITORY }}:${VERSION}${{ env.IMAGETAG_NEW }}"
         working-directory: ./src/Grpc
         env:
           REPOSITORY: ${{ steps.repository.outputs.lowercase }}
