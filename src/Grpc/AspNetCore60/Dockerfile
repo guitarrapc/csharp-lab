@@ -7,16 +7,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["GrpcService/GrpcService.csproj", "GrpcService/"]
-RUN dotnet restore "GrpcService/GrpcService.csproj"
+COPY ["AspNetCore60/AspNetCore60.csproj", "AspNetCore60/"]
+RUN dotnet restore "AspNetCore60/AspNetCore60.csproj"
 COPY . .
-WORKDIR "/src/GrpcService"
-RUN dotnet build "GrpcService.csproj" -c Release -o /app/build
+WORKDIR "/src/AspNetCore60"
+RUN dotnet build "AspNetCore60.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "GrpcService.csproj" -c Release -o /app/publish
+RUN dotnet publish "AspNetCore60.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "GrpcService.dll"]
+ENTRYPOINT ["dotnet", "AspNetCore60.dll"]

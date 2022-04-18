@@ -39,3 +39,24 @@ jobs:
       - run: dotnet --list-sdks
       - name: dotnet build
         run: dotnet build ./src/Grpc/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
+
+  docker:
+    strategy:
+      fail-fast: false
+      matrix:
+        project: ["AspNetCore60", "AspNetCore60.HealthCheckSupport"]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+      - id: repository
+        uses: ASzc/change-string-case-action@v2
+        with:
+          string: ${{ github.repository }}
+      - id: project
+        uses: ASzc/change-string-case-action@v2
+        with:
+          string: ${{ matrix.project }}
+      - name: docker build
+        run: docker build -t "${{ steps.repository.outputs.lowercase }}:latest-grpc-${{ steps.project.outputs.lowercase }}" -f ${{ matrix.project}}/Dockerfile .
+        working-directory: ./src/Grpc
