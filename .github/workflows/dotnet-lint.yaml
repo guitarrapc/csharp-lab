@@ -11,6 +11,7 @@ env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
   NUGET_XMLDOC_MODE: skip
   SLN_ROOT: .
+  IGNORE_CSPROJ: WpfApp.csproj
   # colour output
   DOTNET_SYSTEM_CONSOLE_ALLOW_ANSI_COLOR_REDIRECTION: 1
   TERM: xterm
@@ -28,7 +29,7 @@ jobs:
       # dotnet list
       - name: Obtain csproj to lint
         run: |
-          projects=$(dotnet sln list | tail -n +3 | sort | xargs -n 1 echo '  *')
+          projects=$(dotnet sln list | grep -v "${{ env.IGNORE_CSPROJ }}" | tail -n +3 | sort | xargs -n 1 echo '  *')
           {
             echo "FORMAT_PROJECTS<<EOF"
             echo "${projects}"
