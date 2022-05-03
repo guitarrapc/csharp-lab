@@ -1,4 +1,4 @@
-﻿using AspNetCore60.Services;
+using AspNetCore60.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
