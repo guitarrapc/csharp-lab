@@ -1,4 +1,4 @@
-using AspNetCore60.HealthCheckSupport.Services;
+﻿using AspNetCore60.HealthCheckSupport.Services;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);

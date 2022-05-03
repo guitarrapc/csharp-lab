@@ -1,5 +1,5 @@
+﻿using AspNetCore60;
 using Grpc.Core;
-using AspNetCore60;
 
 namespace AspNetCore60.Services
 {
