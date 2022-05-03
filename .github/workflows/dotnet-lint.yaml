@@ -29,7 +29,7 @@ jobs:
       # dotnet list
       - name: Obtain csproj to lint
         run: |
-          projects=$(dotnet sln list | grep -v "${{ env.IGNORE_CSPROJ }}" | tail -n +3 | sort | xargs -n 1 echo '  *')
+          projects=$(dotnet sln list | tail -n +3 | grep -v "${{ env.IGNORE_CSPROJ }}" | sort | xargs -n 1 echo '  *')
           {
             echo "FORMAT_PROJECTS<<EOF"
             echo "${projects}"
@@ -42,7 +42,10 @@ jobs:
 
       # dotnet format is build-in from dotnet 6.0 sdk
       - name: Dotnet Format
-        run: dotnet format --verbosity diagnostic --exclude "console-fail-tests"
+        run: |
+          for csproj in $(dotnet sln list | tail -n +3 | grep -v "${{ env.IGNORE_CSPROJ }}"); do
+            dotnet format "$csproj" --verbosity diagnostic --exclude "console-fail-tests"
+          done
         working-directory: ${{ env.SLN_ROOT }}
 
       # is change happen?
