@@ -1,4 +1,4 @@
-using AspNetCore60.HealthCheckSupport;
+﻿using AspNetCore60.HealthCheckSupport;
 using Grpc.Core;
 
 namespace AspNetCore60.HealthCheckSupport.Services
