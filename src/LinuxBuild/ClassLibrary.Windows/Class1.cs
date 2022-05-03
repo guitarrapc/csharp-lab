@@ -1,7 +1,6 @@
-﻿namespace ClassLibrary.Windows
-{
-    public class Class1
-    {
+namespace ClassLibrary.Windows;
 
-    }
+public class Class1
+{
+
 }
