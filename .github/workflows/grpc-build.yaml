@@ -64,7 +64,6 @@ jobs:
           string: ${{ matrix.project }}
       - name: docker build
         run: docker build -t "${{ env.REPOSITORY }}:${{ env.IMAGETAG }}" -f "src/Grpc/${{ matrix.project}}/Dockerfile" .
-        working-directory: ./src/Grpc
         env:
           REPOSITORY: ${{ steps.repository.outputs.lowercase }}
           IMAGETAG: latest-grpc-${{ steps.project.outputs.lowercase }}
@@ -78,7 +77,6 @@ jobs:
       - if: ${{ github.event_name == 'push' }}
         name: docker push (latest)
         run: docker push "${{ env.REPOSITORY }}:${{ env.IMAGETAG }}"
-        working-directory: ./src/Grpc
         env:
           REPOSITORY: ${{ steps.repository.outputs.lowercase }}
           IMAGETAG: latest-grpc-${{ steps.project.outputs.lowercase }}
@@ -88,7 +86,6 @@ jobs:
           VERSION=$(git log -1 --pretty=%h)
           docker tag "${{ env.REPOSITORY }}:${{ env.IMAGETAG }}" "${{ env.REPOSITORY }}:${VERSION}${{ env.IMAGETAG_NEW }}"
           docker push "${{ env.REPOSITORY }}:${VERSION}${{ env.IMAGETAG_NEW }}"
-        working-directory: ./src/Grpc
         env:
           REPOSITORY: ${{ steps.repository.outputs.lowercase }}
           IMAGETAG: latest-grpc-${{ steps.project.outputs.lowercase }}
