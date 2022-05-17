@@ -7,14 +7,14 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["src/Grpc/AspNetCore60.HealthCheckSupport/AspNetCore60.HealthCheckSupport.csproj", "src/Grpc/AspNetCore60.HealthCheckSupport/"]
-RUN dotnet restore "src/Grpc/AspNetCore60.HealthCheckSupport/AspNetCore60.HealthCheckSupport.csproj"
+COPY ["src/Grpc/GrpcAspNetCore60.HealthCheckSupport/GrpcAspNetCore60.HealthCheckSupport.csproj", "src/Grpc/GrpcAspNetCore60.HealthCheckSupport/"]
+RUN dotnet restore "src/Grpc/GrpcAspNetCore60.HealthCheckSupport/GrpcAspNetCore60.HealthCheckSupport.csproj"
 COPY . .
-WORKDIR "/src/src/Grpc/AspNetCore60.HealthCheckSupport"
-RUN dotnet build "AspNetCore60.HealthCheckSupport.csproj" -c Release -o /app/build
+WORKDIR "/src/src/Grpc/GrpcAspNetCore60.HealthCheckSupport"
+RUN dotnet build "GrpcAspNetCore60.HealthCheckSupport.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "AspNetCore60.HealthCheckSupport.csproj" -c Release -o /app/publish
+RUN dotnet publish "GrpcAspNetCore60.HealthCheckSupport.csproj" -c Release -o /app/publish
 
 FROM build as installer
 RUN GRPC_HEALTH_PROBE_VERSION=v0.4.6 && \
@@ -25,4 +25,4 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 COPY --from=installer [ "/bin/grpc_health_probe", "/bin/grpc_health_probe"]
-ENTRYPOINT ["dotnet", "AspNetCore60.HealthCheckSupport.dll"]
+ENTRYPOINT ["dotnet", "GrpcAspNetCore60.HealthCheckSupport.dll"]
