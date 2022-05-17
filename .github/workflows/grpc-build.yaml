@@ -17,13 +17,6 @@ on:
 
 env:
   BUILD_CONFIG: Release
-  DOTNET_VERSION: 6.0.x
-  DOTNET_CLI_TELEMETRY_OPTOUT: 1
-  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
-  NUGET_XMLDOC_MODE: skip
-  # colour output
-  DOTNET_SYSTEM_CONSOLE_ALLOW_ANSI_COLOR_REDIRECTION: 1
-  TERM: xterm
 
 jobs:
   build:
@@ -38,6 +31,8 @@ jobs:
       - uses: actions/setup-dotnet@v2
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Prepare Environment Variables
+        uses: ./.github/actions/prepare-env
       - run: dotnet --version
       - run: dotnet --list-sdks
       - name: dotnet build
@@ -48,12 +43,12 @@ jobs:
       fail-fast: false
       matrix:
         project: ["GrpcAspNetCore60", "GrpcAspNetCore60.HealthCheckSupport"]
-    env:
-      DOCKER_BUILDKIT: 1
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v3
+      - name: Prepare Environment Variables
+        uses: ./.github/actions/prepare-env
       - id: repository
         uses: ASzc/change-string-case-action@v2
         with:
