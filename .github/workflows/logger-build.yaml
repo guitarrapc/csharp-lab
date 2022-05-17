@@ -1,4 +1,4 @@
-name: Linux Build
+name: Logger Build
 
 on:
   workflow_dispatch:
@@ -23,15 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project:
-          [
-            "BlazorServerApp",
-            "ClassLibrary",
-            "ClassLibrary.Windows",
-            "ConsoleApp",
-            "GrpcService",
-            "WpfApp",
-          ]
+        project: ["LoggerDefault"]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -44,4 +36,4 @@ jobs:
       - run: dotnet --version
       - run: dotnet --list-sdks
       - name: dotnet build
-        run: dotnet build ./src/LinuxBuild/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
+        run: dotnet build ./src/Logger/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
