@@ -7,10 +7,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["AspNetCore60.HealthCheckSupport/AspNetCore60.HealthCheckSupport.csproj", "AspNetCore60.HealthCheckSupport/"]
-RUN dotnet restore "AspNetCore60.HealthCheckSupport/AspNetCore60.HealthCheckSupport.csproj"
+COPY ["src/Grpc/AspNetCore60.HealthCheckSupport/AspNetCore60.HealthCheckSupport.csproj", "src/Grpc/AspNetCore60.HealthCheckSupport/"]
+RUN dotnet restore "src/Grpc/AspNetCore60.HealthCheckSupport/AspNetCore60.HealthCheckSupport.csproj"
 COPY . .
-WORKDIR "/src/AspNetCore60.HealthCheckSupport"
+WORKDIR "/src/src/Grpc/AspNetCore60.HealthCheckSupport"
 RUN dotnet build "AspNetCore60.HealthCheckSupport.csproj" -c Release -o /app/build
 
 FROM build AS publish

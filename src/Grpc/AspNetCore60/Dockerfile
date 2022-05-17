@@ -7,10 +7,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["AspNetCore60/AspNetCore60.csproj", "AspNetCore60/"]
-RUN dotnet restore "AspNetCore60/AspNetCore60.csproj"
+COPY ["src/Grpc/AspNetCore60/AspNetCore60.csproj", "src/Grpc/AspNetCore60/"]
+RUN dotnet restore "src/Grpc/AspNetCore60/AspNetCore60.csproj"
 COPY . .
-WORKDIR "/src/AspNetCore60"
+WORKDIR "/src/src/Grpc/AspNetCore60"
 RUN dotnet build "AspNetCore60.csproj" -c Release -o /app/build
 
 FROM build AS publish
