@@ -30,7 +30,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["AspNetCore60", "AspNetCore60.HealthCheckSupport"]
+        project: ["GrpcAspNetCore60", "GrpcAspNetCore60.HealthCheckSupport"]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -47,7 +47,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["AspNetCore60", "AspNetCore60.HealthCheckSupport"]
+        project: ["GrpcAspNetCore60", "GrpcAspNetCore60.HealthCheckSupport"]
     env:
       DOCKER_BUILDKIT: 1
     runs-on: ubuntu-latest
