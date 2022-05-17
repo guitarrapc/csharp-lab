@@ -63,7 +63,7 @@ jobs:
         with:
           string: ${{ matrix.project }}
       - name: docker build
-        run: docker build -t "${{ env.REPOSITORY }}:${{ env.IMAGETAG }}" -f ${{ matrix.project}}/Dockerfile .
+        run: docker build -t "${{ env.REPOSITORY }}:${{ env.IMAGETAG }}" -f "src/Grpc/${{ matrix.project}}/Dockerfile" .
         working-directory: ./src/Grpc
         env:
           REPOSITORY: ${{ steps.repository.outputs.lowercase }}
