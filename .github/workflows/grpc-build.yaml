@@ -8,12 +8,12 @@ on:
     branches:
       - "main"
     paths:
-      - "src/Grpc"
+      - "src/Grpc/**/*"
   pull_request:
     branches:
       - "main"
     paths:
-      - "src/Grpc"
+      - "src/Grpc/**/*"
 
 env:
   BUILD_CONFIG: Release

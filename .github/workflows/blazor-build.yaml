@@ -8,12 +8,12 @@ on:
     branches:
       - "main"
     paths:
-      - "src/Blazor"
+      - "src/Blazor/**/*"
   pull_request:
     branches:
       - "main"
     paths:
-      - "src/Blazor"
+      - "src/Blazor/**/*"
 
 env:
   BUILD_CONFIG: Release

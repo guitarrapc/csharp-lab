@@ -8,12 +8,12 @@ on:
     branches:
       - "main"
     paths:
-      - "src/LinuxBuild"
+      - "src/LinuxBuild/**/*"
   pull_request:
     branches:
       - "main"
     paths:
-      - "src/LinuxBuild"
+      - "src/LinuxBuild/**/*"
 
 env:
   BUILD_CONFIG: Release

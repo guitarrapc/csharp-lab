@@ -8,12 +8,12 @@ on:
     branches:
       - "main"
     paths:
-      - "src/Logger"
+      - "src/Logger/**/*"
   pull_request:
     branches:
       - "main"
     paths:
-      - "src/Logger"
+      - "src/Logger/**/*"
 
 env:
   BUILD_CONFIG: Release
