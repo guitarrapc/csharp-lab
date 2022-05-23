@@ -17,6 +17,8 @@ on:
 
 env:
   BUILD_CONFIG: Release
+  DIR_NAME: Grpc
+  TAG_NAME: grpc
 
 jobs:
   build:
@@ -36,7 +38,7 @@ jobs:
       - run: dotnet --version
       - run: dotnet --list-sdks
       - name: dotnet build
-        run: dotnet build ./src/Grpc/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
+        run: dotnet build ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
 
   docker:
     strategy:
@@ -58,10 +60,9 @@ jobs:
         with:
           string: ${{ matrix.project }}
       - name: docker build
-        run: docker build -t "${{ env.REPOSITORY }}:${{ env.IMAGETAG }}" -f "src/Grpc/${{ matrix.project}}/Dockerfile" .
+        run: docker build -t "${{ env.REPOSITORY }}:latest-${{ env.TAG_NAME }}-${{ steps.project.outputs.lowercase }}" -f "src/${{ env.DIR_NAME }}/${{ matrix.project}}/Dockerfile" .
         env:
           REPOSITORY: ${{ steps.repository.outputs.lowercase }}
-          IMAGETAG: latest-grpc-${{ steps.project.outputs.lowercase }}
       # docker push
       - if: ${{ github.event_name == 'push' }}
         name: Login to Docker Hub
@@ -71,17 +72,14 @@ jobs:
           password: ${{ secrets.SYNCED_DOCKER_PASS }}
       - if: ${{ github.event_name == 'push' }}
         name: docker push (latest)
-        run: docker push "${{ env.REPOSITORY }}:${{ env.IMAGETAG }}"
+        run: docker push "${{ env.REPOSITORY }}:latest-${{ env.TAG_NAME }}-${{ steps.project.outputs.lowercase }}"
         env:
           REPOSITORY: ${{ steps.repository.outputs.lowercase }}
-          IMAGETAG: latest-grpc-${{ steps.project.outputs.lowercase }}
       - if: ${{ github.event_name == 'push' }}
         name: docker push (tag)
         run: |
           VERSION=$(git log -1 --pretty=%h)
-          docker tag "${{ env.REPOSITORY }}:${{ env.IMAGETAG }}" "${{ env.REPOSITORY }}:${VERSION}${{ env.IMAGETAG_NEW }}"
-          docker push "${{ env.REPOSITORY }}:${VERSION}${{ env.IMAGETAG_NEW }}"
+          docker tag "${{ env.REPOSITORY }}:latest-${{ env.TAG_NAME }}-${{ steps.project.outputs.lowercase }}" "${{ env.REPOSITORY }}:${VERSION}${{ env.IMAGETAG_NEW }}"
+          docker push "${{ env.REPOSITORY }}:${VERSION}-${{ env.TAG_NAME }}-${{ steps.project.outputs.lowercase }}"
         env:
           REPOSITORY: ${{ steps.repository.outputs.lowercase }}
-          IMAGETAG: latest-grpc-${{ steps.project.outputs.lowercase }}
-          IMAGETAG_NEW: -grpc-${{ steps.project.outputs.lowercase }}
