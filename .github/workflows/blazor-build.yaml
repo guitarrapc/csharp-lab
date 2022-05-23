@@ -37,6 +37,9 @@ jobs:
         uses: ./.github/actions/prepare-env
       - run: dotnet --version
       - run: dotnet --list-sdks
+      - if: ${{ matrix.project == 'BlazorWasmAotApp' }}
+        name: restore wasm-tools Workload
+        run: dotnet workload restore "src/Blazor/${{ matrix.project }}/${{ matrix.project }}.csproj"
       - name: dotnet build
         run: dotnet build ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
 
