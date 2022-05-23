@@ -8,24 +8,24 @@ on:
     branches:
       - "main"
     paths:
-      - "src/Grpc/**/*"
+      - "src/Blazor/**/*"
   pull_request:
     branches:
       - "main"
     paths:
-      - "src/Grpc/**/*"
+      - "src/Blazor/**/*"
 
 env:
   BUILD_CONFIG: Release
-  DIR_NAME: Grpc
-  TAG_NAME: grpc
+  DIR_NAME: Blazor
+  TAG_NAME: blazor
 
 jobs:
   build:
     strategy:
       fail-fast: false
       matrix:
-        project: ["GrpcAspNetCore60", "GrpcAspNetCore60.HealthCheckSupport"]
+        project: ["BlazorServerApp", "BlazorWasmAotApp"]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -37,6 +37,9 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
       - run: dotnet --version
       - run: dotnet --list-sdks
+      - if: ${{ matrix.project == 'BlazorWasmAotApp' }}
+        name: restore wasm-tools Workload
+        run: dotnet workload install wasm-tools
       - name: dotnet build
         run: dotnet build ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
 
@@ -44,7 +47,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["GrpcAspNetCore60", "GrpcAspNetCore60.HealthCheckSupport"]
+        project: ["BlazorServerApp", "BlazorWasmAotApp"]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
