@@ -20,4 +20,4 @@ RUN dotnet publish "BlazorWasmAotApp.csproj" -c Release -o /app/publish
 
 FROM base AS final
 COPY --from=publish /app/publish/wwwroot .
-# COPY ["src/Blazor/BlazorWasmAotApp/nginx.conf", "/etc/nginx/nginx.conf"]
+COPY ["src/Blazor/BlazorWasmAotApp/nginx.conf", "/etc/nginx/nginx.conf"]
