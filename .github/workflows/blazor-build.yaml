@@ -1,4 +1,4 @@
-name: Grpc Build
+name: Blazor Build
 
 on:
   workflow_dispatch:
