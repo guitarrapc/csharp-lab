@@ -7,13 +7,13 @@ on:
   push:
     branches:
       - "main"
-    paths-ignore:
-      - "*.md"
+    paths:
+      - "src/Grpc"
   pull_request:
     branches:
       - "main"
-    paths-ignore:
-      - "*.md"
+    paths:
+      - "src/Grpc"
 
 env:
   BUILD_CONFIG: Release

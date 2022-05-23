@@ -7,13 +7,13 @@ on:
   push:
     branches:
       - "main"
-    paths-ignore:
-      - "*.md"
+    paths:
+      - "src/Blazor"
   pull_request:
     branches:
       - "main"
-    paths-ignore:
-      - "*.md"
+    paths:
+      - "src/Blazor"
 
 env:
   BUILD_CONFIG: Release
