@@ -81,8 +81,7 @@ jobs:
       - if: ${{ github.event_name == 'push' }}
         name: docker push (tag)
         run: |
-          VERSION=$(git log -1 --pretty=%h)
-          docker tag "${{ env.REPOSITORY }}:latest-${{ env.TAG_NAME }}-${{ steps.project.outputs.lowercase }}" "${{ env.REPOSITORY }}:${VERSION}${{ env.IMAGETAG_NEW }}"
-          docker push "${{ env.REPOSITORY }}:${VERSION}-${{ env.TAG_NAME }}-${{ steps.project.outputs.lowercase }}"
+          docker tag "${{ env.REPOSITORY }}:latest-${{ env.TAG_NAME }}-${{ steps.project.outputs.lowercase }}" "${{ env.REPOSITORY }}:${{ env.GITHUB_SHA_SHORT }}-${{ env.TAG_NAME }}-${{ steps.project.outputs.lowercase }}"
+          docker push "${{ env.REPOSITORY }}:${{ env.GITHUB_SHA_SHORT }}-${{ env.TAG_NAME }}-${{ steps.project.outputs.lowercase }}"
         env:
           REPOSITORY: ${{ steps.repository.outputs.lowercase }}

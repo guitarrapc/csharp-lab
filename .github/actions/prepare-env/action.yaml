@@ -4,6 +4,17 @@ description: |
 runs:
   using: "composite"
   steps:
+    - name: Prepare Environment Variables (GITHUB)
+      shell: bash
+      run: |
+        echo "::group::Prepare environment variables (Docker)"
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "GITHUB_SHA_SHORT=$(git rev-parse --short ${{ github.event.pull_request.head.sha }})" | tee -a "$GITHUB_ENV"
+          else
+            echo "GITHUB_SHA_SHORT=$(git rev-parse --short HEAD)" | tee -a "$GITHUB_ENV"
+          fi
+        echo "::endgroup::"
+
     - name: Prepare Environment Variables (.NET SDK)
       shell: bash
       run: |
