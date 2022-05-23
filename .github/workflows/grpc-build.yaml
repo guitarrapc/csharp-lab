@@ -22,7 +22,7 @@ on:
       - "src/Grpc/**/*"
 
 env:
-  DOCKER_PUSH_ENABLED: "${{ github.event.push-image == 'true' && 'true' || (github.event_name == 'push' || github.event_name == 'schedule') }}"
+  DOCKER_PUSH_ENABLED: "${{ github.event.inputs.push-image == 'true' && 'true' || (github.event_name == 'push' || github.event_name == 'schedule') }}"
   BUILD_CONFIG: Release
   DIR_NAME: Grpc
   TAG_NAME: grpc
