@@ -2,6 +2,12 @@ name: Grpc Build
 
 on:
   workflow_dispatch:
+    inputs:
+      push-image:
+        type: boolean
+        description: "push-image: true - build and push image. false - build only."
+        required: true
+        default: false
   schedule:
     - cron: 0 0 * * 0 # At 00:00 on Sunday.
   push:
@@ -16,6 +22,7 @@ on:
       - "src/Grpc/**/*"
 
 env:
+  DOCKER_PUSH_ENABLED: "${{ github.event.push-image == 'true' && 'true' || (github.event_name == 'push' || github.event_name == 'schedule') }}"
   BUILD_CONFIG: Release
   DIR_NAME: Grpc
   TAG_NAME: grpc
@@ -64,18 +71,18 @@ jobs:
         env:
           REPOSITORY: ${{ steps.repository.outputs.lowercase }}
       # docker push
-      - if: ${{ github.event_name == 'push' }}
+      - if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
         name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.SYNCED_DOCKER_USER }}
           password: ${{ secrets.SYNCED_DOCKER_PASS }}
-      - if: ${{ github.event_name == 'push' }}
+      - if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
         name: docker push (latest)
         run: docker push "${{ env.REPOSITORY }}:latest-${{ env.TAG_NAME }}-${{ steps.project.outputs.lowercase }}"
         env:
           REPOSITORY: ${{ steps.repository.outputs.lowercase }}
-      - if: ${{ github.event_name == 'push' }}
+      - if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
         name: docker push (tag)
         run: |
           docker tag "${{ env.REPOSITORY }}:latest-${{ env.TAG_NAME }}-${{ steps.project.outputs.lowercase }}" "${{ env.REPOSITORY }}:${{ env.GITHUB_SHA_SHORT }}-${{ env.TAG_NAME }}-${{ steps.project.outputs.lowercase }}"
