@@ -30,11 +30,11 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v3
+      - name: Prepare Environment Variables
+        uses: ./.github/actions/prepare-env
       - uses: actions/setup-dotnet@v2
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-      - name: Prepare Environment Variables
-        uses: ./.github/actions/prepare-env
       - run: dotnet --version
       - run: dotnet --list-sdks
       - if: ${{ matrix.project == 'BlazorWasmAotApp' }}
