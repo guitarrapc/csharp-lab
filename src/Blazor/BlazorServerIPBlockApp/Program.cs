@@ -19,6 +19,7 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
     options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
     options.ForwardLimit = 1;
+    options.KnownProxies.Clear();
     options.KnownNetworks.Clear();
 });
 
