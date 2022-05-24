@@ -36,7 +36,7 @@ public class DebugSafeIPListMiddleware
 
     public async Task Invoke(HttpContext context)
     {
-        var remoteIp = context.Request.Headers.TryGetValue("X-Forwarded-Host", out var host) ? IPAddress.Parse(host) : context.Connection.RemoteIpAddress;
+        var remoteIp = context.Connection.RemoteIpAddress;
 
         _logger.LogInformation("Request from Remote IP address: {RemoteIP}", remoteIp);
         if (remoteIp is null)
