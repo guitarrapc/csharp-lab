@@ -10,3 +10,22 @@ Welcome to your new app.
 
 <p>x-Forwarded-Host: @_xForwardedHost</p>
 <p>Remote IP Address: @_remoteIps</p>
+
+<h2>Headers:</h2>
+<table class="table">
+    <thead>
+      <tr>
+        <th>Key</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+        @foreach (var header in _headers)
+        {
+            <tr>
+                <td>@header.Key</td>
+                <td>@header.Value</td>
+            </tr>
+        }
+    </tbody>
+</table>
