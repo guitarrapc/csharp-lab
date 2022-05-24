@@ -6,6 +6,7 @@ public class DebugSafeIPListMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly ILogger<DebugSafeIPListMiddleware> _logger;
+    private readonly IReadOnlyList<string> _allowedPath;
     private readonly IPNetwork[] _ipNetworks;
 
     public DebugSafeIPListMiddleware(RequestDelegate next, ILogger<DebugSafeIPListMiddleware> logger, DebugSafeIPOption option)
@@ -13,13 +14,15 @@ public class DebugSafeIPListMiddleware
         _next = next;
         _logger = logger;
 
-        // ; separated IP list string. "8.8.8.8;1.1.1.1;4.4.4.4"
         if (!option.Enabled)
         {
+            _allowedPath = Array.Empty<string>();
             _ipNetworks = Array.Empty<IPNetwork>();
         }
         else
         {
+            _allowedPath = option.AlwaysAllowPath is not null ? option.AlwaysAllowPath : Array.Empty<string>();
+
             if (option.IpNetworks is null)
             {
                 _ipNetworks = Array.Empty<IPNetwork>();
@@ -44,7 +47,7 @@ public class DebugSafeIPListMiddleware
         var remoteIp = context.Connection.RemoteIpAddress;
         _logger.LogInformation("Request from Remote IP address: {RemoteIP}", remoteIp);
 
-        if (remoteIp is not null && _ipNetworks.Length > 0)
+        if (remoteIp is not null && _ipNetworks.Length > 0 && !_allowedPath.Any(x => x.Equals(context.Request.Path, StringComparison.InvariantCultureIgnoreCase)))
         {
             if (remoteIp.IsIPv4MappedToIPv6)
             {
@@ -67,4 +70,5 @@ public class DebugSafeIPOption
 {
     public bool Enabled { get; set; }
     public string[]? IpNetworks { get; set; }
+    public string[]? AlwaysAllowPath { get; set; }
 }
