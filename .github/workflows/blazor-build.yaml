@@ -32,7 +32,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["BlazorServerApp", "BlazorWasmAotApp"]
+        project:
+          ["BlazorServerApp", "BlazorServerIPBlockApp", "BlazorWasmAotApp"]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -54,7 +55,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["BlazorServerApp", "BlazorWasmAotApp"]
+        project:
+          ["BlazorServerApp", "BlazorServerIPBlockApp", "BlazorWasmAotApp"]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
