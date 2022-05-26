@@ -1,5 +1,0 @@
-<project>
-  <PropertyGroup>
-    <RootNamespace>FooBar.$(MSBuildProjectName)</RootNamespace>
-  </PropertyGroup>
-</project>
