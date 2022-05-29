@@ -20,6 +20,8 @@ jobs:
       - uses: actions/setup-dotnet@v2
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: restore wasm-tools Workload
+        run: dotnet workload install wasm-tools
 
       # dotnet list
       - name: Obtain csproj to lint
