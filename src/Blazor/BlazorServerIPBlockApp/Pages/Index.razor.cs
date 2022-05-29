@@ -5,7 +5,7 @@ namespace BlazorServerIPBlockApp.Pages;
 public partial class Index
 {
     [Inject]
-    private IHttpContextAccessor Accessor { get; set;  } = default!;
+    private IHttpContextAccessor Accessor { get; set; } = default!;
 
     private string _serverName = "";
     private IDictionary<string, string> _headers = default!;
