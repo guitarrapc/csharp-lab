@@ -1,7 +1,5 @@
 using BlazorServerIPBlockApp.Data;
 using BlazorServerIPBlockApp.Middlewares;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
