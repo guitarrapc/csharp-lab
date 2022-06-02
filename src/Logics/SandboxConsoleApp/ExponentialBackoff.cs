@@ -32,7 +32,7 @@ public static class SandboxExponentialBackoff
     {
         try
         {
-            var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10)); // whole limit second
             var limit = 0;
             var exponentialBackoff = new ExponentialBackoff(1000, 10000);
             while (limit++ < 10)
@@ -54,7 +54,7 @@ public static class MinimumExponentialBackoff
     {
         try
         {
-            var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10)); // whole limit second
             var retries = 0;
             var maxRetry = 10;
             do
