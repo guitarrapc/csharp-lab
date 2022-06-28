@@ -43,11 +43,7 @@ public static class LoggingExtentions
         var streamLoggingHost = builder.Configuration.GetValue<string?>("CSHARPLAB_STREAM_LOGGING_HOST") ?? "127.0.0.1";
         var streamLoggingPort = builder.Configuration.GetValue<int?>("CSHARPLAB_STREAM_LOGGING_PORT") ?? 12345;
 
-        builder.Services.AddLogging(configure =>
-        {
-            configure.ClearProviders();
-
-            Console.WriteLine(@$"[Logging] Debugging Configuration:
+        Console.WriteLine(@$"[Logging] Debugging Configuration:
   CSHARPLAB_LOG_LEVEL: {logLevelStr}
   CSHARPLAB_ENABLE_CONSOLE_LOGGING: {enableConsoleLogging}
   CSHARPLAB_ENABLE_FILE_LOGGING: {enableFileLogging}
@@ -56,37 +52,37 @@ public static class LoggingExtentions
   CSHARPLAB_STREAM_LOGGING_HOST: {streamLoggingHost}
   CSHARPLAB_STREAM_LOGGING_PORT: {streamLoggingPort}");
 
-            // Fatal, Error, Warning, Information, Debug, Trace
-            if (Enum.TryParse<LogLevel>(logLevelStr, true, out var logLevel))
-            {
-                configure.SetMinimumLevel(logLevel);
-            }
+        builder.Logging.ClearProviders();
+        // Fatal, Error, Warning, Information, Debug, Trace
+        if (Enum.TryParse<LogLevel>(logLevelStr, true, out var logLevel))
+        {
+            builder.Logging.SetMinimumLevel(logLevel);
+        }
 
-            // Console Logging
-            if (enableConsoleLogging)
+        // Console Logging
+        if (enableConsoleLogging)
+        {
+            Console.WriteLine("[Logging] Console Logging Enabled.");
+            builder.Logging.AddZLoggerConsole(configure => configure.EnableStructuredLogging = false, configureEnableAnsiEscapeCode: true);
+        }
+        // File Logging
+        if (enableFileLogging)
+        {
+            if (!string.IsNullOrEmpty(fileLoggingPath))
             {
-                Console.WriteLine("[Logging] Console Logging Enabled.");
-                configure.AddZLoggerConsole();
+                Console.WriteLine($"[Logging] File Logging Enabled.");
+                builder.Logging.AddZLoggerFile(fileLoggingPath);
             }
-            // File Logging
-            if (enableFileLogging)
-            {
-                if (!string.IsNullOrEmpty(fileLoggingPath))
-                {
-                    Console.WriteLine($"[Logging] File Logging Enabled.");
-                    configure.AddZLoggerFile(fileLoggingPath);
-                }
-            }
-            // Stream Logging
-            if (enableStreamLogging)
-            {
-                Console.WriteLine("[Logging] Stream Logging Enabled.");
-                var socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
-                socket.RetryableSocketConnect(streamLoggingHost, streamLoggingPort);
-                var network = new NetworkStream(socket);
-                configure.AddZLoggerStream(network);
-            }
-        });
+        }
+        // Stream Logging
+        if (enableStreamLogging)
+        {
+            Console.WriteLine("[Logging] Stream Logging Enabled.");
+            var socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
+            socket.RetryableSocketConnect(streamLoggingHost, streamLoggingPort);
+            var network = new NetworkStream(socket);
+            builder.Logging.AddZLoggerStream(network);
+        }
     }
 
     private static void RetryableSocketConnect(this Socket socket, string host, int port, int retryCount = 5, int retryMaxSecond = 10)
