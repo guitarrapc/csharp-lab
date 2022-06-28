@@ -53,11 +53,10 @@ builder.Services.AddLogging(configure =>
     {
         if (int.TryParse(streamLoggingPortStr, out var port))
         {
+            Console.WriteLine("[Logging] Stream Logging Enabled.");
             var socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
             socket.RetryableSocketConnect(streamLoggingHost, port);
             var network = new NetworkStream(socket);
-
-            Console.WriteLine("[Logging] Stream Logging Enabled.");
             configure.AddZLoggerStream(network);
         }
     }
