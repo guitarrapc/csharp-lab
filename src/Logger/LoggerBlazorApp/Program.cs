@@ -35,6 +35,7 @@ public static class LoggingExtentions
 {
     public static void ConfigureLogging(this WebApplicationBuilder builder)
     {
+        var structuredLogging = builder.Configuration.GetValue<bool?>("CSHARPLAB_ZLOGGER_ENABLESTRUCTUREDLOGGING") ?? false;
         var logLevelStr = builder.Configuration.GetValue<string?>("CSHARPLAB_LOG_LEVEL") ?? "Information";
         var enableConsoleLogging = builder.Configuration.GetValue<bool?>("CSHARPLAB_ENABLE_CONSOLE_LOGGING") ?? true;
         var enableFileLogging = builder.Configuration.GetValue<bool?>("CSHARPLAB_ENABLE_FILE_LOGGING") ?? false;
@@ -63,7 +64,7 @@ public static class LoggingExtentions
         if (enableConsoleLogging)
         {
             Console.WriteLine("[Logging] Console Logging Enabled.");
-            builder.Logging.AddZLoggerConsole(configure => configure.EnableStructuredLogging = false, configureEnableAnsiEscapeCode: true);
+            builder.Logging.AddZLoggerConsole(configure => configure.EnableStructuredLogging = structuredLogging, configureEnableAnsiEscapeCode: true);
         }
         // File Logging
         if (enableFileLogging)
@@ -71,7 +72,7 @@ public static class LoggingExtentions
             if (!string.IsNullOrEmpty(fileLoggingPath))
             {
                 Console.WriteLine($"[Logging] File Logging Enabled.");
-                builder.Logging.AddZLoggerFile(fileLoggingPath);
+                builder.Logging.AddZLoggerFile(fileLoggingPath, configure => configure.EnableStructuredLogging = structuredLogging);
             }
         }
         // Stream Logging
@@ -81,7 +82,7 @@ public static class LoggingExtentions
             var socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
             socket.RetryableSocketConnect(streamLoggingHost, streamLoggingPort);
             var network = new NetworkStream(socket);
-            builder.Logging.AddZLoggerStream(network);
+            builder.Logging.AddZLoggerStream(network, configure => configure.EnableStructuredLogging = structuredLogging);
         }
     }
 
