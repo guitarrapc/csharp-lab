@@ -19,6 +19,16 @@
       "applicationUrl": "http://localhost:5011",
       "dotnetRunMessages": true
     },
+    "StreamLogging": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CSHARPLAB_ENABLE_STREAM_LOGGING": "true"
+      },
+      "applicationUrl": "http://localhost:5011",
+      "dotnetRunMessages": true
+    },
     "Docker": {
       "commandName": "Docker",
       "launchBrowser": true,
