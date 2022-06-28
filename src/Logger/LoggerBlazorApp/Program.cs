@@ -1,4 +1,5 @@
 using LoggerBlazorApp.Data;
+using LoggerBlazorApp.Middlewares;
 using System.Net.Sockets;
 using ZLogger;
 
@@ -66,6 +67,8 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 
 var app = builder.Build();
+
+app.UseAccessLogging();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
