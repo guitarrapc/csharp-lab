@@ -6,10 +6,10 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["src/Logging/LoggerBlazorApp/LoggerBlazorApp.csproj", "src/Logging/LoggerBlazorApp/"]
-RUN dotnet restore "src/Logging/LoggerBlazorApp/LoggerBlazorApp.csproj"
+COPY ["src/Logger/LoggerBlazorApp/LoggerBlazorApp.csproj", "src/Logger/LoggerBlazorApp/"]
+RUN dotnet restore "src/Logger/LoggerBlazorApp/LoggerBlazorApp.csproj"
 COPY . .
-WORKDIR "/src/src/Logging/LoggerBlazorApp"
+WORKDIR "/src/src/Logger/LoggerBlazorApp"
 RUN dotnet build "LoggerBlazorApp.csproj" -c Release -o /app/build
 
 FROM build AS publish
