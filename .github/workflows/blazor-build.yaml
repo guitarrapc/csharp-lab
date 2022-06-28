@@ -72,7 +72,7 @@ jobs:
         with:
           string: ${{ matrix.project }}
       - name: docker build
-        run: docker build -t "${{ env.REPOSITORY }}:latest-${{ env.TAG_NAME }}-${{ steps.project.outputs.lowercase }}" -f "src/${{ env.DIR_NAME }}/${{ matrix.project}}/Dockerfile" .
+        run: docker build -t "${{ env.REPOSITORY }}:latest-${{ env.DOCKER_TAG_NAME }}-${{ steps.project.outputs.lowercase }}" -f "src/${{ env.DIR_NAME }}/${{ matrix.project}}/Dockerfile" .
         env:
           REPOSITORY: ${{ steps.repository.outputs.lowercase }}
       # docker push
@@ -84,13 +84,13 @@ jobs:
           password: ${{ secrets.SYNCED_DOCKER_PASS }}
       - if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
         name: docker push (latest)
-        run: docker push "${{ env.REPOSITORY }}:latest-${{ env.TAG_NAME }}-${{ steps.project.outputs.lowercase }}"
+        run: docker push "${{ env.REPOSITORY }}:latest-${{ env.DOCKER_TAG_NAME }}-${{ steps.project.outputs.lowercase }}"
         env:
           REPOSITORY: ${{ steps.repository.outputs.lowercase }}
       - if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
         name: docker push (tag)
         run: |
-          docker tag "${{ env.REPOSITORY }}:latest-${{ env.TAG_NAME }}-${{ steps.project.outputs.lowercase }}" "${{ env.REPOSITORY }}:${{ env.GITHUB_SHA_SHORT }}-${{ env.TAG_NAME }}-${{ steps.project.outputs.lowercase }}"
-          docker push "${{ env.REPOSITORY }}:${{ env.GITHUB_SHA_SHORT }}-${{ env.TAG_NAME }}-${{ steps.project.outputs.lowercase }}"
+          docker tag "${{ env.REPOSITORY }}:latest-${{ env.DOCKER_TAG_NAME }}-${{ steps.project.outputs.lowercase }}" "${{ env.REPOSITORY }}:${{ env.GITHUB_SHA_SHORT }}-${{ env.DOCKER_TAG_NAME }}-${{ steps.project.outputs.lowercase }}"
+          docker push "${{ env.REPOSITORY }}:${{ env.GITHUB_SHA_SHORT }}-${{ env.DOCKER_TAG_NAME }}-${{ steps.project.outputs.lowercase }}"
         env:
           REPOSITORY: ${{ steps.repository.outputs.lowercase }}
