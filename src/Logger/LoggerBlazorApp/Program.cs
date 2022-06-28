@@ -96,6 +96,7 @@ public static class LoggingExtentions
             try
             {
                 socket.Connect(host, port);
+                break;
             }
             catch (SocketException) when (current < retryCount)
             {
