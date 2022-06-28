@@ -1,0 +1,40 @@
+name: Logic Build
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 0 * * 0 # At 00:00 on Sunday.
+  push:
+    branches:
+      - "main"
+    paths:
+      - "src/Logic/**/*"
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - "src/Logic/**/*"
+
+env:
+  BUILD_CONFIG: Release
+  DIR_NAME: Logic
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        project: ["SandboxConsoleApp"]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+      - name: Prepare Environment Variables
+        uses: ./.github/actions/prepare-env
+      - uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - run: dotnet --version
+      - run: dotnet --list-sdks
+      - name: dotnet build
+        run: dotnet build ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}

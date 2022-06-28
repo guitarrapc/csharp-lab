@@ -22,10 +22,10 @@ on:
       - "src/Blazor/**/*"
 
 env:
-  DOCKER_PUSH_ENABLED: "${{ github.event.inputs.push-image == 'true' && 'true' || (github.event_name == 'push' || github.event_name == 'schedule') }}"
   BUILD_CONFIG: Release
   DIR_NAME: Blazor
-  TAG_NAME: blazor
+  DOCKER_PUSH_ENABLED: "${{ github.event.inputs.push-image == 'true' && 'true' || (github.event_name == 'push' || github.event_name == 'schedule') }}"
+  DOCKER_TAG_NAME: blazor
 
 jobs:
   build:
