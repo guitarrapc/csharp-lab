@@ -101,8 +101,9 @@ public static class LoggingExtentions
             }
             catch (SocketException) when (current < retryCount)
             {
+                current++;
                 var sleep = (int)Math.Min(1 * Math.Pow(2, current -1), retryMaxSecond);
-                Console.WriteLine($"Retry connecting socket. Host: {host}; Port: {port}; Current: {current++}; RetryLimit: {retryCount}; Sleep: {sleep}");
+                Console.WriteLine($"Retry connecting socket. Host: {host}; Port: {port}; Retrying: {current}/{retryCount}; Sleep: {sleep}sec");
                 Thread.Sleep(1000 * sleep);
             }
         } while (current <= retryCount);
