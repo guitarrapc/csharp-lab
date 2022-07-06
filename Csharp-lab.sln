@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWasmAotApp", "src\Bla
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorServerIPBlockApp", "src\Blazor\BlazorServerIPBlockApp\BlazorServerIPBlockApp.csproj", "{6BB151DE-0AD2-464C-A6AF-8793172EA1BE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SandboxConsoleApp", "src\Logics\SandboxConsoleApp\SandboxConsoleApp.csproj", "{D7E45552-E3F2-400A-83B8-CDE4D217432D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SandboxConsoleApp", "src\Logic\SandboxConsoleApp\SandboxConsoleApp.csproj", "{D7E45552-E3F2-400A-83B8-CDE4D217432D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logger", "Logger", "{A60DE0A8-D3F7-4BCF-B5C6-A59D03E99151}"
 EndProject
