@@ -42,7 +42,7 @@ public static class LoggingExtentions
         var enableStreamLogging = builder.Configuration.GetValue<bool?>("CSHARPLAB_ENABLE_STREAM_LOGGING") ?? false;
         var fileLoggingPath = builder.Configuration.GetValue<string?>("CSHARPLAB_FILE_LOGGING_PATH") ?? "./app.log";
         var streamLoggingHost = builder.Configuration.GetValue<string?>("CSHARPLAB_STREAM_LOGGING_HOST") ?? "127.0.0.1";
-        var streamLoggingPort = builder.Configuration.GetValue<int?>("CSHARPLAB_STREAM_LOGGING_PORT") ?? 12345;
+        var streamLoggingPort = builder.Configuration.GetValue<int?>("CSHARPLAB_STREAM_LOGGING_PORT") ?? 10518;
 
         Console.WriteLine(@$"[Logging] Debugging Configuration:
   CSHARPLAB_LOG_LEVEL: {logLevelStr}
