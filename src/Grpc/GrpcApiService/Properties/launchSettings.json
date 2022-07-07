@@ -1,0 +1,25 @@
+{
+  "profiles": {
+    "GrpcApiService": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "Kestrel__Endpoints__Grpc__Url": "http://localhost:5095",
+        "Kestrel__Endpoints__webApi__Url": "http://localhost:5094"
+      },
+      "applicationUrl": "http://localhost:5094;http://localhost:5095",
+      "dotnetRunMessages": true
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": false,
+      "publishAllPorts": true,
+      "environmentVariables": {
+        "ASPNETCORE_URLS": "https://+:5094;http://+:5095"
+      },
+      "httpPort": 5095
+    }
+  }
+}

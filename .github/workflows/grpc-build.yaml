@@ -32,7 +32,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["GrpcAspNetCore60", "GrpcAspNetCore60.HealthCheckSupport"]
+        project:
+          [
+            "GrpcApiService",
+            "GrpcAspNetCore60",
+            "GrpcAspNetCore60.HealthCheckSupport",
+          ]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -51,7 +56,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["GrpcAspNetCore60", "GrpcAspNetCore60.HealthCheckSupport"]
+        project:
+          [
+            "GrpcApiService",
+            "GrpcAspNetCore60",
+            "GrpcAspNetCore60.HealthCheckSupport",
+          ]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
