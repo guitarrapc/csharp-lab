@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "ApiMultiplePort": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "UseUrls__0": "http://localhost:5094",
+        "UseUrls__1": "http://localhost:5095",
+        "UseUrls__2": "http://localhost:5096"
+      },
+      "applicationUrl": "http://localhost:5094",
+      "dotnetRunMessages": true
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
+      "publishAllPorts": true,
+      "environmentVariables": {
+        "ASPNETCORE_URLS": "https://+:5094;http://+:5095;http://+:5096"
+      },
+      "httpPort": 5094
+    }
+  }
+}

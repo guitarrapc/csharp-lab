@@ -1,0 +1,91 @@
+name: Api Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      push-image:
+        type: boolean
+        description: "push-image: true - build and push image. false - build only."
+        required: true
+        default: false
+  schedule:
+    - cron: 0 0 * * 0 # At 00:00 on Sunday.
+  push:
+    branches:
+      - "main"
+    paths:
+      - "src/Grpc/**/*"
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - "src/Grpc/**/*"
+
+env:
+  DOCKER_PUSH_ENABLED: "${{ github.event.inputs.push-image == 'true' && 'true' || (github.event_name == 'push' || github.event_name == 'schedule') }}"
+  BUILD_CONFIG: Release
+  DIR_NAME: Api
+  DOCKER_TAG_NAME: api
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        project: ["ApiMultiplePort"]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+      - name: Prepare Environment Variables
+        uses: ./.github/actions/prepare-env
+      - uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - run: dotnet --version
+      - run: dotnet --list-sdks
+      - name: dotnet build
+        run: dotnet build ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
+
+  docker:
+    strategy:
+      fail-fast: false
+      matrix:
+        project: ["ApiMultiplePort"]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+      - name: Prepare Environment Variables
+        uses: ./.github/actions/prepare-env
+      - id: repository
+        uses: ASzc/change-string-case-action@v2
+        with:
+          string: ${{ github.repository }}
+      - id: project
+        uses: ASzc/change-string-case-action@v2
+        with:
+          string: ${{ matrix.project }}
+      - name: docker build
+        run: docker build -t "${{ env.REPOSITORY }}:latest-${{ env.DOCKER_TAG_NAME }}-${{ steps.project.outputs.lowercase }}" -f "src/${{ env.DIR_NAME }}/${{ matrix.project}}/Dockerfile" .
+        env:
+          REPOSITORY: ${{ steps.repository.outputs.lowercase }}
+      # docker push
+      - if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
+        name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.SYNCED_DOCKER_USER }}
+          password: ${{ secrets.SYNCED_DOCKER_PASS }}
+      - if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
+        name: docker push (latest)
+        run: docker push "${{ env.REPOSITORY }}:latest-${{ env.DOCKER_TAG_NAME }}-${{ steps.project.outputs.lowercase }}"
+        env:
+          REPOSITORY: ${{ steps.repository.outputs.lowercase }}
+      - if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
+        name: docker push (tag)
+        run: |
+          docker tag "${{ env.REPOSITORY }}:latest-${{ env.DOCKER_TAG_NAME }}-${{ steps.project.outputs.lowercase }}" "${{ env.REPOSITORY }}:${{ env.GITHUB_SHA_SHORT }}-${{ env.DOCKER_TAG_NAME }}-${{ steps.project.outputs.lowercase }}"
+          docker push "${{ env.REPOSITORY }}:${{ env.GITHUB_SHA_SHORT }}-${{ env.DOCKER_TAG_NAME }}-${{ steps.project.outputs.lowercase }}"
+        env:
+          REPOSITORY: ${{ steps.repository.outputs.lowercase }}
