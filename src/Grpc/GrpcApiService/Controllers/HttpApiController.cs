@@ -1,22 +1,21 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace GrpcApiService.Controllers
+namespace GrpcApiService.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class HttpApiController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class HttpApiController : ControllerBase
+    private readonly ILogger<HttpApiController> _logger;
+
+    public HttpApiController(ILogger<HttpApiController> logger)
     {
-        private readonly ILogger<HttpApiController> _logger;
+        _logger = logger;
+    }
 
-        public HttpApiController(ILogger<HttpApiController> logger)
-        {
-            _logger = logger;
-        }
-
-        [HttpGet(Name = "GetWeatherForecast")]
-        public string Get()
-        {
-            return "This is Http1 API.";
-        }
+    [HttpGet(Name = "GetWeatherForecast")]
+    public string Get()
+    {
+        return "This is Http1 API.";
     }
 }
