@@ -1,0 +1,9 @@
+// Must set this .txt as `<AdditionalFiles>` in csproj. Don't need Copy on build.
+namespace CSharpFromText;
+public class Generated
+{
+  public void GeneratedMethod()
+  {
+    Console.WriteLine("Text to Csharp generated code.");
+  }
+}
