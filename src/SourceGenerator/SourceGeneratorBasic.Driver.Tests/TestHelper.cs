@@ -10,6 +10,7 @@ public static class TestHelper
     public static Compilation CreateCompilation(string source, params Type[] metadataLocations)
     {
         var refAsmDir = Path.GetDirectoryName(typeof(object).Assembly.Location)!;
+        var compilationOption = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary); // .dll
 
         return CSharpCompilation.Create(
             assemblyName: Guid.NewGuid().ToString(),
@@ -26,7 +27,7 @@ public static class TestHelper
                 MetadataReference.CreateFromFile(Path.Combine(refAsmDir, "netstandard.dll")),
                 MetadataReference.CreateFromFile(typeof(object).Assembly.Location)
             },
-            options: new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary) // .dll
+            options: compilationOption.WithSpecificDiagnosticOptions(compilationOption.SpecificDiagnosticOptions.SetItems(GetNullableWarningsFromCompiler()))
         );
     }
 
@@ -36,4 +37,13 @@ public static class TestHelper
         parseOptions: CSharpParseOptions.Default,
         optionsProvider: null
     );
+
+    private static ImmutableDictionary<string, ReportDiagnostic> GetNullableWarningsFromCompiler()
+    {
+        string[] args = { "/warnaserror:nullable" };
+        var commandLineArguments = CSharpCommandLineParser.Default.Parse(args, baseDirectory: Environment.CurrentDirectory, sdkDirectory: Environment.CurrentDirectory);
+        var nullableWarnings = commandLineArguments.CompilationOptions.SpecificDiagnosticOptions;
+
+        return nullableWarnings;
+    }
 }
