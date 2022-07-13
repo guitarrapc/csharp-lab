@@ -1,4 +1,4 @@
-using ApiMultiplePort.Attirbutes;
+using ApiMultiplePort.Attributes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiMultiplePort.Controllers;

@@ -1,17 +1,17 @@
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 
-namespace ApiMultiplePort.Attirbutes;
+namespace ApiMultiplePort.Attributes;
 
 [AttributeUsage(AttributeTargets.Class)]
-public class PortActionConstraint : ActionMethodSelectorAttribute
+public class PortsActionConstraint : ActionMethodSelectorAttribute
 {
-    public PortActionConstraint(int port)
+    public PortsActionConstraint(int[] ports)
     {
-        Port = port;
+        Ports = ports;
     }
 
-    public int Port { get; }
+    public IReadOnlyList<int> Ports { get; }
 
     public override bool IsValidForRequest(RouteContext routeContext, ActionDescriptor action)
     {
@@ -20,6 +20,6 @@ public class PortActionConstraint : ActionMethodSelectorAttribute
         //local port 
         var localPort = routeContext.HttpContext.Connection.LocalPort;
         //write here your custom logic. for example  
-        return Port == localPort;
+        return Ports.Contains(localPort);
     }
 }

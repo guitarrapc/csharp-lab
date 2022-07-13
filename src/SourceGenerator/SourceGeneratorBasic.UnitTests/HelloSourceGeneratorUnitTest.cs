@@ -5,7 +5,6 @@ using VerifyCS = SourceGeneratorBasic.UnitTests.CSharpSourceGeneratorVerifier<So
 
 namespace SourceGeneratorBasic.UnitTests;
 
-// see: https://github.com/dotnet/roslyn/blob/main/docs/features/source-generators.cookbook.md#unit-testing-of-generators
 public class HelloSourceGeneratorUnitTest
 {
     [Fact]
@@ -15,7 +14,8 @@ public class HelloSourceGeneratorUnitTest
         {
             OutputType = "Exe"
         });
-        workspace.AddFileToProject("Program.cs", @"namespace Foo;
+        workspace.AddFileToProject("Program.cs", @"
+namespace Foo;
 partial class Program
 {
     static void Main(string[] args)
@@ -46,7 +46,8 @@ partial class Program
     [Fact]
     public async Task GenerateDiffTest()
     {
-        var code = @"namespace Foo;
+        var code = @"
+namespace Foo;
 partial class Program
 {
     static void Main(string[] args)

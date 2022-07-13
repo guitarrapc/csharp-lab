@@ -61,7 +61,7 @@ public partial class UserClass : INotifyPropertyChanged
 public class MyAutoNotifyGenerator : ISourceGenerator
 {
     private const string namespaceString = "MyAutoNotify";
-    private const string attributeName = namespaceString + "Attirbute";
+    private const string attributeName = namespaceString + "Attribute";
     private const string attributeSource = $@"// auto-generated
 using System;
 
@@ -78,8 +78,8 @@ namespace {namespaceString}
 
     public void Initialize(GeneratorInitializationContext context)
     {
-        // Register callback called right after Source Generator Initialization completed. Called Once only. Recomended to create Generator's attirbutes.
-        context.RegisterForPostInitialization((i) => i.AddSource("MyAutoNotifyAttirbute.g.cs", attributeSource));
+        // Register callback called right after Source Generator Initialization completed. Called Once only. Recomended to create Generator's attributes.
+        context.RegisterForPostInitialization((i) => i.AddSource("MyAutoNotifyAttribute.g.cs", GeneratorHelper.ToLF(attributeSource)));
 
         // Register syntax receiver.
         context.RegisterForSyntaxNotifications(() => new SyntaxReceiver());
@@ -124,6 +124,8 @@ namespace {namespaceString}
 
         // Create Class
         var source = new StringBuilder($@"// auto-generated
+using System;
+
 namespace {namespaceName}
 {{
     public partial class {classSymbol.Name}: {notifySymbol.ToDisplayString()}
@@ -155,7 +157,8 @@ namespace {namespaceName}
         }
 
         source.Append(@"    }
-}");
+}
+");
         return source.ToString();
     }
 
@@ -177,15 +180,15 @@ namespace {namespaceName}
         }
 
         source.Append($@"
-    public {fieldType} {propertyName}
-    {{
-        get => this.{fieldName};
-        set
+        public {fieldType} {propertyName}
         {{
-            this.{fieldName} = value;
-            this.PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(nameof({propertyName})));
+            get => this.{fieldName};
+            set
+            {{
+                this.{fieldName} = value;
+                this.PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(nameof({propertyName})));
+            }}
         }}
-    }}
 ");
 
         string choosePropertyName(string fieldName, TypedConstant overridenName)

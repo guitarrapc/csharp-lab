@@ -1,30 +1,31 @@
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Text;
 using System.Text;
-using VerifyCS = SourceGeneratorBasic.UnitTests.CSharpSourceGeneratorVerifier<SourceGeneratorBasic.CustomGenerator>;
+using VerifyCS = SourceGeneratorBasic.UnitTests.CSharpSourceGeneratorVerifier<SourceGeneratorBasic.AugmentingGenerator>;
 
 namespace SourceGeneratorBasic.UnitTests;
 
 // see: https://github.com/dotnet/roslyn/blob/main/docs/features/source-generators.cookbook.md#unit-testing-of-generators
-public class CustomGeneratorUnitTest
+public class AugmentingGeneratorUnitTest
 {
     [Fact]
     public void SourceCompileTest()
     {
         var code = @"
 namespace Foo;
-public partial class UserClass
+public partial class UserClassAugment
 {
     public void UserMethod()
     {
-        GeneratedNamespace.GeneratedClass.GeneratedMethod();
+        GeneratedMethod();
     }
-}";
+}
+";
 
         var compilation = TestHelper.CreateCompilation(code);
 
         // Run Generator
-        var driver = TestHelper.CreateDriver(new CustomGenerator());
+        var driver = TestHelper.CreateDriver(new AugmentingGenerator());
         driver.RunGeneratorsAndUpdateCompilation(compilation, out var outputCompilation, out var diagnostics);
 
         // Generator must run without error
@@ -40,13 +41,14 @@ public partial class UserClass
         using var workspace = new TemporaryWorkspace(TemporaryWorkspaceOptions.Default);
         workspace.AddFileToProject("UserClass.cs", @"
 namespace Foo;
-public partial class UserClass
+public partial class UserClassAugment
 {
     public void UserMethod()
     {
-        GeneratedNamespace.GeneratedClass.GeneratedMethod();
+        GeneratedMethod();
     }
-}"
+}
+"
 );
 
         var compilation = workspace.CreateCompilation();
@@ -55,7 +57,7 @@ public partial class UserClass
         compilation.GetCompilationErrors().Should().NotBeEmpty();
 
         // Run Generator
-        var driver = TestHelper.CreateDriver(new CustomGenerator());
+        var driver = TestHelper.CreateDriver(new AugmentingGenerator());
         driver.RunGeneratorsAndUpdateCompilation(compilation, out var outputCompilation, out var diagnostics);
 
         // Generator must run without error
@@ -70,24 +72,23 @@ public partial class UserClass
     {
         var code = @"
 namespace Foo;
-public partial class UserClass
+public partial class UserClassAugment
 {
     public void UserMethod()
     {
-        GeneratedNamespace.GeneratedClass.GeneratedMethod();
+        GeneratedMethod();
     }
-}";
-        var generated = @"// Auto-generated
+}
+";
+        var generated = @"// auto-generated
 using System;
 
-namespace GeneratedNamespace
+namespace Foo;
+public partial class UserClassAugment
 {
-    public class GeneratedClass
+    public void GeneratedMethod()
     {
-        public static void GeneratedMethod()
-        {
-            Console.WriteLine(""CustomGenerator generated code"");
-        }
+        Console.WriteLine(""AugmentingGenerator UserClassAugment generated code."");
     }
 }
 ";
@@ -98,7 +99,7 @@ namespace GeneratedNamespace
                 Sources = { TestHelper.ToLF(code) },
                 GeneratedSources =
                 {
-                    (typeof(SourceGeneratorBasic.CustomGenerator), "CustomGenerator.g.cs", SourceText.From(TestHelper.ToLF(generated), Encoding.UTF8, SourceHashAlgorithm.Sha1)),
+                    (typeof(SourceGeneratorBasic.AugmentingGenerator), "AugmentingGenerator.UserClassAugment.g.cs", SourceText.From(TestHelper.ToLF(generated), Encoding.UTF8, SourceHashAlgorithm.Sha1)),
                 },
             },
         }.RunAsync();

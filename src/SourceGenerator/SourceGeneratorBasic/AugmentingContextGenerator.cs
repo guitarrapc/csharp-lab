@@ -37,6 +37,8 @@ public class AugmentingContextGenerator : ISourceGenerator
 
         // add the generated implementation to the compilation
         var source = $@"// auto-generated
+using System;
+
 {(!string.IsNullOrEmpty(@namespace) ? $"namespace {@namespace};" : "")}
 public partial class {userClass.Identifier}
 {{
@@ -44,8 +46,9 @@ public partial class {userClass.Identifier}
     {{
         Console.WriteLine(""AugmentingContextGenerator {userClass.Identifier} generated code."");
     }}
-}}";
-        context.AddSource($"AugmentingGenerator.{userClass.Identifier}.g.cs", SourceText.From(GeneratorHelper.ToLF(source), Encoding.UTF8));
+}}
+";
+        context.AddSource($"AugmentingContextGenerator.{userClass.Identifier}.g.cs", SourceText.From(GeneratorHelper.ToLF(source), Encoding.UTF8));
     }
 
     class MySyntaxContextReceiver : ISyntaxContextReceiver

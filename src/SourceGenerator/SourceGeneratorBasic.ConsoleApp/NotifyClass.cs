@@ -4,12 +4,12 @@ namespace SourceGeneratorBasic.ConsoleApp;
 
 public partial class NotifyClass
 {
-    [MyAutoNotifyAttirbute]
+    [MyAutoNotifyAttribute]
     private bool _boolProp;
 
-    [MyAutoNotifyAttirbute]
+    [MyAutoNotifyAttribute]
     private int _intProp;
 
-    [MyAutoNotifyAttirbute(PropertyName = "Nanika")]
+    [MyAutoNotifyAttribute(PropertyName = "Nanika")]
     private long _longProp;
 }

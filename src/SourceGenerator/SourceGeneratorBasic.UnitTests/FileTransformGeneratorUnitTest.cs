@@ -5,7 +5,7 @@ using VerifyCS = SourceGeneratorBasic.UnitTests.CSharpSourceGeneratorVerifier<So
 
 namespace SourceGeneratorBasic.UnitTests;
 
-// see: https://github.com/dotnet/roslyn/blob/main/docs/features/source-generators.cookbook.md#unit-testing-of-generators
+// see: https://notanaverageman.github.io/2020/12/07/cs-source-generators-cheatsheet.html
 public class FileTransformGeneratorUnitTest
 {
     // Test error on outputCompilation could not reference generated code. Missing FileGeneratedNamespace.
