@@ -9,7 +9,7 @@ partial class Program
         var userClass = new UserClass();
         userClass.UserMethod();
 
-        var fileTransform = new CSharpFromText.Generated();
+        var fileTransform = new FileGeneratedNamespace.GeneratedClass();
         fileTransform.GeneratedMethod();
 
         var augument = new UserClassAugment();

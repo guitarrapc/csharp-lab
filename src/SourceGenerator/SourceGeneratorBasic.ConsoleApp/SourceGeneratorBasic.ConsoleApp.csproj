@@ -11,11 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-
     <None Remove="Csharp.txt" />
-
-    <None Remove="NotValid,xml" />
-
+    <None Remove="NotValid.xml" />
   </ItemGroup>
 
   <ItemGroup>

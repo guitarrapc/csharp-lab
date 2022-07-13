@@ -45,7 +45,7 @@ public partial class {userClass.Identifier}
         Console.WriteLine(""AugmentingContextGenerator {userClass.Identifier} generated code."");
     }}
 }}";
-        context.AddSource($"AugmentingGenerator.{userClass.Identifier}.g.cs", SourceText.From(source, Encoding.UTF8));
+        context.AddSource($"AugmentingGenerator.{userClass.Identifier}.g.cs", SourceText.From(GeneratorHelper.ToLF(source), Encoding.UTF8));
     }
 
     class MySyntaxContextReceiver : ISyntaxContextReceiver

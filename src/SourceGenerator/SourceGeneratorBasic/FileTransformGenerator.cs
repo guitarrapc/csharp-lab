@@ -37,5 +37,5 @@ public class FileTransformGenerator : ISourceGenerator
 public class TextToCsharpCompiler
 {
     // Output text as csharp.
-    public static string Compile(SourceText content) => content.ToString();
+    public static string Compile(SourceText content) => GeneratorHelper.ToLF(content.ToString());
 }

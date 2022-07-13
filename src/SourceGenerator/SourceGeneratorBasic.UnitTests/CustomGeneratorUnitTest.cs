@@ -10,7 +10,7 @@ namespace SourceGeneratorBasic.UnitTests;
 public class CustomGeneratorUnitTest
 {
     [Fact]
-    public void CustomGeneratorCompileTest()
+    public void CompileTest()
     {
         var code = @"namespace Foo;
 public partial class UserClass
@@ -31,11 +31,37 @@ public partial class UserClass
         diagnostics.Should().BeEmpty();
 
         // No Compilation error after generator
-        outputCompilation.GetDiagnostics().Where(x => x.Severity >= DiagnosticSeverity.Error).Should().BeEmpty();
+        outputCompilation.GetCompilationErrors().Should().BeEmpty();
     }
 
     [Fact]
-    public async Task CustomGeneratorGenerateResultTest()
+    public void ProjCompileTest()
+    {
+        using var workspace = new TemporaryWorkspace(TemporaryWorkspaceOptions.Default with { CleanupOnDispose = false });
+        workspace.AddFileToProject("UserClass.cs", @"namespace Foo;
+public partial class UserClass
+{
+    public void UserMethod()
+    {
+        GeneratedNamespace.GeneratedClass.GeneratedMethod();
+    }
+}");
+
+        var compilation = workspace.CreateCompilation();
+
+        // Run Generator
+        var driver = TestHelper.CreateDriver(compilation, new CustomGenerator());
+        driver.RunGeneratorsAndUpdateCompilation(compilation, out var outputCompilation, out var diagnostics);
+
+        // Generator must run without error
+        diagnostics.Should().BeEmpty();
+
+        // No Compilation error after generator
+        outputCompilation.GetCompilationErrors().Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task GenerateResultTest()
     {
         var code = @"namespace Foo;
 public partial class UserClass
@@ -48,22 +74,25 @@ public partial class UserClass
         var generated = @"// Auto-generated
 using System;
 
-namespace GeneratedNamespace;
-public class GeneratedClass
+namespace GeneratedNamespace
 {
-    public static void GeneratedMethod()
+    public class GeneratedClass
     {
-        Console.WriteLine(""CustomGenerator generated code"");
+        public static void GeneratedMethod()
+        {
+            Console.WriteLine(""CustomGenerator generated code"");
+        }
     }
-}";
+}
+";
         await new VerifyCS.Test
         {
             TestState =
             {
-                Sources = { code },
+                Sources = { TestHelper.ToLF(code) },
                 GeneratedSources =
                 {
-                    (typeof(SourceGeneratorBasic.CustomGenerator), "CustomGenerator.g.cs", SourceText.From(generated, Encoding.UTF8, SourceHashAlgorithm.Sha1)),
+                    (typeof(SourceGeneratorBasic.CustomGenerator), "CustomGenerator.g.cs", SourceText.From(TestHelper.ToLF(generated), Encoding.UTF8, SourceHashAlgorithm.Sha1)),
                 },
             },
         }.RunAsync();

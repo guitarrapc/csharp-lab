@@ -101,7 +101,7 @@ namespace {namespaceString}
             var source = GenerateSource(group.Key, group.ToArray(), attributeSymbol, notifySymbol, context);
             if (source is not null)
             {
-                context.AddSource($"{group.Key.Name}_{namespaceString}.g.cs", SourceText.From(source, Encoding.UTF8));
+                context.AddSource($"{group.Key.Name}_{namespaceString}.g.cs", SourceText.From(GeneratorHelper.ToLF(source), Encoding.UTF8));
             }
         }
     }

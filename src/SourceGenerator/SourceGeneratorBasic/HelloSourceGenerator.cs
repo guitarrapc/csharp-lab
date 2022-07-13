@@ -31,7 +31,7 @@ namespace {mainMethod.ContainingNamespace.ToDisplayString()}
             var typeName = mainMethod.ContainingType.Name;
 
             // Add source code to the compilation
-            context.AddSource($"{typeName}.g.cs", source);
+            context.AddSource($"{typeName}.g.cs", GeneratorHelper.ToLF(source));
         }
     }
 }

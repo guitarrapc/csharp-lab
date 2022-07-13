@@ -29,6 +29,6 @@ namespace GeneratedNamespace
     }}
 }}
 ";
-        context.AddSource("CustomGenerator.g.cs", SourceText.From(source, Encoding.UTF8));
+        context.AddSource("CustomGenerator.g.cs", SourceText.From(GeneratorHelper.ToLF(source), Encoding.UTF8));
     }
 }

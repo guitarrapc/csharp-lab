@@ -12,6 +12,8 @@ public static class CompilationExtensions
 
 public static class TestHelper
 {
+    public static string ToLF(string content) => content.Replace("\r\n", "\n");
+
     // https://gist.github.com/chsienki/2955ed9336d7eb22bcb246840bfeb05c
     public static Compilation CreateCompilation(string source, IReadOnlyList<MetadataReference>? references = null)
     {
@@ -19,7 +21,7 @@ public static class TestHelper
         var compilationOption = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary); // .dll
 
         var compilation = CSharpCompilation.Create(assemblyName: Guid.NewGuid().ToString()) // make always random
-            .AddSyntaxTrees(new[] { CSharpSyntaxTree.ParseText(source) })
+            .AddSyntaxTrees(new[] { CSharpSyntaxTree.ParseText(ToLF(source)) })
             .AddReferences(new[] {
                 MetadataReference.CreateFromFile(Path.Combine(refAsmDir, "System.Private.CoreLib.dll")),
                 MetadataReference.CreateFromFile(Path.Combine(refAsmDir, "System.Runtime.Extensions.dll")),
