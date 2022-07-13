@@ -103,7 +103,7 @@ public record TemporaryWorkspaceOptions(string TargetFramework = "netstandard2.0
 {
     public static TemporaryWorkspaceOptions Default { get; } = new TemporaryWorkspaceOptions();
 
-    public string LangVersion { get; init; } = "";
+    public string LangVersion { get; init; } = "latest";
     public bool Nullable { get; init; } = false;
     public IEnumerable<MetadataReference>? References { get; init; }
     public IEnumerable<string>? ProjectReferences { get; init; }

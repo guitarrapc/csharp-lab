@@ -6,8 +6,11 @@ namespace SourceGeneratorBasic.UnitTests;
 
 public static class CompilationExtensions
 {
-    public static IReadOnlyList<Diagnostic> GetCompilationErrors(this Compilation compilation) 
-        => compilation.GetDiagnostics().Where(x => x.Severity >= DiagnosticSeverity.Error).ToArray();
+    public static IReadOnlyList<Diagnostic> GetCompilationErrors(this Compilation compilation)
+    {
+        var diagnostics = compilation.GetDiagnostics();
+        return diagnostics.Where(x => x.Severity >= DiagnosticSeverity.Error).ToArray();
+    }
 }
 
 public static class TestHelper

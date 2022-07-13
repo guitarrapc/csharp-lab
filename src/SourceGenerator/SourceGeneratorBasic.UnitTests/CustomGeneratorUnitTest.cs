@@ -1,5 +1,4 @@
 using FluentAssertions;
-using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 using System.Text;
 using VerifyCS = SourceGeneratorBasic.UnitTests.CSharpSourceGeneratorVerifier<SourceGeneratorBasic.CustomGenerator>;
@@ -37,7 +36,7 @@ public partial class UserClass
     [Fact]
     public void WorkspaceCompileTest()
     {
-        using var workspace = new TemporaryWorkspace(TemporaryWorkspaceOptions.Default with { CleanupOnDispose = false });
+        using var workspace = new TemporaryWorkspace(TemporaryWorkspaceOptions.Default);
         workspace.AddFileToProject("UserClass.cs", @"namespace Foo;
 public partial class UserClass
 {
@@ -48,6 +47,9 @@ public partial class UserClass
 }");
 
         var compilation = workspace.CreateCompilation();
+
+        // There are reference error before generator run
+        compilation.GetCompilationErrors().Should().NotBeEmpty();
 
         // Run Generator
         var driver = TestHelper.CreateDriver(compilation, new CustomGenerator());

@@ -7,7 +7,7 @@ namespace FileGeneratedNamespace
     {
         public void GeneratedMethod()
         {
-            Console.WriteLine("CustomGenerator generated code");
+            Console.WriteLine("FileGenerator generated code");
         }
     }
 }
