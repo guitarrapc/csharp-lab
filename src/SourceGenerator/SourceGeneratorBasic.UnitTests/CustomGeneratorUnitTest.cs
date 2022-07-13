@@ -10,7 +10,7 @@ namespace SourceGeneratorBasic.UnitTests;
 public class CustomGeneratorUnitTest
 {
     [Fact]
-    public void CompileTest()
+    public void SourceCompileTest()
     {
         var code = @"namespace Foo;
 public partial class UserClass
@@ -35,7 +35,7 @@ public partial class UserClass
     }
 
     [Fact]
-    public void ProjCompileTest()
+    public void WorkspaceCompileTest()
     {
         using var workspace = new TemporaryWorkspace(TemporaryWorkspaceOptions.Default with { CleanupOnDispose = false });
         workspace.AddFileToProject("UserClass.cs", @"namespace Foo;
@@ -61,7 +61,7 @@ public partial class UserClass
     }
 
     [Fact]
-    public async Task GenerateResultTest()
+    public async Task GenerateDiffTest()
     {
         var code = @"namespace Foo;
 public partial class UserClass
