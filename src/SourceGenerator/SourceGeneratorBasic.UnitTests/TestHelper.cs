@@ -2,7 +2,14 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis;
 using System.Collections.Immutable;
 
-namespace SourceGeneratorBasic.Testing.Tests;
+namespace SourceGeneratorBasic.UnitTests;
+
+public static class CompilationExtensions
+{
+    public static IReadOnlyList<Diagnostic> GetCompilationErrors(this Compilation compilation) 
+        => compilation.GetDiagnostics().Where(x => x.Severity >= DiagnosticSeverity.Error).ToArray();
+}
+
 public static class TestHelper
 {
     // https://gist.github.com/chsienki/2955ed9336d7eb22bcb246840bfeb05c

@@ -2,9 +2,9 @@ using FluentAssertions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 using System.Text;
-using VerifyCS = SourceGeneratorBasic.Testing.Tests.CSharpSourceGeneratorVerifier<SourceGeneratorBasic.CustomGenerator>;
+using VerifyCS = SourceGeneratorBasic.UnitTests.CSharpSourceGeneratorVerifier<SourceGeneratorBasic.CustomGenerator>;
 
-namespace SourceGeneratorBasic.Testing.Tests;
+namespace SourceGeneratorBasic.UnitTests;
 
 // see: https://github.com/dotnet/roslyn/blob/main/docs/features/source-generators.cookbook.md#unit-testing-of-generators
 public class CustomGeneratorUnitTest
