@@ -29,16 +29,17 @@ public class TemporaryWorkspace : IDisposable
 
         var csprojContents = $@"<Project Sdk=""Microsoft.NET.Sdk"">
   <PropertyGroup>
-    {(options.OutputType != "" ? "<OutputType></OutputType>" : "")}
     <TargetFramework>{options.TargetFramework}</TargetFramework>
-    {(!string.IsNullOrEmpty(options.LangVersion) ? $"<LangVersion>{options.LangVersion}</LangVersion>" :"")}
+    {(options.OutputType != "" ? $"<OutputType>{options.OutputType}</OutputType>" : "")}
+    {(options.LangVersion != "" ? $"<LangVersion>{options.LangVersion}</LangVersion>" :"")}
     {(options.Nullable ? $"<Nullable>enable</Nullable>" : "")}
   </PropertyGroup>
 
   <ItemGroup>
-    {string.Join("", (options.ProjectReferences ?? Array.Empty<string>()).Select(x => $@"<ProjectReference Include=""{x}"" />"))}
-    {string.Join("", (options.AdditionalFilesReferences ?? Array.Empty<string>()).Select(x => $@"<AdditionalFiles Include=""{x}"" />"))}
+    {string.Join("\n", (options.ProjectReferences ?? Array.Empty<string>()).Select(x => $@"<ProjectReference Include=""{x}"" />"))}
+    {string.Join("\n", (options.AdditionalFilesReferences ?? Array.Empty<string>()).Select(x => $@"<AdditionalFiles Include=""{x}"" />"))}
   </ItemGroup>
+
 </Project>
 ";
         AddFileToProject(_csprojName, csprojContents);
@@ -75,12 +76,27 @@ public class TemporaryWorkspace : IDisposable
                 MetadataReference.CreateFromFile(typeof(object).Assembly.Location)
             })
             .AddReferences(_options.References ?? Array.Empty<MetadataReference>())
-            .WithOptions(compilationOption);
-            //.WithOptions(compilationOption.WithSpecificDiagnosticOptions(compilationOption.SpecificDiagnosticOptions.SetItems(GetNullableWarningsFromCompiler())));
+            .WithOptions(compilationOption.WithSpecificDiagnosticOptions(compilationOption.SpecificDiagnosticOptions.SetItems(GetNullableWarningsFromCompiler())));
 
         return compilation;
     }
 
+    /// <summary>
+    /// AdditionalTexts to notify Roslyn there are additional files.
+    /// </summary>
+    /// <returns></returns>
+    public IReadOnlyList<AdditionalText> GetAdditionalTexts()
+    {
+        if (_options.AdditionalFilesReferences is null)
+            return Array.Empty<CustomAdditionalText>();
+
+        return _options.AdditionalFilesReferences.Select(x => new CustomAdditionalText(Path.Combine(ProjectDirectory, x))).ToArray();
+    }
+
+    /// <summary>
+    /// Treat nullable warning as error
+    /// </summary>
+    /// <returns></returns>
     private static ImmutableDictionary<string, ReportDiagnostic> GetNullableWarningsFromCompiler()
     {
         var args = new[] { "/warnaserror:nullable" };
@@ -106,7 +122,7 @@ public record TemporaryWorkspaceOptions(string TargetFramework = "netstandard2.0
 {
     public static TemporaryWorkspaceOptions Default { get; } = new TemporaryWorkspaceOptions();
 
-    public string LangVersion { get; init; } = "latest";
+    public string LangVersion { get; init; } = "";
     public bool Nullable { get; init; } = false;
     public IEnumerable<MetadataReference>? References { get; init; }
     public IEnumerable<string>? ProjectReferences { get; init; }

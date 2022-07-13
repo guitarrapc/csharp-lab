@@ -43,12 +43,23 @@ public static class TestHelper
         return compilation;
     }
 
-    public static GeneratorDriver CreateDriver(Compilation compilation, params ISourceGenerator[] generators) => CSharpGeneratorDriver.Create(
+    public static GeneratorDriver CreateDriver(params ISourceGenerator[] generators) => CSharpGeneratorDriver.Create(
         generators: ImmutableArray.Create(generators),
         additionalTexts: ImmutableArray<AdditionalText>.Empty,
         parseOptions: CSharpParseOptions.Default,
         optionsProvider: null
     );
+    public static GeneratorDriver CreateDriver(IEnumerable<AdditionalText> additionalTexts, params ISourceGenerator[] generators)
+    {
+        // If AdditionalFiles is using, you must pass it to Roslyn compiler. Otherwise Roslyn could not understand csproj AdditionalFiles entry.
+        // see: https://notanaverageman.github.io/2020/12/07/cs-source-generators-cheatsheet.html
+        return CSharpGeneratorDriver.Create(
+            generators: ImmutableArray.Create(generators),
+            additionalTexts: additionalTexts,
+            parseOptions: CSharpParseOptions.Default,
+            optionsProvider: null
+        );
+    }
 
     private static ImmutableDictionary<string, ReportDiagnostic> GetNullableWarningsFromCompiler()
     {

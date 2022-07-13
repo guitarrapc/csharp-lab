@@ -33,7 +33,7 @@ partial class Program
         compilation.GetCompilationErrors().Should().BeEmpty();
 
         // Run Generator
-        var driver = TestHelper.CreateDriver(compilation, new HelloSourceGenerator());
+        var driver = TestHelper.CreateDriver(new HelloSourceGenerator());
         driver.RunGeneratorsAndUpdateCompilation(compilation, out var outputCompilation, out var diagnostics);
 
         // Generator must run without error

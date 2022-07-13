@@ -23,7 +23,7 @@ public partial class UserClass
         var compilation = TestHelper.CreateCompilation(code);
 
         // Run Generator
-        var driver = TestHelper.CreateDriver(compilation, new CustomGenerator());
+        var driver = TestHelper.CreateDriver(new CustomGenerator());
         driver.RunGeneratorsAndUpdateCompilation(compilation, out var outputCompilation, out var diagnostics);
 
         // Generator must run without error
@@ -52,7 +52,7 @@ public partial class UserClass
         compilation.GetCompilationErrors().Should().NotBeEmpty();
 
         // Run Generator
-        var driver = TestHelper.CreateDriver(compilation, new CustomGenerator());
+        var driver = TestHelper.CreateDriver(new CustomGenerator());
         driver.RunGeneratorsAndUpdateCompilation(compilation, out var outputCompilation, out var diagnostics);
 
         // Generator must run without error
