@@ -1,18 +1,17 @@
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis;
 using System.Collections.Immutable;
-using System.Reflection;
 
-namespace SourceGeneratorBasic.Driver.Tests;
+namespace SourceGeneratorBasic.Testing.Tests;
 public static class TestHelper
 {
     // https://gist.github.com/chsienki/2955ed9336d7eb22bcb246840bfeb05c
-    public static Compilation CreateCompilation(string source, params Type[] metadataLocations)
+    public static Compilation CreateCompilation(string source, IReadOnlyList<MetadataReference>? references = null)
     {
         var refAsmDir = Path.GetDirectoryName(typeof(object).Assembly.Location)!;
         var compilationOption = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary); // .dll
 
-        var compilation = CSharpCompilation.Create(assemblyName: Guid.NewGuid().ToString())
+        var compilation = CSharpCompilation.Create(assemblyName: Guid.NewGuid().ToString()) // make always random
             .AddSyntaxTrees(new[] { CSharpSyntaxTree.ParseText(source) })
             .AddReferences(new[] {
                 MetadataReference.CreateFromFile(Path.Combine(refAsmDir, "System.Private.CoreLib.dll")),
@@ -26,6 +25,7 @@ public static class TestHelper
                 MetadataReference.CreateFromFile(Path.Combine(refAsmDir, "netstandard.dll")),
                 MetadataReference.CreateFromFile(typeof(object).Assembly.Location)
             })
+            .AddReferences(references ?? Array.Empty<MetadataReference>())
             .WithOptions(compilationOption.WithSpecificDiagnosticOptions(compilationOption.SpecificDiagnosticOptions.SetItems(GetNullableWarningsFromCompiler())));
 
         return compilation;
@@ -40,7 +40,7 @@ public static class TestHelper
 
     private static ImmutableDictionary<string, ReportDiagnostic> GetNullableWarningsFromCompiler()
     {
-        var args = new [] { "/warnaserror:nullable" };
+        var args = new[] { "/warnaserror:nullable" };
         var commandLineArguments = CSharpCommandLineParser.Default.Parse(args, baseDirectory: Environment.CurrentDirectory, sdkDirectory: Environment.CurrentDirectory);
         var nullableWarnings = commandLineArguments.CompilationOptions.SpecificDiagnosticOptions;
 

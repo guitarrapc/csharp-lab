@@ -28,8 +28,7 @@ jobs:
           [
             "SourceGeneratorBasic",
             "SourceGeneratorBasic.ConsoleApp",
-            "SourceGeneratorBasic.Driver.Tests",
-            "SourceGeneratorBasic.Testing.Tests",
+            "SourceGeneratorBasic.UnitTests",
           ]
     runs-on: ubuntu-latest
     timeout-minutes: 10
