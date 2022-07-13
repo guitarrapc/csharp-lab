@@ -7,9 +7,17 @@ using System.Text;
 namespace SourceGeneratorBasic;
 
 // see: https://github.com/dotnet/roslyn/blob/main/docs/features/source-generators.cookbook.md#augment-user-code
+/// <summary>
+/// Same as <see cref=AugmentingGenerator> but replaced ISyntaxtReceiver with ISyntaxContextReceiver.
+/// </summary>
 [Generator]
 public class AugmentingContextGenerator : ISourceGenerator
 {
+    public void Initialize(GeneratorInitializationContext context)
+    {
+        context.RegisterForSyntaxNotifications(() => new MySyntaxContextReceiver());
+    }
+
     public void Execute(GeneratorExecutionContext context)
     {
         if (!(context.SyntaxContextReceiver is MySyntaxContextReceiver syntaxReciever))
@@ -37,13 +45,6 @@ public partial class {userClass.Identifier}
     }}
 }}";
         context.AddSource($"AugmentingGenerator.{userClass.Identifier}.g.cs", SourceText.From(source, Encoding.UTF8));
-    }
-
-    public void Initialize(GeneratorInitializationContext context)
-    {
-        // Register a factory that can create our custom syntax receiver
-        //context.RegisterForSyntaxNotifications(() => new MySyntaxReciever());
-        context.RegisterForSyntaxNotifications(() => new MySyntaxContextReceiver());
     }
 
     class MySyntaxContextReceiver : ISyntaxContextReceiver

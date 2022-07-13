@@ -6,6 +6,11 @@ namespace SourceGeneratorBasic;
 [Generator]
 public class HelloSourceGenerator : ISourceGenerator
 {
+    public void Initialize(GeneratorInitializationContext context)
+    {
+        // No initialization required for this one
+    }
+
     public void Execute(GeneratorExecutionContext context)
     {
         // Code generation goes here
@@ -27,10 +32,5 @@ public static partial class {mainMethod.ContainingType.Name}
             // Add source code to the compilation
             context.AddSource($"{typeName}.g.cs", source);
         }
-    }
-
-    public void Initialize(GeneratorInitializationContext context)
-    {
-        // No initialization required for this one
     }
 }

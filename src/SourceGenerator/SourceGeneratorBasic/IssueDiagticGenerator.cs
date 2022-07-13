@@ -10,6 +10,11 @@ public class IssueDiagticGenerator : ISourceGenerator
 {
     private static readonly DiagnosticDescriptor invalidXmlWarning = new DiagnosticDescriptor(id: Constants.ErrorId.InvalidXmlParsefailed, title: "Couldn't parse XML file", messageFormat: "Couldn't parse XML file '{0}'", category: "IssueDiagticGenerator", DiagnosticSeverity.Warning, isEnabledByDefault: true);
 
+    public void Initialize(GeneratorInitializationContext context)
+    {
+        // No initialization required for this one
+    }
+
     public void Execute(GeneratorExecutionContext context)
     {
         // Code generation goes here
@@ -30,10 +35,5 @@ public class IssueDiagticGenerator : ISourceGenerator
         }
 
         // no need generation.
-    }
-
-    public void Initialize(GeneratorInitializationContext context)
-    {
-        // No initialization required for this one
     }
 }

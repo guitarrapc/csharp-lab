@@ -10,6 +10,11 @@ namespace SourceGeneratorBasic;
 [Generator]
 public class FileTransformGenerator : ISourceGenerator
 {
+    public void Initialize(GeneratorInitializationContext context)
+    {
+        // No initialization required for this one
+    }
+
     public void Execute(GeneratorExecutionContext context)
     {
         var files = context.AdditionalFiles.Where(x => x.Path.EndsWith(".txt", System.StringComparison.OrdinalIgnoreCase));
@@ -26,11 +31,6 @@ public class FileTransformGenerator : ISourceGenerator
                 context.AddSource($"{System.IO.Path.GetFileName(file.Path)}.g.cs", sourceText);
             }
         }
-    }
-
-    public void Initialize(GeneratorInitializationContext context)
-    {
-        // No initialization required for this one
     }
 }
 

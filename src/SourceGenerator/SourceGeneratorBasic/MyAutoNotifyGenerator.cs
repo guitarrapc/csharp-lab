@@ -76,6 +76,15 @@ namespace {namespaceString}
 }}
 ";
 
+    public void Initialize(GeneratorInitializationContext context)
+    {
+        // Register callback called right after Source Generator Initialization completed. Called Once only. Recomended to create Generator's attirbutes.
+        context.RegisterForPostInitialization((i) => i.AddSource("MyAutoNotifyAttirbute.g.cs", attributeSource));
+
+        // Register syntax receiver.
+        context.RegisterForSyntaxNotifications(() => new SyntaxReceiver());
+    }
+
     public void Execute(GeneratorExecutionContext context)
     {
         // do with our SyntaxReceiver only,
@@ -198,15 +207,6 @@ public partial class {classSymbol.Name}: {notifySymbol.ToDisplayString()}
             // Change _foo -> Foo
             return f.Substring(0, 1).ToUpper() + f.Substring(1);
         }
-    }
-
-    public void Initialize(GeneratorInitializationContext context)
-    {
-        // Register callback called right after Source Generator Initialization completed. Called Once only. Recomended to create Generator's attirbutes.
-        context.RegisterForPostInitialization((i) => i.AddSource("MyAutoNotifyAttirbute.g.cs", attributeSource));
-
-        // Register syntax receiver.
-        context.RegisterForSyntaxNotifications(() => new SyntaxReceiver());
     }
 
     class SyntaxReceiver : ISyntaxContextReceiver

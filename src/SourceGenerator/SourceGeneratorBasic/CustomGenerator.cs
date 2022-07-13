@@ -8,6 +8,11 @@ namespace SourceGeneratorBasic;
 [Generator]
 public class CustomGenerator : ISourceGenerator
 {
+    public void Initialize(GeneratorInitializationContext context)
+    {
+        // No initialization required for this one
+    }
+
     public void Execute(GeneratorExecutionContext context)
     {
         var source = $@"// Auto-generated
@@ -20,10 +25,5 @@ public class GeneratedClass
     }}
 }}";
         context.AddSource("CustomGenerator.g.cs", SourceText.From(source, Encoding.UTF8));
-    }
-
-    public void Initialize(GeneratorInitializationContext context)
-    {
-        // No initialization required for this one
     }
 }
