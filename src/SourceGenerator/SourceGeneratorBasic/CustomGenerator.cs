@@ -18,14 +18,17 @@ public class CustomGenerator : ISourceGenerator
         var source = $@"// Auto-generated
 using System;
 
-namespace GeneratedNamespace;
-public class GeneratedClass
+namespace GeneratedNamespace
 {{
-    public static void GeneratedMethod()
+    public class GeneratedClass
     {{
-        Console.WriteLine(""CustomGenerator generated code"");
+        public static void GeneratedMethod()
+        {{
+            Console.WriteLine(""CustomGenerator generated code"");
+        }}
     }}
-}}";
+}}
+";
         context.AddSource("CustomGenerator.g.cs", SourceText.From(source, Encoding.UTF8));
     }
 }

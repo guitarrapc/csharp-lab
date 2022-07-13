@@ -124,27 +124,27 @@ namespace {namespaceString}
 
         // Create Class
         var source = new StringBuilder($@"// auto-generated
-namespace {namespaceName};
-
-public partial class {classSymbol.Name}: {notifySymbol.ToDisplayString()}
+namespace {namespaceName}
 {{
-");
-        // If Class doesn't implement notify synbol, add it on generated class.
-        if (!classSymbol.Interfaces.Contains(notifySymbol, SymbolEqualityComparer.Default))
-        {
-            source.Append("    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;");
-            source.Append($@"
-    public void AddPropertyChanged<TProp>(System.Linq.Expressions.Expression<Func<{classSymbol.Name}, TProp>> propertyName, System.Action<{classSymbol.Name}> handler)
+    public partial class {classSymbol.Name}: {notifySymbol.ToDisplayString()}
     {{
-        var name = ((System.Linq.Expressions.MemberExpression)propertyName.Body).Member.Name;
-        PropertyChanged += (sender, e) =>
+    ");
+            // If Class doesn't implement notify synbol, add it on generated class.
+            if (!classSymbol.Interfaces.Contains(notifySymbol, SymbolEqualityComparer.Default))
+            {
+                source.Append("    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;");
+                source.Append($@"
+        public void AddPropertyChanged<TProp>(System.Linq.Expressions.Expression<Func<{classSymbol.Name}, TProp>> propertyName, System.Action<{classSymbol.Name}> handler)
         {{
-            if (e.PropertyName == name)
+            var name = ((System.Linq.Expressions.MemberExpression)propertyName.Body).Member.Name;
+            PropertyChanged += (sender, e) =>
             {{
-                handler(this);
-            }}
-        }};
-    }}
+                if (e.PropertyName == name)
+                {{
+                    handler(this);
+                }}
+            }};
+        }}
 ");
         }
 
@@ -154,7 +154,8 @@ public partial class {classSymbol.Name}: {notifySymbol.ToDisplayString()}
             GenerateField(source, filedSymbol, attributeSymbol);
         }
 
-        source.Append("}");
+        source.Append(@"    }
+}");
         return source.ToString();
     }
 

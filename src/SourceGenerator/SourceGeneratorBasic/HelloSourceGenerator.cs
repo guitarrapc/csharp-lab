@@ -20,11 +20,12 @@ public class HelloSourceGenerator : ISourceGenerator
             var source = $@"// Auto-generated code
 using System;
 
-namespace {mainMethod.ContainingNamespace.ToDisplayString()};
-
-public static partial class {mainMethod.ContainingType.Name}
+namespace {mainMethod.ContainingNamespace.ToDisplayString()}
 {{
-    static partial void HelloFrom(string name) => Console.WriteLine($""HelloSourceGenerator says: Hi from '{{name}}'"");
+    public static partial class {mainMethod.ContainingType.Name}
+    {{
+        static partial void HelloFrom(string name) => Console.WriteLine($""HelloSourceGenerator says: Hi from '{{name}}'"");
+    }}
 }}
 ";
             var typeName = mainMethod.ContainingType.Name;
