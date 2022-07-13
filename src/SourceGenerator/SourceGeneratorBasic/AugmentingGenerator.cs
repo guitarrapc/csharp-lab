@@ -8,7 +8,7 @@ namespace SourceGeneratorBasic;
 
 // see: https://github.com/dotnet/roslyn/blob/main/docs/features/source-generators.cookbook.md#augment-user-code
 /// <summary>
-/// Same as <see cref=AugmentingContextGenerator> but replaced ISyntaxContextReceiver with ISyntaxtReceiver.
+/// Same as <see cref="AugmentingContextGenerator"/> but using ISyntaxReceiver.
 /// </summary>
 [Generator]
 public class AugmentingGenerator : ISourceGenerator
@@ -16,7 +16,6 @@ public class AugmentingGenerator : ISourceGenerator
     public void Initialize(GeneratorInitializationContext context)
     {
         // Register a factory that can create our custom syntax receiver
-        //context.RegisterForSyntaxNotifications(() => new MySyntaxReciever());
         context.RegisterForSyntaxNotifications(() => new MySyntaxReciever());
     }
 

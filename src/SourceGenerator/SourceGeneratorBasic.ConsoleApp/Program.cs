@@ -38,6 +38,5 @@ partial class Program
         Console.WriteLine($"BoolProp changed; {n.BoolProp}");
     }
 
-
     static partial void HelloFrom(string name);
 }

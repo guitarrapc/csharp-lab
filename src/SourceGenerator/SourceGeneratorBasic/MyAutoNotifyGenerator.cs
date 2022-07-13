@@ -17,7 +17,7 @@ using MyAutoNotify;
 
 public partial class UserClass
 {
-    [MyAutoNotifyAttribute]
+    [MyAutoNotifyAttribute] // MyAutoNotifyAttribute Automatically added via SourceGenerator
     private bool _boolProp;
 
     [MyAutoNotifyAttribute(PropertyName = "Count")]
