@@ -46,7 +46,7 @@ jobs:
         run: dotnet build ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
       - name: Is Test project?
         run: |
-          [[ "${{ matrix.project }}" == *Tests ]] && echo "IsTest=true" | tee -a "$GITHUB_ENV"
+          [[ "${{ matrix.project }}" == *Tests ]] && echo "IsTest=true" | tee -a "$GITHUB_ENV" || true
       - name: dotnet test
         if: ${{ env.IsTest == 'true' }}
         run: dotnet test ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
