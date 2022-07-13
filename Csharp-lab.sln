@@ -55,6 +55,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcApiService", "src\Grpc\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SourceGeneratorBasic.ConsoleApp", "src\SourceGenerator\SourceGeneratorBasic.ConsoleApp\SourceGeneratorBasic.ConsoleApp.csproj", "{CCF7D2AA-BC99-4340-AFF9-C272277E6BB6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceGeneratorBasic.Testing.Tests", "src\SourceGenerator\SourceGeneratorBasic.Testing.Tests\SourceGeneratorBasic.Testing.Tests.csproj", "{9882F8D7-A5E5-468F-B013-F849041C7081}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -137,6 +139,10 @@ Global
 		{CCF7D2AA-BC99-4340-AFF9-C272277E6BB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCF7D2AA-BC99-4340-AFF9-C272277E6BB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCF7D2AA-BC99-4340-AFF9-C272277E6BB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9882F8D7-A5E5-468F-B013-F849041C7081}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9882F8D7-A5E5-468F-B013-F849041C7081}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9882F8D7-A5E5-468F-B013-F849041C7081}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9882F8D7-A5E5-468F-B013-F849041C7081}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -161,6 +167,7 @@ Global
 		{CA7B2C05-D07A-47DE-8A03-523A38FA4BB2} = {28CE7184-F1DE-44AE-922F-965FC3AA1768}
 		{A2DF5486-1CA6-4077-A96F-436D6014B88C} = {BA8C7910-6742-43BC-88A1-1D3644E1D783}
 		{CCF7D2AA-BC99-4340-AFF9-C272277E6BB6} = {01137DDA-726D-4ACF-B2D1-9363A369288D}
+		{9882F8D7-A5E5-468F-B013-F849041C7081} = {01137DDA-726D-4ACF-B2D1-9363A369288D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6AD43C70-ADE6-43C4-A90D-F4E7CB0BD2F9}

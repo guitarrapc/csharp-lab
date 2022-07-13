@@ -16,6 +16,8 @@ public class CustomGenerator : ISourceGenerator
     public void Execute(GeneratorExecutionContext context)
     {
         var source = $@"// Auto-generated
+using System;
+
 namespace GeneratedNamespace;
 public class GeneratedClass
 {{
