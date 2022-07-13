@@ -97,11 +97,11 @@ namespace FileGeneratedNamespace
         {
             TestState =
             {
-                Sources = { code },
-                AdditionalFiles = { ("Csharp.txt" , generated) },
+                Sources = { TestHelper.ToLF(code) },
+                AdditionalFiles = { ("Csharp.txt" , TestHelper.ToLF(generated)) },
                 GeneratedSources =
                 {
-                    (typeof(SourceGeneratorBasic.FileTransformGenerator), "Csharp.txt.g.cs", SourceText.From(generated, Encoding.UTF8, SourceHashAlgorithm.Sha1)),
+                    (typeof(SourceGeneratorBasic.FileTransformGenerator), "Csharp.txt.g.cs", SourceText.From(TestHelper.ToLF(generated), Encoding.UTF8, SourceHashAlgorithm.Sha1)),
                 },
             },
         }.RunAsync();

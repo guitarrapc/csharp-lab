@@ -27,7 +27,7 @@ public class FileTransformGenerator : ISourceGenerator
                 // do some transforms based on the file content.
                 var output = TextToCsharpCompiler.Compile(content);
 
-                var source = SourceText.From(GeneratorHelper.ToLF(output), Encoding.UTF8);
+                var source = SourceText.From(output, Encoding.UTF8);
                 context.AddSource($"{System.IO.Path.GetFileName(file.Path)}.g.cs", source);
             }
         }
