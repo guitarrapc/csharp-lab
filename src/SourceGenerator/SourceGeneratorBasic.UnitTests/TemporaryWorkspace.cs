@@ -29,6 +29,7 @@ public class TemporaryWorkspace : IDisposable
 
         var csprojContents = $@"<Project Sdk=""Microsoft.NET.Sdk"">
   <PropertyGroup>
+    {(options.OutputType != "" ? "<OutputType></OutputType>" : "")}
     <TargetFramework>{options.TargetFramework}</TargetFramework>
     {(!string.IsNullOrEmpty(options.LangVersion) ? $"<LangVersion>{options.LangVersion}</LangVersion>" :"")}
     {(options.Nullable ? $"<Nullable>enable</Nullable>" : "")}
@@ -53,7 +54,9 @@ public class TemporaryWorkspace : IDisposable
     public Compilation CreateCompilation()
     {
         var refAsmDir = Path.GetDirectoryName(typeof(object).Assembly.Location)!;
-        var compilationOption = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary); // .dll
+        var compilationOption = _options.OutputType == ""
+            ? new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary) // .dll
+            : new CSharpCompilationOptions(OutputKind.ConsoleApplication);  // .exe
 
         var compilation = CSharpCompilation.Create(assemblyName: Guid.NewGuid().ToString()) // make always random
             .AddSyntaxTrees(
@@ -99,7 +102,7 @@ public class TemporaryWorkspace : IDisposable
     }
 }
 
-public record TemporaryWorkspaceOptions(string TargetFramework = "netstandard2.0", bool CleanupOnDispose = true)
+public record TemporaryWorkspaceOptions(string TargetFramework = "netstandard2.0", string OutputType = "", bool CleanupOnDispose = true)
 {
     public static TemporaryWorkspaceOptions Default { get; } = new TemporaryWorkspaceOptions();
 
