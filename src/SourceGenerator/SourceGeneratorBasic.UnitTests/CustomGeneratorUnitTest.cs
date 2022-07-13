@@ -20,6 +20,7 @@ public partial class UserClass
         GeneratedNamespace.GeneratedClass.GeneratedMethod();
     }
 }";
+
         var compilation = TestHelper.CreateCompilation(code);
 
         // Run Generator

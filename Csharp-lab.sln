@@ -57,6 +57,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SourceGeneratorBasic.Consol
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SourceGeneratorBasic.UnitTests", "src\SourceGenerator\SourceGeneratorBasic.UnitTests\SourceGeneratorBasic.UnitTests.csproj", "{BA10F78C-FBD1-4FFE-AC97-FAE82939D2D4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_SolutionItems", "_SolutionItems", "{8107F6D9-86E5-4B25-B00F-F50FE22614CA}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		src\Nuget.Analyzer.props = src\Nuget.Analyzer.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
