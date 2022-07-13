@@ -28,6 +28,7 @@ jobs:
           [
             "SourceGeneratorBasic",
             "SourceGeneratorBasic.ConsoleApp",
+            "SourceGeneratorBasic.Driver.Tests",
             "SourceGeneratorBasic.Testing.Tests",
           ]
     runs-on: ubuntu-latest

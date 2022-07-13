@@ -5,10 +5,10 @@ using VerifyCS = SourceGeneratorBasic.Testing.Tests.CSharpSourceGeneratorVerifie
 namespace SourceGeneratorBasic.Testing.Tests;
 
 // see: https://github.com/dotnet/roslyn/blob/main/docs/features/source-generators.cookbook.md#unit-testing-of-generators
-public class CustomGeneratorTest
+public class GeneratorTest
 {
     [Fact]
-    public async Task Test1()
+    public async Task CustomGeneratorTest()
     {
         var code = @"namespace Foo;
 public partial class UserClass
