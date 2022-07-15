@@ -19,13 +19,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddGrpc();
 
 // Allow reflection for grpcurl
-// builder.Services.AddGrpcReflection();
+builder.Services.AddGrpcReflection();
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    //app.MapGrpcReflectionService();
+    app.MapGrpcReflectionService();
     app.UseSwagger();
     app.UseSwaggerUI();
 }

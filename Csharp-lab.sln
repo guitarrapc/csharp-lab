@@ -63,6 +63,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_SolutionItems", "_Solution
 		src\Nuget.Analyzer.props = src\Nuget.Analyzer.props
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcApiServiceClient", "src\Grpc\GrpcApiServiceClient\GrpcApiServiceClient.csproj", "{634FD24A-6E31-4DDC-A5E2-0ECF58B0B238}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -149,6 +151,10 @@ Global
 		{BA10F78C-FBD1-4FFE-AC97-FAE82939D2D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA10F78C-FBD1-4FFE-AC97-FAE82939D2D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA10F78C-FBD1-4FFE-AC97-FAE82939D2D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{634FD24A-6E31-4DDC-A5E2-0ECF58B0B238}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{634FD24A-6E31-4DDC-A5E2-0ECF58B0B238}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{634FD24A-6E31-4DDC-A5E2-0ECF58B0B238}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{634FD24A-6E31-4DDC-A5E2-0ECF58B0B238}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -174,6 +180,7 @@ Global
 		{A2DF5486-1CA6-4077-A96F-436D6014B88C} = {BA8C7910-6742-43BC-88A1-1D3644E1D783}
 		{CCF7D2AA-BC99-4340-AFF9-C272277E6BB6} = {01137DDA-726D-4ACF-B2D1-9363A369288D}
 		{BA10F78C-FBD1-4FFE-AC97-FAE82939D2D4} = {01137DDA-726D-4ACF-B2D1-9363A369288D}
+		{634FD24A-6E31-4DDC-A5E2-0ECF58B0B238} = {BA8C7910-6742-43BC-88A1-1D3644E1D783}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6AD43C70-ADE6-43C4-A90D-F4E7CB0BD2F9}

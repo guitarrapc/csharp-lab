@@ -36,7 +36,7 @@ public class DuplexerService : Duplexer.DuplexerBase
                 await Task.Delay(300, ct);
             }
         }
-        catch (OperationCanceledException ex)
+        catch (OperationCanceledException)
         {
             // suppress for client cancellation exception.
         }
@@ -44,9 +44,17 @@ public class DuplexerService : Duplexer.DuplexerBase
         {
             // suppress for client cut off connection.
         }
-        catch (Exception ex)
+        catch (Exception ex) when (ex.Message == "The client reset the request stream.")
+        {
+            // suppress for client cut off connection.
+        }
+        catch (Exception)
         {
             throw;
+        }
+        finally
+        {
+            _logger.LogInformation("Client Disconnected");
         }
     }
 }
