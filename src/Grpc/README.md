@@ -55,3 +55,11 @@ $ grpcurl --plaintext -proto ./src/Grpc/GrpcApiService/Protos/duplexer.proto -d 
   "message": "piyo"
 }
 ```
+
+You can use C# Grpc Clinet to connect.
+
+```
+$ cd src/Grpc/GrpcApiService/Client
+$ dotnet run Greeter --name "foo"
+$ dotnet run Duplexer --names "foo bar piyo end"
+```
