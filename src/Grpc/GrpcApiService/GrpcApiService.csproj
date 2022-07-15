@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Protobuf Include="Protos\duplexer.proto" GrpcServices="Server" />
     <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
   </ItemGroup>
 

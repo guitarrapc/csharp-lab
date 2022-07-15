@@ -19,13 +19,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddGrpc();
 
 // Allow reflection for grpcurl
-builder.Services.AddGrpcReflection();
+// builder.Services.AddGrpcReflection();
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    app.MapGrpcReflectionService();
+    //app.MapGrpcReflectionService();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
@@ -34,6 +34,7 @@ app.UseAuthorization();
 
 // Configure the HTTP request pipeline.
 app.MapGrpcService<GreeterService>(); // grpc
+app.MapGrpcService<DuplexerService>(); // grpc
 app.MapControllers(); // api controller
 app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 

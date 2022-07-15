@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcApiService";
+
+package duplexer;
+
+// The duplexer service definition.
+service Duplexer {
+  // Sends a greeting
+  rpc Echo (stream BidiHelloRequest) returns (stream BidiHelloReply);
+}
+
+// The request message containing the user's name.
+message BidiHelloRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings.
+message BidiHelloReply {
+  string message = 1;
+}
