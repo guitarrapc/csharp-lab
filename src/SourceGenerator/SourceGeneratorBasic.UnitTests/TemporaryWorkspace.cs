@@ -31,7 +31,7 @@ public class TemporaryWorkspace : IDisposable
   <PropertyGroup>
     <TargetFramework>{options.TargetFramework}</TargetFramework>
     {(options.OutputType != "" ? $"<OutputType>{options.OutputType}</OutputType>" : "")}
-    {(options.LangVersion != "" ? $"<LangVersion>{options.LangVersion}</LangVersion>" :"")}
+    {(options.LangVersion != "" ? $"<LangVersion>{options.LangVersion}</LangVersion>" : "")}
     {(options.Nullable ? $"<Nullable>enable</Nullable>" : "")}
   </PropertyGroup>
 
