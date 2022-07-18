@@ -131,11 +131,11 @@ namespace {namespaceName}
     public partial class {classSymbol.Name}: {notifySymbol.ToDisplayString()}
     {{
     ");
-            // If Class doesn't implement notify synbol, add it on generated class.
-            if (!classSymbol.Interfaces.Contains(notifySymbol, SymbolEqualityComparer.Default))
-            {
-                source.Append("    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;");
-                source.Append($@"
+        // If Class doesn't implement notify synbol, add it on generated class.
+        if (!classSymbol.Interfaces.Contains(notifySymbol, SymbolEqualityComparer.Default))
+        {
+            source.Append("    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;");
+            source.Append($@"
         public void AddPropertyChanged<TProp>(System.Linq.Expressions.Expression<Func<{classSymbol.Name}, TProp>> propertyName, System.Action<{classSymbol.Name}> handler)
         {{
             var name = ((System.Linq.Expressions.MemberExpression)propertyName.Body).Member.Name;

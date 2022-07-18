@@ -1,5 +1,3 @@
-using MyAutoNotify;
-
 namespace SourceGeneratorBasic.ConsoleApp;
 
 public partial class NotifyClass
