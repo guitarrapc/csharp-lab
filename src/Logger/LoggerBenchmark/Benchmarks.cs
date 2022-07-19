@@ -7,13 +7,12 @@ namespace LoggerBenchmark;
 [ShortRunJob]
 [MemoryDiagnoser]
 [MinColumn, MaxColumn]
-
 public class Benchmarks
 {
     private const string LogMessageWithPrameter = "This is a log message with paramters {First}, {Second}";
 
     // Use FakeLogger instead of NullLogger to measure LogLevel difference.
-    private readonly ILoggerFactory _loggerFactory = new FakeLoggerFactory(LogLevel.Warning);
+    private readonly ILoggerFactory _loggerFactory = new FakeLoggerFactory(LogLevel.Information);
 
     private readonly ILogger<Benchmarks> _logger;
     private readonly ILoggerAdapter<Benchmarks> _loggerAdapter;
