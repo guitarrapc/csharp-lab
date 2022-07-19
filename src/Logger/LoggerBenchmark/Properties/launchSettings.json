@@ -8,6 +8,9 @@
       "executablePath": "dotnet.exe",
       "commandLineArgs": "run --project LoggerBenchmark.csproj -c Release",
       "workingDirectory": "$(MSBuildProjectDirectory)"
+    },
+    "Docker": {
+      "commandName": "Docker"
     }
   }
 }

@@ -32,7 +32,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["LoggerBlazorApp", "LoggerDefault"]
+        project:
+          [
+            "LoggerBenchmark",
+            "LoggerBlazorApp",
+            "LoggerDefault",
+            "LoggerWorker",
+          ]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -44,20 +50,26 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
       - run: dotnet --version
       - run: dotnet --list-sdks
-      - name: dotnet build
-        run: dotnet build ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
       - name: Is Test project?
         run: |
           [[ "${{ matrix.project }}" == *Tests ]] && echo "IsTest=true" | tee -a "$GITHUB_ENV" || true
+      - name: Is Benchmark project?
+        run: |
+          [[ "${{ matrix.project }}" == *Benchmark ]] && echo "IsBenchmark=true" | tee -a "$GITHUB_ENV" || true
       - name: dotnet test
         if: ${{ env.IsTest == 'true' }}
         run: dotnet test ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
+      - name: dotnet build
+        run: dotnet build ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
+      - name: Run benchmark
+        if: ${{ env.IsBenchmark == 'true' }}
+        run: dotnet run ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
 
   docker:
     strategy:
       fail-fast: false
       matrix:
-        project: ["LoggerBlazorApp", "LoggerDefault"]
+        project: ["LoggerBenchmark", "LoggerBlazorApp", "LoggerWorker"]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
