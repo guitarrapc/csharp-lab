@@ -8,7 +8,8 @@ namespace SourceGeneratorBasic.UnitTests;
 // see: https://notanaverageman.github.io/2020/12/07/cs-source-generators-cheatsheet.html
 public class FileTransformGeneratorUnitTest
 {
-    // Test error on outputCompilation could not reference generated code. Missing FileGeneratedNamespace.
+    // FileTransform require AddFiles, so cannot appry SourceCompile test.
+
     [Fact]
     public void WorkspaceCompileTest()
     {
@@ -64,7 +65,7 @@ namespace FileGeneratedNamespace
     }
 
     [Fact]
-    public async Task GenerateDiffTest()
+    public async Task VerifyTest()
     {
         var code = @"
 namespace Foo

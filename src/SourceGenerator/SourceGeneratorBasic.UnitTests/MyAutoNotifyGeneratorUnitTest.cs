@@ -80,7 +80,7 @@ public partial class NotifyClass
     }
 
     [Fact]
-    public async Task GenerateDiffTest()
+    public async Task VerifyTest()
     {
         var code = @"
 using MyAutoNotify;

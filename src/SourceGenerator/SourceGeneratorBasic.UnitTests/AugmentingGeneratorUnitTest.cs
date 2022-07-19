@@ -68,7 +68,7 @@ public partial class UserClassAugment
     }
 
     [Fact]
-    public async Task GenerateDiffTest()
+    public async Task VerifyTest()
     {
         var code = @"
 namespace Foo;
