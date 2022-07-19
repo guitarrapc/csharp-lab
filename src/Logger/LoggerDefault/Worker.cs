@@ -1,4 +1,4 @@
-namespace DefaultLogger;
+namespace LoggerDefault;
 
 public class Worker : BackgroundService
 {

@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "DefaultLogger": {
+    "LoggerDefault": {
       "commandName": "Project",
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"
