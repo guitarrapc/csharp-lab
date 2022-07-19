@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "LoggerBenchmark": {
+      "commandName": "Project"
+    },
+    "DotnetRunRelease": {
+      "commandName": "Executable",
+      "executablePath": "dotnet.exe",
+      "commandLineArgs": "run --project LoggerBenchmark.csproj -c Release",
+      "workingDirectory": "$(MSBuildProjectDirectory)"
+    }
+  }
+}

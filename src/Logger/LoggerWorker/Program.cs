@@ -1,11 +1,10 @@
-using LoggerDefault;
-using System.Text.Json;
+using LoggerWorker;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
     {
         services.AddHostedService<Worker>();
-        services.AddHostedService<LogMessageWorker>();
+        services.AddHostedService<LogMessageSourceGenerator>();
     })
     .Build();
 

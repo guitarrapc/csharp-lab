@@ -1,4 +1,4 @@
-namespace LoggerDefault;
+namespace LoggerWorker;
 
 public class Worker : BackgroundService
 {
@@ -54,16 +54,16 @@ public class Worker : BackgroundService
             _logger.LogWarning(SampleEventId.UserModelError, ex, "Failed to process iteration: {Id}", id);
         }
     }
-}
 
-public static class SampleEventId
-{
-    public static int Foo = 1000;
-    public static int Bar = 1001;
-    public static int Piyo = 1002;
+    public static class SampleEventId
+    {
+        public static int Foo = 1000;
+        public static int Bar = 1001;
+        public static int Piyo = 1002;
 
-    public static int UserModelCreate = 1100;
-    public static int UserModelUpdate = 1101;
-    public static int UserModelDelete = 1102;
-    public static int UserModelError = 1199;
+        public static int UserModelCreate = 1100;
+        public static int UserModelUpdate = 1101;
+        public static int UserModelDelete = 1102;
+        public static int UserModelError = 1199;
+    }
 }
