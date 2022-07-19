@@ -49,6 +49,6 @@ jobs:
         run: dotnet build ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
       - name: Run benchmark
         if: ${{ env.IsBenchmark == 'true' }}
-        run:
+        run: |
           dotnet run --project ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
           cat ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}/BenchmarkDotNet.Artifacts/results/${{ matrix.project }}.Benchmarks-report-github.md >> $GITHUB_STEP_SUMMARY
