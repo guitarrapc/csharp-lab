@@ -1,0 +1,90 @@
+name: "Prepare .NET"
+description: |
+  Prepare .NET Environment
+inputs:
+  dotnet-version:
+    description: ".NET version to install"
+    required: false
+    default: 6.0.x
+  project:
+    description: "csproject to build"
+    required: false
+    default: ""
+  restore-wasm-workload:
+    description: "Restore wasm workload"
+    required: false
+    default: "false"
+outputs:
+  is-benchmark:
+    description: "Is test project"
+    value: ${{ steps.benchmark-check.outputs.is-benchmark  }}
+  is-test:
+    description: "Is benchmark project"
+    value: ${{ steps.test-check.outputs.is-test  }}
+runs:
+  using: "composite"
+  steps:
+    - name: Prepare Environment Variables (.NET SDK)
+      shell: bash
+      run: |
+        echo "::group::Prepare environment variables (.NET SDK)"
+          echo "DOTNET_CLI_TELEMETRY_OPTOUT=1" | tee -a "$GITHUB_ENV"
+          echo "DOTNET_NOLOGO=1" | tee -a "$GITHUB_ENV"
+          echo "DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1" | tee -a "$GITHUB_ENV"
+          echo "NUGET_XMLDOC_MODE=skip" | tee -a "$GITHUB_ENV"
+          echo "DOTNET_SYSTEM_CONSOLE_ALLOW_ANSI_COLOR_REDIRECTION=1" | tee -a "$GITHUB_ENV"
+          echo "TERM=xterm" | tee -a "$GITHUB_ENV"
+        echo "::endgroup::"
+
+    - uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: ${{ inputs.dotnet-version }}
+
+    - name: Install Wasm workload
+      shell: bash
+      run: |
+        echo "::group::Install wasm workload if needed."
+          if [[ "${{ inputs.restore-wasm-workload }}" == "true" ]]; then
+            dotnet workload install wasm-tools
+          else
+            echo "no need install wasm-tools workload"
+          fi
+        echo "::endgroup::"
+
+    - name: dotnet verseion
+      shell: bash
+      run: |
+        echo "::group::Show dotnet version"
+          dotnet --version
+        echo "::endgroup::"
+
+    - name: List installed .NET SDKs
+      shell: bash
+      run: |
+        echo "::group::List installed dotnet sdks"
+          dotnet --list-sdks
+        echo "::endgroup::"
+
+    - name: Is Test project?
+      shell: bash
+      id: test-check
+      run: |
+        echo "::group::Is Test project?"
+          if [[ "${{ inputs.project }}" == *Tests ]]; then
+            echo "::set-output name=is-test::true"
+          else
+            echo "::set-output name=is-test::false"
+          fi
+        echo "::endgroup::"
+
+    - name: Is Benchmark project?
+      shell: bash
+      id: benchmark-check
+      run: |
+        echo "::group::Is Benchmark project?"
+          if [[ "${{ inputs.project }}" == *Benchmark ]]; then
+            echo "::set-output name=is-benchmark::true"
+          else
+            echo "::set-output name=is-benchmark::false"
+          fi
+        echo "::endgroup::"
