@@ -16,9 +16,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Prepare Environment Variables
-        uses: guitarrapc/csharp-lab/.github/actions/prepare-env@main
+        uses: ./.github/actions/prepare-env
       - name: Prepare .NET
-        uses: guitarrapc/csharp-lab/.github/actions/prepare-dotnet@main
+        uses: ./.github/actions/prepare-dotnet
         with:
           restore-wasm-workload: "true"
 
