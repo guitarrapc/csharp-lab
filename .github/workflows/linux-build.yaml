@@ -33,7 +33,6 @@ jobs:
             "ClassLibrary.Windows",
             "ConsoleApp",
             "GrpcService",
-            "WpfApp",
           ]
     runs-on: ubuntu-latest
     timeout-minutes: 10

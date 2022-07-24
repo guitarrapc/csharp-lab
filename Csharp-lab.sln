@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfApp", "src\LinuxBuild\WpfApp\WpfApp.csproj", "{5F529BCA-C6F1-49B0-93E2-59E86407EBA1}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassLibrary", "src\LinuxBuild\ClassLibrary\ClassLibrary.csproj", "{3602FB28-E2E7-44AC-8D00-64BB7635143F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "src\LinuxBuild\ConsoleApp\ConsoleApp.csproj", "{D62013C0-7296-46E1-8D25-77486DFBC7C1}"
@@ -63,7 +61,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_SolutionItems", "_Solution
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcApiServiceClient", "src\Grpc\GrpcApiServiceClient\GrpcApiServiceClient.csproj", "{634FD24A-6E31-4DDC-A5E2-0ECF58B0B238}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerBenchmark", "src\Logger\LoggerBenchmark\LoggerBenchmark.csproj", "{53A1A32A-BA08-4E0B-880B-1F80E88BC55D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggerBenchmark", "src\Logger\LoggerBenchmark\LoggerBenchmark.csproj", "{53A1A32A-BA08-4E0B-880B-1F80E88BC55D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggerWorker", "src\Logger\LoggerWorker\LoggerWorker.csproj", "{57E1E75E-B82A-4567-AE96-D013746DDC73}"
 EndProject
@@ -75,10 +73,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5F529BCA-C6F1-49B0-93E2-59E86407EBA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F529BCA-C6F1-49B0-93E2-59E86407EBA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F529BCA-C6F1-49B0-93E2-59E86407EBA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F529BCA-C6F1-49B0-93E2-59E86407EBA1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3602FB28-E2E7-44AC-8D00-64BB7635143F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3602FB28-E2E7-44AC-8D00-64BB7635143F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3602FB28-E2E7-44AC-8D00-64BB7635143F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -172,7 +166,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{5F529BCA-C6F1-49B0-93E2-59E86407EBA1} = {6FE650EA-B401-4C83-9C41-FD7FC5D1288C}
 		{3602FB28-E2E7-44AC-8D00-64BB7635143F} = {6FE650EA-B401-4C83-9C41-FD7FC5D1288C}
 		{D62013C0-7296-46E1-8D25-77486DFBC7C1} = {6FE650EA-B401-4C83-9C41-FD7FC5D1288C}
 		{E6C221E0-ADED-4788-8E68-4AE484FC6929} = {6FE650EA-B401-4C83-9C41-FD7FC5D1288C}
