@@ -28,7 +28,6 @@ runs:
       shell: bash
       run: |
         echo "::group::Prepare environment variables (.NET SDK)"
-          echo "DOTNET_VERSION=6.0.x" | tee -a "$GITHUB_ENV"
           echo "DOTNET_CLI_TELEMETRY_OPTOUT=1" | tee -a "$GITHUB_ENV"
           echo "DOTNET_NOLOGO=1" | tee -a "$GITHUB_ENV"
           echo "DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1" | tee -a "$GITHUB_ENV"
