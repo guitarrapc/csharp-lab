@@ -17,10 +17,10 @@ inputs:
 outputs:
   is-benchmark:
     description: "Is test project"
-    value: ${{ steps.benchmark-check.outputs.is-benchmark  }}
+    value: ${{ steps.project-type.outputs.is-benchmark  }}
   is-test:
     description: "Is benchmark project"
-    value: ${{ steps.test-check.outputs.is-test  }}
+    value: ${{ steps.project-type.outputs.is-test  }}
 runs:
   using: "composite"
   steps:
@@ -65,9 +65,9 @@ runs:
           dotnet --list-sdks
         echo "::endgroup::"
 
-    - name: Is Test project?
+    - name: Projec type detection
       shell: bash
-      id: test-check
+      id: project-type
       run: |
         echo "::group::Is Test project?"
           if [[ "${{ inputs.project }}" == *Tests ]]; then
@@ -76,11 +76,6 @@ runs:
             echo "::set-output name=is-test::false"
           fi
         echo "::endgroup::"
-
-    - name: Is Benchmark project?
-      shell: bash
-      id: benchmark-check
-      run: |
         echo "::group::Is Benchmark project?"
           if [[ "${{ inputs.project }}" == *Benchmark ]]; then
             echo "::set-output name=is-benchmark::true"
