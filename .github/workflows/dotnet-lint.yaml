@@ -17,11 +17,10 @@ jobs:
       - uses: actions/checkout@v3
       - name: Prepare Environment Variables
         uses: ./.github/actions/prepare-env
-      - uses: actions/setup-dotnet@v2
+      - name: Prepare .NET
+        uses: ./.github/actions/prepare-dotnet
         with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-      - name: restore wasm-tools Workload
-        run: dotnet workload install wasm-tools
+          restore-wasm-workload: "true"
 
       # dotnet list
       - name: Obtain csproj to lint

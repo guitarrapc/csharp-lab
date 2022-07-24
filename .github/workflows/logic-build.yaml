@@ -9,11 +9,13 @@ on:
       - "main"
     paths:
       - "src/Logic/**/*"
+      - ".github/workflows/logic-build.yaml"
   pull_request:
     branches:
       - "main"
     paths:
       - "src/Logic/**/*"
+      - ".github/workflows/logic-build.yaml"
 
 env:
   BUILD_CONFIG: Release
@@ -31,24 +33,18 @@ jobs:
       - uses: actions/checkout@v3
       - name: Prepare Environment Variables
         uses: ./.github/actions/prepare-env
-      - uses: actions/setup-dotnet@v2
+      - name: Prepare .NET
+        id: prepare-dotnet
+        uses: ./.github/actions/prepare-dotnet
         with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-      - run: dotnet --version
-      - run: dotnet --list-sdks
-      - name: Is Test project?
-        run: |
-          [[ "${{ matrix.project }}" == *Tests ]] && echo "IsTest=true" | tee -a "$GITHUB_ENV" || true
-      - name: Is Benchmark project?
-        run: |
-          [[ "${{ matrix.project }}" == *Benchmark ]] && echo "IsBenchmark=true" | tee -a "$GITHUB_ENV" || true
-      - name: dotnet test
-        if: ${{ env.IsTest == 'true' }}
-        run: dotnet test ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
+          project: ${{ matrix.project }}
       - name: dotnet build
         run: dotnet build ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
+      - name: dotnet test
+        if: ${{ steps.prepare-dotnet.outputs.is-test == 'true' }}
+        run: dotnet test ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
       - name: Run benchmark
-        if: ${{ env.IsBenchmark == 'true' }}
+        if: ${{ steps.prepare-dotnet.outputs.is-benchmark == 'true' }}
         run: |
           dotnet run --project ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
-          cat ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}/BenchmarkDotNet.Artifacts/results/${{ matrix.project }}.Benchmarks-report-github.md >> $GITHUB_STEP_SUMMARY
+          cat ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}/BenchmarkDotNet.Artifacts/results/${{ matrix.project }}.Benchmarks-report-github.md >> "$GITHUB_STEP_SUMMARY"
