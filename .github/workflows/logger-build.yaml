@@ -46,10 +46,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Prepare Environment Variables
-        uses: guitarrapc/csharp-lab/.github/actions/prepare-env@main
+        uses: ./.github/actions/prepare-env
       - name: Prepare .NET
         id: prepare-dotnet
-        uses: guitarrapc/csharp-lab/.github/actions/prepare-dotnet@main
+        uses: ./.github/actions/prepare-dotnet
         with:
           project: ${{ matrix.project }}
       - name: dotnet build
@@ -73,19 +73,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Prepare Environment Variables
-        uses: guitarrapc/csharp-lab/.github/actions/prepare-env@main
-      - id: repository
-        uses: ASzc/change-string-case-action@v2
+        uses: ./.github/actions/prepare-env
         with:
-          string: ${{ github.repository }}
-      - id: project
-        uses: ASzc/change-string-case-action@v2
-        with:
-          string: ${{ matrix.project }}
+          project: ${{ matrix.project }}
       - name: docker build
-        run: docker build -t "${{ env.REPOSITORY }}:latest-${{ env.DOCKER_TAG_NAME }}-${{ steps.project.outputs.lowercase }}" -f "src/${{ env.DIR_NAME }}/${{ matrix.project}}/Dockerfile" .
-        env:
-          REPOSITORY: ${{ steps.repository.outputs.lowercase }}
+        run: docker build -t "${{ env.REPOSITORY }}:latest-${{ env.DOCKER_TAG_NAME }}-${{ env.PROJECT }}" -f "src/${{ env.DIR_NAME }}/${{ matrix.project}}/Dockerfile" .
       # docker push
       - if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
         name: Login to Docker Hub
@@ -95,13 +87,9 @@ jobs:
           password: ${{ secrets.SYNCED_DOCKER_PASS }}
       - if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
         name: docker push (latest)
-        run: docker push "${{ env.REPOSITORY }}:latest-${{ env.DOCKER_TAG_NAME }}-${{ steps.project.outputs.lowercase }}"
-        env:
-          REPOSITORY: ${{ steps.repository.outputs.lowercase }}
+        run: docker push "${{ env.REPOSITORY }}:latest-${{ env.DOCKER_TAG_NAME }}-${{ env.PROJECT }}"
       - if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
         name: docker push (tag)
         run: |
-          docker tag "${{ env.REPOSITORY }}:latest-${{ env.DOCKER_TAG_NAME }}-${{ steps.project.outputs.lowercase }}" "${{ env.REPOSITORY }}:${{ env.GITHUB_SHA_SHORT }}-${{ env.DOCKER_TAG_NAME }}-${{ steps.project.outputs.lowercase }}"
-          docker push "${{ env.REPOSITORY }}:${{ env.GITHUB_SHA_SHORT }}-${{ env.DOCKER_TAG_NAME }}-${{ steps.project.outputs.lowercase }}"
-        env:
-          REPOSITORY: ${{ steps.repository.outputs.lowercase }}
+          docker tag "${{ env.REPOSITORY }}:latest-${{ env.DOCKER_TAG_NAME }}-${{ env.PROJECT }}" "${{ env.REPOSITORY }}:${{ env.GITHUB_SHA_SHORT }}-${{ env.DOCKER_TAG_NAME }}-${{ env.PROJECT }}"
+          docker push "${{ env.REPOSITORY }}:${{ env.GITHUB_SHA_SHORT }}-${{ env.DOCKER_TAG_NAME }}-${{ env.PROJECT }}"
