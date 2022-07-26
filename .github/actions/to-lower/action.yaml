@@ -8,10 +8,10 @@ inputs:
     default: ""
 outputs:
   project:
-    description: lower case project
+    description: "project name in lowercase"
     value: ${{ steps.project.outputs.lowercase }}
   repository:
-    description: lower case repository
+    description: "repository name in lowercase"
     value: ${{ steps.repository.outputs.lowercase }}
 runs:
   using: "composite"
