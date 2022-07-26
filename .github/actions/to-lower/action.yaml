@@ -1,11 +1,18 @@
-name: "Lowercase Environment"
+name: "To Lowercase"
 description: |
-  Lowercase Environment Variable
+  Lowercase output
 inputs:
   project:
     description: "project name"
     required: false
     default: ""
+outputs:
+  project:
+    description: lower case project
+    value: ${{ steps.project.outputs.lowercase }}
+  repository:
+    description: lower case repository
+    value: ${{ steps.repository.outputs.lowercase }}
 runs:
   using: "composite"
   steps:
@@ -18,9 +25,3 @@ runs:
       uses: ASzc/change-string-case-action@v2
       with:
         string: ${{ inputs.project }}
-
-    - name: Prepare Environment Variables
-      shell: bash
-      run: |
-        echo "PROJECT=${{ steps.project.outputs.lowercase }}" | tee -a "$GITHUB_ENV"
-        echo "REPOSITORY=${{ steps.repository.outputs.lowercase }}" | tee -a "$GITHUB_ENV"

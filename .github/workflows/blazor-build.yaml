@@ -68,11 +68,12 @@ jobs:
       - uses: actions/checkout@v3
       - uses: guitarrapc/actions/.github/actions/git-shortsha@main
         id: sha
-      - uses: ./.github/actions/lower-env
+      - uses: ./.github/actions/to-lower
+        id: lower
         with:
           project: ${{ matrix.project }}
       - name: docker build
-        run: docker build -t "${{ env.REPOSITORY }}:latest-${{ env.DOCKER_TAG_NAME }}-${{ env.PROJECT }}" -f "src/${{ env.DIR_NAME }}/${{ matrix.project }}/Dockerfile" .
+        run: docker build -t "${{ steps.lower.repository }}:latest-${{ env.DOCKER_TAG_NAME }}-${{ steps.lower.project }}" -f "src/${{ env.DIR_NAME }}/${{ matrix.project }}/Dockerfile" .
       # docker push
       - if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
         name: Login to Docker Hub
@@ -82,9 +83,9 @@ jobs:
           password: ${{ secrets.SYNCED_DOCKER_PASS }}
       - if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
         name: docker push (latest)
-        run: docker push "${{ env.REPOSITORY }}:latest-${{ env.DOCKER_TAG_NAME }}-${{ env.PROJECT }}"
+        run: docker push "${{ steps.lower.repository }}:latest-${{ env.DOCKER_TAG_NAME }}-${{ steps.lower.project }}"
       - if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
         name: docker push (tag)
         run: |
-          docker tag "${{ env.REPOSITORY }}:latest-${{ env.DOCKER_TAG_NAME }}-${{ env.PROJECT }}" "${{ env.REPOSITORY }}:${{ steps.sha.sha-short }}-${{ env.DOCKER_TAG_NAME }}-${{ env.PROJECT }}"
-          docker push "${{ env.REPOSITORY }}:${{ steps.sha.sha-short }}-${{ env.DOCKER_TAG_NAME }}-${{ env.PROJECT }}"
+          docker tag "${{ steps.lower.repository }}:latest-${{ env.DOCKER_TAG_NAME }}-${{ steps.lower.project }}" "${{ steps.lower.repository }}:${{ steps.sha.sha-short }}-${{ env.DOCKER_TAG_NAME }}-${{ steps.lower.project }}"
+          docker push "${{ steps.lower.repository }}:${{ steps.sha.sha-short }}-${{ env.DOCKER_TAG_NAME }}-${{ steps.lower.project }}"
