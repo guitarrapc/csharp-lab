@@ -1,0 +1,99 @@
+name: Build Docker
+
+on:
+  workflow_dispatch:
+    inputs:
+      push-image:
+        type: boolean
+        description: "push-image: true - build and push image. false - build only."
+        required: true
+        default: false
+  schedule:
+    - cron: 0 0 * * 0 # At 00:00 on Sunday.
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+
+env:
+  DOCKER_BUILDKIT: "1"
+  DOCKER_PUSH_ENABLED: "${{ github.event.inputs.push-image == 'true' && 'true' || (github.event_name == 'push' || github.event_name == 'schedule') }}"
+
+jobs:
+  docker:
+    strategy:
+      fail-fast: false
+      matrix:
+        project:
+          [
+            "ApiMultiplePort",
+            "BlazorServerApp",
+            "BlazorServerIPBlockApp",
+            "BlazorWasmAotApp",
+            "GrpcApiService",
+            "GrpcAspNetCore60",
+            "GrpcAspNetCore60.HealthCheckSupport",
+            "LoggerBenchmark",
+            "LoggerBlazorApp",
+            "LoggerWorker",
+          ]
+        include:
+          - project: ApiMultiplePort
+            dockerfile: ./src/Api/ApiMultiplePort/Dockerfile
+            tag: api
+          - project: BlazorServerApp
+            dockerfile: ./src/Blazor/BlazorServerApp/Dockerfile
+            tag: blazor
+          - project: BlazorServerIPBlockApp
+            dockerfile: ./src/Blazor/BlazorServerIPBlockApp/Dockerfile
+            tag: blazor
+          - project: BlazorWasmAotApp
+            dockerfile: ./src/Blazor/BlazorWasmAotApp/Dockerfile
+            tag: blazor
+          - project: GrpcApiService
+            dockerfile: ./src/Grpc/GrpcApiService/Dockerfile
+            tag: grpc
+          - project: GrpcAspNetCore60
+            dockerfile: ./src/Grpc/GrpcAspNetCore60/Dockerfile
+            tag: grpc
+          - project: GrpcAspNetCore60.HealthCheckSupport
+            dockerfile: ./src/Grpc/GrpcAspNetCore60.HealthCheckSupport/Dockerfile
+            tag: grpc
+          - project: LoggerBenchmark
+            dockerfile: ./src/Logger/LoggerBenchmark/Dockerfile
+            tag: logger
+          - project: LoggerBlazorApp
+            dockerfile: ./src/Logger/LoggerBlazorApp/Dockerfile
+            tag: logger
+          - project: LoggerWorker
+            dockerfile: ./src/Logger/LoggerWorker/Dockerfile
+            tag: logger
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+      - uses: guitarrapc/actions/.github/actions/git-shortsha@main
+        id: sha
+      - uses: ./.github/actions/to-lower
+        id: lower
+        with:
+          project: ${{ matrix.project }}
+      - name: docker build
+        run: docker build -t "${{ steps.lower.outputs.repository }}:latest-${{ matrix.tag }}-${{ steps.lower.outputs.project }}" -f "${{ matrix.dockerfile }}" .
+      # docker push
+      - if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
+        name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.SYNCED_DOCKER_USER }}
+          password: ${{ secrets.SYNCED_DOCKER_PASS }}
+      - if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
+        name: docker push (latest)
+        run: docker push "${{ steps.lower.outputs.repository }}:latest-${{ matrix.tag }}-${{ steps.lower.outputs.project }}"
+      - if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
+        name: docker push (tag)
+        run: |
+          docker tag "${{ steps.lower.outputs.repository }}:latest-${{ matrix.tag }}-${{ steps.lower.project }}" "${{ steps.lower.outputs.repository }}:${{ steps.sha.sha-short }}-${{ matrix.tag }}-${{ steps.lower.project }}"
+          docker push "${{ steps.lower.outputs.repository }}:${{ steps.sha.sha-short }}-${{ matrix.tag }}-${{ steps.lower.project }}"
