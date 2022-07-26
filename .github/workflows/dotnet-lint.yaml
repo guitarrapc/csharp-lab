@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Prepare .NET
-        uses: ./.github/actions/prepare-dotnet
+        uses: guitarrapc/actions/.github/actions/setup-dotnet@main
         with:
           restore-wasm-workload: "true"
 

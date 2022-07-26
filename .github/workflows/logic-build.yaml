@@ -31,8 +31,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v3
-      - name: Prepare .NET
-        uses: ./.github/actions/prepare-dotnet
+      - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
       - name: dotnet build
         run: dotnet build ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
       - name: dotnet test
