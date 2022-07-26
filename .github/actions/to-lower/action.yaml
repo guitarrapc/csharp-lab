@@ -1,0 +1,27 @@
+name: "To Lowercase"
+description: |
+  Lowercase output
+inputs:
+  project:
+    description: "project name"
+    required: false
+    default: ""
+outputs:
+  project:
+    description: "project name in lowercase"
+    value: ${{ steps.project.outputs.lowercase }}
+  repository:
+    description: "repository name in lowercase"
+    value: ${{ steps.repository.outputs.lowercase }}
+runs:
+  using: "composite"
+  steps:
+    - id: repository
+      uses: ASzc/change-string-case-action@v2
+      with:
+        string: ${{ github.repository }}
+
+    - id: project
+      uses: ASzc/change-string-case-action@v2
+      with:
+        string: ${{ inputs.project }}

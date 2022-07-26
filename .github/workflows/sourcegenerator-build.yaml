@@ -19,6 +19,7 @@ on:
 
 env:
   BUILD_CONFIG: Release
+  BUILD_WASM: "false"
   DIR_NAME: SourceGenerator
 
 jobs:
@@ -36,20 +37,19 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v3
-      - name: Prepare Environment Variables
-        uses: ./.github/actions/prepare-env
-      - name: Prepare .NET
-        id: prepare-dotnet
-        uses: ./.github/actions/prepare-dotnet
+      - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
         with:
-          project: ${{ matrix.project }}
+          restore-wasm-workload: ${{ env.BUILD_WASM }}
       - name: dotnet build
         run: dotnet build ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
       - name: dotnet test
-        if: ${{ steps.prepare-dotnet.outputs.is-test == 'true' }}
-        run: dotnet test ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
-      - name: Run benchmark
-        if: ${{ steps.prepare-dotnet.outputs.is-benchmark == 'true' }}
         run: |
-          dotnet run --project ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
-          cat ./BenchmarkDotNet.Artifacts/results/${{ matrix.project }}.Benchmarks-report-github.md >> "$GITHUB_STEP_SUMMARY"
+          if [[ "${{ matrix.project }}" == *Tests ]]; then
+            dotnet test ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
+          fi
+      - name: Run benchmark
+        run: |
+          if [[ "${{ matrix.project }}" == *Benchmark ]]; then
+            dotnet run --project ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
+            cat ./BenchmarkDotNet.Artifacts/results/${{ matrix.project }}.Benchmarks-report-github.md >> "$GITHUB_STEP_SUMMARY"
+          fi
