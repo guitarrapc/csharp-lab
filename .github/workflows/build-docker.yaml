@@ -95,5 +95,5 @@ jobs:
       - if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
         name: docker push (tag)
         run: |
-          docker tag "${{ steps.lower.outputs.repository }}:latest-${{ matrix.tag }}-${{ steps.lower.project }}" "${{ steps.lower.outputs.repository }}:${{ steps.sha.sha-short }}-${{ matrix.tag }}-${{ steps.lower.project }}"
-          docker push "${{ steps.lower.outputs.repository }}:${{ steps.sha.sha-short }}-${{ matrix.tag }}-${{ steps.lower.project }}"
+          docker tag "${{ steps.lower.outputs.repository }}:latest-${{ matrix.tag }}-${{ steps.lower.outputs.project }}" "${{ steps.lower.outputs.repository }}:${{ steps.sha.outputs.sha-short }}-${{ matrix.tag }}-${{ steps.lower.outputs.project }}"
+          docker push "${{ steps.lower.outputs.repository }}:${{ steps.sha.outputs.sha-short }}-${{ matrix.tag }}-${{ steps.lower.outputs.project }}"
