@@ -1,0 +1,38 @@
+name: Benchmarker
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 0 * * 0 # At 00:00 on Sunday.
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+
+env:
+  BUILD_CONFIG: Release
+
+jobs:
+  benchmark:
+    strategy:
+      fail-fast: false
+      matrix:
+        project: ["LoggerBenchmark"]
+        include:
+          - project: LoggerBenchmark
+            csproj: ./src/Logger/LoggerBenchmark/LoggerBenchmark.csproj
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+      - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
+        with:
+          restore-wasm-workload: true
+      - name: dotnet build
+        run: dotnet build -c ${{ env.BUILD_CONFIG }}
+      - name: Run benchmark
+        run: |
+          dotnet run --project ${{ matrix.csproj }} -c ${{ env.BUILD_CONFIG }}
+          cat ./BenchmarkDotNet.Artifacts/results/${{ matrix.project }}.Benchmarks-report-github.md >> "$GITHUB_STEP_SUMMARY"
