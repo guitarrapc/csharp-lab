@@ -19,6 +19,7 @@ on:
 
 env:
   BUILD_CONFIG: Release
+  BUILD_WASM: "false"
   DIR_NAME: SourceGenerator
 
 jobs:
@@ -37,6 +38,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
+        with:
+          restore-wasm-workload: ${{ env.BUILD_WASM }}
       - name: dotnet build
         run: dotnet build ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
       - name: dotnet test
