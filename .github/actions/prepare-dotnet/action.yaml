@@ -6,21 +6,10 @@ inputs:
     description: ".NET version to install"
     required: false
     default: 6.0.x
-  project:
-    description: "csproject to build"
-    required: false
-    default: ""
   restore-wasm-workload:
     description: "Restore wasm workload"
     required: false
     default: "false"
-outputs:
-  is-benchmark:
-    description: "Is test project"
-    value: ${{ steps.project-type.outputs.is-benchmark  }}
-  is-test:
-    description: "Is benchmark project"
-    value: ${{ steps.project-type.outputs.is-test  }}
 runs:
   using: "composite"
   steps:
@@ -63,23 +52,4 @@ runs:
       run: |
         echo "::group::List installed dotnet sdks"
           dotnet --list-sdks
-        echo "::endgroup::"
-
-    - name: Projec type detection
-      shell: bash
-      id: project-type
-      run: |
-        echo "::group::Is Test project?"
-          if [[ "${{ inputs.project }}" == *Tests ]]; then
-            echo "::set-output name=is-test::true"
-          else
-            echo "::set-output name=is-test::false"
-          fi
-        echo "::endgroup::"
-        echo "::group::Is Benchmark project?"
-          if [[ "${{ inputs.project }}" == *Benchmark ]]; then
-            echo "::set-output name=is-benchmark::true"
-          else
-            echo "::set-output name=is-benchmark::false"
-          fi
         echo "::endgroup::"

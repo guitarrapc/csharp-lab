@@ -1,37 +1,17 @@
 name: "Prepare Environment Variables"
 description: |
   Prepare Environment Variables
-inputs:
-  project:
-    description: "csproject to build"
-    required: false
-    default: ""
 outputs:
   repository:
     description: "repository name in lowercase"
     value: ${{ steps.repository.outputs.lowercase }}
-  project:
-    description: "project name in lowercase"
-    value: ${{ steps.project.outputs.lowercase }}
 runs:
   using: "composite"
   steps:
-    - id: repository
-      uses: ASzc/change-string-case-action@v2
-      with:
-        string: ${{ github.repository }}
-    - id: project
-      uses: ASzc/change-string-case-action@v2
-      with:
-        string: ${{ inputs.project }}
-
     - name: Prepare Environment Variables (GITHUB)
       shell: bash
       run: |
         echo "::group::Prepare environment variables (Docker)"
-          echo "PROJECT=${{ steps.project.outputs.lowercase }}" | tee -a "$GITHUB_ENV"
-          echo "REPOSITORY=${{ steps.repository.outputs.lowercase }}" | tee -a "$GITHUB_ENV"
-
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
             echo "GITHUB_SHA_SHORT=$(git rev-parse --short ${{ github.event.pull_request.head.sha }})" | tee -a "$GITHUB_ENV"
           else
