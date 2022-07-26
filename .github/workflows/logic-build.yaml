@@ -36,7 +36,9 @@ jobs:
         run: dotnet build ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
       - name: dotnet test
         run: |
-          [[ "${{ matrix.project }}" == *Tests ]] && dotnet test ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
+          if [[ "${{ matrix.project }}" == *Tests ]]; then
+            dotnet test ./src/${{ env.DIR_NAME }}/${{ matrix.project}}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
+          fi
       - name: Run benchmark
         run: |
           if [[ "${{ matrix.project }}" == *Benchmark ]]; then
