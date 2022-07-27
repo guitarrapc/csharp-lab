@@ -1,0 +1,17 @@
+services:
+  mysql:
+    image: bitnami/mysql:8.0
+    ports:
+      - 3306:3306
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password111
+      - MYSQL_DATABASE=foo
+      - MYSQL_CHARACTER_SET=utf8mb4
+      - MYSQL_COLLATE=utf8mb4_ja_0900_as_cs_ks
+    volumes:
+      - mysql:/bitnami/mysql/data
+
+volumes:
+  mysql: {}
