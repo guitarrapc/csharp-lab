@@ -1,4 +1,4 @@
-using DatabaseMySqlEf.Models;
+using DatabaseCore.Models;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 

@@ -1,30 +1,10 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using DatabaseCore.Models;
 using System.Reflection;
 
-namespace DatabaseMySqlEf.Models;
-public class BloggingDbContext : DbContext
-{
-    public DbSet<Blog> Blogs { get; init; } = default!;
-    public DbSet<Post> Posts { get; init; } = default!;
-
-    public BloggingDbContext() { }
-    public BloggingDbContext(DbContextOptions<BloggingDbContext> options) : base(options)
-    {
-        // via DI AddDbContext/AddDbContextFactory
-    }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        // Map table names
-        modelBuilder.Entity<Blog>().ToTable("blog");
-        //modelBuilder.Entity<Post>().ToTable("post");
-        base.OnModelCreating(modelBuilder);
-    }
-
-    public BlogRepository GetUserRepository() => new(this);
-}
+namespace DatabaseMySqlEf;
 
 // Context for Designtime. see https://docs.microsoft.com/en-us/ef/core/cli/dbcontext-creation?tabs=dotnet-core-cli
 public class BloggingContextFactory : IDesignTimeDbContextFactory<BloggingDbContext>

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace DatabaseMySqlEf.Models;
+namespace DatabaseCore.Models;
 
 public class Blog
 {

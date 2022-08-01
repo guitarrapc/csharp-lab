@@ -6,6 +6,7 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["src/Database/DatabaseMySqlEf/DatabaseMySqlEf.csproj", "src/Database/DatabaseMySqlEf/"]
+COPY ["src/Database/DatabaseCore/DatabaseCore.csproj", "src/Database/DatabaseCore/"]
 RUN dotnet restore "src/Database/DatabaseMySqlEf/DatabaseMySqlEf.csproj"
 COPY . .
 WORKDIR "/src/src/Database/DatabaseMySqlEf"

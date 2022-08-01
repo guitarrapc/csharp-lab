@@ -71,6 +71,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{E2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseMySqlEf", "src\Database\DatabaseMySqlEf\DatabaseMySqlEf.csproj", "{F2314E9A-17DA-4452-9DE2-BD52BCE3926B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseCore", "src\Database\DatabaseCore\DatabaseCore.csproj", "{67B86B73-25C3-48C3-8B42-20AA5921C6DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -169,6 +171,10 @@ Global
 		{F2314E9A-17DA-4452-9DE2-BD52BCE3926B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2314E9A-17DA-4452-9DE2-BD52BCE3926B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2314E9A-17DA-4452-9DE2-BD52BCE3926B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67B86B73-25C3-48C3-8B42-20AA5921C6DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67B86B73-25C3-48C3-8B42-20AA5921C6DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67B86B73-25C3-48C3-8B42-20AA5921C6DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67B86B73-25C3-48C3-8B42-20AA5921C6DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -197,6 +203,7 @@ Global
 		{57E1E75E-B82A-4567-AE96-D013746DDC73} = {A60DE0A8-D3F7-4BCF-B5C6-A59D03E99151}
 		{A2549C00-E9E0-4776-9C9B-DFFD31DB3044} = {A60DE0A8-D3F7-4BCF-B5C6-A59D03E99151}
 		{F2314E9A-17DA-4452-9DE2-BD52BCE3926B} = {E2EDF09C-4CA8-4B68-9461-4B1FF0092243}
+		{67B86B73-25C3-48C3-8B42-20AA5921C6DA} = {E2EDF09C-4CA8-4B68-9461-4B1FF0092243}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6AD43C70-ADE6-43C4-A90D-F4E7CB0BD2F9}
