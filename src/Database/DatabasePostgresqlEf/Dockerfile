@@ -5,17 +5,17 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["src/Database/DatabaseMySqlEf/DatabaseMySqlEf.csproj", "src/Database/DatabaseMySqlEf/"]
+COPY ["src/Database/DatabasePostgresqlEf/DatabasePostgresqlEf.csproj", "src/Database/DatabasePostgresqlEf/"]
 COPY ["src/Database/DatabaseCore/DatabaseCore.csproj", "src/Database/DatabaseCore/"]
-RUN dotnet restore "src/Database/DatabaseMySqlEf/DatabaseMySqlEf.csproj"
+RUN dotnet restore "src/Database/DatabasePostgresqlEf/DatabasePostgresqlEf.csproj"
 COPY . .
-WORKDIR "/src/src/Database/DatabaseMySqlEf"
-RUN dotnet build "DatabaseMySqlEf.csproj" -c Release -o /app/build
+WORKDIR "/src/src/Database/DatabasePostgresqlEf"
+RUN dotnet build "DatabasePostgresqlEf.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "DatabaseMySqlEf.csproj" -c Release -o /app/publish
+RUN dotnet publish "DatabasePostgresqlEf.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "DatabaseMySqlEf.dll"]
+ENTRYPOINT ["dotnet", "DatabasePostgresqlEf.dll"]
