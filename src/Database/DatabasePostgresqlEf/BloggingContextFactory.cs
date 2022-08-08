@@ -19,8 +19,9 @@ public class BloggingContextFactory : IDesignTimeDbContextFactory<BloggingDbCont
             .Build();
         var conn = config.GetConnectionString("Default");
         var optionsBuilder = new DbContextOptionsBuilder<BloggingDbContext>();
-        optionsBuilder.UseMySql(conn, new MySqlServerVersion(new Version(8, 0)), options =>
+        optionsBuilder.UseNpgsql(conn, options =>
         {
+            options.SetPostgresVersion(14, 0);
             options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
         });
 

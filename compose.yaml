@@ -13,5 +13,17 @@ services:
     volumes:
       - mysql:/bitnami/mysql/data
 
+  postgresql:
+    image: postgres:14.4
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password111
+      POSTGRES_DB: foo
+    volumes:
+      - postgresql:/var/lib/postgresql/data
+
 volumes:
   mysql: {}
+  postgresql: {}
