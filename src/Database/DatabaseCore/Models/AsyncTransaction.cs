@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 
-namespace DatabaseMySqlEf.Models;
+namespace DatabaseCore.Models;
 
 /// <summary>
 /// Provide transaction api with using style.

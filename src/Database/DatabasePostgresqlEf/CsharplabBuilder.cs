@@ -66,12 +66,11 @@ public static class CsharplabBuilderExtensions
     public static ICsharplabBuilder AddCsharpLabDatabase(this ICsharplabBuilder builder)
     {
         var connectionString = builder.Configuration.GetConnectionString("Default");
-        var serverVersion = new MySqlServerVersion(new Version(8, 0, 30));
 
         // Wants use IDbContextFactory instead of DbContext.
         builder.Services.AddDbContextFactory<BloggingDbContext>(optionBuilder =>
         {
-            optionBuilder.UseMySql(connectionString, serverVersion);
+            optionBuilder.UseNpgsql(connectionString, options => options.SetPostgresVersion(14, 0));
 #if DEBUG
             optionBuilder.EnableSensitiveDataLogging();
 #endif

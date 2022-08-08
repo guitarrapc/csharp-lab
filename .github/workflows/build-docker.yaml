@@ -33,6 +33,7 @@ jobs:
             "BlazorServerIPBlockApp",
             "BlazorWasmAotApp",
             "DatabaseMySqlEf",
+            "DatabasePostgresqlEf",
             "GrpcApiService",
             "GrpcAspNetCore60",
             "GrpcAspNetCore60.HealthCheckSupport",
@@ -55,6 +56,9 @@ jobs:
             tag: blazor
           - project: DatabaseMySqlEf
             dockerfile: ./src/Database/DatabaseMySqlEf/Dockerfile
+            tag: database
+          - project: DatabasePostgresqlEf
+            dockerfile: ./src/Database/DatabasePostgresqlEf/Dockerfile
             tag: database
           - project: GrpcApiService
             dockerfile: ./src/Grpc/GrpcApiService/Dockerfile

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace DatabaseMySqlEf.Models;
+namespace DatabaseCore.Models;
 public class BlogModel
 {
     private readonly ILogger<BlogModel> _logger;
@@ -51,6 +51,7 @@ public class BlogModel
     /// <returns></returns>
     public async Task AddPostAsync(int blogId, CancellationToken ct)
     {
+        _logger.LogDebug("Adding Post");
         await using var db = await _dbFactory.CreateDbContextAsync(ct);
         var postRepostiory = new PostRepository(db);
 

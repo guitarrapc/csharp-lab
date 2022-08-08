@@ -2,7 +2,7 @@ Initialize with dotnet-ef
 ```bash
 # launch database
 docker compose up
-cd src/Database/DatabaseMySqlEf
+cd src/Database/DatabasePostgresqlEf
 
 # only for once you created project
 dotnet new tool-manifest
