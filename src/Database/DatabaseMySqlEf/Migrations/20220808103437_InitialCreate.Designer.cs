@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatabaseMySqlEf.Migrations
 {
     [DbContext(typeof(BloggingDbContext))]
-    [Migration("20220801101032_InitialCreate")]
+    [Migration("20220808103437_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
