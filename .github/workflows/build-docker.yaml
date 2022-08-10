@@ -26,22 +26,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project:
-          [
-            "ApiMultiplePort",
-            "BlazorServerApp",
-            "BlazorServerIPBlockApp",
-            "BlazorWasmAotApp",
-            "DatabaseMySqlEf",
-            "DatabasePostgresqlEf",
-            "DatabaseSqliteEF",
-            "GrpcApiService",
-            "GrpcAspNetCore60",
-            "GrpcAspNetCore60.HealthCheckSupport",
-            "LoggerBenchmark",
-            "LoggerBlazorApp",
-            "LoggerWorker",
-          ]
         include:
           - project: ApiMultiplePort
             dockerfile: ./src/Api/ApiMultiplePort/Dockerfile
@@ -63,6 +47,9 @@ jobs:
             tag: database
           - project: DatabaseSqliteEF
             dockerfile: ./src/Database/DatabaseSqliteEF/Dockerfile
+            tag: database
+          - project: DatabaseSqliteInmemoryEF
+            dockerfile: ./src/Database/DatabaseSqliteInmemoryEF/Dockerfile
             tag: database
           - project: GrpcApiService
             dockerfile: ./src/Grpc/GrpcApiService/Dockerfile
