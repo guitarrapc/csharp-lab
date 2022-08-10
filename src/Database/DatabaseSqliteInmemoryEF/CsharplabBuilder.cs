@@ -69,7 +69,7 @@ public static class CsharplabBuilderExtensions
     /// <param name="builder"></param>
     public static ICsharplabBuilder AddCsharpLabDatabase(this ICsharplabBuilder builder)
     {
-        var connectionString = $"Data Source=Blogging;Mode=Memory;Cache=Shared;";
+        var connectionString = builder.Configuration.GetConnectionString("Default");
         var conn = new SqliteConnection(connectionString);
         conn.Open(); // Don't use directly. Inmemory Sqlite will deleted when all connection closed. Lets keep this connection for Migration and App. 
 

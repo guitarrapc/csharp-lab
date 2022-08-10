@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore;
 using DatabaseCore.Models;
 using System.Reflection;
+using Microsoft.Extensions.Configuration;
 
 namespace DatabaseSqliteInmemoryEF;
 
@@ -11,8 +12,15 @@ public class BloggingContextFactory : IDesignTimeDbContextFactory<BloggingDbCont
 {
     public BloggingDbContext CreateDbContext(string[] args)
     {
+        var config = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .AddJsonFile("appsettings.Development.json", true)
+            .AddCommandLine(args)
+            .AddEnvironmentVariables()
+            .Build();
+        var conn = config.GetConnectionString("Default");
         var optionsBuilder = new DbContextOptionsBuilder<BloggingDbContext>();
-        optionsBuilder.UseSqlite($"Data Source=Blogging;Mode=Memory;Cache=Shared", options =>
+        optionsBuilder.UseSqlite(conn, options =>
         {
             options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
         });
