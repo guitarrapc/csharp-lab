@@ -56,6 +56,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_SolutionItems", "_SolutionItems", "{8107F6D9-86E5-4B25-B00F-F50FE22614CA}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		.github\workflows\benchmarker.yaml = .github\workflows\benchmarker.yaml
+		.github\workflows\build-docker.yaml = .github\workflows\build-docker.yaml
+		.github\workflows\build-dotnet.yaml = .github\workflows\build-dotnet.yaml
+		.github\workflows\dotnet-lint.yaml = .github\workflows\dotnet-lint.yaml
 		src\Nuget.Analyzer.props = src\Nuget.Analyzer.props
 	EndProjectSection
 EndProject
@@ -71,7 +75,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{E2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseMySqlEf", "src\Database\DatabaseMySqlEf\DatabaseMySqlEf.csproj", "{F2314E9A-17DA-4452-9DE2-BD52BCE3926B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseCore", "src\Database\DatabaseCore\DatabaseCore.csproj", "{67B86B73-25C3-48C3-8B42-20AA5921C6DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseCore", "src\Database\DatabaseCore\DatabaseCore.csproj", "{67B86B73-25C3-48C3-8B42-20AA5921C6DA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabasePostgresqlEf", "src\Database\DatabasePostgresqlEf\DatabasePostgresqlEf.csproj", "{0B0E2000-FCB8-46A4-B6B7-B8A75EF38B9F}"
 EndProject
