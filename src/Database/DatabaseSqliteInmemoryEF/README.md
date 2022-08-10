@@ -1,6 +1,6 @@
 Initialize with dotnet-ef
 ```bash
-cd src/Database/DatabaseSqliteEF
+cd src/Database/DatabaseSqliteInmemoryEF
 
 # only for once you created project
 dotnet new tool-manifest
