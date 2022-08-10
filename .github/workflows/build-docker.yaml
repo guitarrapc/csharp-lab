@@ -34,6 +34,7 @@ jobs:
             "BlazorWasmAotApp",
             "DatabaseMySqlEf",
             "DatabasePostgresqlEf",
+            "DatabaseSqliteEF",
             "GrpcApiService",
             "GrpcAspNetCore60",
             "GrpcAspNetCore60.HealthCheckSupport",
@@ -59,6 +60,9 @@ jobs:
             tag: database
           - project: DatabasePostgresqlEf
             dockerfile: ./src/Database/DatabasePostgresqlEf/Dockerfile
+            tag: database
+          - project: DatabaseSqliteEF
+            dockerfile: ./src/Database/DatabaseSqliteEF/Dockerfile
             tag: database
           - project: GrpcApiService
             dockerfile: ./src/Grpc/GrpcApiService/Dockerfile
