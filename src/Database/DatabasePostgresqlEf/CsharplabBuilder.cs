@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DatabaseMySqlEf;
+namespace DatabasePostgresqlEf;
 public interface ICsharplabBuilder
 {
     IServiceCollection Services { get; }

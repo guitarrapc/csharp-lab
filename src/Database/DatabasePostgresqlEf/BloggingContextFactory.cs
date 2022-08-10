@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using DatabaseCore.Models;
 using System.Reflection;
 
-namespace DatabaseMySqlEf;
+namespace DatabasePostgresqlEf;
 
 // Context for Designtime. see https://docs.microsoft.com/en-us/ef/core/cli/dbcontext-creation?tabs=dotnet-core-cli
 public class BloggingContextFactory : IDesignTimeDbContextFactory<BloggingDbContext>

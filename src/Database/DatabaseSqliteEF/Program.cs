@@ -1,5 +1,5 @@
 using Cysharp.Text;
-using DatabaseMySqlEf;
+using DatabaseSqliteEf;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using ZLogger;
@@ -44,7 +44,7 @@ public static class StartupExtensions
                             // Bit darker then application
                             ZString.Utf8Format(writer, "\u001b[38;5;246m{0}|{1}|", DateTime.Now, info.LogLevel);
                         }
-                        else if (!info.CategoryName.StartsWith("DatabaseMySqlEf")) // your application namespace.
+                        else if (!info.CategoryName.StartsWith("DatabaseSqliteEf")) // your application namespace.
                         {
                             // dim coloring
                             ZString.Utf8Format(writer, "\u001b[38;5;08m{0}|{1}|", DateTime.Now, info.LogLevel);

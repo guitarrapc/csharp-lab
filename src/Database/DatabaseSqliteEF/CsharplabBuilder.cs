@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Reflection;
 
-namespace DatabaseMySqlEf;
+namespace DatabaseSqliteEf;
 public interface ICsharplabBuilder
 {
     IServiceCollection Services { get; }
