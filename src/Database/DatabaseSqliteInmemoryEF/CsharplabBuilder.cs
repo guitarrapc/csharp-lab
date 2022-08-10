@@ -94,7 +94,7 @@ public class DatabaseInitializeHostedService : IHostedService
     public DatabaseInitializeHostedService(IServiceProvider serviceProvider)
     {
         using var scope = serviceProvider.CreateScope();
-        scope.ServiceProvider.GetRequiredService<BloggingDbContext>().Database.EnsureCreated();
+        scope.ServiceProvider.GetRequiredService<BloggingDbContext>().Database.EnsureCreated(); // Run migration.
     }
 
     public Task StartAsync(CancellationToken cancellationToken)
