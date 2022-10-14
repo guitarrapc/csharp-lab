@@ -1,6 +1,5 @@
 name: "To Lowercase"
-description: |
-  Lowercase output
+description: Lowercase output
 inputs:
   project:
     description: "project name"
@@ -16,12 +15,12 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - id: repository
-      uses: ASzc/change-string-case-action@v2
-      with:
-        string: ${{ github.repository }}
+    - name: repository lowercase
+      run: echo "lowercase=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')" >> "$GITHUB_OUTPUT"
+      id: repository
+      shell: bash
 
-    - id: project
-      uses: ASzc/change-string-case-action@v2
-      with:
-        string: ${{ inputs.project }}
+    - name: project lowercase
+      run: echo "lowercase=$(echo '${{ inputs.project }}' | tr '[:upper:]' '[:lower:]')" >> "$GITHUB_OUTPUT"
+      id: project
+      shell: bash
