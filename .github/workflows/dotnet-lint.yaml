@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: guitarrapc/actions/.github/workflows/reusable-dotnet-lint
+      - uses: guitarrapc/actions/.github/workflows/reusable-dotnet-lint@main
