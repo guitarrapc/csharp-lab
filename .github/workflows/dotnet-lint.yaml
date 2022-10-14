@@ -24,7 +24,7 @@ jobs:
       - name: Obtain csproj to lint
         run: |
           projects=$(dotnet sln list | tail -n +3)
-          if [[ "" == "" ]]; then
+          if [[ "${{ env.IGNORE_CSPROJ }}" == "" ]]; then
             projects=$(echo "$projects" | grep -v "${{ env.IGNORE_CSPROJ }}")
           fi
           format_projects=$(echo "$projects" | sort | xargs -n 1 echo '  *')
@@ -47,7 +47,7 @@ jobs:
       # dotnet format is build-in from dotnet 6.0 sdk
       - name: Dotnet Format
         run: |
-          for csproj in ${{ env.PROJECTS }}; do
+          echo "${{ env.PROJECTS}}" | while IFS= read -r csproj; do
             dotnet format "$csproj" --verbosity diagnostic --exclude "console-fail-tests"
           done
         working-directory: ${{ env.SLN_ROOT }}
