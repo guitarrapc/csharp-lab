@@ -4,6 +4,12 @@ on:
   workflow_dispatch:
   schedule:
     - cron: 0 1 * * 1 # At AM10:00 JST on Monday
+  pull_request:
+    branches:
+      - main
+    paths:
+      - src/**/*.cs
+      - src/**/*.cshtml
 
 env:
   SLN_ROOT: .
