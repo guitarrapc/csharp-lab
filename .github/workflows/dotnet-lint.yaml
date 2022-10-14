@@ -7,7 +7,4 @@ on:
 
 jobs:
   lint_csharp:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - uses: guitarrapc/actions/.github/workflows/reusable-dotnet-lint@main
+    uses: guitarrapc/actions/.github/workflows/reusable-dotnet-lint.yaml@main
