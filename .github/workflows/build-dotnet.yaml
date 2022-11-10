@@ -32,3 +32,9 @@ jobs:
         run: dotnet test -c ${{ env.BUILD_CONFIG }} --logger GitHubActions
       - name: dotnet publish
         run: dotnet publish -c ${{ env.BUILD_CONFIG }}
+      - name: ls
+        run: ls -l csharp-lab/src/LinuxBuild/WpfApp/bin/Release/net7.0-windows/publish
+      - uses: actions/upload-artifact@v3
+        with:
+          name: WpfApp
+          path: csharp-lab/src/LinuxBuild/WpfApp/bin/Release/net7.0-windows/publish
