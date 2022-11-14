@@ -8,3 +8,7 @@ on:
 jobs:
   lint_csharp:
     uses: guitarrapc/actions/.github/workflows/reusable-dotnet-lint.yaml@main
+    with:
+      dotnet-version: |
+        6.0.x
+        7.0.x
