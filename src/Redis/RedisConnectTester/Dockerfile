@@ -5,10 +5,10 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Redis/RedisConnectTester/RedisConnectTester.csproj", "Redis/RedisConnectTester/"]
-RUN dotnet restore "Redis/RedisConnectTester/RedisConnectTester.csproj"
+COPY ["src/Redis/RedisConnectTester/RedisConnectTester.csproj", "src/Redis/RedisConnectTester/"]
+RUN dotnet restore "src/Redis/RedisConnectTester/RedisConnectTester.csproj"
 COPY . .
-WORKDIR "/src/Redis/RedisConnectTester"
+WORKDIR "/src/src/Redis/RedisConnectTester"
 RUN dotnet build "RedisConnectTester.csproj" -c Release -o /app/build
 
 FROM build AS publish
