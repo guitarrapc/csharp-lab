@@ -9,7 +9,7 @@ const string ENV_KEY_KEY_PREFIX = "REDIS_KEY_PREFIX";
 
 // Get Redis settings from env var.
 var connectionStrings = Environment.GetEnvironmentVariable(ENV_KEY_CONNECTIONSTRINGS, EnvironmentVariableTarget.Process);
-var prefix = Environment.GetEnvironmentVariable(ENV_KEY_KEY_PREFIX, EnvironmentVariableTarget.Process) ?? "RedisConectTester";
+var prefix = Environment.GetEnvironmentVariable(ENV_KEY_KEY_PREFIX, EnvironmentVariableTarget.Process) ?? "RedisConectTester-";
 if (string.IsNullOrEmpty(connectionStrings))
 {
     throw new ArgumentNullException($"Environment Variable '{nameof(ENV_KEY_CONNECTIONSTRINGS)}' was empty. Please set and retry.");
@@ -20,7 +20,7 @@ var db = ConnectRedis(connectionStrings, prefix);
 
 // Set and Get
 using var cts = new CancellationTokenSource(TimeSpan.FromMinutes(60));
-while (cts.IsCancellationRequested)
+while (!cts.IsCancellationRequested)
 {
     var key = $"foo-{Random.Shared.Next()}";
     db.StringSet(key, "bar", TimeSpan.FromMinutes(10));
