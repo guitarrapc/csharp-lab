@@ -42,18 +42,16 @@ while (!cts.IsCancellationRequested)
 
 string CreateConnectionStrings(string? host, bool ssl, string? sslHost, string? password, string? user, string? other)
 {
-    var maskedBuilder = new StringBuilder();
-    var builder = new StringBuilder();
-
-    var connectionStrings = Create(builder, isMasked: false, host, ssl, sslHost, password, user, other);
-    var maskedConnectionStrings = Create(builder, isMasked: true, host, ssl, sslHost, password, user, other);
+    var connectionStrings = Create(isMasked: false, host, ssl, sslHost, password, user, other);
+    var maskedConnectionStrings = Create(isMasked: true, host, ssl, sslHost, password, user, other);
 
     Console.WriteLine($"RedisConnectTester - ConnectionStrings: {maskedConnectionStrings}");
 
     return connectionStrings;
 
-    static string Create(StringBuilder builder, bool isMasked, string? host, bool ssl, string? sslHost, string? password, string? user, string? other)
+    static string Create(bool isMasked, string? host, bool ssl, string? sslHost, string? password, string? user, string? other)
     {
+        var builder = new StringBuilder();
         builder.Append(host);
         builder.Append($",ssl={ssl}");
         if (ssl)
