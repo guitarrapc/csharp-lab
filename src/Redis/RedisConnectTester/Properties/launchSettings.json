@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "RedisConnectTester": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

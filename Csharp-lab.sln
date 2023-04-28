@@ -87,9 +87,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Threads", "Threads", "{CD4C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadsPoolConsoleApp", "src\Threads\ThreadsPoolConsoleApp\ThreadsPoolConsoleApp.csproj", "{2F969A40-E905-47CE-BE0E-50135B394E24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp", "src\LinuxBuild\WpfApp\WpfApp.csproj", "{FF67F2C9-97AA-48E9-ADF8-369B931A58F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfApp", "src\LinuxBuild\WpfApp\WpfApp.csproj", "{FF67F2C9-97AA-48E9-ADF8-369B931A58F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfLibrary", "src\LinuxBuild\WpfLibrary\WpfLibrary.csproj", "{72D5F61E-6633-4C69-9924-D42A60149194}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfLibrary", "src\LinuxBuild\WpfLibrary\WpfLibrary.csproj", "{72D5F61E-6633-4C69-9924-D42A60149194}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Redis", "Redis", "{3910F58C-6DEB-4C30-8B10-B9DA74B58225}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedisConnectTester", "src\Redis\RedisConnectTester\RedisConnectTester.csproj", "{54022F3F-FDE2-4852-859E-7923BC96086C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -217,6 +221,10 @@ Global
 		{72D5F61E-6633-4C69-9924-D42A60149194}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72D5F61E-6633-4C69-9924-D42A60149194}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72D5F61E-6633-4C69-9924-D42A60149194}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54022F3F-FDE2-4852-859E-7923BC96086C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54022F3F-FDE2-4852-859E-7923BC96086C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54022F3F-FDE2-4852-859E-7923BC96086C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54022F3F-FDE2-4852-859E-7923BC96086C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -252,6 +260,7 @@ Global
 		{2F969A40-E905-47CE-BE0E-50135B394E24} = {CD4C50BE-ADE6-4F81-BC14-805278D7ACAC}
 		{FF67F2C9-97AA-48E9-ADF8-369B931A58F3} = {6FE650EA-B401-4C83-9C41-FD7FC5D1288C}
 		{72D5F61E-6633-4C69-9924-D42A60149194} = {6FE650EA-B401-4C83-9C41-FD7FC5D1288C}
+		{54022F3F-FDE2-4852-859E-7923BC96086C} = {3910F58C-6DEB-4C30-8B10-B9DA74B58225}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6AD43C70-ADE6-43C4-A90D-F4E7CB0BD2F9}
