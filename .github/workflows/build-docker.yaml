@@ -69,6 +69,9 @@ jobs:
           - project: LoggerWorker
             dockerfile: ./src/Logger/LoggerWorker/Dockerfile
             tag: logger
+          - project: RedisConnectTester
+            dockerfile: ./src/Redis/RedisConnectTester/Dockerfile
+            tag: redis
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
