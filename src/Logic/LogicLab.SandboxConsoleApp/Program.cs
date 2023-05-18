@@ -4,6 +4,7 @@ Console.WriteLine($"SandboxConsoleApp running.");
 
 var sw = ValueStopwatch.StartNew();
 
+Console.WriteLine("  - ExponentialBackoff sample.");
 // Exponential Backoff. begin delay fro 1000ms, exponential max to 5000ms, max retry 10, timeout is 20s
 await LogicLab.SandboxExponentialBackoff.RunAsync(1000, 5000, 10, TimeSpan.FromSeconds(20));
 // Result.
@@ -15,4 +16,9 @@ await LogicLab.SandboxExponentialBackoff.RunAsync(1000, 5000, 10, TimeSpan.FromS
 // [19/05/2023 00:25:47] retries: 6, diff: 4005
 // timeout reached.                             <- 20s is too short before retying 10 times.
 
-Console.WriteLine($"Stopwatch Elapsted {sw.GetElapsedTime()}");
+Console.WriteLine($"  - ValueStopwatch Elapsted {sw.GetElapsedTime()}");
+
+Console.WriteLine($"  - String Reverse.");
+var input = StringReverse.GenerateText();
+var reverse = new StringReverse();
+Console.WriteLine($"    * {input} -> {reverse.ArrayReverseString(input)}");

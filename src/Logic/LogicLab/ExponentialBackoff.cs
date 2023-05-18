@@ -44,7 +44,7 @@ public static class SandboxExponentialBackoff
             do
             {
                 await exponentialBackoff.DelayAsync(cts.Token);
-                Console.WriteLine($"[{DateTime.Now}] retries: {exponentialBackoff.Retries}, diff: {(int)(sw.Elapsed.TotalMilliseconds - prev)}");
+                Console.WriteLine($"[{DateTime.Now}] retries: {exponentialBackoff.Retries}, diff: {(int)(sw.Elapsed.TotalMilliseconds - prev)}ms");
                 prev = sw.ElapsedMilliseconds;
             }
             while (retries++ < retry);
