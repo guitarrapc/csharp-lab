@@ -35,7 +35,7 @@ jobs:
             6.0.x
             7.0.x
       - name: dotnet build
-        run: dotnet build -c ${{ env.BUILD_CONFIG }}
+        run: dotnet build ${{ matrix.csproj }} -c ${{ env.BUILD_CONFIG }}
       - name: Run benchmark
         run: |
           dotnet run --project ${{ matrix.csproj }} -c ${{ env.BUILD_CONFIG }}
