@@ -73,7 +73,7 @@ jobs:
             dockerfile: ./src/Redis/RedisConnectTester/Dockerfile
             tag: redis
           - project: LogicLab.Benchmark
-            dockerfile: ./src/LogicLab/LogicLab.Benchmark/Dockerfile
+            dockerfile: ./src/Logic/LogicLab.Benchmark/Dockerfile
             tag: logiclab
     runs-on: ubuntu-latest
     timeout-minutes: 10

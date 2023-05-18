@@ -23,7 +23,7 @@ jobs:
           - project: Logger.Benchmark
             csproj: ./src/Logger/Logger.Benchmark/Logger.Benchmark.csproj
           - project: LogicLab.Benchmark
-            csproj: ./src/Logger/LogicLab/LogicLab.Benchmark.csproj
+            csproj: ./src/Logic/LogicLab.Benchmark/LogicLab.Benchmark.csproj
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
