@@ -2,12 +2,12 @@ using BenchmarkDotNet.Attributes;
 using LogicLab;
 using System.Diagnostics;
 
-namespace Logic.Benchmark;
+namespace LogicLab.Benchmark;
 
 [ShortRunJob]
 [MemoryDiagnoser]
 [MinColumn, MaxColumn]
-public class StopwatchBenchmarks
+public class Benchmarks
 {
     [Benchmark]
     public void StopwatchDefault()
@@ -28,13 +28,7 @@ public class StopwatchBenchmarks
             _ = sw.GetElapsedTime().TotalSeconds;
         }
     }
-}
 
-[ShortRunJob]
-[MemoryDiagnoser]
-[MinColumn, MaxColumn]
-public class ExponentialBackoffBenchmarks
-{
     [Benchmark]
     public async Task ExponentialBackoff()
     {
