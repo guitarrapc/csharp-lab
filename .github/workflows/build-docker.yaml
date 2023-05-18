@@ -60,8 +60,8 @@ jobs:
           - project: GrpcAspNetCore60.HealthCheckSupport
             dockerfile: ./src/Grpc/GrpcAspNetCore60.HealthCheckSupport/Dockerfile
             tag: grpc
-          - project: LoggerBenchmark
-            dockerfile: ./src/Logger/LoggerBenchmark/Dockerfile
+          - project: Logger.Benchmark
+            dockerfile: ./src/Logger/Logger.Benchmark/Dockerfile
             tag: logger
           - project: LoggerBlazorApp
             dockerfile: ./src/Logger/LoggerBlazorApp/Dockerfile

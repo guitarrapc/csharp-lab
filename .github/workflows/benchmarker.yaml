@@ -19,10 +19,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["LoggerBenchmark"]
         include:
-          - project: LoggerBenchmark
-            csproj: ./src/Logger/LoggerBenchmark/LoggerBenchmark.csproj
+          - project: Logger.Benchmark
+            csproj: ./src/Logger/Logger.Benchmark/Logger.Benchmark.csproj
+          - project: LogicLab.Benchmark
+            csproj: ./src/Logger/LogicLab/LogicLab.Benchmark.csproj
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
