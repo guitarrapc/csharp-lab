@@ -1,3 +1,3 @@
 using BenchmarkDotNet.Running;
 
-var summary = BenchmarkRunner.Run<LogicLab.Benchmark.Benchmarks>();
+var summary = BenchmarkRunner.Run(typeof(Program).Assembly);
