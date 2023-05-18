@@ -5,17 +5,17 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["src/Logger/LoggerBenchmark/LoggerBenchmark.csproj", "src/Logger/LoggerBenchmark/"]
+COPY ["src/Logger/Logger.Benchmark/Logger.Benchmark.csproj", "src/Logger/Logger.Benchmark/"]
 COPY ["src/Logger/LoggerDefault/LoggerDefault.csproj", "src/Logger/LoggerDefault/"]
-RUN dotnet restore "src/Logger/LoggerBenchmark/LoggerBenchmark.csproj"
+RUN dotnet restore "src/Logger/Logger.Benchmark/Logger.Benchmark.csproj"
 COPY . .
-WORKDIR "/src/src/Logger/LoggerBenchmark"
-RUN dotnet build "LoggerBenchmark.csproj" -c Release -o /app/build
+WORKDIR "/src/src/Logger/Logger.Benchmark"
+RUN dotnet build "Logger.Benchmark.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "LoggerBenchmark.csproj" -c Release -o /app/publish
+RUN dotnet publish "Logger.Benchmark.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "LoggerBenchmark.dll"]
+ENTRYPOINT ["dotnet", "Logger.Benchmark.dll"]

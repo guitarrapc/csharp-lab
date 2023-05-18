@@ -4,12 +4,11 @@ public static class AppThreadPool
 {
     /// <summary>
     /// Configure Thread pool.
+    /// DO NOT Set minimum ThreadPool to be max thread size. Too much size cause severe condition on High request scenario.
     /// </summary>
-    public static void Configure()
+    public static void Configure(int minThreads = 200, int maxThreads = 200)
     {
-        // Set minimum ThreadPool to be max size. (it not means creat thread.)
-        ThreadPool.GetMaxThreads(out var workerThreads, out var completionThreads);
-        ThreadPool.SetMinThreads(workerThreads, completionThreads);
+        ThreadPool.SetMinThreads(minThreads, maxThreads);
     }
 
     public static void ShowCurrent()

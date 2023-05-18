@@ -26,6 +26,7 @@ var prefix = Environment.GetEnvironmentVariable(ENV_KEY_KEY_PREFIX, EnvironmentV
 
 // Connect Redis
 var connectionStrings = CreateConnectionStrings(connectionHost, connectionSsl, connectionSslHost, connectionPassword, connectionUser, connectionOther);
+Console.WriteLine($"ConnectionStrings => {connectionStrings}");
 var db = ConnectRedis(connectionStrings, prefix);
 
 // Set and Get

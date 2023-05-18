@@ -19,10 +19,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["LoggerBenchmark"]
         include:
-          - project: LoggerBenchmark
-            csproj: ./src/Logger/LoggerBenchmark/LoggerBenchmark.csproj
+          - project: Logger.Benchmark
+            csproj: ./src/Logger/Logger.Benchmark/Logger.Benchmark.csproj
+          - project: LogicLab.Benchmark
+            csproj: ./src/Logic/LogicLab.Benchmark/LogicLab.Benchmark.csproj
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -34,8 +35,10 @@ jobs:
             6.0.x
             7.0.x
       - name: dotnet build
-        run: dotnet build -c ${{ env.BUILD_CONFIG }}
+        run: dotnet build ${{ matrix.csproj }} -c ${{ env.BUILD_CONFIG }}
       - name: Run benchmark
         run: |
           dotnet run --project ${{ matrix.csproj }} -c ${{ env.BUILD_CONFIG }}
-          cat ./BenchmarkDotNet.Artifacts/results/${{ matrix.project }}.Benchmarks-report-github.md >> "$GITHUB_STEP_SUMMARY"
+          for file in $(find "./BenchmarkDotNet.Artifacts/results" -name "*.md" -type f); do
+            cat $file >> "$GITHUB_STEP_SUMMARY"
+          done
