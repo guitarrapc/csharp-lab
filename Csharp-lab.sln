@@ -101,6 +101,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logger.Benchmark", "src\Log
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicLab.SandboxConsoleApp", "src\Logic\LogicLab.SandboxConsoleApp\LogicLab.SandboxConsoleApp.csproj", "{90263CE2-B9AF-42B9-9874-4665CBB09817}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MemoryLeak", "MemoryLeak", "{EFFE7670-AD3D-4CE5-9407-397CB134899A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "src\MemoryLeak\MemoryLeakApi\WebApplication1\WebApplication1.csproj", "{4A83CAE8-2120-4669-B83D-8591431A2E1F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -243,6 +247,10 @@ Global
 		{90263CE2-B9AF-42B9-9874-4665CBB09817}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90263CE2-B9AF-42B9-9874-4665CBB09817}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90263CE2-B9AF-42B9-9874-4665CBB09817}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A83CAE8-2120-4669-B83D-8591431A2E1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A83CAE8-2120-4669-B83D-8591431A2E1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A83CAE8-2120-4669-B83D-8591431A2E1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A83CAE8-2120-4669-B83D-8591431A2E1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -282,6 +290,7 @@ Global
 		{443680F6-148A-47C5-9AB8-6E1AC6E54D22} = {0778B89C-4D53-468D-AB7A-C05D04238C05}
 		{74016C58-4AC6-4374-B866-C53E5A094CCB} = {A60DE0A8-D3F7-4BCF-B5C6-A59D03E99151}
 		{90263CE2-B9AF-42B9-9874-4665CBB09817} = {0778B89C-4D53-468D-AB7A-C05D04238C05}
+		{4A83CAE8-2120-4669-B83D-8591431A2E1F} = {EFFE7670-AD3D-4CE5-9407-397CB134899A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6AD43C70-ADE6-43C4-A90D-F4E7CB0BD2F9}
