@@ -18,7 +18,6 @@ public class MemoryAllocator : IDisposable
     private readonly List<byte[]> arrayBags = new();
     private readonly List<PooledArray> pooledArrayBags = new();
     private readonly List<byte[]> allocateArrayBags = new();
-    private readonly object gate = new object();
 
     private readonly RequestCountHandler request;
 
@@ -117,14 +116,26 @@ public class MemoryAllocator : IDisposable
     /// </summary>
     public void Clear()
     {
-        lock (gate)
-        {
-            request?.Reset();
+        request?.Reset();
 
+        lock (staticStringBags)
+        {
             staticStringBags.Clear();
+        }
+        lock (stringBags)
+        {
             stringBags.Clear();
+        }
+        lock (arrayBags)
+        {
             arrayBags.Clear();
+        }
+        lock (allocateArrayBags)
+        {
             allocateArrayBags.Clear();
+        }
+        lock (pooledArrayBags)
+        {
             foreach (var pooledArray in pooledArrayBags)
             {
                 pooledArray.Return();
