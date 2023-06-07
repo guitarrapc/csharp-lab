@@ -11,13 +11,14 @@ public enum RequestReachedAction
 
 public class MemoryAllocator : IDisposable
 {
-    private static readonly ConcurrentBag<string> staticStringBags = new ();
+    private static readonly ConcurrentBag<string> staticStringBags = new();
 
     // NOTE: Don't use ConcurrentBag, it allocates memory when Add(T).
-    private readonly List<string> stringBags = new ();
-    private readonly List<byte[]> arrayBags = new ();
+    private readonly List<string> stringBags = new();
+    private readonly List<byte[]> arrayBags = new();
     private readonly List<PooledArray> pooledArrayBags = new();
     private readonly List<byte[]> allocateArrayBags = new();
+    private readonly object gate = new object();
 
     private readonly RequestCountHandler request;
 
@@ -45,7 +46,10 @@ public class MemoryAllocator : IDisposable
         request?.Increment();
 
         var str = new string('x', size);
-        staticStringBags.Add(str);
+        lock (staticStringBags)
+        {
+            staticStringBags.Add(str);
+        }
     }
 
     /// <summary>
@@ -57,7 +61,10 @@ public class MemoryAllocator : IDisposable
         request?.Increment();
 
         var str = new string('y', size);
-        stringBags.Add(str);
+        lock (stringBags)
+        {
+            stringBags.Add(str);
+        }
     }
 
     /// <summary>
@@ -69,7 +76,10 @@ public class MemoryAllocator : IDisposable
         request?.Increment();
 
         var array = new byte[size];
-        arrayBags.Add(array);
+        lock (arrayBags)
+        {
+            arrayBags.Add(array);
+        }
     }
 
     /// <summary>
@@ -81,7 +91,10 @@ public class MemoryAllocator : IDisposable
         request?.Increment();
 
         var array = GC.AllocateArray<byte>(size);
-        allocateArrayBags.Add(array);
+        lock (allocateArrayBags)
+        {
+            allocateArrayBags.Add(array);
+        }
     }
 
     /// <summary>
@@ -93,7 +106,10 @@ public class MemoryAllocator : IDisposable
         request?.Increment();
 
         var array = new PooledArray(size);
-        pooledArrayBags.Add(array);
+        lock (pooledArrayBags)
+        {
+            pooledArrayBags.Add(array);
+        }
     }
 
     /// <summary>
@@ -101,17 +117,20 @@ public class MemoryAllocator : IDisposable
     /// </summary>
     public void Clear()
     {
-        request?.Reset();
-
-        staticStringBags.Clear();
-        stringBags.Clear();
-        arrayBags.Clear();
-        allocateArrayBags.Clear();
-        foreach (var pooledArray in pooledArrayBags)
+        lock (gate)
         {
-            pooledArray.Return();
+            request?.Reset();
+
+            staticStringBags.Clear();
+            stringBags.Clear();
+            arrayBags.Clear();
+            allocateArrayBags.Clear();
+            foreach (var pooledArray in pooledArrayBags)
+            {
+                pooledArray.Return();
+            }
+            pooledArrayBags.Clear();
         }
-        pooledArrayBags.Clear();
     }
 
     /// <summary>
