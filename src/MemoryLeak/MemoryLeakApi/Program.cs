@@ -13,11 +13,8 @@ app.MapGet("/alloc_static", (HttpRequest request) => allocator.AllocateStaticStr
 app.MapGet("/alloc_str", (HttpRequest request) => allocator.AllocateString(GetSize(request.Query, 5120))); // 10KB
 app.MapGet("/alloc_loh", (HttpRequest request) => allocator.AllocateLoH(GetSize(request.Query, 10240))); // 10KB
 app.MapGet("/alloc_pool", (HttpRequest request) => allocator.AllocateArrayPoolArray(GetSize(request.Query, 8192))); // 10KB
-app.MapGet("/clear", () => allocator.Clear());
-app.MapGet("/gc", () => {
-    GC.Collect();
-    GC.Collect();
-});
+app.MapGet("/clear", () => allocator.Clear()); // no GC, just Clear
+app.MapGet("/gc", () => allocator.Collect()); // Clear and GC
 
 app.Run();
 

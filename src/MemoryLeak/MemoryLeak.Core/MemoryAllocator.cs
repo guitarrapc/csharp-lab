@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
 
 namespace MemoryLeak.Core;
-public class MemoryAllocator : IDisposable
+public class MemoryAllocator
 {
     private static readonly ConcurrentBag<string> staticStringBags = new ();
 
@@ -61,11 +61,11 @@ public class MemoryAllocator : IDisposable
         pooledArrayBags.Clear();
     }
 
-    public void Dispose()
+    public void Collect()
     {
         Clear();
 
-        GC.Collect();
-        GC.Collect(); // GC incremented generation
+        GC.Collect(2, GCCollectionMode.Forced, true, true); // Full GC Collection == Force GC, Blocking and compacting
+        GC.Collect(2, GCCollectionMode.Forced, true, true); // GC incremented generation, run another Full GC Collection.
     }
 }
