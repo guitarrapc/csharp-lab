@@ -69,12 +69,18 @@ jobs:
           - project: LoggerWorker
             dockerfile: ./src/Logger/LoggerWorker/Dockerfile
             tag: logger
-          - project: RedisConnectTester
-            dockerfile: ./src/Redis/RedisConnectTester/Dockerfile
-            tag: redis
           - project: LogicLab.Benchmark
             dockerfile: ./src/Logic/LogicLab.Benchmark/Dockerfile
             tag: logiclab
+          - project: MemoryLeak.Api
+            dockerfile: ./src/MemoryLeak/MemoryLeak.Api/Dockerfile
+            tag: memoryleak
+          - project: MemoryLeak.Benchmark
+            dockerfile: ./src/MemoryLeak/MemoryLeak.Benchmark/Dockerfile
+            tag: memoryleak
+          - project: RedisConnectTester
+            dockerfile: ./src/Redis/RedisConnectTester/Dockerfile
+            tag: redis
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

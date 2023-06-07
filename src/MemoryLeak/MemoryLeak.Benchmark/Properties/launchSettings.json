@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MemoryLeak.Benchmark": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
