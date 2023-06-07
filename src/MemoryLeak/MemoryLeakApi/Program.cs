@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 var app = builder.Build();
-var allocator = new MemoryAllocator();
+using var allocator = new MemoryAllocator();
 
 // Configure the HTTP request pipeline.
 app.MapGet("/", (HttpRequest request) => allocator.AllocateStaticString(5120)); // 10KB
