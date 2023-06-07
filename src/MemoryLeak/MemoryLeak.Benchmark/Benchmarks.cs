@@ -1,5 +1,6 @@
 using BenchmarkDotNet.Attributes;
 using MemoryLeak.Core;
+using System.Buffers;
 
 namespace MemoryLeak.Benchmark;
 
@@ -7,8 +8,9 @@ namespace MemoryLeak.Benchmark;
 [MemoryDiagnoser]
 public class MemoryLeakBenchmarks : IDisposable
 {
-    [Params(10, 100)]
+    [Params(10)]
     public int N;
+
     private readonly MemoryAllocator _allocator;
 
     public MemoryLeakBenchmarks()
@@ -62,20 +64,80 @@ public class MemoryLeakBenchmarks : IDisposable
     }
 
     [Benchmark]
-    public void AllocateArrayPoolArray()
+    public void AllocateArray()
     {
-        // _allocator.AllocateArrayPoolArray(1024); // 1KB
-        // _allocator.AllocateArrayPoolArray(2048); // 2KB
-        // _allocator.AllocateArrayPoolArray(4096); // 4KB
-        // _allocator.AllocateArrayPoolArray(2048 + 4096); // 8KB
-        // _allocator.AllocateArrayPoolArray(8192); // 8KB
-        // _allocator.AllocateArrayPoolArray(10240); // 16KB
-        // _allocator.AllocateArrayPoolArray(10240 * 2); // 32KB
+        //_allocator.AllocateArray(1024); // 1KB
+        //_allocator.AllocateArray(10240); // 10KB
+        //_allocator.AllocateArray(10240 * 2); // 20KB
 
         for (var i = 0; i < N; i++)
         {
-            _allocator.AllocateArrayPoolArray(2048); // 2KB
-            _allocator.AllocateArrayPoolArray(8192); // 8KB
+            _allocator.AllocateArray(10240); // 10KB * 10
         }
+    }
+
+    [Benchmark]
+    public void AllocateArrayPool()
+    {
+        // _allocator.AllocateArrayPool(1024); // 1KB
+        // _allocator.AllocateArrayPool(2048); // 2KB
+        // _allocator.AllocateArrayPool(4096); // 4KB
+        // _allocator.AllocateArrayPool(2048 + 4096); // 8KB
+        // _allocator.AllocateArrayPool(8192); // 8KB
+        // _allocator.AllocateArrayPool(10240); // 16KB
+        // _allocator.AllocateArrayPool(10240 * 2); // 32KB
+
+        for (var i = 0; i < N; i++)
+        {
+            _allocator.AllocateArrayPool(2048); // 2KB
+            _allocator.AllocateArrayPool(8192); // 8KB
+        }
+    }
+}
+
+[ShortRunJob]
+[MemoryDiagnoser]
+public class NoAllocMemoryLeakBenchmarks
+{
+    [Params(10)]
+    public int N;
+
+    private readonly MemoryAllocator _allocator;
+    private readonly List<byte[]> _returnRentBags;
+
+    public NoAllocMemoryLeakBenchmarks()
+    {
+        _allocator = new MemoryAllocator();
+        _returnRentBags = new List<byte[]>();
+    }
+
+    [Benchmark]
+    public void RentReturn()
+    {
+        var pool = ArrayPool<byte>.Shared;
+        for (var i = 0; i < N; i++)
+        {
+            var array = pool.Rent(8192);
+            _returnRentBags.Add(array);
+        }
+
+        foreach (var array in _returnRentBags)
+        {
+            pool.Return(array);
+        }
+
+        _returnRentBags.Clear();
+    }
+
+    [Benchmark]
+    public void AllocateArrayPool()
+    {
+        for (var i = 0; i < N; i++)
+        {
+            _allocator.AllocateArrayPool(2048); // 2KB
+            _allocator.AllocateArrayPool(8192); // 8KB
+        }
+
+        _allocator.Clear();
     }
 }
