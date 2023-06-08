@@ -5,6 +5,7 @@ namespace LogicLab.Tests;
 
 public class ExponentialBackoffTest
 {
+    // Almost stable, but delay's randomness happen on poor machine like GitHub Actions CI. Retry cover this situation.
     [RetryTheory]
     [InlineData(30, 500, new[] { 30.0, 60.0, 120.0, 240.0, 480.0, 500.0, 500.0 })]
     public async Task ExponentialBackOff30Test(int delayMs, int maxDelayMs, double[] expected)
@@ -23,6 +24,7 @@ public class ExponentialBackoffTest
         }
     }
 
+    // Almost stable, but delay's randomness happen on poor machine like GitHub Actions CI. Retry cover this situation.
     [RetryTheory]
     [InlineData(100, 1000, new[] { 100.0, 200.0, 400.0, 800.0, 1000.0, 1000.0 })]
     public async Task ExponentialBackOff100Test(int delayMs, int maxDelayMs, double[] expected)

@@ -5,6 +5,7 @@ namespace LogicLab.Tests;
 
 public class ValueStopwatchTest
 {
+    // Almost stable, but delay's randomness happen on poor machine like GitHub Actions CI. Retry cover this situation.
     [RetryTheory]
     [InlineData(new[] { 100.0, 100.0, 100.0, 100.0 })]
     public async Task StopwatchElapsedTest(double[] expected)
@@ -22,6 +23,7 @@ public class ValueStopwatchTest
         }
     }
 
+    // Almost stable, but delay's randomness happen on poor machine like GitHub Actions CI. Retry cover this situation.
     [RetryTheory]
     [InlineData(new[] { 100.0, 100.0, 100.0, 100.0 })]
     public async Task ValueStopwatchElapsedTest(double[] expected)
