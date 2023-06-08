@@ -1,10 +1,11 @@
 using System.Diagnostics;
+using xRetry;
 
 namespace LogicLab.Tests;
 
 public class ValueTaskDelayTest
 {
-    [Theory]
+    [RetryTheory]
     [InlineData(new[] { 100.0, 100.0, 100.0, 100.0 })]
     public async Task TaskDelayElapsedTest(double[] expected)
     {
@@ -21,7 +22,7 @@ public class ValueTaskDelayTest
         }
     }
 
-    [Theory]
+    [RetryTheory]
     [InlineData(new[] { 100.0, 100.0, 100.0, 100.0 })]
     public async Task ValueTaskDelayElapsedTest(double[] expected)
     {

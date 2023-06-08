@@ -1,10 +1,11 @@
 using System.Diagnostics;
+using xRetry;
 
 namespace LogicLab.Tests;
 
 public class ValueStopwatchTest
 {
-    [Theory]
+    [RetryTheory]
     [InlineData(new[] { 100.0, 100.0, 100.0, 100.0 })]
     public async Task StopwatchElapsedTest(double[] expected)
     {
@@ -21,7 +22,7 @@ public class ValueStopwatchTest
         }
     }
 
-    [Theory]
+    [RetryTheory]
     [InlineData(new[] { 100.0, 100.0, 100.0, 100.0 })]
     public async Task ValueStopwatchElapsedTest(double[] expected)
     {

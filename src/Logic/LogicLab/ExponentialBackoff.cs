@@ -37,7 +37,7 @@ public static class SandboxExponentialBackoff
         try
         {
             using var cts = new CancellationTokenSource(timeout); // whole limit second
-            var retries = 0;
+            var retries = 1;
             var exponentialBackoff = new ExponentialBackoff(delayMs, maxDelayMs);
             var sw = Stopwatch.StartNew();
             long prev = 0;
@@ -53,5 +53,7 @@ public static class SandboxExponentialBackoff
         {
             Console.WriteLine("timeout reached.");
         }
+
+        Console.WriteLine("completed.");
     }
 }
