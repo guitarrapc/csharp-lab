@@ -13,9 +13,19 @@ on:
   push:
     branches:
       - "main"
+    paths-ignore:
+      - "*.md"
+      - ".editorconfig"
+      - ".gitignore"
+      - ".gitattributes"
   pull_request:
     branches:
       - "main"
+    paths-ignore:
+      - "*.md"
+      - ".editorconfig"
+      - ".gitignore"
+      - ".gitattributes"
 
 env:
   DOCKER_BUILDKIT: "1"
