@@ -4,41 +4,37 @@ namespace LogicLab.Tests;
 
 public class ValueStopwatchTest
 {
-    [Fact]
-    public async Task StopwatchElapsedTest()
+    [Theory]
+    [InlineData(new[] { 100.0, 100.0, 100.0, 100.0 })]
+    public async Task StopwatchElapsedTest(double[] expected)
     {
-        var offset = 45; // shoganai.
+        var offset = 40; // shoganai.
         var sw = Stopwatch.StartNew();
-        Thread.Sleep(100);
-        var actual1 = sw.Elapsed.TotalMilliseconds;
-        actual1.Should().BeInRange(100, 100 + offset);
-        Thread.Sleep(100);
-        var actual2 = sw.Elapsed.TotalMilliseconds;
-        actual2.Should().BeInRange(200, 200 + offset);
-        Thread.Sleep(100);
-        var actual3 = sw.Elapsed.TotalMilliseconds;
-        actual3.Should().BeInRange(300, 300 + offset);
-        Thread.Sleep(100);
-        var actual4 = sw.Elapsed.TotalMilliseconds;
-        actual4.Should().BeInRange(400, 400 + offset);
+
+        double prev = 0;
+        for (var i = 0; i < expected.Length; i++)
+        {
+            Thread.Sleep(100);
+            var actual = sw.Elapsed.TotalMilliseconds - prev;
+            actual.Should().BeInRange(expected[i] - 5, expected[i] + offset);
+            prev = sw.ElapsedMilliseconds;
+        }
     }
 
-    [Fact]
-    public async Task ValueStopwatchElapsedTest()
+    [Theory]
+    [InlineData(new[] { 100.0, 100.0, 100.0, 100.0 })]
+    public async Task ValueStopwatchElapsedTest(double[] expected)
     {
-        var offset = 45; // shoganai.
+        var offset = 40; // shoganai.
         var sw = ValueStopwatch.StartNew();
-        Thread.Sleep(100);
-        var actual1 = sw.GetElapsedTime().TotalMilliseconds;
-        actual1.Should().BeInRange(100, 100 + offset);
-        Thread.Sleep(100);
-        var actual2 = sw.GetElapsedTime().TotalMilliseconds;
-        actual2.Should().BeInRange(200, 200 + offset);
-        Thread.Sleep(100);
-        var actual3 = sw.GetElapsedTime().TotalMilliseconds;
-        actual3.Should().BeInRange(300, 300 + offset);
-        Thread.Sleep(100);
-        var actual4 = sw.GetElapsedTime().TotalMilliseconds;
-        actual4.Should().BeInRange(400, 400 + offset);
+
+        double prev = 0;
+        for (var i = 0; i < expected.Length; i++)
+        {
+            Thread.Sleep(100);
+            var actual = sw.GetElapsedTime().TotalMilliseconds - prev;
+            actual.Should().BeInRange(expected[i] - 5, expected[i] + offset);
+            prev = sw.GetElapsedTime().TotalMilliseconds;
+        }
     }
 }
