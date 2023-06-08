@@ -7,19 +7,9 @@ on:
   push:
     branches:
       - "main"
-    paths-ignore:
-      - "*.md"
-      - ".editorconfig"
-      - ".gitignore"
-      - ".gitattributes"
   pull_request:
     branches:
       - "main"
-    paths-ignore:
-      - "*.md"
-      - ".editorconfig"
-      - ".gitignore"
-      - ".gitattributes"
 
 env:
   BUILD_CONFIG: Release
