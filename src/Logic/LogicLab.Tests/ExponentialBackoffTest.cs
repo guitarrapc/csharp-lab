@@ -11,10 +11,9 @@ public class ExponentialBackoffTest
         var offset = 40; // shoganai
         using var cts = new CancellationTokenSource(); // cancel by test
         var backoff = new ExponentialBackoff(delayMs, maxDelayMs);
-        var retry = expected.Length;
         var sw = Stopwatch.StartNew();
         long prev = 0;
-        for (var i = 0; i < retry; i++)
+        for (var i = 0; i < expected.Length; i++)
         {
             await backoff.DelayAsync(cts.Token);
             var actual = sw.Elapsed.TotalMilliseconds - prev;
@@ -30,10 +29,9 @@ public class ExponentialBackoffTest
         var offset = 40; // shoganai
         using var cts = new CancellationTokenSource(); // cancel by test
         var backoff = new ExponentialBackoff(delayMs, maxDelayMs);
-        var retry = expected.Length;
         var sw = Stopwatch.StartNew();
         long prev = 0;
-        for (var i = 0; i < retry; i++)
+        for (var i = 0; i < expected.Length; i++)
         {
             await backoff.DelayAsync(cts.Token);
             var actual = sw.Elapsed.TotalMilliseconds - prev;
