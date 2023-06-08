@@ -84,7 +84,7 @@ public class MemoryAllocator : IDisposable
     /// <summary>
     /// Allocate Array from low GC
     /// </summary>
-    /// <param name="size">2048 = 2KB, 4098 = 8KB</param>
+    /// <param name="size">102400 = 10KB</param>
     public void AllocateArray(int size)
     {
         request?.Increment();

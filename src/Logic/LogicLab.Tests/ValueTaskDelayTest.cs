@@ -3,20 +3,20 @@ using xRetry;
 
 namespace LogicLab.Tests;
 
-public class ValueStopwatchTest
+public class ValueTaskDelayTest
 {
     // Almost stable, but delay's randomness happen on poor machine like GitHub Actions CI. Retry cover this situation.
     [RetryTheory]
     [InlineData(new[] { 100.0, 100.0, 100.0, 100.0 })]
-    public async Task StopwatchElapsedTest(double[] expected)
+    public async Task TaskDelayElapsedTest(double[] expected)
     {
-        var offset = 40; // shoganai.
+        var offset = 45; // shoganai.
         var sw = Stopwatch.StartNew();
 
         double prev = 0;
         for (var i = 0; i < expected.Length; i++)
         {
-            Thread.Sleep(100);
+            await Task.Delay(100);
             var actual = sw.Elapsed.TotalMilliseconds - prev;
             actual.Should().BeInRange(expected[i] - 5, expected[i] + offset);
             prev = sw.ElapsedMilliseconds;
@@ -26,18 +26,25 @@ public class ValueStopwatchTest
     // Almost stable, but delay's randomness happen on poor machine like GitHub Actions CI. Retry cover this situation.
     [RetryTheory]
     [InlineData(new[] { 100.0, 100.0, 100.0, 100.0 })]
-    public async Task ValueStopwatchElapsedTest(double[] expected)
+    public async Task ValueTaskDelayElapsedTest(double[] expected)
     {
-        var offset = 40; // shoganai.
-        var sw = ValueStopwatch.StartNew();
+        var offset = 45; // shoganai.
+        var sw = Stopwatch.StartNew();
 
         double prev = 0;
         for (var i = 0; i < expected.Length; i++)
         {
-            Thread.Sleep(100);
-            var actual = sw.GetElapsedTime().TotalMilliseconds - prev;
+            await ValueTaskExtension.Delay(100);
+            var actual = sw.Elapsed.TotalMilliseconds - prev;
             actual.Should().BeInRange(expected[i] - 5, expected[i] + offset);
-            prev = sw.GetElapsedTime().TotalMilliseconds;
+            prev = sw.ElapsedMilliseconds;
         }
+    }
+
+    [Fact]
+    public async Task ValueTaskDelayTimeoutTest()
+    {
+        using var cts = new CancellationTokenSource(TimeSpan.FromMilliseconds(500));
+        await Assert.ThrowsAsync<OperationCanceledException>(async () => await ValueTaskExtension.Delay(TimeSpan.FromMilliseconds(1000), cts.Token));
     }
 }
