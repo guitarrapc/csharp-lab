@@ -26,7 +26,7 @@ public class ExponentialBackoffBenchmarks
 public class StopwatchBenchmarks
 {
     [Benchmark]
-    public void StopwatchDefault()
+    public void Stopwatch()
     {
         var sw = Stopwatch.StartNew();
         for (var i = 0; i < 10000; i++)
@@ -36,7 +36,7 @@ public class StopwatchBenchmarks
     }
 
     [Benchmark]
-    public void StopwatchValue()
+    public void ValueStopwatch()
     {
         var sw = ValueStopwatch.StartNew();
         for (var i = 0; i < 10000; i++)

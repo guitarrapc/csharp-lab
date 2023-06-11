@@ -1,48 +1,70 @@
-# LoggerBenchmark
+# LogicLab.Benchmark
 
-Environment
+``` ini
 
-```
-// * Summary *
-
-BenchmarkDotNet=v0.13.1, OS=Windows 10.0.22621
-AMD Ryzen 9 7950X3D, 1 CPU, 32 logical and 16 physical cores
+BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
+Intel Xeon Platinum 8370C CPU 2.80GHz, 1 CPU, 2 logical and 2 physical cores
 .NET SDK=7.0.302
-  [Host]   : .NET 6.0.16 (6.0.1623.17311), X64 RyuJIT  [AttachedDebugger]
+  [Host]   : .NET 6.0.16 (6.0.1623.17311), X64 RyuJIT
   ShortRun : .NET 6.0.16 (6.0.1623.17311), X64 RyuJIT
 
 Job=ShortRun  IterationCount=3  LaunchCount=1
 WarmupCount=3
+
 ```
+|         Method |     Mean |    Error |  StdDev |      Min |      Max | Allocated |
+|--------------- |---------:|---------:|--------:|---------:|---------:|----------:|
+|      Stopwatch | 267.6 μs | 15.90 μs | 0.87 μs | 267.1 μs | 268.6 μs |      40 B |
+| ValueStopwatch | 273.2 μs |  0.74 μs | 0.04 μs | 273.2 μs | 273.3 μs |         - |
+``` ini
 
-## ExponentialBackoff
+BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
+Intel Xeon Platinum 8370C CPU 2.80GHz, 1 CPU, 2 logical and 2 physical cores
+.NET SDK=7.0.302
+  [Host]   : .NET 6.0.16 (6.0.1623.17311), X64 RyuJIT
+  ShortRun : .NET 6.0.16 (6.0.1623.17311), X64 RyuJIT
 
-10 runs.
+Job=ShortRun  IterationCount=3  LaunchCount=1
+WarmupCount=3
 
+```
+|         Method |    Mean |    Error |   StdDev |     Min |     Max | Allocated |
+|--------------- |--------:|---------:|---------:|--------:|--------:|----------:|
+|      TaskDelay | 1.199 s | 0.0096 s | 0.0005 s | 1.198 s | 1.199 s |     21 KB |
+| ValueTaskDelay | 1.012 s | 0.0220 s | 0.0012 s | 1.011 s | 1.013 s |      1 KB |
+``` ini
+
+BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
+Intel Xeon Platinum 8370C CPU 2.80GHz, 1 CPU, 2 logical and 2 physical cores
+.NET SDK=7.0.302
+  [Host]   : .NET 6.0.16 (6.0.1623.17311), X64 RyuJIT
+  ShortRun : .NET 6.0.16 (6.0.1623.17311), X64 RyuJIT
+
+Job=ShortRun  IterationCount=3  LaunchCount=1
+WarmupCount=3
+
+```
 |             Method |     Mean |    Error |  StdDev |      Min |      Max | Allocated |
 |------------------- |---------:|---------:|--------:|---------:|---------:|----------:|
-| ExponentialBackoff | 840.4 ms | 16.75 ms | 0.92 ms | 839.6 ms | 841.4 ms |      8 KB |
+| ExponentialBackoff | 754.5 ms | 20.02 ms | 1.10 ms | 753.2 ms | 755.4 ms |      5 KB |
+``` ini
 
+BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
+Intel Xeon Platinum 8370C CPU 2.80GHz, 1 CPU, 2 logical and 2 physical cores
+.NET SDK=7.0.302
+  [Host]   : .NET 6.0.16 (6.0.1623.17311), X64 RyuJIT
+  ShortRun : .NET 6.0.16 (6.0.1623.17311), X64 RyuJIT
 
-## Stopwatch
+Job=ShortRun  IterationCount=3  LaunchCount=1
+WarmupCount=3
 
-10000 runs.
-
-|           Method |     Mean |   Error |  StdDev |      Min |      Max | Allocated |
-|----------------- |---------:|--------:|--------:|---------:|---------:|----------:|
-| StopwatchDefault | 149.2 us | 0.96 us | 0.05 us | 149.2 us | 149.2 us |      40 B |
-|   StopwatchValue | 147.4 us | 2.37 us | 0.13 us | 147.3 us | 147.5 us |         - |
-
-## StringReverse
-
-10000 runs.
-
-|                 Method |       Mean |       Error |   StdDev |        Min |        Max | Rank |     Gen 0 | Allocated |
-|----------------------- |-----------:|------------:|---------:|-----------:|-----------:|-----:|----------:|----------:|
-|             StringSpan |   266.7 us |    10.73 us |  0.59 us |   266.2 us |   267.3 us |    1 |   30.2734 |      1 MB |
-|     ArrayReverseString |   297.6 us |   143.95 us |  7.89 us |   291.8 us |   306.6 us |    2 |   60.5469 |      3 MB |
-|             ReverseXor |   508.4 us |   267.05 us | 14.64 us |   498.9 us |   525.2 us |    3 |   60.5469 |      3 MB |
-|           StackReverse | 2,578.4 us |   432.21 us | 23.69 us | 2,555.7 us | 2,603.0 us |    4 |  175.7813 |      9 MB |
-| StringExtensionReverse | 3,367.0 us |   229.07 us | 12.56 us | 3,353.1 us | 3,377.5 us |    5 |  136.7188 |      7 MB |
-|      EnumerableReverse | 5,381.7 us | 1,096.77 us | 60.12 us | 5,319.5 us | 5,439.5 us |    6 |  117.1875 |      6 MB |
-| RecursiveStringReverse | 8,865.1 us | 1,610.13 us | 88.26 us | 8,793.1 us | 8,963.6 us |    7 | 1437.5000 |     69 MB 
+```
+|                 Method |        Mean |       Error |      StdDev |         Min |         Max | Rank |     Gen 0 | Allocated |
+|----------------------- |------------:|------------:|------------:|------------:|------------:|-----:|----------:|----------:|
+|             StringSpan |    549.8 μs |    140.2 μs |     7.69 μs |    542.0 μs |    557.4 μs |    1 |   60.5469 |      1 MB |
+|     ArrayReverseString |    747.7 μs |    156.8 μs |     8.60 μs |    740.5 μs |    757.2 μs |    2 |  121.0938 |      3 MB |
+|             ReverseXor |  1,270.4 μs |    173.1 μs |     9.49 μs |  1,264.5 μs |  1,281.3 μs |    3 |  121.0938 |      3 MB |
+|           StackReverse |  6,282.8 μs |    234.8 μs |    12.87 μs |  6,268.7 μs |  6,293.9 μs |    4 |  351.5625 |      9 MB |
+| StringExtensionReverse |  7,778.0 μs |    779.3 μs |    42.72 μs |  7,728.9 μs |  7,806.1 μs |    5 |  273.4375 |      7 MB |
+|      EnumerableReverse | 11,248.1 μs |    317.9 μs |    17.43 μs | 11,232.8 μs | 11,267.0 μs |    6 |  234.3750 |      6 MB |
+| RecursiveStringReverse | 24,176.6 μs | 18,872.4 μs | 1,034.46 μs | 23,218.5 μs | 25,273.4 μs |    7 | 2875.0000 |     69 MB |
