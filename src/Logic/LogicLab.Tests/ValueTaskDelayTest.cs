@@ -44,7 +44,7 @@ public class ValueTaskDelayTest
     [Fact]
     public async Task ValueTaskDelayTimeoutTest()
     {
-        using var cts = new CancellationTokenSource(TimeSpan.FromMilliseconds(500));
+        using var cts = new CancellationTokenSource(TimeSpan.FromMilliseconds(100));
         await Assert.ThrowsAsync<OperationCanceledException>(async () => await ValueTaskExtension.Delay(TimeSpan.FromMilliseconds(1000), cts.Token));
     }
 }
