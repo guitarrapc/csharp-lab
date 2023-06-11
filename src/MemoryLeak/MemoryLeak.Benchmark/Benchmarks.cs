@@ -33,7 +33,7 @@ public class MemoryLeakBenchmarks : IDisposable
 
         for (var i = 0; i < N; i++)
         {
-            _allocator.AllocateStaticString(5120); // 10KB
+            _allocator.AllocateStaticString(512); // 1KB
         }
     }
 
@@ -46,7 +46,7 @@ public class MemoryLeakBenchmarks : IDisposable
 
         for (var i = 0; i < N; i++)
         {
-            _allocator.AllocateString(5120); // 10KB
+            _allocator.AllocateString(512); // 1KB
         }
     }
 
@@ -59,7 +59,7 @@ public class MemoryLeakBenchmarks : IDisposable
 
         for (var i = 0; i < N; i++)
         {
-            _allocator.AllocateLoH(10240); // 10KB * 10
+            _allocator.AllocateLoH(1024); // 1KB
         }
     }
 
@@ -72,7 +72,7 @@ public class MemoryLeakBenchmarks : IDisposable
 
         for (var i = 0; i < N; i++)
         {
-            _allocator.AllocateArray(10240); // 10KB * 10
+            _allocator.AllocateArray(1024); // 1KB
         }
     }
 
@@ -89,8 +89,7 @@ public class MemoryLeakBenchmarks : IDisposable
 
         for (var i = 0; i < N; i++)
         {
-            _allocator.AllocateArrayPool(2048); // 2KB
-            _allocator.AllocateArrayPool(8192); // 8KB
+            _allocator.AllocateArrayPool(768);
         }
     }
 }
@@ -117,7 +116,7 @@ public class NoAllocMemoryLeakBenchmarks
         var pool = ArrayPool<byte>.Shared;
         for (var i = 0; i < N; i++)
         {
-            var array = pool.Rent(8192);
+            var array = pool.Rent(1024);
             _returnRentBags.Add(array);
         }
 
@@ -134,8 +133,7 @@ public class NoAllocMemoryLeakBenchmarks
     {
         for (var i = 0; i < N; i++)
         {
-            _allocator.AllocateArrayPool(2048); // 2KB
-            _allocator.AllocateArrayPool(8192); // 8KB
+            _allocator.AllocateArrayPool(256); // 2KB
         }
 
         _allocator.Clear();
