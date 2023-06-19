@@ -1,4 +1,4 @@
-name: Build Dotnet
+name: (R) Build Dotnet
 
 on:
   workflow_call:
