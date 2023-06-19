@@ -41,6 +41,6 @@ jobs:
       - name: Run benchmark
         run: |
           dotnet run --project ${{ matrix.csproj }} -c ${{ env.BUILD_CONFIG }}
-          for file in $(find "./BenchmarkDotNet.Artifacts/results" -name "*.md" -type f); do
-            cat $file >> "$GITHUB_STEP_SUMMARY"
-          done
+          while read -r file; do
+            cat "$file" >> "$GITHUB_STEP_SUMMARY"
+          done <<< "$(find "./BenchmarkDotNet.Artifacts/results" -name "*.md" -type f)"
