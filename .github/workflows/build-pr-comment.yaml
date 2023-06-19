@@ -1,0 +1,10 @@
+name: "Build on Comment"
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  build:
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '@actions /build')
+    uses: ./.github/workflows/_reusable-build.yaml
