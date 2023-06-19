@@ -2,9 +2,12 @@ name: (R) Build Dotnet
 
 on:
   workflow_call:
-
-env:
-  BUILD_CONFIG: Release
+    inputs:
+      build-config:
+        description: 'Build Configuration (Debug or Release)'
+        required: true
+        default: 'Release'
+        type: string
 
 jobs:
   build:
@@ -19,8 +22,8 @@ jobs:
             6.0.x
             7.0.x
       - name: dotnet build
-        run: dotnet build -c ${{ env.BUILD_CONFIG }}
+        run: dotnet build -c ${{ inputs.build-config }}
       - name: dotnet test
-        run: dotnet test -c ${{ env.BUILD_CONFIG }} --logger GitHubActions
+        run: dotnet test -c ${{ inputs.build-config }} --logger GitHubActions
       - name: dotnet publish
-        run: dotnet publish -c ${{ env.BUILD_CONFIG }}
+        run: dotnet publish -c ${{ inputs.build-config }}
