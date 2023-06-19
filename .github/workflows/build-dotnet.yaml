@@ -11,6 +11,24 @@ on:
     branches:
       - "main"
 
+env:
+  BUILD_CONFIG: Release
+
 jobs:
   build:
-    uses: ./.github/workflows/_reusable-build.yaml
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+      - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
+        with:
+          restore-wasm-workload: true
+          dotnet-version: |
+            6.0.x
+            7.0.x
+      - name: dotnet build
+        run: dotnet build -c "${{ env.BUILD_CONFIG }}"
+      - name: dotnet test
+        run: dotnet test -c "${{ env.BUILD_CONFIG }}" --logger GitHubActions
+      - name: dotnet publish
+        run: dotnet publish -c "${{ env.BUILD_CONFIG }}"

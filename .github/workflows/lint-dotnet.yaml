@@ -1,4 +1,4 @@
-name: dotnet lint
+name: Lint Dotnet
 
 on:
   workflow_dispatch:
