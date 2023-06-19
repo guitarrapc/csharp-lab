@@ -5,7 +5,7 @@ on:
     inputs:
       build-config:
         description: 'Build Configuration (Debug or Release)'
-        required: true
+        required: false
         default: 'Release'
         type: string
 
