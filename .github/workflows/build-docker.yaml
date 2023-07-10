@@ -87,12 +87,12 @@ jobs:
       - uses: actions/checkout@v3
       - uses: guitarrapc/actions/.github/actions/git-shortsha@main
         id: sha
-      - uses: ./.github/actions/to-lower
+      - uses: guitarrapc/actions/.github/actions/to-lower@main
         id: lower
         with:
-          project: ${{ matrix.project }}
+          value: ${{ matrix.project }}
       - name: docker build
-        run: docker build -t "${{ steps.lower.outputs.repository }}:latest-${{ matrix.tag }}-${{ steps.lower.outputs.project }}" -f "${{ matrix.dockerfile }}" .
+        run: docker build -t "${{ steps.lower.outputs.repository }}:latest-${{ matrix.tag }}-${{ steps.lower.outputs.value }}" -f "${{ matrix.dockerfile }}" .
       # docker push
       - if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
         name: Login to Docker Hub
@@ -102,9 +102,9 @@ jobs:
           password: ${{ secrets.SYNCED_DOCKER_PASS }}
       - if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
         name: docker push (latest)
-        run: docker push "${{ steps.lower.outputs.repository }}:latest-${{ matrix.tag }}-${{ steps.lower.outputs.project }}"
+        run: docker push "${{ steps.lower.outputs.repository }}:latest-${{ matrix.tag }}-${{ steps.lower.outputs.value }}"
       - if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
         name: docker push (tag)
         run: |
-          docker tag "${{ steps.lower.outputs.repository }}:latest-${{ matrix.tag }}-${{ steps.lower.outputs.project }}" "${{ steps.lower.outputs.repository }}:${{ steps.sha.outputs.sha-short }}-${{ matrix.tag }}-${{ steps.lower.outputs.project }}"
-          docker push "${{ steps.lower.outputs.repository }}:${{ steps.sha.outputs.sha-short }}-${{ matrix.tag }}-${{ steps.lower.outputs.project }}"
+          docker tag "${{ steps.lower.outputs.repository }}:latest-${{ matrix.tag }}-${{ steps.lower.outputs.value }}" "${{ steps.lower.outputs.repository }}:${{ steps.sha.outputs.sha-short }}-${{ matrix.tag }}-${{ steps.lower.outputs.value }}"
+          docker push "${{ steps.lower.outputs.repository }}:${{ steps.sha.outputs.sha-short }}-${{ matrix.tag }}-${{ steps.lower.outputs.value }}"
