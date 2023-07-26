@@ -18,6 +18,8 @@
 dotnet workload install wasm-tools-net6
 ```
 
+# Container Debugging
+
 ## Attach Visual Studio 2022 to Linux Docker Container
 
 Run your .NET Application inside Docker container. Let's run Linux Docker on Windows.
@@ -75,3 +77,10 @@ Set debugger point and open `http://localhost:8080/counter`, click `Increment` b
 
 ![image](https://user-images.githubusercontent.com/3856350/256196434-e6004da9-e561-4a49-8e0d-4973d965943b.png)
 ![image](https://user-images.githubusercontent.com/3856350/256196461-4e5b8bd2-e8f7-454d-a5cd-bb40d4894df7.png)
+
+
+## Attach Visual Studio 2022 to Linux Kubernetes Pod
+
+https://learn.microsoft.com/en-us/visualstudio/bridge/bridge-to-kubernetes-vs & https://marketplace.visualstudio.com/items?itemName=ms-azuretools.mindaro2022
+
+note: https://itnext.io/how-to-debug-asp-net-core-in-kubernetes-from-visual-studio-2019-1e9d16099d99
