@@ -10,6 +10,17 @@
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5014"
     },
+    "LoggerHttpApi(Production)": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production",
+        "ENABLE_SWAGGER": "1"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5014"
+    },
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
