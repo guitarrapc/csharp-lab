@@ -66,6 +66,9 @@ jobs:
           - project: LoggerBlazorApp
             dockerfile: ./src/Logger/LoggerBlazorApp/Dockerfile
             tag: logger
+          - project: LoggerHttpApi
+            dockerfile: ./src/Logger/LoggerHttpApi/Dockerfile
+            tag: logger
           - project: LoggerWorker
             dockerfile: ./src/Logger/LoggerWorker/Dockerfile
             tag: logger
