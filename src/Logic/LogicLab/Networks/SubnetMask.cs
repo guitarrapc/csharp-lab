@@ -43,22 +43,50 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     /// <returns></returns>
     public static SubnetMask FromIPAddress(ReadOnlySpan<char> ipAddress)
     {
+        ReadOnlySpan<char> rest = ipAddress;
+        var oct1End = rest.IndexOf('.');
+        if (oct1End == -1) throw new FormatException($"{nameof(ipAddress)} is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx'.");
+        var oct1 = rest.Slice(0, oct1End);
+        rest = rest.Slice(oct1End + 1, rest.Length - (oct1End + 1));
+
+        var oct2End = rest.IndexOf('.');
+        if (oct2End == -1) throw new FormatException($"{nameof(ipAddress)} is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx'.");
+        var oct2 = rest.Slice(0, oct2End);
+        rest = rest.Slice(oct2End + 1, rest.Length - (oct2End + 1));
+
+        var oct3End = rest.IndexOf('.');
+        if (oct3End == -1) throw new FormatException($"{nameof(ipAddress)} is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx'.");
+        var oct3 = rest.Slice(0, oct3End);
+        rest = rest.Slice(oct3End + 1, rest.Length - (oct3End + 1));
+
+        var oct4End = rest.IndexOf('.');
+        if (oct4End != -1 || rest.Length > 3)
+        {
+            // -1 = contains "."
+            // >3 = larger then 1000
+            throw new FormatException($"{nameof(ipAddress)}  is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx/xxx'.");
+        }
+        var oct4 = rest;
+
         Span<byte> byteArray = stackalloc byte[bitLength * 4];
-        var loop = 1;
-        foreach (var (split, endofLine) in ipAddress.SplitNoAlloc('.'))
+        SetBinaryArray(byteArray, oct1, 1);
+        SetBinaryArray(byteArray, oct2, 2);
+        SetBinaryArray(byteArray, oct3, 3);
+        SetBinaryArray(byteArray, oct4, 4);
+        return new SubnetMask(byteArray);
+
+        static void SetBinaryArray(Span<byte> byteArray, ReadOnlySpan<char> octed, int loop)
         {
             var position = bitLength * loop - 1;
-            var b = byte.Parse(split);
+            var b = byte.Parse(octed);
             var number = b;
-            for (var i = bitLength - 1; i >= 0; i--)
+            for (var j = bitLength - 1; j >= 0; j--)
             {
                 byteArray[position] = Convert.ToByte(number & (2 - 1)); // n % m == n & (m - 1) 
                 number = Convert.ToByte(number / 2);
                 position--;
             }
-            loop++;
         }
-        return new SubnetMask(byteArray);
     }
 
     /// <summary>
@@ -74,23 +102,9 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     /// <returns></returns>
     public static (SubnetMask Address, SubnetMask Subnet) FromCidrAddress(ReadOnlySpan<char> cidrAddress)
     {
-        var i = 0;
-        Span<char> cidr = stackalloc char[15];
-        Span<char> subnet = stackalloc char[2];
-        foreach (var split in cidrAddress.SplitNoAlloc('/'))
-        {
-            if (i == 0)
-            {
-                split.Word.CopyTo(cidr);
-                cidr = cidr.Slice(0, split.Word.Length);
-            }
-            else if (i == 1)
-            {
-                split.Word.CopyTo(subnet);
-                subnet = subnet.Slice(0, split.Word.Length);
-            }
-            i++;
-        }
+        var index = cidrAddress.IndexOf('/');
+        var cidr = cidrAddress.Slice(0, index);
+        var subnet = cidrAddress.Slice(index + 1, cidrAddress.Length - (index + 1));
         return FromCidrAddress(cidr, subnet);
     }
 
@@ -127,7 +141,7 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
         for (var i = 0; i < 32; i++)
         {
             networkmask[i] = (byte)(ipAddress.ByteArray[i] & subnetmask.ByteArray[i]);
-        } 
+        }
         return new SubnetMask(networkmask);
     }
 
