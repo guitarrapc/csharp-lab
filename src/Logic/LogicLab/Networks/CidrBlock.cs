@@ -10,44 +10,78 @@ public readonly struct CidrBlock : IEquatable<CidrBlock>
 
     public CidrBlock(string cidrAddress)
     {
-        var cidrTokens = cidrAddress.Split("/");
-        if (cidrTokens.Length is not 2)
+        // cidrAddress.Split("/");
+        var i = 0;
+        Span<char> address = stackalloc char[15];
+        Span<char> subnetmask = stackalloc char[2];
+        foreach (var cidrToken in cidrAddress.SplitNoAlloc('/'))
+        {
+            if (i == 0)
+            {
+                cidrToken.Word.CopyTo(address);
+                address = address.Slice(0, cidrToken.Word.Length);
+            }
+            else if (i == 1)
+            {
+                cidrToken.Word.CopyTo(subnetmask);
+                subnetmask = subnetmask.Slice(0, cidrToken.Word.Length);
+            }
+            i++;
+        }
+        if (i != 2)
         {
             throw new FormatException($"{nameof(cidrAddress)} '{cidrAddress}' is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx/xxx'.");
         }
-        var tokens = cidrTokens[0].Split(".");
-        if (tokens.Length is not 4)
+
+        // cidrTokens[0].Split(".");
+        var rest = address;
+        var oct1End = address.IndexOf('.');
+        if (oct1End == -1) throw new FormatException($"{nameof(cidrAddress)} '{cidrAddress}' is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx/xxx'.");
+        var oct1 = address.Slice(0, oct1End);
+        rest = address.Slice(oct1End + 1, rest.Length - (oct1End + 1));
+
+        var oct2End = rest.IndexOf('.');
+        if (oct2End == -1) throw new FormatException($"{nameof(cidrAddress)} '{cidrAddress}' is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx/xxx'.");
+        var oct2 = rest.Slice(0, oct2End);
+        rest = rest.Slice(oct2End + 1, rest.Length - (oct2End + 1));
+
+        var oct3End = rest.IndexOf('.');
+        if (oct3End == -1) throw new FormatException($"{nameof(cidrAddress)} '{cidrAddress}' is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx/xxx'.");
+        var oct3 = rest.Slice(0, oct3End);
+        rest = rest.Slice(oct3End + 1, rest.Length - (oct3End + 1));
+
+        var oct4End = rest.IndexOf('.');
+        if (oct4End != -1 || rest.Length > 3)
         {
+            // -1 = contains "."
+            // >3 = larger then 1000
             throw new FormatException($"{nameof(cidrAddress)} '{cidrAddress}' is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx/xxx'.");
         }
-        if (!byte.TryParse(tokens[0], out var cidr1))
+        var oct4 = rest;
+
+        if (!byte.TryParse(oct1, out var cidr1))
         {
             throw new ArgumentOutOfRangeException($"{nameof(cidr1)} '{cidr1}' is incorrect. Plase pass 0-255 value.");
         }
-        if (!byte.TryParse(tokens[1], out var cidr2))
+        if (!byte.TryParse(oct2, out var cidr2))
         {
             throw new ArgumentOutOfRangeException($"{nameof(cidr2)} '{cidr2}' is incorrect. Plase pass 0-255 value.");
         }
-        if (!byte.TryParse(tokens[2], out var cidr3))
+        if (!byte.TryParse(oct3, out var cidr3))
         {
             throw new ArgumentOutOfRangeException($"{nameof(cidr3)} '{cidr3}' is incorrect. Plase pass 0-255 value.");
         }
-        if (!byte.TryParse(tokens[3], out var cidr4))
+        if (!byte.TryParse(oct4, out var cidr4))
         {
             throw new ArgumentOutOfRangeException($"{nameof(cidr4)} '{cidr4}' is incorrect. Plase pass 0-255 value.");
         }
-        if (!byte.TryParse(cidrTokens[1], out var subnet))
+        if (!byte.TryParse(subnetmask, out var subnet))
         {
             throw new ArgumentOutOfRangeException($"{nameof(subnet)} '{subnet}' is incorrect. Plase pass 0-32 value.");
         }
 
         ValidateSubnetValue(subnet);
-
-        VpcCidr1 = cidr1;
-        VpcCidr2 = cidr2;
-        VpcCidr3 = cidr3;
-        VpcCidr4 = cidr4;
-        VpcCidrSubnet = subnet;
+        (VpcCidr1, VpcCidr2, VpcCidr3, VpcCidr4, VpcCidrSubnet) = (cidr1, cidr2, cidr3, cidr4, subnet);
     }
 
     public CidrBlock(byte cidr1, byte cidr2, byte cidr3, byte cidr4, byte subnet)
@@ -63,7 +97,10 @@ public readonly struct CidrBlock : IEquatable<CidrBlock>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     private static void ValidateSubnetValue(byte subnet)
     {
-        if (subnet > 32) throw new ArgumentOutOfRangeException($"{nameof(subnet)} '{subnet}' is incorrect. Plase pass 0-32 value.");
+        if (subnet > 32)
+        {
+            throw new ArgumentOutOfRangeException($"{nameof(subnet)} '{subnet}' is incorrect. Plase pass 0-32 value.");
+        }
     }
 
     /// <summary>
