@@ -16,18 +16,15 @@ public readonly struct CidrBlock : IEquatable<CidrBlock>
         Span<char> subnetmask = stackalloc char[2];
         foreach (var cidrToken in cidrAddress.SplitNoAlloc('/'))
         {
-            switch (i)
+            if (i == 0)
             {
-                case 0:
-                    cidrToken.Word.CopyTo(address);
-                    address = address.Slice(0, cidrToken.Word.Length);
-                    break;
-                case 1:
-                    cidrToken.Word.CopyTo(subnetmask);
-                    subnetmask = subnetmask.Slice(0, cidrToken.Word.Length);
-                    break;
-                default:
-                    throw new FormatException($"{nameof(cidrAddress)} '{cidrAddress}' is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx/xxx'.");
+                cidrToken.Word.CopyTo(address);
+                address = address.Slice(0, cidrToken.Word.Length);
+            }
+            else if (i == 1)
+            {
+                cidrToken.Word.CopyTo(subnetmask);
+                subnetmask = subnetmask.Slice(0, cidrToken.Word.Length);
             }
             i++;
         }
@@ -37,44 +34,30 @@ public readonly struct CidrBlock : IEquatable<CidrBlock>
         }
 
         // cidrTokens[0].Split(".");
-        var j = 0;
-        Span<char> oct1 = stackalloc char[3];
-        Span<char> oct2 = stackalloc char[3];
-        Span<char> oct3 = stackalloc char[3];
-        Span<char> oct4 = stackalloc char[3];
-        foreach (var token in address.SplitNoAlloc('.'))
+        ReadOnlySpan<char> rest = address;
+        var oct1End = address.IndexOf('.');
+        if (oct1End == -1) throw new FormatException($"{nameof(cidrAddress)} '{cidrAddress}' is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx/xxx'.");
+        ReadOnlySpan<char> oct1 = address.Slice(0, oct1End);
+        rest = address.Slice(oct1End + 1, rest.Length - (oct1End + 1));
+
+        var oct2End = rest.IndexOf('.');
+        if (oct2End == -1) throw new FormatException($"{nameof(cidrAddress)} '{cidrAddress}' is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx/xxx'.");
+        var oct2 = rest.Slice(0, oct2End);
+        rest = rest.Slice(oct2End + 1, rest.Length - (oct2End + 1));
+
+        var oct3End = rest.IndexOf('.');
+        if (oct3End == -1) throw new FormatException($"{nameof(cidrAddress)} '{cidrAddress}' is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx/xxx'.");
+        var oct3 = rest.Slice(0, oct3End);
+        rest = rest.Slice(oct3End + 1, rest.Length - (oct3End + 1));
+
+        var oct4End = rest.IndexOf('.');
+        if (oct4End != -1 || rest.Length > 3)
         {
-            if (token.Word.Length > 3)
-            {
-                throw new FormatException($"{nameof(cidrAddress)} '{cidrAddress}' is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx/xxx'.");
-            }
-            switch (j)
-            {
-                case 0:
-                    token.Word.CopyTo(oct1);
-                    oct1 = oct1.Slice(0, token.Word.Length);
-                    break;
-                case 1:
-                    token.Word.CopyTo(oct2);
-                    oct2 = oct2.Slice(0, token.Word.Length);
-                    break;
-                case 2:
-                    token.Word.CopyTo(oct3);
-                    oct3 = oct3.Slice(0, token.Word.Length);
-                    break;
-                case 3:
-                    token.Word.CopyTo(oct4);
-                    oct4 = oct4.Slice(0, token.Word.Length);
-                    break;
-                default:
-                    throw new FormatException($"{nameof(cidrAddress)} '{cidrAddress}' is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx/xxx'.");
-            }
-            j++;
-        }
-        if (j != 4)
-        {
+            // -1 = contains "."
+            // >3 = larger then 1000
             throw new FormatException($"{nameof(cidrAddress)} '{cidrAddress}' is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx/xxx'.");
         }
+        var oct4 = rest;
 
         if (!byte.TryParse(oct1, out var cidr1))
         {
