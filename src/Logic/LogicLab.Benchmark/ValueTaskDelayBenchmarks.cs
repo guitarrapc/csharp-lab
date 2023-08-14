@@ -1,7 +1,6 @@
 using BenchmarkDotNet.Attributes;
-using LogicLab;
 
-namespace Logic.Benchmark;
+namespace LogicLab.Benchmark;
 
 [ShortRunJob]
 [MemoryDiagnoser]
