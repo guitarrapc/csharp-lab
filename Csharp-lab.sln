@@ -109,7 +109,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemoryLeakApi", "src\Memory
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemoryLeak.Benchmark", "src\MemoryLeak\MemoryLeak.Benchmark\MemoryLeak.Benchmark.csproj", "{85505632-4B91-419B-A6D2-4DC3E83718C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerHttpApi", "src\Logger\LoggerHttpApi\LoggerHttpApi.csproj", "{1BFA1BE0-4821-489E-8EDA-EAE18B7D6DD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggerHttpApi", "src\Logger\LoggerHttpApi\LoggerHttpApi.csproj", "{1BFA1BE0-4821-489E-8EDA-EAE18B7D6DD7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
