@@ -13,6 +13,17 @@ public static class StringExtensions
         // LineSplitEnumerator is a struct so there is no allocation here
         return new SplitEnumerator(str.AsSpan(), separator);
     }
+    /// <summary>
+    /// Allocation free split
+    /// </summary>
+    /// <param name="str"></param>
+    /// <param name="separator"></param>
+    /// <returns></returns>
+    public static SplitEnumerator SplitNoAlloc(this ReadOnlySpan<char> str, char separator)
+    {
+        // LineSplitEnumerator is a struct so there is no allocation here
+        return new SplitEnumerator(str, separator);
+    }
 
     // Must be a ref struct as it contains a ReadOnlySpan<char>
     public ref struct SplitEnumerator

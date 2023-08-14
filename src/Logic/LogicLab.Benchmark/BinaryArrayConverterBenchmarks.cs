@@ -1,7 +1,6 @@
 using BenchmarkDotNet.Attributes;
-using LogicLab;
 
-namespace Logic.Benchmark;
+namespace LogicLab.Benchmark;
 
 [Orderer(BenchmarkDotNet.Order.SummaryOrderPolicy.FastestToSlowest)]
 [RankColumn]
