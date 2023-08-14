@@ -44,6 +44,8 @@ public class CidrbockTest
         Assert.Throws<FormatException>(() => new CidrBlock("10.0.01/32")); // octed failure
         Assert.Throws<FormatException>(() => new CidrBlock("10.001/32")); // octed failure
         Assert.Throws<FormatException>(() => new CidrBlock("10001/32")); // octed failure
+        Assert.Throws<FormatException>(() => new CidrBlock("10.0.0.0.0/32")); // too many octed
+        Assert.Throws<FormatException>(() => new CidrBlock("10")); // missing octed, no subnet
     }
 
     [Fact]
@@ -118,6 +120,8 @@ public class CidrbockTest
         CidrBlock.TryParse("10.0.01/32", out _).Should().BeFalse(); // octed failure
         CidrBlock.TryParse("10.001/32", out _).Should().BeFalse(); // octed failure
         CidrBlock.TryParse("10001/32", out _).Should().BeFalse(); // octed failure
+        CidrBlock.TryParse("10.0.0.0.0/32", out _).Should().BeFalse(); // too many octed
+        CidrBlock.TryParse("10", out _).Should().BeFalse(); // missing octed, no subnet
 
     }
 
