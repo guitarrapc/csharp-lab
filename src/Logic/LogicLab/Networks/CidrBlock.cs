@@ -35,10 +35,10 @@ public readonly struct CidrBlock : IEquatable<CidrBlock>
 
         // cidrTokens[0].Split(".");
         ReadOnlySpan<char> rest = address;
-        var oct1End = address.IndexOf('.');
+        var oct1End = rest.IndexOf('.');
         if (oct1End == -1) throw new FormatException($"{nameof(cidrAddress)} '{cidrAddress}' is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx/xxx'.");
-        ReadOnlySpan<char> oct1 = address.Slice(0, oct1End);
-        rest = address.Slice(oct1End + 1, rest.Length - (oct1End + 1));
+        var oct1 = rest.Slice(0, oct1End);
+        rest = rest.Slice(oct1End + 1, rest.Length - (oct1End + 1));
 
         var oct2End = rest.IndexOf('.');
         if (oct2End == -1) throw new FormatException($"{nameof(cidrAddress)} '{cidrAddress}' is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx/xxx'.");
