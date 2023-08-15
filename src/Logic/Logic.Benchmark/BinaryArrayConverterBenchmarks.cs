@@ -2,7 +2,6 @@ using BenchmarkDotNet.Attributes;
 
 namespace Logic.Benchmark;
 
-[Orderer(BenchmarkDotNet.Order.SummaryOrderPolicy.FastestToSlowest)]
 [RankColumn]
 [ShortRunJob]
 [MemoryDiagnoser]

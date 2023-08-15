@@ -2,6 +2,7 @@ using BenchmarkDotNet.Attributes;
 
 namespace Logic.Benchmark;
 
+[RankColumn]
 [ShortRunJob]
 [MemoryDiagnoser]
 [MinColumn, MaxColumn]
