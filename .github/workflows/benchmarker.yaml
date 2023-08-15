@@ -54,7 +54,7 @@ jobs:
           done <<< "$(find "./BenchmarkDotNet.Artifacts/results" -name "*.md" -type f)"
       - name: Skip benchmark
         if: ${{ steps.cpu.outputs.execute == 0 }}
-        run: echo "" >> ./BenchmarkDotNet.Artifacts/results/dummy.md # dummy file to upload
+        run: mkdir -p ./BenchmarkDotNet.Artifacts/results/ && echo "" >> ./BenchmarkDotNet.Artifacts/results/dummy.md # dummy file to upload
       - name: Upload summary
         uses: actions/upload-artifact@v2
         with:
