@@ -10,7 +10,7 @@ namespace LogicLab.Benchmark;
 public class BinaryArrayConverterBenchmarks
 {
     [Benchmark]
-    public void ToBinaryArrayInt()
+    public void BinaryArrayToBinaryArrayInt()
     {
         for (byte i = 0; i < 255; i++)
         {
@@ -19,7 +19,7 @@ public class BinaryArrayConverterBenchmarks
     }
 
     [Benchmark]
-    public void ToBinaryArrayConvertToString()
+    public void BinaryArrayToBinaryArrayConvertToString()
     {
         for (byte i = 0; i < 255; i++)
         {
@@ -28,7 +28,7 @@ public class BinaryArrayConverterBenchmarks
     }
 
     [Benchmark]
-    public void ToBinaryArrayIntMod()
+    public void BinaryArrayToBinaryArrayIntMod()
     {
         for (byte i = 0; i < 255; i++)
         {
@@ -37,7 +37,7 @@ public class BinaryArrayConverterBenchmarks
     }
 
     [Benchmark]
-    public void ToBinaryArrayIntModNumber()
+    public void BinaryArrayToBinaryArrayIntModNumber()
     {
         for (byte i = 0; i < 255; i++)
         {

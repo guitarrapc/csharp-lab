@@ -11,7 +11,7 @@ public class StringReverse
     /// </summary>
     /// <param name="text"></param>
     /// <returns></returns>
-    public string ArrayReverseString(string text)
+    public string ArrayReverse(string text)
     {
         var charArray = text.ToCharArray();
         Array.Reverse(charArray);
@@ -35,13 +35,13 @@ public class StringReverse
     /// </summary>
     /// <param name="text"></param>
     /// <returns></returns>
-    public string RecursiveStringReverse(string text)
+    public string RecursiveReverse(string text)
     {
         if (text.Length <= 1)
             return text;
 
         return text[^1] +
-               RecursiveStringReverse(text[1..^1]) + text[0];
+               RecursiveReverse(text[1..^1]) + text[0];
     }
 
     /// <summary>
