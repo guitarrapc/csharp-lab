@@ -8,7 +8,7 @@ namespace MemoryLeak.Benchmark;
 [MemoryDiagnoser]
 public class MemoryLeakBenchmarks : IDisposable
 {
-    [Params(1, 10, 100, 1000, 10000)]
+    [Params(1, 10)]
     public int Number { get; set; }
 
     private readonly MemoryAllocator _allocator;
@@ -98,7 +98,7 @@ public class MemoryLeakBenchmarks : IDisposable
 [MemoryDiagnoser]
 public class NoAllocMemoryLeakBenchmarks
 {
-    [Params(1, 10, 100)]
+    [Params(1, 10)]
     public int Number { get; set; }
 
     private readonly MemoryAllocator _allocator;
