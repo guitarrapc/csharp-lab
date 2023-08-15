@@ -1,7 +1,9 @@
+# Logic.Benchmark.StopwatchBenchmarks-report-github.md
+
 ``` ini
 
 BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
-Intel Xeon Platinum 8272CL CPU 2.60GHz, 1 CPU, 2 logical and 2 physical cores
+Intel Xeon Platinum 8370C CPU 2.80GHz, 1 CPU, 2 logical and 2 physical cores
 .NET SDK=7.0.400
   [Host]   : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
   ShortRun : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
@@ -12,12 +14,14 @@ WarmupCount=3
 ```
 |         Method |     Mean |   Error |  StdDev |      Min |      Max | Allocated |
 |--------------- |---------:|--------:|--------:|---------:|---------:|----------:|
-|      Stopwatch | 274.2 μs | 0.69 μs | 0.04 μs | 274.2 μs | 274.3 μs |      46 B |
-| ValueStopwatch | 280.9 μs | 3.11 μs | 0.17 μs | 280.8 μs | 281.1 μs |         - |
+|      Stopwatch | 266.5 μs | 2.36 μs | 0.13 μs | 266.3 μs | 266.6 μs |      40 B |
+| ValueStopwatch | 273.2 μs | 0.31 μs | 0.02 μs | 273.2 μs | 273.2 μs |         - |
+# Logic.Benchmark.BinaryArrayConverterBenchmarks-report-github.md
+
 ``` ini
 
 BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
-Intel Xeon Platinum 8272CL CPU 2.60GHz, 1 CPU, 2 logical and 2 physical cores
+Intel Xeon Platinum 8370C CPU 2.80GHz, 1 CPU, 2 logical and 2 physical cores
 .NET SDK=7.0.400
   [Host]   : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
   ShortRun : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
@@ -26,16 +30,18 @@ Job=ShortRun  IterationCount=3  LaunchCount=1
 WarmupCount=3  
 
 ```
-|                                  Method |     Mean |    Error |   StdDev |      Min |      Max | Rank |  Gen 0 | Allocated |
-|---------------------------------------- |---------:|---------:|---------:|---------:|---------:|-----:|-------:|----------:|
-|             BinaryArrayToBinaryArrayInt | 10.08 μs | 0.128 μs | 0.007 μs | 10.07 μs | 10.09 μs |    1 | 0.4272 |      8 KB |
-|    BinaryArrayToBinaryArrayIntModNumber | 10.44 μs | 0.157 μs | 0.009 μs | 10.43 μs | 10.44 μs |    2 | 0.4272 |      8 KB |
-|          BinaryArrayToBinaryArrayIntMod | 11.13 μs | 1.399 μs | 0.077 μs | 11.08 μs | 11.22 μs |    3 | 0.4272 |      8 KB |
-| BinaryArrayToBinaryArrayConvertToString | 38.89 μs | 0.670 μs | 0.037 μs | 38.85 μs | 38.93 μs |    4 | 1.2207 |     23 KB |
+|                       Method |      Mean |     Error |    StdDev |       Min |       Max | Rank |  Gen 0 | Allocated |
+|----------------------------- |----------:|----------:|----------:|----------:|----------:|-----:|-------:|----------:|
+|             ToBinaryArrayInt |  6.434 μs | 1.1812 μs | 0.0647 μs |  6.392 μs |  6.509 μs |    1 | 0.3204 |      8 KB |
+|    ToBinaryArrayIntModNumber |  7.137 μs | 0.5041 μs | 0.0276 μs |  7.114 μs |  7.168 μs |    2 | 0.3204 |      8 KB |
+|          ToBinaryArrayIntMod |  7.227 μs | 2.4025 μs | 0.1317 μs |  7.140 μs |  7.379 μs |    3 | 0.3204 |      8 KB |
+| ToBinaryArrayConvertToString | 25.798 μs | 1.4807 μs | 0.0812 μs | 25.730 μs | 25.888 μs |    4 | 0.9155 |     23 KB |
+# Logic.Benchmark.ExponentialBackoffBenchmarks-report-github.md
+
 ``` ini
 
 BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
-Intel Xeon Platinum 8272CL CPU 2.60GHz, 1 CPU, 2 logical and 2 physical cores
+Intel Xeon Platinum 8370C CPU 2.80GHz, 1 CPU, 2 logical and 2 physical cores
 .NET SDK=7.0.400
   [Host]   : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
   ShortRun : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
@@ -44,13 +50,15 @@ Job=ShortRun  IterationCount=3  LaunchCount=1
 WarmupCount=3  
 
 ```
-|             Method |     Mean |   Error |  StdDev |      Min |      Max | Allocated |
-|------------------- |---------:|--------:|--------:|---------:|---------:|----------:|
-| ExponentialBackoff | 757.5 ms | 4.09 ms | 0.22 ms | 757.4 ms | 757.8 ms |      5 KB |
+|             Method |     Mean |    Error |  StdDev |      Min |      Max | Allocated |
+|------------------- |---------:|---------:|--------:|---------:|---------:|----------:|
+| ExponentialBackoff | 756.6 ms | 60.67 ms | 3.33 ms | 754.6 ms | 760.4 ms |      5 KB |
+# Logic.Benchmark.StringSplitBenchmarks-report-github.md
+
 ``` ini
 
 BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
-Intel Xeon Platinum 8272CL CPU 2.60GHz, 1 CPU, 2 logical and 2 physical cores
+Intel Xeon Platinum 8370C CPU 2.80GHz, 1 CPU, 2 logical and 2 physical cores
 .NET SDK=7.0.400
   [Host]   : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
   ShortRun : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
@@ -61,12 +69,14 @@ WarmupCount=3
 ```
 |             Method |     Mean |    Error |   StdDev |      Min |      Max | Rank |     Gen 0 |    Allocated |
 |------------------- |---------:|---------:|---------:|---------:|---------:|-----:|----------:|-------------:|
-| StringSplitNoAlloc | 19.29 ms | 0.119 ms | 0.007 ms | 19.28 ms | 19.29 ms |    1 |         - |         26 B |
-|        StringSplit | 28.53 ms | 0.983 ms | 0.054 ms | 28.46 ms | 28.56 ms |    2 | 1687.5000 | 32,080,026 B |
+| StringSplitNoAlloc | 18.06 ms | 0.405 ms | 0.022 ms | 18.04 ms | 18.08 ms |    1 |         - |         26 B |
+|        StringSplit | 20.39 ms | 0.177 ms | 0.010 ms | 20.38 ms | 20.40 ms |    2 | 1250.0000 | 32,080,026 B |
+# Logic.Benchmark.StringReverseBenchmarks-report-github.md
+
 ``` ini
 
 BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
-Intel Xeon Platinum 8272CL CPU 2.60GHz, 1 CPU, 2 logical and 2 physical cores
+Intel Xeon Platinum 8370C CPU 2.80GHz, 1 CPU, 2 logical and 2 physical cores
 .NET SDK=7.0.400
   [Host]   : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
   ShortRun : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
@@ -75,19 +85,21 @@ Job=ShortRun  IterationCount=3  LaunchCount=1
 WarmupCount=3  
 
 ```
-|                 Method |        Mean |        Error |    StdDev |         Min |         Max | Rank |     Gen 0 | Allocated |
-|----------------------- |------------:|-------------:|----------:|------------:|------------:|-----:|----------:|----------:|
-|             StringSpan |    641.5 μs |    200.18 μs |  10.97 μs |    629.0 μs |    649.6 μs |    1 |   81.0547 |      1 MB |
-|           ArrayReverse |    983.5 μs |     52.19 μs |   2.86 μs |    980.4 μs |    986.1 μs |    2 |  162.1094 |      3 MB |
-|             ReverseXor |  1,406.5 μs |    592.11 μs |  32.46 μs |  1,369.1 μs |  1,426.8 μs |    3 |  162.1094 |      3 MB |
-|           StackReverse |  7,251.2 μs |  1,279.93 μs |  70.16 μs |  7,190.6 μs |  7,328.0 μs |    4 |  476.5625 |      9 MB |
-| StringExtensionReverse |  9,119.4 μs |    117.42 μs |   6.44 μs |  9,112.0 μs |  9,123.3 μs |    5 |  359.3750 |      7 MB |
-|      EnumerableReverse | 13,698.2 μs |    183.25 μs |  10.04 μs | 13,691.8 μs | 13,709.8 μs |    6 |  312.5000 |      6 MB |
-|       RecursiveReverse | 35,231.1 μs | 10,946.71 μs | 600.03 μs | 34,748.9 μs | 35,903.1 μs |    7 | 3866.6667 |     69 MB |
+|                 Method |        Mean |      Error |   StdDev |         Min |         Max | Rank |     Gen 0 | Allocated |
+|----------------------- |------------:|-----------:|---------:|------------:|------------:|-----:|----------:|----------:|
+|             StringSpan |    535.5 μs |   141.3 μs |  7.74 μs |    527.0 μs |    542.1 μs |    1 |   60.5469 |      1 MB |
+|           ArrayReverse |    714.4 μs |   127.6 μs |  6.99 μs |    706.5 μs |    720.0 μs |    2 |  121.0938 |      3 MB |
+|             ReverseXor |  1,296.7 μs |   483.3 μs | 26.49 μs |  1,268.8 μs |  1,321.5 μs |    3 |  121.0938 |      3 MB |
+|           StackReverse |  6,062.4 μs | 1,193.7 μs | 65.43 μs |  6,004.9 μs |  6,133.6 μs |    4 |  351.5625 |      9 MB |
+| StringExtensionReverse |  7,755.2 μs |   337.4 μs | 18.49 μs |  7,737.4 μs |  7,774.3 μs |    5 |  273.4375 |      7 MB |
+|      EnumerableReverse | 11,275.2 μs |   565.3 μs | 30.99 μs | 11,241.0 μs | 11,301.4 μs |    6 |  234.3750 |      6 MB |
+|       RecursiveReverse | 22,978.8 μs |   423.7 μs | 23.22 μs | 22,955.3 μs | 23,001.7 μs |    7 | 2875.0000 |     69 MB |
+# Logic.Benchmark.Networks.CidrBlockBenchmarks-report-github.md
+
 ``` ini
 
 BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
-Intel Xeon Platinum 8272CL CPU 2.60GHz, 1 CPU, 2 logical and 2 physical cores
+Intel Xeon Platinum 8370C CPU 2.80GHz, 1 CPU, 2 logical and 2 physical cores
 .NET SDK=7.0.400
   [Host]   : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
   ShortRun : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
@@ -96,16 +108,18 @@ Job=ShortRun  IterationCount=3  LaunchCount=1
 WarmupCount=3  
 
 ```
-|                  Method |        Mean |     Error |  StdDev |         Min |         Max | Allocated |
-|------------------------ |------------:|----------:|--------:|------------:|------------:|----------:|
-|      CidrBlockNewString | 17,193.3 ns | 179.45 ns | 9.84 ns | 17,185.7 ns | 17,204.4 ns |         - |
-|       CidrBlockNewBytes |    275.6 ns |   0.49 ns | 0.03 ns |    275.6 ns |    275.7 ns |         - |
-| CidrBlockTryParseString | 19,121.5 ns |  15.11 ns | 0.83 ns | 19,120.5 ns | 19,122.1 ns |         - |
-|  CidrBlockTryParseBytes |  1,439.2 ns |   2.98 ns | 0.16 ns |  1,439.1 ns |  1,439.4 ns |         - |
+|                  Method |        Mean |     Error |   StdDev |         Min |         Max | Allocated |
+|------------------------ |------------:|----------:|---------:|------------:|------------:|----------:|
+|      CidrBlockNewString | 16,470.5 ns | 475.88 ns | 26.08 ns | 16,453.3 ns | 16,500.5 ns |         - |
+|       CidrBlockNewBytes |    257.7 ns |  15.64 ns |  0.86 ns |    256.7 ns |    258.3 ns |         - |
+| CidrBlockTryParseString | 17,048.0 ns |  75.34 ns |  4.13 ns | 17,043.3 ns | 17,051.1 ns |         - |
+|  CidrBlockTryParseBytes |  1,428.9 ns |   4.91 ns |  0.27 ns |  1,428.6 ns |  1,429.1 ns |         - |
+# Logic.Benchmark.Networks.SubnetMaskBenchmarks-report-github.md
+
 ``` ini
 
 BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
-Intel Xeon Platinum 8272CL CPU 2.60GHz, 1 CPU, 2 logical and 2 physical cores
+Intel Xeon Platinum 8370C CPU 2.80GHz, 1 CPU, 2 logical and 2 physical cores
 .NET SDK=7.0.400
   [Host]   : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
   ShortRun : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
@@ -116,16 +130,18 @@ WarmupCount=3
 ```
 |                      Method |      Mean |     Error |    StdDev |       Min |       Max |  Gen 0 | Allocated |
 |---------------------------- |----------:|----------:|----------:|----------:|----------:|-------:|----------:|
-|    SubnetMaskFromCidrNotion |  3.080 μs | 0.7491 μs | 0.0411 μs |  3.049 μs |  3.126 μs | 0.2975 |      5 KB |
-|   SubnetMaskFromCidrAddress | 25.104 μs | 2.0938 μs | 0.1148 μs | 25.031 μs | 25.236 μs | 0.5798 |     11 KB |
-|  SubnetMaskFromCidrAddress2 | 23.820 μs | 0.7314 μs | 0.0401 μs | 23.787 μs | 23.865 μs | 0.5798 |     11 KB |
-|     SubnetMaskFromIPAddress | 18.689 μs | 0.8449 μs | 0.0463 μs | 18.636 μs | 18.719 μs | 0.2747 |      5 KB |
-| SubnetMaskGetNetworkAddress |  8.829 μs | 0.5055 μs | 0.0277 μs |  8.801 μs |  8.856 μs | 0.2899 |      5 KB |
-|   SubnetMaskGetAddressRange | 25.886 μs | 1.3537 μs | 0.0742 μs | 25.824 μs | 25.968 μs | 0.8850 |     16 KB |
+|    SubnetMaskFromCidrNotion |  2.621 μs | 0.8291 μs | 0.0454 μs |  2.592 μs |  2.673 μs | 0.2213 |      5 KB |
+|   SubnetMaskFromCidrAddress | 18.880 μs | 0.9938 μs | 0.0545 μs | 18.818 μs | 18.921 μs | 0.4272 |     11 KB |
+|  SubnetMaskFromCidrAddress2 | 18.528 μs | 1.1151 μs | 0.0611 μs | 18.475 μs | 18.595 μs | 0.4272 |     11 KB |
+|     SubnetMaskFromIPAddress | 14.428 μs | 0.1911 μs | 0.0105 μs | 14.416 μs | 14.434 μs | 0.2136 |      5 KB |
+| SubnetMaskGetNetworkAddress |  7.898 μs | 0.4005 μs | 0.0220 μs |  7.884 μs |  7.923 μs | 0.2136 |      5 KB |
+|   SubnetMaskGetAddressRange | 20.498 μs | 0.7019 μs | 0.0385 μs | 20.454 μs | 20.528 μs | 0.6409 |     16 KB |
+# Logic.Benchmark.ValueTaskDelayBenchmarks-report-github.md
+
 ``` ini
 
 BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
-Intel Xeon Platinum 8272CL CPU 2.60GHz, 1 CPU, 2 logical and 2 physical cores
+Intel Xeon Platinum 8370C CPU 2.80GHz, 1 CPU, 2 logical and 2 physical cores
 .NET SDK=7.0.400
   [Host]   : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
   ShortRun : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
@@ -136,5 +152,5 @@ WarmupCount=3
 ```
 |         Method |    Mean |    Error |   StdDev |     Min |     Max | Allocated |
 |--------------- |--------:|---------:|---------:|--------:|--------:|----------:|
-|      TaskDelay | 1.199 s | 0.0422 s | 0.0023 s | 1.198 s | 1.202 s |     22 KB |
-| ValueTaskDelay | 1.017 s | 0.0129 s | 0.0007 s | 1.016 s | 1.018 s |      1 KB |
+|      TaskDelay | 1.219 s | 0.1374 s | 0.0075 s | 1.212 s | 1.227 s |     21 KB |
+| ValueTaskDelay | 1.010 s | 0.0117 s | 0.0006 s | 1.009 s | 1.010 s |      1 KB |
