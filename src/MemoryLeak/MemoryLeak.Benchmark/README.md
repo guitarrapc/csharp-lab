@@ -1,37 +1,39 @@
-# MemoryLeak.Benchmark
+# MemoryLeak.Benchmark.NoAllocMemoryLeakBenchmarks-report-github.md
 
 ``` ini
 
 BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
-Intel Xeon Platinum 8370C CPU 2.80GHz, 1 CPU, 2 logical and 2 physical cores
-.NET SDK=7.0.302
-  [Host]   : .NET 7.0.5 (7.0.523.17405), X64 RyuJIT
-  ShortRun : .NET 7.0.5 (7.0.523.17405), X64 RyuJIT
+Intel Xeon Platinum 8272CL CPU 2.60GHz, 1 CPU, 2 logical and 2 physical cores
+.NET SDK=7.0.400
+  [Host]   : .NET 7.0.10 (7.0.1023.36312), X64 RyuJIT
+  ShortRun : .NET 7.0.10 (7.0.1023.36312), X64 RyuJIT
 
-Job=ShortRun  IterationCount=3  LaunchCount=1
-WarmupCount=3
+Job=ShortRun  IterationCount=3  LaunchCount=1  
+WarmupCount=3  
 
 ```
-|               Method |  N |      Mean |     Error |    StdDev |  Gen 0 |  Gen 1 |  Gen 2 | Allocated |
-|--------------------- |--- |----------:|----------:|----------:|-------:|-------:|-------:|----------:|
-| AllocateStringStatic | 10 | 10.043 μs | 42.337 μs | 2.3206 μs | 0.4272 | 0.4120 | 0.0153 |     10 KB |
-|       AllocateString | 10 |  7.952 μs |  3.013 μs | 0.1652 μs | 0.4272 | 0.4120 | 0.0153 |     10 KB |
-|          AllocateLoH | 10 |  7.780 μs |  4.047 μs | 0.2219 μs | 0.4272 | 0.4120 | 0.0153 |     10 KB |
-|        AllocateArray | 10 |  8.461 μs |  3.028 μs | 0.1660 μs | 0.4272 | 0.4120 | 0.0153 |     10 KB |
-|    AllocateArrayPool | 10 |  8.370 μs |  3.317 μs | 0.1818 μs | 0.4272 | 0.4120 | 0.0153 |     10 KB |
+|            Method |  N |       Mean |     Error |   StdDev | Allocated |
+|------------------ |--- |-----------:|----------:|---------:|----------:|
+|        RentReturn | 10 |   893.6 ns | 207.59 ns | 11.38 ns |         - |
+| AllocateArrayPool | 10 | 1,343.3 ns |   1.10 ns |  0.06 ns |         - |
+# MemoryLeak.Benchmark.MemoryLeakBenchmarks-report-github.md
+
 ``` ini
 
 BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
-Intel Xeon Platinum 8370C CPU 2.80GHz, 1 CPU, 2 logical and 2 physical cores
-.NET SDK=7.0.302
-  [Host]   : .NET 7.0.5 (7.0.523.17405), X64 RyuJIT
-  ShortRun : .NET 7.0.5 (7.0.523.17405), X64 RyuJIT
+Intel Xeon Platinum 8272CL CPU 2.60GHz, 1 CPU, 2 logical and 2 physical cores
+.NET SDK=7.0.400
+  [Host]   : .NET 7.0.10 (7.0.1023.36312), X64 RyuJIT
+  ShortRun : .NET 7.0.10 (7.0.1023.36312), X64 RyuJIT
 
-Job=ShortRun  IterationCount=3  LaunchCount=1
-WarmupCount=3
+Job=ShortRun  IterationCount=3  LaunchCount=1  
+WarmupCount=3  
 
 ```
-|            Method |  N |       Mean |    Error |  StdDev | Allocated |
-|------------------ |--- |-----------:|---------:|--------:|----------:|
-|        RentReturn | 10 |   774.2 ns |  6.20 ns | 0.34 ns |         - |
-| AllocateArrayPool | 10 | 1,289.5 ns | 63.33 ns | 3.47 ns |         - |
+|               Method |  N |      Mean |      Error |    StdDev |    Median |  Gen 0 |  Gen 1 |  Gen 2 | Allocated |
+|--------------------- |--- |----------:|-----------:|----------:|----------:|-------:|-------:|-------:|----------:|
+| AllocateStringStatic | 10 | 13.736 μs | 122.228 μs | 6.6997 μs | 10.464 μs | 0.5646 | 0.5493 | 0.0153 |     10 KB |
+|       AllocateString | 10 |  9.343 μs |   4.744 μs | 0.2600 μs |  9.250 μs | 0.5646 | 0.5493 | 0.0153 |     10 KB |
+|          AllocateLoH | 10 |  8.917 μs |   7.587 μs | 0.4159 μs |  9.036 μs | 0.5646 | 0.5493 | 0.0153 |     10 KB |
+|        AllocateArray | 10 |  8.872 μs |   7.725 μs | 0.4234 μs |  8.644 μs | 0.5646 | 0.5493 | 0.0153 |     10 KB |
+|    AllocateArrayPool | 10 |  9.168 μs |   5.087 μs | 0.2788 μs |  9.010 μs | 0.5646 | 0.5493 | 0.0153 |     10 KB |

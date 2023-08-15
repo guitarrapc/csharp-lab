@@ -44,3 +44,51 @@ jobs:
           while read -r file; do
             cat "$file" >> "$GITHUB_STEP_SUMMARY"
           done <<< "$(find "./BenchmarkDotNet.Artifacts/results" -name "*.md" -type f)"
+      - name: Upload summary
+        uses: actions/upload-artifact@v2
+        with:
+          name: "${{ matrix.project }}"
+          path: ./BenchmarkDotNet.Artifacts/results/*.md
+          retention-days: 1
+
+  update-doc:
+    needs: [benchmark]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || '' }} # checkout PR HEAD commit instead of merge commit
+
+      - name: Download Logger.Benchmark
+        uses: actions/download-artifact@v3
+        with:
+          name: Logger.Benchmark
+          path: ./BenchmarkDotNet.Artifacts/Logger.Benchmark/
+      # -exec cat + is not stable order.
+      - name: Write summary to README.md
+        run: find "./BenchmarkDotNet.Artifacts/Logger.Benchmark/" -name "*.md" -type f | xargs -I {i} sh -c 'echo "# $(basename {i})\n"; cat {i}' > ./src/Logger/Logger.Benchmark//README.md
+
+      - name: Download Logic.Benchmark
+        uses: actions/download-artifact@v3
+        with:
+          name: Logic.Benchmark
+          path: ./BenchmarkDotNet.Artifacts/Logic.Benchmark/
+      - name: Write summary to README.md
+        run: find "./BenchmarkDotNet.Artifacts/Logic.Benchmark/" -name "*.md" -type f | xargs -I {i} sh -c 'echo "# $(basename {i})\n"; cat {i}' > ./src/Logic/Logic.Benchmark/README.md
+
+      - name: Download MemoryLeak.Benchmark
+        uses: actions/download-artifact@v3
+        with:
+          name: MemoryLeak.Benchmark
+          path: ./BenchmarkDotNet.Artifacts/MemoryLeak.Benchmark/
+      - name: Write summary to README.md
+        run: find "./BenchmarkDotNet.Artifacts/MemoryLeak.Benchmark/" -name "*.md" -type f | xargs -I {i} sh -c 'echo "# $(basename {i})\n"; cat {i}' >./src/MemoryLeak/MemoryLeak.Benchmark//README.md
+
+      - name: Commit & Push changes
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.ref || github.ref }}
+          author_email: 41898282+github-actions[bot]@users.noreply.github.com
+          message: "[auto commit] Benchmark result updated."
