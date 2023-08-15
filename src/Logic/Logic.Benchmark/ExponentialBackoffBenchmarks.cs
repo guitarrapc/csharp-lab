@@ -2,13 +2,12 @@ using BenchmarkDotNet.Attributes;
 
 namespace Logic.Benchmark;
 
-[RankColumn]
 [ShortRunJob]
 [MemoryDiagnoser]
 [MinColumn, MaxColumn]
 public class ExponentialBackoffBenchmarks
 {
-    [Params(1, 10)]
+    [Params(1, 10, 100)]
     public int Number { get; set; }
 
     [Benchmark]

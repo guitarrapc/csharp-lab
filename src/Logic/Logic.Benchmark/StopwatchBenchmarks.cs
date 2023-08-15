@@ -2,13 +2,12 @@ using BenchmarkDotNet.Attributes;
 
 namespace Logic.Benchmark;
 
-[RankColumn]
 [ShortRunJob]
 [MemoryDiagnoser]
 [MinColumn, MaxColumn]
 public class StopwatchBenchmarks
 {
-    [Params(1, 10, 100, 1000, 10000)]
+    [Params(1, 10, 100, 1000)]
     public int Number { get; set; }
 
     [Benchmark]

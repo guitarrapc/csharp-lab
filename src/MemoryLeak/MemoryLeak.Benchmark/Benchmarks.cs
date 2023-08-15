@@ -6,6 +6,7 @@ namespace MemoryLeak.Benchmark;
 
 [ShortRunJob]
 [MemoryDiagnoser]
+[MinColumn, MaxColumn]
 public class MemoryLeakBenchmarks : IDisposable
 {
     [Params(1, 10)]
@@ -96,6 +97,7 @@ public class MemoryLeakBenchmarks : IDisposable
 
 [ShortRunJob]
 [MemoryDiagnoser]
+[MinColumn, MaxColumn]
 public class NoAllocMemoryLeakBenchmarks
 {
     [Params(1, 10)]
