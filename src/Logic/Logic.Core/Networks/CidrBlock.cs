@@ -11,27 +11,14 @@ public readonly struct CidrBlock : IEquatable<CidrBlock>
     public CidrBlock(string cidrAddress)
     {
         // cidrAddress.Split("/");
-        var i = 0;
-        Span<char> address = stackalloc char[15];
-        Span<char> subnetmask = stackalloc char[2];
-        foreach (var cidrToken in cidrAddress.SplitNoAlloc('/'))
-        {
-            if (i == 0)
-            {
-                cidrToken.Word.CopyTo(address);
-                address = address.Slice(0, cidrToken.Word.Length);
-            }
-            else if (i == 1)
-            {
-                cidrToken.Word.CopyTo(subnetmask);
-                subnetmask = subnetmask.Slice(0, cidrToken.Word.Length);
-            }
-            i++;
-        }
-        if (i != 2)
+        var cidrSpan = cidrAddress.AsSpan();
+        var indexSubnet = cidrSpan.IndexOf('/');
+        if (indexSubnet == -1)
         {
             throw new FormatException($"{nameof(cidrAddress)} '{cidrAddress}' is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx/xxx'.");
         }
+        var address = cidrSpan.Slice(0, indexSubnet);
+        var subnetmask = cidrSpan.Slice(indexSubnet+1, cidrSpan.Length - (indexSubnet + 1));           
 
         // cidrTokens[0].Split(".");
         ReadOnlySpan<char> rest = address;
