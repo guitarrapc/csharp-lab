@@ -1,7 +1,8 @@
 [![Benchmarker](https://github.com/guitarrapc/csharp-lab/actions/workflows/benchmarker.yaml/badge.svg)](https://github.com/guitarrapc/csharp-lab/actions/workflows/benchmarker.yaml)
 [![Build Docker](https://github.com/guitarrapc/csharp-lab/actions/workflows/build-docker.yaml/badge.svg)](https://github.com/guitarrapc/csharp-lab/actions/workflows/build-docker.yaml)
 [![Build Dotnet](https://github.com/guitarrapc/csharp-lab/actions/workflows/build-dotnet.yaml/badge.svg)](https://github.com/guitarrapc/csharp-lab/actions/workflows/build-dotnet.yaml)
-[![dotnet lint](https://github.com/guitarrapc/csharp-lab/actions/workflows/dotnet-lint.yaml/badge.svg)](https://github.com/guitarrapc/csharp-lab/actions/workflows/dotnet-lint.yaml)
+[![Lint Dotnet](https://github.com/guitarrapc/csharp-lab/actions/workflows/lint-dotnet.yaml/badge.svg)](https://github.com/guitarrapc/csharp-lab/actions/workflows/lint-dotnet.yaml)
+
 [![Docker Pulls](https://img.shields.io/docker/pulls/guitarrapc/csharp-lab.svg?style=for-the-badge)](https://hub.docker.com/r/guitarrapc/csharp-lab/)
 
 # csharp-lab
