@@ -8,8 +8,8 @@ namespace MemoryLeak.Benchmark;
 [MemoryDiagnoser]
 public class MemoryLeakBenchmarks : IDisposable
 {
-    [Params(10)]
-    public int N;
+    [Params(1, 10, 100, 1000, 10000)]
+    public int Number { get; set; }
 
     private readonly MemoryAllocator _allocator;
 
@@ -31,7 +31,7 @@ public class MemoryLeakBenchmarks : IDisposable
         // _allocator.AllocateStaticString(51200); // 100KB
         // _allocator.AllocateStaticString(51200 * 10); // 1000KB
 
-        for (var i = 0; i < N; i++)
+        for (var i = 0; i < Number; i++)
         {
             _allocator.AllocateStaticString(512); // 1KB
         }
@@ -44,7 +44,7 @@ public class MemoryLeakBenchmarks : IDisposable
         // _allocator.AllocateString(51200); // 100KB
         // _allocator.AllocateString(51200 * 10); // 1000KB
 
-        for (var i = 0; i < N; i++)
+        for (var i = 0; i < Number; i++)
         {
             _allocator.AllocateString(512); // 1KB
         }
@@ -57,7 +57,7 @@ public class MemoryLeakBenchmarks : IDisposable
         // _allocator.AllocateLoH(10240); // 10KB
         // _allocator.AllocateLoH(10240 * 2); // 20KB
 
-        for (var i = 0; i < N; i++)
+        for (var i = 0; i < Number; i++)
         {
             _allocator.AllocateLoH(1024); // 1KB
         }
@@ -70,7 +70,7 @@ public class MemoryLeakBenchmarks : IDisposable
         //_allocator.AllocateArray(10240); // 10KB
         //_allocator.AllocateArray(10240 * 2); // 20KB
 
-        for (var i = 0; i < N; i++)
+        for (var i = 0; i < Number; i++)
         {
             _allocator.AllocateArray(1024); // 1KB
         }
@@ -87,7 +87,7 @@ public class MemoryLeakBenchmarks : IDisposable
         // _allocator.AllocateArrayPool(10240); // 16KB
         // _allocator.AllocateArrayPool(10240 * 2); // 32KB
 
-        for (var i = 0; i < N; i++)
+        for (var i = 0; i < Number; i++)
         {
             _allocator.AllocateArrayPool(768);
         }
@@ -98,8 +98,8 @@ public class MemoryLeakBenchmarks : IDisposable
 [MemoryDiagnoser]
 public class NoAllocMemoryLeakBenchmarks
 {
-    [Params(10)]
-    public int N;
+    [Params(1, 10, 100)]
+    public int Number { get; set; }
 
     private readonly MemoryAllocator _allocator;
     private readonly List<byte[]> _returnRentBags;
@@ -114,7 +114,7 @@ public class NoAllocMemoryLeakBenchmarks
     public void RentReturn()
     {
         var pool = ArrayPool<byte>.Shared;
-        for (var i = 0; i < N; i++)
+        for (var i = 0; i < Number; i++)
         {
             var array = pool.Rent(1024);
             _returnRentBags.Add(array);
@@ -131,7 +131,7 @@ public class NoAllocMemoryLeakBenchmarks
     [Benchmark]
     public void AllocateArrayPool()
     {
-        for (var i = 0; i < N; i++)
+        for (var i = 0; i < Number; i++)
         {
             _allocator.AllocateArrayPool(256); // 2KB
         }

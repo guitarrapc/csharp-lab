@@ -9,12 +9,15 @@ namespace Logic.Benchmark;
 [MinColumn, MaxColumn]
 public class StringSplitBenchmarks
 {
-    private readonly string _value = string.Join(".", Enumerable.Range(0, 100).Select(x => (char)x));
+    private static readonly string _value = string.Join(".", Enumerable.Range(0, 100).Select(x => (char)x));
+
+    [Params(1, 10, 100, 1000, 10000)]
+    public int Number { get; set; }
 
     [Benchmark]
     public void StringSplitNoAlloc()
     {
-        for (var i = 0; i < 10000; i++)
+        for (var i = 0; i < Number; i++)
         {
             foreach (var _ in _value.SplitNoAlloc('.')) { }
         }
@@ -23,7 +26,7 @@ public class StringSplitBenchmarks
     [Benchmark]
     public void StringSplit()
     {
-        for (var i = 0; i < 10000; i++)
+        for (var i = 0; i < Number; i++)
         {
             foreach (var _ in _value.Split('.')) { }
         }

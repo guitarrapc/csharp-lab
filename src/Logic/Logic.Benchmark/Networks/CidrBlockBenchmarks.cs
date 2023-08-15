@@ -8,10 +8,13 @@ namespace Logic.Benchmark.Networks;
 [MinColumn, MaxColumn]
 public class CidrBlockBenchmarks
 {
+    [Params(1, 10, 100)]
+    public int Number { get; set; }
+
     [Benchmark]
     public void CidrBlockNewString()
     {
-        for (byte i = 0; i < 100; i++)
+        for (byte i = 0; i < Number; i++)
         {
             new CidrBlock("10.0.0.1/24");
         }
@@ -20,7 +23,7 @@ public class CidrBlockBenchmarks
     [Benchmark]
     public void CidrBlockNewBytes()
     {
-        for (byte i = 0; i < 100; i++)
+        for (byte i = 0; i < Number; i++)
         {
             new CidrBlock(10, 0, 0, 1, 24);
         }
@@ -29,7 +32,7 @@ public class CidrBlockBenchmarks
     [Benchmark]
     public void CidrBlockTryParseString()
     {
-        for (byte i = 0; i < 100; i++)
+        for (byte i = 0; i < Number; i++)
         {
             CidrBlock.TryParse("10.0.0.1/24", out var cidr);
         }
@@ -38,7 +41,7 @@ public class CidrBlockBenchmarks
     [Benchmark]
     public void CidrBlockTryParseBytes()
     {
-        for (byte i = 0; i < 100; i++)
+        for (byte i = 0; i < Number; i++)
         {
             CidrBlock.TryParse(10, 0, 0, 1, 24, out var cidr);
         }
