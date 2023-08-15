@@ -2,17 +2,18 @@ using BenchmarkDotNet.Attributes;
 
 namespace Logic.Benchmark;
 
-[Orderer(BenchmarkDotNet.Order.SummaryOrderPolicy.FastestToSlowest)]
-[RankColumn]
 [ShortRunJob]
 [MemoryDiagnoser]
 [MinColumn, MaxColumn]
 public class BinaryArrayConverterBenchmarks
 {
+    [Params(1, 10, 100, 255)]
+    public int Number { get; set; }
+
     [Benchmark]
     public void ToBinaryArrayInt()
     {
-        for (byte i = 0; i < 255; i++)
+        for (byte i = 0; i < Number; i++)
         {
             BinaryArrayConverter.ToBinaryArrayInt(i);
         }
@@ -21,7 +22,7 @@ public class BinaryArrayConverterBenchmarks
     [Benchmark]
     public void ToBinaryArrayConvertToString()
     {
-        for (byte i = 0; i < 255; i++)
+        for (byte i = 0; i < Number; i++)
         {
             BinaryArrayConverter.ToBinaryArrayConvertToString(i);
         }
@@ -30,7 +31,7 @@ public class BinaryArrayConverterBenchmarks
     [Benchmark]
     public void ToBinaryArrayIntMod()
     {
-        for (byte i = 0; i < 255; i++)
+        for (byte i = 0; i < Number; i++)
         {
             BinaryArrayConverter.ToBinaryArrayIntMod(i);
         }
@@ -39,7 +40,7 @@ public class BinaryArrayConverterBenchmarks
     [Benchmark]
     public void ToBinaryArrayIntModNumber()
     {
-        for (byte i = 0; i < 255; i++)
+        for (byte i = 0; i < Number; i++)
         {
             BinaryArrayConverter.ToBinaryArrayIntModNumber(i);
         }

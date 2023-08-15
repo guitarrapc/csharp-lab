@@ -7,10 +7,13 @@ namespace Logic.Benchmark;
 [MinColumn, MaxColumn]
 public class ValueTaskDelayBenchmarks
 {
+    [Params(1, 10)] // 100 is too many
+    public int Number { get; set; }
+
     [Benchmark]
     public async Task TaskDelay()
     {
-        for (var i = 0; i < 100; i++)
+        for (var i = 0; i < Number; i++)
         {
             await Task.Delay(10);
         }
@@ -19,7 +22,7 @@ public class ValueTaskDelayBenchmarks
     [Benchmark]
     public async ValueTask ValueTaskDelay()
     {
-        for (var i = 0; i < 100; i++)
+        for (var i = 0; i < Number; i++)
         {
             await ValueTaskExtension.Delay(10);
         }

@@ -13,9 +13,11 @@ public class Benchmarks
 
     // Use FakeLogger instead of NullLogger to measure LogLevel difference.
     private readonly ILoggerFactory _loggerFactory = new FakeLoggerFactory(LogLevel.Information);
-
     private readonly ILogger<Benchmarks> _logger;
     private readonly ILoggerAdapter<Benchmarks> _loggerAdapter;
+
+    [Params(1, 10, 100)]
+    public int Number { get; set; }
 
     public Benchmarks()
     {
@@ -26,39 +28,57 @@ public class Benchmarks
     [Benchmark]
     public void LogWithoutIfParams()
     {
-        _logger.LogInformation(LogMessageWithPrameter, 100, 5640);
-    }
-
-    [Benchmark]
-    public void LogWithIfParams()
-    {
-        if (_logger.IsEnabled(LogLevel.Information))
+        for (byte i = 0; i < Number; i++)
         {
             _logger.LogInformation(LogMessageWithPrameter, 100, 5640);
         }
     }
 
     [Benchmark]
+    public void LogWithIfParams()
+    {
+        for (byte i = 0; i < Number; i++)
+        {
+            if (_logger.IsEnabled(LogLevel.Information))
+            {
+                _logger.LogInformation(LogMessageWithPrameter, 100, 5640);
+            }
+        }
+    }
+
+    [Benchmark]
     public void LogAdapterWithoutIfParams()
     {
-        _loggerAdapter.LogInformation(LogMessageWithPrameter, 100, 5640);
+        for (byte i = 0; i < Number; i++)
+        {
+            _loggerAdapter.LogInformation(LogMessageWithPrameter, 100, 5640);
+        }
     }
 
     [Benchmark]
     public void LogDefineWithoutIfParams()
     {
-        _logger.LogDefineMessage(100, 5640);
+        for (byte i = 0; i < Number; i++)
+        {
+            _logger.LogDefineMessage(100, 5640);
+        }
     }
 
     [Benchmark]
     public void LogSourceGenWithoutIfParams()
     {
-        _logger.LogSourceGenMessage(100, 5640);
+        for (byte i = 0; i < Number; i++)
+        {
+            _logger.LogSourceGenMessage(100, 5640);
+        }
     }
 
     [Benchmark]
     public void LogSourceGenSkipEnableCheckWithoutIfParams()
     {
-        _logger.LogSourceGenMessageSkipEnableCheck(100, 5640);
+        for (byte i = 0; i < Number; i++)
+        {
+            _logger.LogSourceGenMessageSkipEnableCheck(100, 5640);
+        }
     }
 }
