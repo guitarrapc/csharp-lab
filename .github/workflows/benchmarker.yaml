@@ -35,7 +35,7 @@ jobs:
         run: |
           cpu=$(less /proc/cpuinfo | grep -m 1 'model name' | cut -f 2 -d ":")
           echo "name=${cpu:1}" | tee -a "${GITHUB_OUTPUT}"
-          echo "execute=$([[ ${cpu:1}" != "${{ env.SKIP_CPU }}" ]] && echo 1 || echo 0)" | tee -a "${GITHUB_OUTPUT}"
+          echo "execute=$([[ "${cpu:1}" != "${{ env.SKIP_CPU }}" ]] && echo 1 || echo 0)" | tee -a "${GITHUB_OUTPUT}"
       - uses: actions/checkout@v3
       - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
         with:
