@@ -12,7 +12,7 @@ public class StringSplitBenchmarks
     private readonly string _value = string.Join(".", Enumerable.Range(0, 100).Select(x => (char)x));
 
     [Benchmark]
-    public void SplitNoAlloc()
+    public void StringSplitNoAlloc()
     {
         for (var i = 0; i < 10000; i++)
         {
@@ -21,7 +21,7 @@ public class StringSplitBenchmarks
     }
 
     [Benchmark]
-    public void Split()
+    public void StringSplit()
     {
         for (var i = 0; i < 10000; i++)
         {

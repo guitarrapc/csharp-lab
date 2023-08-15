@@ -12,7 +12,7 @@ public class SubnetMaskBenchmarks
     private static readonly SubnetMask _networkAddress = SubnetMask.GetNetworkAddress(_cidr.Address, _cidr.Subnet);
 
     [Benchmark]
-    public void FromCidrNotion()
+    public void SubnetMaskFromCidrNotion()
     {
         for (byte i = 0; i < 100; i++)
         {
@@ -21,7 +21,7 @@ public class SubnetMaskBenchmarks
     }
 
     [Benchmark]
-    public void FromCidrAddress()
+    public void SubnetMaskFromCidrAddress()
     {
         for (byte i = 0; i < 100; i++)
         {
@@ -30,7 +30,7 @@ public class SubnetMaskBenchmarks
     }
 
     [Benchmark]
-    public void FromCidrAddress2()
+    public void SubnetMaskFromCidrAddress2()
     {
         for (byte i = 0; i < 100; i++)
         {
@@ -39,7 +39,7 @@ public class SubnetMaskBenchmarks
     }
 
     [Benchmark]
-    public void FromIPAddress()
+    public void SubnetMaskFromIPAddress()
     {
         for (byte i = 0; i < 100; i++)
         {
@@ -48,7 +48,7 @@ public class SubnetMaskBenchmarks
     }
 
     [Benchmark]
-    public void GetNetworkAddress()
+    public void SubnetMaskGetNetworkAddress()
     {
         for (byte i = 0; i < 100; i++)
         {
@@ -57,7 +57,7 @@ public class SubnetMaskBenchmarks
     }
 
     [Benchmark]
-    public void GetAddressRange()
+    public void SubnetMaskGetAddressRange()
     {
         for (byte i = 0; i < 100; i++)
         {

@@ -16,7 +16,7 @@ public class StringReverseTest
     [Fact]
     public async Task ArrayReverseStringTest()
     {
-        _stringReverse.RecursiveStringReverse(_source).Should().Be(_expected);
+        _stringReverse.RecursiveReverse(_source).Should().Be(_expected);
     }
 
     [Fact]
@@ -28,7 +28,7 @@ public class StringReverseTest
     [Fact]
     public async Task RecursiveStringReverseTest()
     {
-        _stringReverse.RecursiveStringReverse(_source).Should().Be(_expected);
+        _stringReverse.RecursiveReverse(_source).Should().Be(_expected);
     }
 
     [Fact]

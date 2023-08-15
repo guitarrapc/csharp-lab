@@ -9,7 +9,7 @@ namespace LogicLab.Benchmark.Networks;
 public class CidrBlockBenchmarks
 {
     [Benchmark]
-    public void CtorString()
+    public void CidrBlockNewString()
     {
         for (byte i = 0; i < 100; i++)
         {
@@ -18,7 +18,7 @@ public class CidrBlockBenchmarks
     }
 
     [Benchmark]
-    public void CtorBytes()
+    public void CidrBlockNewBytes()
     {
         for (byte i = 0; i < 100; i++)
         {
@@ -27,7 +27,7 @@ public class CidrBlockBenchmarks
     }
 
     [Benchmark]
-    public void TryParseString()
+    public void CidrBlockTryParseString()
     {
         for (byte i = 0; i < 100; i++)
         {
@@ -36,7 +36,7 @@ public class CidrBlockBenchmarks
     }
 
     [Benchmark]
-    public void TryParseBytes()
+    public void CidrBlockTryParseBytes()
     {
         for (byte i = 0; i < 100; i++)
         {

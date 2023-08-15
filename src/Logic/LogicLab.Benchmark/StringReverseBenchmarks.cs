@@ -19,11 +19,11 @@ public class StringReverseBenchmarks
     }
 
     [Benchmark]
-    public async Task ArrayReverseString()
+    public async Task ArrayReverse()
     {
         for (var i = 0; i < 10000; i++)
         {
-            _stringReverse.ArrayReverseString(_source);
+            _stringReverse.ArrayReverse(_source);
         }
     }
 
@@ -37,11 +37,11 @@ public class StringReverseBenchmarks
     }
 
     [Benchmark]
-    public async Task RecursiveStringReverse()
+    public async Task RecursiveReverse()
     {
         for (var i = 0; i < 10000; i++)
         {
-            _stringReverse.RecursiveStringReverse(_source);
+            _stringReverse.RecursiveReverse(_source);
         }
     }
 

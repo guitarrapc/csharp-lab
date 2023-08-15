@@ -34,4 +34,4 @@ Console.WriteLine($"  - ValueStopwatch Elapsted {sw.GetElapsedTime()}");
 Console.WriteLine($"  - String Reverse.");
 var input = StringReverse.GenerateText();
 var reverse = new StringReverse();
-Console.WriteLine($"    * {input} -> {reverse.ArrayReverseString(input)}");
+Console.WriteLine($"    * {input} -> {reverse.ArrayReverse(input)}");
