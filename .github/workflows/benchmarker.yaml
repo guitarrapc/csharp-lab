@@ -13,6 +13,7 @@ on:
 
 env:
   BUILD_CONFIG: Release
+  SKIP_CPU: Intel(R) Xeon(R) CPU E5-2673 v4 @ 2.30GHz # Q4 2013, too old and slow to benchmark. Skip benchmark if detected.
 
 jobs:
   benchmark:
@@ -29,6 +30,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
+      - name: CPU Detection
+        id: cpu
+        run: |
+          cpu=$(less /proc/cpuinfo | grep -m 1 'model name' | cut -f 2 -d ":")
+          echo "name=${cpu:1}" | tee -a "${GITHUB_OUTPUT}"
+          echo "execute=$([[ "${cpu:1}" != "${{ env.SKIP_CPU }}" ]] && echo 1 || echo 0)" | tee -a "${GITHUB_OUTPUT}"
       - uses: actions/checkout@v3
       - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
         with:
@@ -39,11 +46,15 @@ jobs:
       - name: dotnet build
         run: dotnet build ${{ matrix.csproj }} -c ${{ env.BUILD_CONFIG }}
       - name: Run benchmark
+        if: ${{ steps.cpu.outputs.execute == 1 }}
         run: |
           dotnet run --project ${{ matrix.csproj }} -c ${{ env.BUILD_CONFIG }}
           while read -r file; do
             cat "$file" >> "$GITHUB_STEP_SUMMARY"
           done <<< "$(find "./BenchmarkDotNet.Artifacts/results" -name "*.md" -type f)"
+      - name: Skip benchmark
+        if: ${{ steps.cpu.outputs.execute == 0 }}
+        run: mkdir -p ./BenchmarkDotNet.Artifacts/results/ && echo "" >> ./BenchmarkDotNet.Artifacts/results/dummy.md # dummy file to upload
       - name: Upload summary
         uses: actions/upload-artifact@v2
         with:
@@ -51,9 +62,9 @@ jobs:
           path: ./BenchmarkDotNet.Artifacts/results/*.md
           retention-days: 1
 
-  # only run on PR, not allowed to direct push main.
+  # run on push and others
   update-doc:
-    if: ${{ github.event_name == 'pull_request' }}
+    if: ${{ github.event_name != 'pull_request' }}
     needs: [benchmark]
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -67,9 +78,10 @@ jobs:
         with:
           name: Logger.Benchmark
           path: ./BenchmarkDotNet.Artifacts/Logger.Benchmark/
+      # find *.md files exclude dummy.md and cat all files.
       # -exec cat + is not stable order.
       - name: Write summary to README.md
-        run: find "./BenchmarkDotNet.Artifacts/Logger.Benchmark/" -name "*.md" -type f | xargs -I {i} sh -c 'echo "# $(basename {i})\n"; cat {i}' > ./src/Logger/Logger.Benchmark//README.md
+        run: find "./BenchmarkDotNet.Artifacts/Logger.Benchmark/" ! -name "dummy.md" -name "*.md" -type f | xargs -I {i} sh -c 'echo "# $(basename {i})\n"; cat {i}' > ./src/Logger/Logger.Benchmark//README.md
 
       - name: Download Logic.Benchmark
         uses: actions/download-artifact@v3
@@ -77,7 +89,7 @@ jobs:
           name: Logic.Benchmark
           path: ./BenchmarkDotNet.Artifacts/Logic.Benchmark/
       - name: Write summary to README.md
-        run: find "./BenchmarkDotNet.Artifacts/Logic.Benchmark/" -name "*.md" -type f | xargs -I {i} sh -c 'echo "# $(basename {i})\n"; cat {i}' > ./src/Logic/Logic.Benchmark/README.md
+        run: find "./BenchmarkDotNet.Artifacts/Logic.Benchmark/" ! -name "dummy.md" -name "*.md" -type f | xargs -I {i} sh -c 'echo "# $(basename {i})\n"; cat {i}' > ./src/Logic/Logic.Benchmark/README.md
 
       - name: Download MemoryLeak.Benchmark
         uses: actions/download-artifact@v3
@@ -85,7 +97,7 @@ jobs:
           name: MemoryLeak.Benchmark
           path: ./BenchmarkDotNet.Artifacts/MemoryLeak.Benchmark/
       - name: Write summary to README.md
-        run: find "./BenchmarkDotNet.Artifacts/MemoryLeak.Benchmark/" -name "*.md" -type f | xargs -I {i} sh -c 'echo "# $(basename {i})\n"; cat {i}' >./src/MemoryLeak/MemoryLeak.Benchmark//README.md
+        run: find "./BenchmarkDotNet.Artifacts/MemoryLeak.Benchmark/" ! -name "dummy.md" -name "*.md" -type f | xargs -I {i} sh -c 'echo "# $(basename {i})\n"; cat {i}' >./src/MemoryLeak/MemoryLeak.Benchmark//README.md
 
       - name: Commit & Push changes
         uses: actions-js/push@master

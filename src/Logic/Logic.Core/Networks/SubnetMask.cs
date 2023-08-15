@@ -6,11 +6,11 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
 
     // 11111111 00000000 00000000 00000000
     public ReadOnlySpan<byte> ByteArray => _byteArray;
-    private readonly byte[] _byteArray;
+    private readonly byte[] _byteArray = new byte[bitLength * 4];
 
     public SubnetMask(ReadOnlySpan<byte> byteArray)
     {
-        _byteArray = byteArray.ToArray();
+        byteArray.CopyTo(_byteArray);
     }
 
     /// <summary>
