@@ -65,8 +65,9 @@ jobs:
         with:
           name: Logger.Benchmark
           path: ./BenchmarkDotNet.Artifacts/Logger.Benchmark/
+      # -exec cat + is not stable order.
       - name: Write summary to README.md
-        run: find "./BenchmarkDotNet.Artifacts/Logger.Benchmark/" -name "*.md" -type f -exec cat {} + > ./src/Logger/Logger.Benchmark//README.md
+        run: find "./BenchmarkDotNet.Artifacts/Logger.Benchmark/" -name "*.md" -type f | xargs -I {i} sh -c 'echo "# $(basename {i})\n"; cat {i}' > ./src/Logger/Logger.Benchmark//README.md
 
       - name: Download Logic.Benchmark
         uses: actions/download-artifact@v3
@@ -74,7 +75,7 @@ jobs:
           name: Logic.Benchmark
           path: ./BenchmarkDotNet.Artifacts/Logic.Benchmark/
       - name: Write summary to README.md
-        run: find "./BenchmarkDotNet.Artifacts/Logic.Benchmark/" -name "*.md" -type f -exec cat {} + > ./src/Logic/Logic.Benchmark/README.md
+        run: find "./BenchmarkDotNet.Artifacts/Logic.Benchmark/" -name "*.md" -type f | xargs -I {i} sh -c 'echo "# $(basename {i})\n"; cat {i}' > ./src/Logic/Logic.Benchmark/README.md
 
       - name: Download MemoryLeak.Benchmark
         uses: actions/download-artifact@v3
@@ -82,7 +83,7 @@ jobs:
           name: MemoryLeak.Benchmark
           path: ./BenchmarkDotNet.Artifacts/MemoryLeak.Benchmark/
       - name: Write summary to README.md
-        run: find "./BenchmarkDotNet.Artifacts/MemoryLeak.Benchmark/" -name "*.md" -type f -exec cat {} + > ./src/MemoryLeak/MemoryLeak.Benchmark//README.md
+        run: find "./BenchmarkDotNet.Artifacts/MemoryLeak.Benchmark/" -name "*.md" -type f | xargs -I {i} sh -c 'echo "# $(basename {i})\n"; cat {i}' >./src/MemoryLeak/MemoryLeak.Benchmark//README.md
 
       - name: Commit & Push changes
         uses: actions-js/push@master
