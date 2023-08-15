@@ -23,7 +23,7 @@ jobs:
           - project: Logger.Benchmark
             csproj: ./src/Logger/Logger.Benchmark/Logger.Benchmark.csproj
           - project: Logic.Benchmark
-            csproj: ./src/Logic/LogicLab.Benchmark/LogicLab.Benchmark.csproj
+            csproj: ./src/Logic/Logic.Benchmark/Logic.Benchmark.csproj
           - project: MemoryLeak.Benchmark
             csproj: ./src/MemoryLeak/MemoryLeak.Benchmark/MemoryLeak.Benchmark.csproj
     runs-on: ubuntu-latest
