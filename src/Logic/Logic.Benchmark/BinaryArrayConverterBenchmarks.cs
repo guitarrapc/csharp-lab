@@ -10,7 +10,7 @@ namespace Logic.Benchmark;
 public class BinaryArrayConverterBenchmarks
 {
     [Benchmark]
-    public void BinaryArrayToBinaryArrayInt()
+    public void ToBinaryArrayInt()
     {
         for (byte i = 0; i < 255; i++)
         {
@@ -19,7 +19,7 @@ public class BinaryArrayConverterBenchmarks
     }
 
     [Benchmark]
-    public void BinaryArrayToBinaryArrayConvertToString()
+    public void ToBinaryArrayConvertToString()
     {
         for (byte i = 0; i < 255; i++)
         {
@@ -28,7 +28,7 @@ public class BinaryArrayConverterBenchmarks
     }
 
     [Benchmark]
-    public void BinaryArrayToBinaryArrayIntMod()
+    public void ToBinaryArrayIntMod()
     {
         for (byte i = 0; i < 255; i++)
         {
@@ -37,7 +37,7 @@ public class BinaryArrayConverterBenchmarks
     }
 
     [Benchmark]
-    public void BinaryArrayToBinaryArrayIntModNumber()
+    public void ToBinaryArrayIntModNumber()
     {
         for (byte i = 0; i < 255; i++)
         {
