@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Logic.Benchmark": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

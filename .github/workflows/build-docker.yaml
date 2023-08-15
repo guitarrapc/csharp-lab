@@ -72,8 +72,8 @@ jobs:
           - project: LoggerWorker
             dockerfile: ./src/Logger/LoggerWorker/Dockerfile
             tag: logger
-          - project: LogicLab.Benchmark
-            dockerfile: ./src/Logic/LogicLab.Benchmark/Dockerfile
+          - project: Logic.Benchmark
+            dockerfile: ./src/Logic/Logic.Benchmark/Dockerfile
             tag: logiclab
           - project: MemoryLeakApi
             dockerfile: ./src/MemoryLeak/MemoryLeakApi/Dockerfile

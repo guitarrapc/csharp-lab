@@ -91,15 +91,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Redis", "Redis", "{3910F58C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedisConnectTester", "src\Redis\RedisConnectTester\RedisConnectTester.csproj", "{54022F3F-FDE2-4852-859E-7923BC96086C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicLab", "src\Logic\LogicLab\LogicLab.csproj", "{A7DD74A3-ADE4-4A9E-BA2A-8916294697FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic.Core", "src\Logic\Logic.Core\Logic.Core.csproj", "{A7DD74A3-ADE4-4A9E-BA2A-8916294697FF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicLab.Benchmark", "src\Logic\LogicLab.Benchmark\LogicLab.Benchmark.csproj", "{78FD41B2-26B5-4A9E-A492-FB58E8583842}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic.Benchmark", "src\Logic\Logic.Benchmark\Logic.Benchmark.csproj", "{78FD41B2-26B5-4A9E-A492-FB58E8583842}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicLab.Tests", "src\Logic\LogicLab.Tests\LogicLab.Tests.csproj", "{443680F6-148A-47C5-9AB8-6E1AC6E54D22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic.Tests", "src\Logic\Logic.Tests\Logic.Tests.csproj", "{443680F6-148A-47C5-9AB8-6E1AC6E54D22}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logger.Benchmark", "src\Logger\Logger.Benchmark\Logger.Benchmark.csproj", "{74016C58-4AC6-4374-B866-C53E5A094CCB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicLab.SandboxConsoleApp", "src\Logic\LogicLab.SandboxConsoleApp\LogicLab.SandboxConsoleApp.csproj", "{90263CE2-B9AF-42B9-9874-4665CBB09817}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic.SandboxConsoleApp", "src\Logic\Logic.SandboxConsoleApp\Logic.SandboxConsoleApp.csproj", "{90263CE2-B9AF-42B9-9874-4665CBB09817}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MemoryLeak", "MemoryLeak", "{EFFE7670-AD3D-4CE5-9407-397CB134899A}"
 EndProject
