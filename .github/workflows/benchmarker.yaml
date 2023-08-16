@@ -62,9 +62,9 @@ jobs:
           path: ./BenchmarkDotNet.Artifacts/results/*.md
           retention-days: 1
 
-  # run on push and others
+  # run on pull_request only
   update-doc:
-    if: ${{ github.event_name != 'pull_request' }}
+    if: ${{ github.event_name == 'pull_request' }}
     needs: [benchmark]
     runs-on: ubuntu-latest
     timeout-minutes: 5
