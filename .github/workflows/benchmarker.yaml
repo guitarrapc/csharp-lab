@@ -71,7 +71,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || '' }} # checkout PR HEAD commit instead of merge commit
+          ref: ${{ github.event_name == 'pull_request' && github.head_ref || '' }} # checkout PR HEAD branch instead of merge commit. use ref instead of sha to avoid detached HEAD and re-run.
 
       - name: Download Logger.Benchmark
         uses: actions/download-artifact@v3
