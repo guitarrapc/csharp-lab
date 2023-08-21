@@ -63,7 +63,7 @@ public class CidrbockTest
         min.VpcCidr4.Should().Be(0);
         min.VpcCidrSubnet.Should().Be(0);
 
-        var max = new CidrBlock(255, 255, 255, 255,32);
+        var max = new CidrBlock(255, 255, 255, 255, 32);
         max.VpcCidr1.Should().Be(255);
         max.VpcCidr2.Should().Be(255);
         max.VpcCidr3.Should().Be(255);
@@ -132,7 +132,7 @@ public class CidrbockTest
         cidr.VpcCidr4.Should().Be(1);
         cidr.VpcCidrSubnet.Should().Be(24);
 
-        var result2 = CidrBlock.TryParse(0,0,0,0,0, out var min);
+        var result2 = CidrBlock.TryParse(0, 0, 0, 0, 0, out var min);
         result2.Should().BeTrue();
         min.VpcCidr1.Should().Be(0);
         min.VpcCidr2.Should().Be(0);
@@ -140,7 +140,7 @@ public class CidrbockTest
         min.VpcCidr4.Should().Be(0);
         min.VpcCidrSubnet.Should().Be(0);
 
-        var result3 = CidrBlock.TryParse(255,255,255,255,32, out var max);
+        var result3 = CidrBlock.TryParse(255, 255, 255, 255, 32, out var max);
         result3.Should().BeTrue();
         max.VpcCidr1.Should().Be(255);
         max.VpcCidr2.Should().Be(255);
