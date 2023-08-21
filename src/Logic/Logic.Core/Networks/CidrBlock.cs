@@ -18,7 +18,7 @@ public readonly struct CidrBlock : IEquatable<CidrBlock>
             throw new FormatException($"{nameof(cidrAddress)} '{cidrAddress}' is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx/xxx'.");
         }
         var address = cidrSpan.Slice(0, indexSubnet);
-        var subnetmask = cidrSpan.Slice(indexSubnet+1, cidrSpan.Length - (indexSubnet + 1));           
+        var subnetmask = cidrSpan.Slice(indexSubnet + 1, cidrSpan.Length - (indexSubnet + 1));
 
         // cidrTokens[0].Split(".");
         ReadOnlySpan<char> rest = address;
