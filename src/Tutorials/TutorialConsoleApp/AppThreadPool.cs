@@ -1,4 +1,4 @@
-namespace ThreadsPoolConsoleApp;
+namespace TutorialConsoleApp;
 
 public static class AppThreadPool
 {
@@ -8,6 +8,7 @@ public static class AppThreadPool
     /// </summary>
     public static void Configure(int minThreads = 200, int maxThreads = 200)
     {
+        Console.WriteLine($"  Configure ThreadPool. min={minThreads}, max={maxThreads}");
         ThreadPool.SetMinThreads(minThreads, maxThreads);
     }
 
@@ -24,10 +25,10 @@ public static class AppThreadPool
             return string.Format($"{{0, -{padding}}}", value);
         }
         var now = DateTime.Now.ToString("HH:mm:ss");
-        Console.WriteLine($"{now} | WorkerThreads | CompletionThreads ");
-        Console.WriteLine($"-------- | ------------- | ----------------- ");
-        Console.WriteLine($"Max      | {Show(maxWorkerThreads)} | {maxCompletionThreads}");
-        Console.WriteLine($"Min      | {Show(minWorkerThreads)} | {minCompletionThreads}");
-        Console.WriteLine($"Available| {Show(availableWorkerThreads)} | {availableCompletionThreads}");
+        Console.WriteLine($"  {now} | WorkerThreads | CompletionThreads ");
+        Console.WriteLine($"  -------- | ------------- | ----------------- ");
+        Console.WriteLine($"  Max      | {Show(maxWorkerThreads)} | {maxCompletionThreads}");
+        Console.WriteLine($"  Min      | {Show(minWorkerThreads)} | {minCompletionThreads}");
+        Console.WriteLine($"  Available| {Show(availableWorkerThreads)} | {availableCompletionThreads}\n");
     }
 }
