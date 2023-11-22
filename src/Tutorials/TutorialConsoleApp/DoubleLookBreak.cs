@@ -7,7 +7,7 @@ public class DoubleLookBreak
     /// </summary>
     public void BreakCantJumpDoubleLoop()
     {
-        Console.WriteLine($"  {nameof(BreakCantJumpDoubleLoop)}");
+        Console.WriteLine($"  DONT: {nameof(BreakCantJumpDoubleLoop)}");
         var range = Enumerable.Range(0, 2);
         foreach (var outer in range)
         {
@@ -22,7 +22,7 @@ public class DoubleLookBreak
                 }
             }
         }
-        Console.WriteLine("  End loop");
+        Console.WriteLine("  End loop\n");
 
         /*
          * 1st Loop 0
@@ -42,7 +42,7 @@ public class DoubleLookBreak
     /// </summary>
     public void DoubleLoopGoto()
     {
-        Console.WriteLine($"  {nameof(DoubleLoopGoto)}");
+        Console.WriteLine($"  DO: {nameof(DoubleLoopGoto)}");
         var range = Enumerable.Range(0, 2);
         foreach (var outer in range)
         {
@@ -59,7 +59,7 @@ public class DoubleLookBreak
         }
 
     End:
-        Console.WriteLine("  End loop");
+        Console.WriteLine("  End loop\n");
 
         /*
          * 1st Loop 0
@@ -75,7 +75,7 @@ public class DoubleLookBreak
     /// </summary>
     public void DoubleLoopReturn()
     {
-        Console.WriteLine($"  {nameof(DoubleLoopReturn)}");
+        Console.WriteLine($"  WARN: {nameof(DoubleLoopReturn)}");
         var range = Enumerable.Range(0, 2);
         foreach (var outer in range)
         {
@@ -85,7 +85,7 @@ public class DoubleLookBreak
                 Console.WriteLine($"      2nd Loop {innner} ({outer})");
                 if (innner == 1)
                 {
-                    Console.WriteLine("        Break");
+                    Console.WriteLine("        Break\n");
                     return;
                 }
             }
@@ -106,7 +106,7 @@ public class DoubleLookBreak
     /// </summary>
     public void DoubleLoopSplitMethod()
     {
-        Console.WriteLine($"  {nameof(DoubleLoopSplitMethod)}");
+        Console.WriteLine($"  DO: {nameof(DoubleLoopSplitMethod)}");
         var range = Enumerable.Range(0, 2);
         foreach (var outer in range)
         {
@@ -116,7 +116,7 @@ public class DoubleLookBreak
                 break;
             }
         }
-        Console.WriteLine("  End loop");
+        Console.WriteLine("  End loop\n");
 
         bool TryInsideLoop(int element, IEnumerable<int> range)
         {
