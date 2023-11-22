@@ -1,66 +1,12 @@
-# Logic.Benchmark.StopwatchBenchmarks-report-github.md
-
-``` ini
-
-BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
-Intel Xeon Platinum 8370C CPU 2.80GHz, 1 CPU, 2 logical and 2 physical cores
-.NET SDK=7.0.400
-  [Host]   : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
-  ShortRun : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
-
-Job=ShortRun  IterationCount=3  LaunchCount=1  
-WarmupCount=3  
-
-```
-|         Method | Number |        Mean |     Error |   StdDev |         Min |         Max |  Gen 0 | Allocated |
-|--------------- |------- |------------:|----------:|---------:|------------:|------------:|-------:|----------:|
-|      **Stopwatch** |      **1** |    **65.92 ns** |  **0.404 ns** | **0.022 ns** |    **65.90 ns** |    **65.94 ns** | **0.0015** |      **40 B** |
-| ValueStopwatch |      1 |    53.05 ns |  0.599 ns | 0.033 ns |    53.01 ns |    53.08 ns |      - |         - |
-|      **Stopwatch** |     **10** |   **307.84 ns** |  **0.714 ns** | **0.039 ns** |   **307.79 ns** |   **307.87 ns** | **0.0014** |      **40 B** |
-| ValueStopwatch |     10 |   300.63 ns |  2.195 ns | 0.120 ns |   300.49 ns |   300.71 ns |      - |         - |
-|      **Stopwatch** |    **100** | **2,744.42 ns** | **10.135 ns** | **0.556 ns** | **2,743.86 ns** | **2,744.97 ns** |      **-** |      **40 B** |
-| ValueStopwatch |    100 | 2,768.40 ns |  8.805 ns | 0.483 ns | 2,767.86 ns | 2,768.77 ns |      - |         - |
-# Logic.Benchmark.BinaryArrayConverterBenchmarks-report-github.md
-
-``` ini
-
-BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
-Intel Xeon Platinum 8370C CPU 2.80GHz, 1 CPU, 2 logical and 2 physical cores
-.NET SDK=7.0.400
-  [Host]   : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
-  ShortRun : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
-
-Job=ShortRun  IterationCount=3  LaunchCount=1  
-WarmupCount=3  
-
-```
-|                       Method | Number |         Mean |        Error |     StdDev |          Min |          Max |  Gen 0 | Allocated |
-|----------------------------- |------- |-------------:|-------------:|-----------:|-------------:|-------------:|-------:|----------:|
-|             **ToBinaryArrayInt** |      **1** |     **25.07 ns** |    **11.083 ns** |   **0.607 ns** |     **24.64 ns** |     **25.77 ns** | **0.0013** |      **32 B** |
-| ToBinaryArrayConvertToString |      1 |     83.07 ns |    12.652 ns |   0.693 ns |     82.27 ns |     83.48 ns | 0.0038 |      96 B |
-|          ToBinaryArrayIntMod |      1 |     27.62 ns |     1.957 ns |   0.107 ns |     27.54 ns |     27.74 ns | 0.0013 |      32 B |
-|    ToBinaryArrayIntModNumber |      1 |     16.71 ns |     0.504 ns |   0.028 ns |     16.68 ns |     16.73 ns | 0.0013 |      32 B |
-|             **ToBinaryArrayInt** |     **10** |    **267.92 ns** |    **36.448 ns** |   **1.998 ns** |    **266.20 ns** |    **270.11 ns** | **0.0124** |     **320 B** |
-| ToBinaryArrayConvertToString |     10 |    986.94 ns |    74.853 ns |   4.103 ns |    983.88 ns |    991.60 ns | 0.0401 |   1,024 B |
-|          ToBinaryArrayIntMod |     10 |    300.14 ns |    36.277 ns |   1.988 ns |    298.52 ns |    302.36 ns | 0.0124 |     320 B |
-|    ToBinaryArrayIntModNumber |     10 |    195.03 ns |    51.581 ns |   2.827 ns |    193.33 ns |    198.29 ns | 0.0126 |     320 B |
-|             **ToBinaryArrayInt** |    **100** |  **2,533.34 ns** |   **260.568 ns** |  **14.283 ns** |  **2,519.43 ns** |  **2,547.97 ns** | **0.1259** |   **3,200 B** |
-| ToBinaryArrayConvertToString |    100 | 10,393.40 ns | 1,372.134 ns |  75.211 ns | 10,332.85 ns | 10,477.59 ns | 0.4272 |  10,928 B |
-|          ToBinaryArrayIntMod |    100 |  2,839.40 ns |   242.155 ns |  13.273 ns |  2,824.71 ns |  2,850.54 ns | 0.1259 |   3,200 B |
-|    ToBinaryArrayIntModNumber |    100 |  2,509.94 ns |   294.739 ns |  16.156 ns |  2,497.61 ns |  2,528.23 ns | 0.1259 |   3,200 B |
-|             **ToBinaryArrayInt** |    **255** |  **6,338.43 ns** |   **110.633 ns** |   **6.064 ns** |  **6,331.68 ns** |  **6,343.42 ns** | **0.3204** |   **8,160 B** |
-| ToBinaryArrayConvertToString |    255 | 25,766.73 ns | 2,634.197 ns | 144.389 ns | 25,665.37 ns | 25,932.06 ns | 0.9155 |  23,208 B |
-|          ToBinaryArrayIntMod |    255 |  7,182.41 ns | 1,018.884 ns |  55.848 ns |  7,129.94 ns |  7,241.11 ns | 0.3204 |   8,160 B |
-|    ToBinaryArrayIntModNumber |    255 |  6,770.08 ns |   897.978 ns |  49.221 ns |  6,724.65 ns |  6,822.37 ns | 0.3204 |   8,160 B |
 # Logic.Benchmark.ExponentialBackoffBenchmarks-report-github.md
 
 ``` ini
 
 BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
-Intel Xeon Platinum 8370C CPU 2.80GHz, 1 CPU, 2 logical and 2 physical cores
-.NET SDK=7.0.400
-  [Host]   : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
-  ShortRun : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
+AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
+.NET SDK=8.0.100
+  [Host]   : .NET 6.0.25 (6.0.2523.51912), X64 RyuJIT
+  ShortRun : .NET 6.0.25 (6.0.2523.51912), X64 RyuJIT
 
 Job=ShortRun  IterationCount=3  LaunchCount=1  
 WarmupCount=3  
@@ -68,154 +14,67 @@ WarmupCount=3
 ```
 |             Method | Number |      Mean |     Error |   StdDev |       Min |       Max | Allocated |
 |------------------- |------- |----------:|----------:|---------:|----------:|----------:|----------:|
-| **ExponentialBackoff** |      **1** |  **12.61 ms** |  **0.716 ms** | **0.039 ms** |  **12.58 ms** |  **12.66 ms** |     **588 B** |
-| **ExponentialBackoff** |     **10** | **764.74 ms** | **70.186 ms** | **3.847 ms** | **761.18 ms** | **768.82 ms** |   **4,696 B** |
-# Logic.Benchmark.StringSplitBenchmarks-report-github.md
+| **ExponentialBackoff** |      **1** |  **12.09 ms** |  **1.538 ms** | **0.084 ms** |  **12.04 ms** |  **12.18 ms** |     **585 B** |
+| **ExponentialBackoff** |     **10** | **758.41 ms** | **57.724 ms** | **3.164 ms** | **755.65 ms** | **761.86 ms** |   **4,696 B** |
+# Logic.Benchmark.StopwatchBenchmarks-report-github.md
 
 ``` ini
 
 BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
-Intel Xeon Platinum 8370C CPU 2.80GHz, 1 CPU, 2 logical and 2 physical cores
-.NET SDK=7.0.400
-  [Host]   : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
-  ShortRun : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
+AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
+.NET SDK=8.0.100
+  [Host]   : .NET 6.0.25 (6.0.2523.51912), X64 RyuJIT
+  ShortRun : .NET 6.0.25 (6.0.2523.51912), X64 RyuJIT
 
 Job=ShortRun  IterationCount=3  LaunchCount=1  
 WarmupCount=3  
 
 ```
-|             Method | Number |         Mean |       Error |     StdDev |          Min |          Max |    Gen 0 |   Allocated |
-|------------------- |------- |-------------:|------------:|-----------:|-------------:|-------------:|---------:|------------:|
-| **StringSplitNoAlloc** |      **1** |     **1.799 μs** |   **0.0302 μs** |  **0.0017 μs** |     **1.797 μs** |     **1.800 μs** |        **-** |           **-** |
-|        StringSplit |      1 |     2.063 μs |   0.2074 μs |  0.0114 μs |     2.053 μs |     2.075 μs |   0.1259 |     3,208 B |
-| **StringSplitNoAlloc** |     **10** |    **18.166 μs** |   **0.3058 μs** |  **0.0168 μs** |    **18.150 μs** |    **18.183 μs** |        **-** |           **-** |
-|        StringSplit |     10 |    20.360 μs |   2.2444 μs |  0.1230 μs |    20.236 μs |    20.482 μs |   1.2512 |    32,080 B |
-| **StringSplitNoAlloc** |    **100** |   **181.344 μs** |   **1.6057 μs** |  **0.0880 μs** |   **181.248 μs** |   **181.421 μs** |        **-** |           **-** |
-|        StringSplit |    100 |   207.562 μs |  22.4396 μs |  1.2300 μs |   206.237 μs |   208.667 μs |  12.6953 |   320,800 B |
-| **StringSplitNoAlloc** |   **1000** | **1,813.746 μs** |  **37.0736 μs** |  **2.0321 μs** | **1,811.798 μs** | **1,815.853 μs** |        **-** |         **2 B** |
-|        StringSplit |   1000 | 2,060.670 μs | 353.1459 μs | 19.3571 μs | 2,039.130 μs | 2,076.609 μs | 125.0000 | 3,208,003 B |
-# Logic.Benchmark.StringReverseBenchmarks-report-github.md
-
-``` ini
-
-BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
-Intel Xeon Platinum 8370C CPU 2.80GHz, 1 CPU, 2 logical and 2 physical cores
-.NET SDK=7.0.400
-  [Host]   : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
-  ShortRun : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
-
-Job=ShortRun  IterationCount=3  LaunchCount=1  
-WarmupCount=3  
-
-```
-|                 Method | Number |             Mean |            Error |         StdDev |              Min |              Max |     Gen 0 |    Allocated |
-|----------------------- |------- |-----------------:|-----------------:|---------------:|-----------------:|-----------------:|----------:|-------------:|
-|           **ArrayReverse** |      **1** |         **88.30 ns** |         **4.097 ns** |       **0.225 ns** |         **88.04 ns** |         **88.45 ns** |    **0.0120** |        **304 B** |
-|      EnumerableReverse |      1 |      1,130.91 ns |        20.633 ns |       1.131 ns |      1,129.92 ns |      1,132.14 ns |    0.0229 |        600 B |
-|       RecursiveReverse |      1 |      2,407.11 ns |       305.577 ns |      16.750 ns |      2,390.88 ns |      2,424.34 ns |    0.2861 |      7,272 B |
-|             ReverseXor |      1 |        143.45 ns |        27.958 ns |       1.532 ns |        141.73 ns |        144.67 ns |    0.0119 |        304 B |
-|           StackReverse |      1 |        595.82 ns |        20.076 ns |       1.100 ns |        594.95 ns |        597.05 ns |    0.0353 |        896 B |
-|             StringSpan |      1 |         68.61 ns |        13.436 ns |       0.736 ns |         67.84 ns |         69.31 ns |    0.0060 |        152 B |
-| StringExtensionReverse |      1 |        803.51 ns |        53.525 ns |       2.934 ns |        800.29 ns |        806.02 ns |    0.0277 |        696 B |
-|           **ArrayReverse** |     **10** |        **802.61 ns** |       **130.151 ns** |       **7.134 ns** |        **794.42 ns** |        **807.44 ns** |    **0.1211** |      **3,040 B** |
-|      EnumerableReverse |     10 |     11,139.87 ns |       373.844 ns |      20.492 ns |     11,118.56 ns |     11,159.43 ns |    0.2289 |      6,000 B |
-|       RecursiveReverse |     10 |     23,150.57 ns |     6,943.243 ns |     380.583 ns |     22,768.85 ns |     23,530.01 ns |    2.8687 |     72,720 B |
-|             ReverseXor |     10 |      1,289.13 ns |       335.445 ns |      18.387 ns |      1,269.79 ns |      1,306.39 ns |    0.1202 |      3,040 B |
-|           StackReverse |     10 |      6,442.48 ns |       277.818 ns |      15.228 ns |      6,425.03 ns |      6,453.12 ns |    0.3510 |      8,960 B |
-|             StringSpan |     10 |        570.67 ns |       197.329 ns |      10.816 ns |        560.24 ns |        581.83 ns |    0.0601 |      1,520 B |
-| StringExtensionReverse |     10 |      7,760.60 ns |       436.085 ns |      23.903 ns |      7,734.00 ns |      7,780.27 ns |    0.2747 |      6,960 B |
-|           **ArrayReverse** |    **100** |      **7,470.97 ns** |     **2,813.513 ns** |     **154.218 ns** |      **7,296.71 ns** |      **7,589.87 ns** |    **1.2054** |     **30,400 B** |
-|      EnumerableReverse |    100 |    110,263.93 ns |     2,565.378 ns |     140.617 ns |    110,106.33 ns |    110,376.58 ns |    2.3193 |     60,000 B |
-|       RecursiveReverse |    100 |    223,264.19 ns |     2,018.327 ns |     110.631 ns |    223,139.88 ns |    223,351.82 ns |   28.8086 |    727,200 B |
-|             ReverseXor |    100 |     12,537.13 ns |       449.043 ns |      24.614 ns |     12,520.82 ns |     12,565.44 ns |    1.2054 |     30,400 B |
-|           StackReverse |    100 |     64,420.48 ns |    31,309.577 ns |   1,716.184 ns |     63,323.21 ns |     66,398.20 ns |    3.5400 |     89,600 B |
-|             StringSpan |    100 |      5,357.70 ns |       294.485 ns |      16.142 ns |      5,339.23 ns |      5,369.11 ns |    0.6027 |     15,200 B |
-| StringExtensionReverse |    100 |     77,089.23 ns |     4,828.788 ns |     264.682 ns |     76,789.75 ns |     77,291.80 ns |    2.6855 |     69,600 B |
-|           **ArrayReverse** |   **1000** |     **73,935.76 ns** |    **32,367.281 ns** |   **1,774.160 ns** |     **72,094.33 ns** |     **75,633.96 ns** |   **12.0850** |    **304,000 B** |
-|      EnumerableReverse |   1000 |  1,107,036.95 ns |    32,528.330 ns |   1,782.988 ns |  1,104,983.31 ns |  1,108,190.13 ns |   23.4375 |    600,002 B |
-|       RecursiveReverse |   1000 |  2,243,370.72 ns |   144,394.294 ns |   7,914.738 ns |  2,234,297.18 ns |  2,248,854.17 ns |  289.0625 |  7,272,003 B |
-|             ReverseXor |   1000 |    124,507.62 ns |    34,636.465 ns |   1,898.542 ns |    122,879.66 ns |    126,593.12 ns |   11.9629 |    304,000 B |
-|           StackReverse |   1000 |    586,186.65 ns |    39,708.507 ns |   2,176.557 ns |    584,075.81 ns |    588,423.46 ns |   35.1563 |    896,001 B |
-|             StringSpan |   1000 |     52,964.26 ns |     7,374.323 ns |     404.212 ns |     52,704.33 ns |     53,429.95 ns |    6.0425 |    152,000 B |
-| StringExtensionReverse |   1000 |    773,760.41 ns |   112,879.031 ns |   6,187.281 ns |    767,585.92 ns |    779,960.40 ns |   27.3438 |    696,001 B |
-|           **ArrayReverse** |  **10000** |    **709,975.68 ns** |    **87,288.671 ns** |   **4,784.587 ns** |    **704,532.86 ns** |    **713,518.09 ns** |  **121.0938** |  **3,040,001 B** |
-|      EnumerableReverse |  10000 | 11,278,470.30 ns |   335,452.956 ns |  18,387.308 ns | 11,262,308.33 ns | 11,298,475.47 ns |  234.3750 |  6,000,013 B |
-|       RecursiveReverse |  10000 | 22,720,918.70 ns | 2,023,994.492 ns | 110,941.968 ns | 22,594,171.12 ns | 22,800,398.69 ns | 2875.0000 | 72,720,026 B |
-|             ReverseXor |  10000 |  1,242,984.59 ns |   223,556.537 ns |  12,253.888 ns |  1,231,600.58 ns |  1,255,954.03 ns |  121.0938 |  3,040,002 B |
-|           StackReverse |  10000 |  5,816,725.64 ns |   109,717.961 ns |   6,014.012 ns |  5,810,531.38 ns |  5,822,541.53 ns |  351.5625 |  8,960,006 B |
-|             StringSpan |  10000 |    532,345.75 ns |    42,734.191 ns |   2,342.405 ns |    529,699.82 ns |    534,154.69 ns |   60.5469 |  1,520,001 B |
-| StringExtensionReverse |  10000 |  7,673,334.01 ns |   890,878.046 ns |  48,832.032 ns |  7,619,975.04 ns |  7,715,799.01 ns |  273.4375 |  6,960,006 B |
+|         Method | Number |        Mean |     Error |   StdDev |         Min |         Max |  Gen 0 | Allocated |
+|--------------- |------- |------------:|----------:|---------:|------------:|------------:|-------:|----------:|
+|      **Stopwatch** |      **1** |    **61.05 ns** |  **1.589 ns** | **0.087 ns** |    **60.95 ns** |    **61.12 ns** | **0.0005** |      **40 B** |
+| ValueStopwatch |      1 |    56.57 ns | 10.624 ns | 0.582 ns |    56.17 ns |    57.23 ns |      - |         - |
+|      **Stopwatch** |     **10** |   **313.58 ns** |  **3.190 ns** | **0.175 ns** |   **313.45 ns** |   **313.78 ns** | **0.0005** |      **40 B** |
+| ValueStopwatch |     10 |   312.12 ns |  8.699 ns | 0.477 ns |   311.76 ns |   312.66 ns |      - |         - |
+|      **Stopwatch** |    **100** | **2,852.71 ns** |  **9.412 ns** | **0.516 ns** | **2,852.11 ns** | **2,853.06 ns** |      **-** |      **40 B** |
+| ValueStopwatch |    100 | 2,873.14 ns | 20.397 ns | 1.118 ns | 2,871.99 ns | 2,874.22 ns |      - |         - |
 # Logic.Benchmark.Networks.CidrBlockBenchmarks-report-github.md
 
 ``` ini
 
 BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
-Intel Xeon Platinum 8370C CPU 2.80GHz, 1 CPU, 2 logical and 2 physical cores
-.NET SDK=7.0.400
-  [Host]   : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
-  ShortRun : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
+AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
+.NET SDK=8.0.100
+  [Host]   : .NET 6.0.25 (6.0.2523.51912), X64 RyuJIT
+  ShortRun : .NET 6.0.25 (6.0.2523.51912), X64 RyuJIT
 
 Job=ShortRun  IterationCount=3  LaunchCount=1  
 WarmupCount=3  
 
 ```
-|                  Method | Number |          Mean |       Error |     StdDev |           Min |           Max | Allocated |
-|------------------------ |------- |--------------:|------------:|-----------:|--------------:|--------------:|----------:|
-|      **CidrBlockNewString** |      **1** |    **100.305 ns** |   **3.5929 ns** |  **0.1969 ns** |    **100.131 ns** |    **100.519 ns** |         **-** |
-|       CidrBlockNewBytes |      1 |      2.861 ns |   0.0027 ns |  0.0001 ns |      2.861 ns |      2.861 ns |         - |
-| CidrBlockTryParseString |      1 |    110.690 ns |  10.5805 ns |  0.5800 ns |    110.101 ns |    111.260 ns |         - |
-|  CidrBlockTryParseBytes |      1 |     14.337 ns |   0.1321 ns |  0.0072 ns |     14.333 ns |     14.345 ns |         - |
-|      **CidrBlockNewString** |     **10** |  **1,028.083 ns** | **114.9653 ns** |  **6.3016 ns** |  **1,021.690 ns** |  **1,034.289 ns** |         **-** |
-|       CidrBlockNewBytes |     10 |     24.535 ns |   0.0565 ns |  0.0031 ns |     24.533 ns |     24.539 ns |         - |
-| CidrBlockTryParseString |     10 |  1,104.177 ns |  75.3427 ns |  4.1298 ns |  1,101.422 ns |  1,108.925 ns |         - |
-|  CidrBlockTryParseBytes |     10 |    147.904 ns |   0.3929 ns |  0.0215 ns |    147.879 ns |    147.917 ns |         - |
-|      **CidrBlockNewString** |    **100** |  **9,932.744 ns** | **487.9080 ns** | **26.7439 ns** |  **9,914.380 ns** |  **9,963.428 ns** |         **-** |
-|       CidrBlockNewBytes |    100 |    253.018 ns |   0.2513 ns |  0.0138 ns |    253.004 ns |    253.031 ns |         - |
-| CidrBlockTryParseString |    100 | 10,895.755 ns | 138.3896 ns |  7.5856 ns | 10,887.010 ns | 10,900.553 ns |         - |
-|  CidrBlockTryParseBytes |    100 |  1,448.483 ns | 865.3945 ns | 47.4352 ns |  1,420.305 ns |  1,503.249 ns |         - |
-# Logic.Benchmark.Networks.SubnetMaskBenchmarks-report-github.md
-
-``` ini
-
-BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
-Intel Xeon Platinum 8370C CPU 2.80GHz, 1 CPU, 2 logical and 2 physical cores
-.NET SDK=7.0.400
-  [Host]   : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
-  ShortRun : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
-
-Job=ShortRun  IterationCount=3  LaunchCount=1  
-WarmupCount=3  
-
-```
-|                      Method | Number |         Mean |        Error |    StdDev |          Min |          Max |  Gen 0 | Allocated |
-|---------------------------- |------- |-------------:|-------------:|----------:|-------------:|-------------:|-------:|----------:|
-|    **SubnetMaskFromCidrNotion** |      **1** |     **34.87 ns** |     **6.229 ns** |  **0.341 ns** |     **34.63 ns** |     **35.26 ns** | **0.0022** |      **56 B** |
-|   SubnetMaskFromCidrAddress |      1 |    195.00 ns |    14.597 ns |  0.800 ns |    194.08 ns |    195.56 ns | 0.0043 |     112 B |
-|  SubnetMaskFromCidrAddress2 |      1 |    204.25 ns |    13.081 ns |  0.717 ns |    203.74 ns |    205.07 ns | 0.0043 |     112 B |
-|     SubnetMaskFromIPAddress |      1 |    148.94 ns |     5.289 ns |  0.290 ns |    148.71 ns |    149.27 ns | 0.0021 |      56 B |
-| SubnetMaskGetNetworkAddress |      1 |     80.87 ns |     2.633 ns |  0.144 ns |     80.70 ns |     80.97 ns | 0.0021 |      56 B |
-|   SubnetMaskGetAddressRange |      1 |    209.92 ns |    41.884 ns |  2.296 ns |    208.59 ns |    212.57 ns | 0.0067 |     168 B |
-|    **SubnetMaskFromCidrNotion** |     **10** |    **359.28 ns** |    **48.020 ns** |  **2.632 ns** |    **356.24 ns** |    **360.80 ns** | **0.0219** |     **560 B** |
-|   SubnetMaskFromCidrAddress |     10 |  1,943.76 ns |    87.596 ns |  4.801 ns |  1,939.24 ns |  1,948.80 ns | 0.0420 |   1,120 B |
-|  SubnetMaskFromCidrAddress2 |     10 |  2,015.38 ns |    94.961 ns |  5.205 ns |  2,012.06 ns |  2,021.38 ns | 0.0420 |   1,120 B |
-|     SubnetMaskFromIPAddress |     10 |  1,490.03 ns |    42.123 ns |  2.309 ns |  1,488.07 ns |  1,492.58 ns | 0.0210 |     560 B |
-| SubnetMaskGetNetworkAddress |     10 |    806.74 ns |    49.667 ns |  2.722 ns |    803.79 ns |    809.14 ns | 0.0219 |     560 B |
-|   SubnetMaskGetAddressRange |     10 |  2,093.63 ns |    32.025 ns |  1.755 ns |  2,091.99 ns |  2,095.48 ns | 0.0648 |   1,680 B |
-|    **SubnetMaskFromCidrNotion** |    **100** |  **3,367.23 ns** |   **362.030 ns** | **19.844 ns** |  **3,351.73 ns** |  **3,389.59 ns** | **0.2213** |   **5,600 B** |
-|   SubnetMaskFromCidrAddress |    100 | 19,374.91 ns |   508.018 ns | 27.846 ns | 19,343.57 ns | 19,396.81 ns | 0.4272 |  11,200 B |
-|  SubnetMaskFromCidrAddress2 |    100 | 20,157.48 ns | 1,630.423 ns | 89.369 ns | 20,074.89 ns | 20,252.35 ns | 0.4272 |  11,200 B |
-|     SubnetMaskFromIPAddress |    100 | 14,910.48 ns | 1,449.203 ns | 79.436 ns | 14,863.15 ns | 15,002.19 ns | 0.2136 |   5,600 B |
-| SubnetMaskGetNetworkAddress |    100 |  7,937.59 ns |   114.235 ns |  6.262 ns |  7,932.20 ns |  7,944.46 ns | 0.2136 |   5,600 B |
-|   SubnetMaskGetAddressRange |    100 | 20,855.80 ns |   460.904 ns | 25.264 ns | 20,827.08 ns | 20,874.59 ns | 0.6409 |  16,800 B |
+|                  Method | Number |         Mean |       Error |     StdDev |          Min |          Max | Allocated |
+|------------------------ |------- |-------------:|------------:|-----------:|-------------:|-------------:|----------:|
+|      **CidrBlockNewString** |      **1** |    **75.629 ns** |   **2.0276 ns** |  **0.1111 ns** |    **75.500 ns** |    **75.696 ns** |         **-** |
+|       CidrBlockNewBytes |      1 |     2.046 ns |   0.0369 ns |  0.0020 ns |     2.045 ns |     2.049 ns |         - |
+| CidrBlockTryParseString |      1 |    79.792 ns |   2.2547 ns |  0.1236 ns |    79.656 ns |    79.896 ns |         - |
+|  CidrBlockTryParseBytes |      1 |    10.508 ns |   1.3533 ns |  0.0742 ns |    10.463 ns |    10.594 ns |         - |
+|      **CidrBlockNewString** |     **10** |   **761.197 ns** |  **10.6885 ns** |  **0.5859 ns** |   **760.719 ns** |   **761.850 ns** |         **-** |
+|       CidrBlockNewBytes |     10 |    24.834 ns |   0.1460 ns |  0.0080 ns |    24.825 ns |    24.841 ns |         - |
+| CidrBlockTryParseString |     10 |   792.811 ns | 408.7603 ns | 22.4055 ns |   779.137 ns |   818.669 ns |         - |
+|  CidrBlockTryParseBytes |     10 |   110.344 ns |   0.9573 ns |  0.0525 ns |   110.310 ns |   110.404 ns |         - |
+|      **CidrBlockNewString** |    **100** | **7,516.481 ns** | **581.9765 ns** | **31.9001 ns** | **7,492.358 ns** | **7,552.650 ns** |         **-** |
+|       CidrBlockNewBytes |    100 |   253.743 ns |   1.9112 ns |  0.1048 ns |   253.623 ns |   253.816 ns |         - |
+| CidrBlockTryParseString |    100 | 7,978.555 ns | 207.8374 ns | 11.3923 ns | 7,966.070 ns | 7,988.387 ns |         - |
+|  CidrBlockTryParseBytes |    100 | 1,051.878 ns |   8.6008 ns |  0.4714 ns | 1,051.350 ns | 1,052.259 ns |         - |
 # Logic.Benchmark.ValueTaskDelayBenchmarks-report-github.md
 
 ``` ini
 
 BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
-Intel Xeon Platinum 8370C CPU 2.80GHz, 1 CPU, 2 logical and 2 physical cores
-.NET SDK=7.0.400
-  [Host]   : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
-  ShortRun : .NET 6.0.21 (6.0.2123.36311), X64 RyuJIT
+AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
+.NET SDK=8.0.100
+  [Host]   : .NET 6.0.25 (6.0.2523.51912), X64 RyuJIT
+  ShortRun : .NET 6.0.25 (6.0.2523.51912), X64 RyuJIT
 
 Job=ShortRun  IterationCount=3  LaunchCount=1  
 WarmupCount=3  
@@ -223,7 +82,148 @@ WarmupCount=3
 ```
 |         Method | Number |      Mean |    Error |   StdDev |       Min |       Max | Allocated |
 |--------------- |------- |----------:|---------:|---------:|----------:|----------:|----------:|
-|      **TaskDelay** |      **1** |  **11.97 ms** | **0.322 ms** | **0.018 ms** |  **11.96 ms** |  **11.99 ms** |     **404 B** |
-| ValueTaskDelay |      1 |  10.26 ms | 0.664 ms | 0.036 ms |  10.22 ms |  10.29 ms |     209 B |
-|      **TaskDelay** |     **10** | **119.68 ms** | **4.842 ms** | **0.265 ms** | **119.40 ms** | **119.93 ms** |   **2,413 B** |
-| ValueTaskDelay |     10 | 101.15 ms | 1.194 ms | 0.065 ms | 101.10 ms | 101.22 ms |     413 B |
+|      **TaskDelay** |      **1** |  **11.98 ms** | **0.332 ms** | **0.018 ms** |  **11.96 ms** |  **12.00 ms** |     **401 B** |
+| ValueTaskDelay |      1 |  10.15 ms | 0.078 ms | 0.004 ms |  10.14 ms |  10.15 ms |     209 B |
+|      **TaskDelay** |     **10** | **119.71 ms** | **2.496 ms** | **0.137 ms** | **119.55 ms** | **119.79 ms** |   **2,405 B** |
+| ValueTaskDelay |     10 | 101.16 ms | 0.378 ms | 0.021 ms | 101.13 ms | 101.17 ms |     413 B |
+# Logic.Benchmark.StringSplitBenchmarks-report-github.md
+
+``` ini
+
+BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
+AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
+.NET SDK=8.0.100
+  [Host]   : .NET 6.0.25 (6.0.2523.51912), X64 RyuJIT
+  ShortRun : .NET 6.0.25 (6.0.2523.51912), X64 RyuJIT
+
+Job=ShortRun  IterationCount=3  LaunchCount=1  
+WarmupCount=3  
+
+```
+|             Method | Number |         Mean |       Error |     StdDev |          Min |          Max |   Gen 0 |   Allocated |
+|------------------- |------- |-------------:|------------:|-----------:|-------------:|-------------:|--------:|------------:|
+| **StringSplitNoAlloc** |      **1** |     **1.407 μs** |   **0.1185 μs** |  **0.0065 μs** |     **1.403 μs** |     **1.415 μs** |       **-** |           **-** |
+|        StringSplit |      1 |     1.633 μs |   0.3013 μs |  0.0165 μs |     1.622 μs |     1.652 μs |  0.0381 |     3,208 B |
+| **StringSplitNoAlloc** |     **10** |    **14.031 μs** |   **0.1055 μs** |  **0.0058 μs** |    **14.026 μs** |    **14.037 μs** |       **-** |           **-** |
+|        StringSplit |     10 |    16.048 μs |   1.1013 μs |  0.0604 μs |    15.987 μs |    16.107 μs |  0.3662 |    32,080 B |
+| **StringSplitNoAlloc** |    **100** |   **140.474 μs** |   **6.4670 μs** |  **0.3545 μs** |   **140.259 μs** |   **140.884 μs** |       **-** |           **-** |
+|        StringSplit |    100 |   161.532 μs |   2.9340 μs |  0.1608 μs |   161.347 μs |   161.635 μs |  3.6621 |   320,800 B |
+| **StringSplitNoAlloc** |   **1000** | **1,401.492 μs** |   **6.4702 μs** |  **0.3547 μs** | **1,401.149 μs** | **1,401.857 μs** |       **-** |         **2 B** |
+|        StringSplit |   1000 | 1,613.086 μs | 386.3759 μs | 21.1786 μs | 1,598.578 μs | 1,637.389 μs | 37.1094 | 3,208,002 B |
+# Logic.Benchmark.Networks.SubnetMaskBenchmarks-report-github.md
+
+``` ini
+
+BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
+AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
+.NET SDK=8.0.100
+  [Host]   : .NET 6.0.25 (6.0.2523.51912), X64 RyuJIT
+  ShortRun : .NET 6.0.25 (6.0.2523.51912), X64 RyuJIT
+
+Job=ShortRun  IterationCount=3  LaunchCount=1  
+WarmupCount=3  
+
+```
+|                      Method | Number |         Mean |        Error |     StdDev |          Min |          Max |  Gen 0 | Allocated |
+|---------------------------- |------- |-------------:|-------------:|-----------:|-------------:|-------------:|-------:|----------:|
+|    **SubnetMaskFromCidrNotion** |      **1** |     **28.00 ns** |     **4.924 ns** |   **0.270 ns** |     **27.69 ns** |     **28.20 ns** | **0.0007** |      **56 B** |
+|   SubnetMaskFromCidrAddress |      1 |    147.47 ns |    10.218 ns |   0.560 ns |    147.03 ns |    148.10 ns | 0.0012 |     112 B |
+|  SubnetMaskFromCidrAddress2 |      1 |    144.16 ns |     9.897 ns |   0.543 ns |    143.71 ns |    144.76 ns | 0.0012 |     112 B |
+|     SubnetMaskFromIPAddress |      1 |    110.19 ns |     8.614 ns |   0.472 ns |    109.90 ns |    110.73 ns | 0.0005 |      56 B |
+| SubnetMaskGetNetworkAddress |      1 |     64.85 ns |     0.990 ns |   0.054 ns |     64.80 ns |     64.91 ns | 0.0006 |      56 B |
+|   SubnetMaskGetAddressRange |      1 |    158.04 ns |    36.010 ns |   1.974 ns |    156.46 ns |    160.25 ns | 0.0019 |     168 B |
+|    **SubnetMaskFromCidrNotion** |     **10** |    **286.68 ns** |     **4.541 ns** |   **0.249 ns** |    **286.41 ns** |    **286.90 ns** | **0.0067** |     **560 B** |
+|   SubnetMaskFromCidrAddress |     10 |  1,490.23 ns |    49.230 ns |   2.698 ns |  1,487.12 ns |  1,491.94 ns | 0.0134 |   1,120 B |
+|  SubnetMaskFromCidrAddress2 |     10 |  1,452.94 ns |   280.271 ns |  15.363 ns |  1,435.48 ns |  1,464.36 ns | 0.0134 |   1,120 B |
+|     SubnetMaskFromIPAddress |     10 |  1,145.90 ns |    63.220 ns |   3.465 ns |  1,143.29 ns |  1,149.83 ns | 0.0057 |     560 B |
+| SubnetMaskGetNetworkAddress |     10 |    643.98 ns |    21.890 ns |   1.200 ns |    642.78 ns |    645.18 ns | 0.0067 |     560 B |
+|   SubnetMaskGetAddressRange |     10 |  1,591.82 ns |   775.241 ns |  42.494 ns |  1,562.82 ns |  1,640.60 ns | 0.0191 |   1,680 B |
+|    **SubnetMaskFromCidrNotion** |    **100** |  **2,774.35 ns** |    **50.182 ns** |   **2.751 ns** |  **2,772.50 ns** |  **2,777.51 ns** | **0.0648** |   **5,600 B** |
+|   SubnetMaskFromCidrAddress |    100 | 15,080.25 ns | 2,038.090 ns | 111.715 ns | 14,986.89 ns | 15,204.02 ns | 0.1221 |  11,200 B |
+|  SubnetMaskFromCidrAddress2 |    100 | 14,612.32 ns |   170.248 ns |   9.332 ns | 14,601.72 ns | 14,619.29 ns | 0.1221 |  11,200 B |
+|     SubnetMaskFromIPAddress |    100 | 11,233.87 ns | 5,083.331 ns | 278.635 ns | 11,023.65 ns | 11,549.91 ns | 0.0610 |   5,600 B |
+| SubnetMaskGetNetworkAddress |    100 |  6,320.02 ns |   630.366 ns |  34.553 ns |  6,284.60 ns |  6,353.64 ns | 0.0610 |   5,600 B |
+|   SubnetMaskGetAddressRange |    100 | 15,647.95 ns | 1,037.438 ns |  56.865 ns | 15,594.37 ns | 15,707.61 ns | 0.1831 |  16,800 B |
+# Logic.Benchmark.StringReverseBenchmarks-report-github.md
+
+``` ini
+
+BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
+AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
+.NET SDK=8.0.100
+  [Host]   : .NET 6.0.25 (6.0.2523.51912), X64 RyuJIT
+  ShortRun : .NET 6.0.25 (6.0.2523.51912), X64 RyuJIT
+
+Job=ShortRun  IterationCount=3  LaunchCount=1  
+WarmupCount=3  
+
+```
+|                 Method | Number |             Mean |            Error |        StdDev |              Min |              Max |    Gen 0 |    Allocated |
+|----------------------- |------- |-----------------:|-----------------:|--------------:|-----------------:|-----------------:|---------:|-------------:|
+|           **ArrayReverse** |      **1** |         **89.44 ns** |        **14.390 ns** |      **0.789 ns** |         **88.57 ns** |         **90.11 ns** |   **0.0036** |        **304 B** |
+|      EnumerableReverse |      1 |        899.59 ns |        14.233 ns |      0.780 ns |        898.69 ns |        900.08 ns |   0.0067 |        600 B |
+|       RecursiveReverse |      1 |      1,772.56 ns |       325.678 ns |     17.852 ns |      1,762.21 ns |      1,793.17 ns |   0.0858 |      7,272 B |
+|             ReverseXor |      1 |        124.31 ns |        14.069 ns |      0.771 ns |        123.49 ns |        125.02 ns |   0.0036 |        304 B |
+|           StackReverse |      1 |        494.97 ns |        20.652 ns |      1.132 ns |        494.07 ns |        496.24 ns |   0.0105 |        896 B |
+|             StringSpan |      1 |         71.35 ns |         2.340 ns |      0.128 ns |         71.21 ns |         71.45 ns |   0.0018 |        152 B |
+| StringExtensionReverse |      1 |        608.15 ns |        44.788 ns |      2.455 ns |        605.46 ns |        610.28 ns |   0.0076 |        696 B |
+|           **ArrayReverse** |     **10** |        **789.70 ns** |         **2.651 ns** |      **0.145 ns** |        **789.58 ns** |        **789.86 ns** |   **0.0362** |      **3,040 B** |
+|      EnumerableReverse |     10 |      9,403.61 ns |     9,056.003 ns |    496.390 ns |      9,093.77 ns |      9,976.14 ns |   0.0610 |      6,000 B |
+|       RecursiveReverse |     10 |     17,936.76 ns |     2,677.947 ns |    146.787 ns |     17,768.71 ns |     18,039.95 ns |   0.8545 |     72,720 B |
+|             ReverseXor |     10 |      1,190.52 ns |       108.276 ns |      5.935 ns |      1,186.55 ns |      1,197.34 ns |   0.0362 |      3,040 B |
+|           StackReverse |     10 |      4,560.17 ns |       301.525 ns |     16.528 ns |      4,541.69 ns |      4,573.52 ns |   0.1068 |      8,960 B |
+|             StringSpan |     10 |        591.24 ns |       159.030 ns |      8.717 ns |        586.17 ns |        601.30 ns |   0.0181 |      1,520 B |
+| StringExtensionReverse |     10 |      6,326.44 ns |     3,150.605 ns |    172.695 ns |      6,193.21 ns |      6,521.55 ns |   0.0763 |      6,960 B |
+|           **ArrayReverse** |    **100** |      **7,798.39 ns** |       **655.273 ns** |     **35.918 ns** |      **7,757.15 ns** |      **7,822.80 ns** |   **0.3510** |     **30,400 B** |
+|      EnumerableReverse |    100 |     90,695.57 ns |     1,496.935 ns |     82.052 ns |     90,627.82 ns |     90,786.80 ns |   0.6104 |     60,000 B |
+|       RecursiveReverse |    100 |    174,001.58 ns |     7,691.211 ns |    421.581 ns |    173,639.79 ns |    174,464.54 ns |   8.5449 |    727,200 B |
+|             ReverseXor |    100 |     11,277.70 ns |        88.095 ns |      4.829 ns |     11,272.25 ns |     11,281.45 ns |   0.3510 |     30,400 B |
+|           StackReverse |    100 |     48,120.37 ns |     4,885.677 ns |    267.800 ns |     47,929.48 ns |     48,426.50 ns |   1.0376 |     89,600 B |
+|             StringSpan |    100 |      5,689.04 ns |       640.469 ns |     35.106 ns |      5,650.00 ns |      5,718.02 ns |   0.1755 |     15,200 B |
+| StringExtensionReverse |    100 |     64,812.55 ns |    32,105.995 ns |  1,759.838 ns |     63,021.20 ns |     66,539.09 ns |   0.7324 |     69,602 B |
+|           **ArrayReverse** |   **1000** |     **78,221.84 ns** |    **22,289.710 ns** |  **1,221.774 ns** |     **77,065.29 ns** |     **79,499.78 ns** |   **3.5400** |    **304,000 B** |
+|      EnumerableReverse |   1000 |    915,395.58 ns |    99,141.992 ns |  5,434.307 ns |    909,387.47 ns |    919,967.64 ns |   6.8359 |    600,001 B |
+|       RecursiveReverse |   1000 |  1,734,812.79 ns |   209,042.656 ns | 11,458.333 ns |  1,726,483.16 ns |  1,747,880.21 ns |  85.9375 |  7,272,002 B |
+|             ReverseXor |   1000 |    115,966.56 ns |    52,435.031 ns |  2,874.141 ns |    113,711.71 ns |    119,202.87 ns |   3.5400 |    304,000 B |
+|           StackReverse |   1000 |    475,759.27 ns |     4,095.388 ns |    224.482 ns |    475,506.12 ns |    475,934.09 ns |  10.2539 |    896,000 B |
+|             StringSpan |   1000 |     57,501.36 ns |    19,743.823 ns |  1,082.226 ns |     56,534.99 ns |     58,670.70 ns |   1.7700 |    152,000 B |
+| StringExtensionReverse |   1000 |    613,921.91 ns |     8,215.932 ns |    450.343 ns |    613,481.70 ns |    614,381.75 ns |   7.8125 |    696,001 B |
+|           **ArrayReverse** |  **10000** |    **772,515.29 ns** |    **22,750.018 ns** |  **1,247.005 ns** |    **771,101.40 ns** |    **773,458.26 ns** |  **36.1328** |  **3,040,001 B** |
+|      EnumerableReverse |  10000 |  9,072,495.16 ns | 1,537,074.929 ns | 84,252.264 ns |  8,988,260.80 ns |  9,156,765.31 ns |  62.5000 |  6,000,013 B |
+|       RecursiveReverse |  10000 | 17,234,245.83 ns |   581,171.286 ns | 31,855.959 ns | 17,197,665.47 ns | 17,255,884.12 ns | 843.7500 | 72,720,026 B |
+|             ReverseXor |  10000 |  1,120,242.80 ns |    54,892.460 ns |  3,008.841 ns |  1,118,091.77 ns |  1,123,681.13 ns |  35.1563 |  3,040,023 B |
+|           StackReverse |  10000 |  4,795,379.95 ns |   303,480.516 ns | 16,634.791 ns |  4,776,288.92 ns |  4,806,760.08 ns | 101.5625 |  8,960,006 B |
+|             StringSpan |  10000 |    565,450.00 ns |   139,588.012 ns |  7,651.290 ns |    558,041.82 ns |    573,323.19 ns |  17.5781 |  1,520,001 B |
+| StringExtensionReverse |  10000 |  6,210,346.34 ns |   932,340.131 ns | 51,104.709 ns |  6,155,954.20 ns |  6,257,361.91 ns |  78.1250 |  6,960,006 B |
+# Logic.Benchmark.BinaryArrayConverterBenchmarks-report-github.md
+
+``` ini
+
+BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
+AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
+.NET SDK=8.0.100
+  [Host]   : .NET 6.0.25 (6.0.2523.51912), X64 RyuJIT
+  ShortRun : .NET 6.0.25 (6.0.2523.51912), X64 RyuJIT
+
+Job=ShortRun  IterationCount=3  LaunchCount=1  
+WarmupCount=3  
+
+```
+|                       Method | Number |         Mean |        Error |    StdDev |          Min |          Max |  Gen 0 | Allocated |
+|----------------------------- |------- |-------------:|-------------:|----------:|-------------:|-------------:|-------:|----------:|
+|             **ToBinaryArrayInt** |      **1** |     **18.09 ns** |     **0.781 ns** |  **0.043 ns** |     **18.05 ns** |     **18.13 ns** | **0.0004** |      **32 B** |
+| ToBinaryArrayConvertToString |      1 |     70.08 ns |     7.787 ns |  0.427 ns |     69.72 ns |     70.55 ns | 0.0011 |      96 B |
+|          ToBinaryArrayIntMod |      1 |     20.41 ns |     4.808 ns |  0.264 ns |     20.10 ns |     20.58 ns | 0.0004 |      32 B |
+|    ToBinaryArrayIntModNumber |      1 |     13.84 ns |     6.197 ns |  0.340 ns |     13.48 ns |     14.16 ns | 0.0004 |      32 B |
+|             **ToBinaryArrayInt** |     **10** |    **193.12 ns** |     **8.657 ns** |  **0.475 ns** |    **192.73 ns** |    **193.64 ns** | **0.0038** |     **320 B** |
+| ToBinaryArrayConvertToString |     10 |    838.89 ns |    36.833 ns |  2.019 ns |    837.32 ns |    841.17 ns | 0.0114 |   1,024 B |
+|          ToBinaryArrayIntMod |     10 |    216.13 ns |   100.801 ns |  5.525 ns |    211.33 ns |    222.17 ns | 0.0038 |     320 B |
+|    ToBinaryArrayIntModNumber |     10 |    146.20 ns |    26.053 ns |  1.428 ns |    144.98 ns |    147.77 ns | 0.0038 |     320 B |
+|             **ToBinaryArrayInt** |    **100** |  **1,852.63 ns** |   **269.045 ns** | **14.747 ns** |  **1,837.09 ns** |  **1,866.43 ns** | **0.0381** |   **3,200 B** |
+| ToBinaryArrayConvertToString |    100 |  9,268.48 ns | 1,411.734 ns | 77.382 ns |  9,215.76 ns |  9,357.32 ns | 0.1221 |  10,928 B |
+|          ToBinaryArrayIntMod |    100 |  2,065.79 ns |   622.446 ns | 34.118 ns |  2,042.16 ns |  2,104.90 ns | 0.0381 |   3,200 B |
+|    ToBinaryArrayIntModNumber |    100 |  1,786.48 ns |    28.188 ns |  1.545 ns |  1,785.36 ns |  1,788.24 ns | 0.0381 |   3,200 B |
+|             **ToBinaryArrayInt** |    **255** |  **4,692.39 ns** |   **576.248 ns** | **31.586 ns** |  **4,660.20 ns** |  **4,723.34 ns** | **0.0916** |   **8,160 B** |
+| ToBinaryArrayConvertToString |    255 | 21,687.65 ns |   407.099 ns | 22.314 ns | 21,668.20 ns | 21,712.01 ns | 0.2747 |  23,208 B |
+|          ToBinaryArrayIntMod |    255 |  5,204.25 ns |   137.375 ns |  7.530 ns |  5,196.44 ns |  5,211.46 ns | 0.0916 |   8,160 B |
+|    ToBinaryArrayIntModNumber |    255 |  4,950.06 ns |   741.950 ns | 40.669 ns |  4,924.62 ns |  4,996.97 ns | 0.0916 |   8,160 B |
