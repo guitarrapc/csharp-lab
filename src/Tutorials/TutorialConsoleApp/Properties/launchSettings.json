@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "ThreadsPoolConsoleApp": {
+    "TutorialConsoleApp": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
