@@ -5,8 +5,8 @@
 BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
 AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
 .NET SDK=8.0.100
-  [Host]   : .NET 7.0.14 (7.0.1423.51910), X64 RyuJIT
-  ShortRun : .NET 7.0.14 (7.0.1423.51910), X64 RyuJIT
+  [Host]   : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT
+  ShortRun : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT
 
 Job=ShortRun  IterationCount=3  LaunchCount=1  
 WarmupCount=3  
@@ -14,16 +14,16 @@ WarmupCount=3
 ```
 |               Method | Number |       Mean |      Error |    StdDev |        Min |        Max |  Gen 0 |  Gen 1 | Allocated |
 |--------------------- |------- |-----------:|-----------:|----------:|-----------:|-----------:|-------:|-------:|----------:|
-| **AllocateStringStatic** |      **1** |   **762.7 ns** |   **236.9 ns** |  **12.99 ns** |   **754.9 ns** |   **777.7 ns** | **0.0124** | **0.0114** |      **1 KB** |
-|       AllocateString |      1 |   725.3 ns |   292.3 ns |  16.02 ns |   711.9 ns |   743.0 ns | 0.0124 | 0.0114 |      1 KB |
-|          AllocateLoH |      1 |   736.1 ns |   472.3 ns |  25.89 ns |   710.4 ns |   762.2 ns | 0.0124 | 0.0114 |      1 KB |
-|        AllocateArray |      1 |   737.1 ns |   228.8 ns |  12.54 ns |   724.2 ns |   749.3 ns | 0.0124 | 0.0114 |      1 KB |
-|    AllocateArrayPool |      1 |   736.3 ns |   599.4 ns |  32.86 ns |   706.1 ns |   771.3 ns | 0.0124 | 0.0114 |      1 KB |
-| **AllocateStringStatic** |     **10** | **7,649.7 ns** |   **824.0 ns** |  **45.16 ns** | **7,606.4 ns** | **7,696.6 ns** | **0.1221** | **0.1144** |     **10 KB** |
-|       AllocateString |     10 | 7,437.8 ns | 2,441.1 ns | 133.80 ns | 7,314.1 ns | 7,579.8 ns | 0.1221 | 0.1144 |     10 KB |
-|          AllocateLoH |     10 | 7,294.1 ns |   364.6 ns |  19.98 ns | 7,273.1 ns | 7,312.9 ns | 0.1221 | 0.1144 |     10 KB |
-|        AllocateArray |     10 | 7,553.0 ns |   847.3 ns |  46.45 ns | 7,512.5 ns | 7,603.7 ns | 0.1221 | 0.1144 |     10 KB |
-|    AllocateArrayPool |     10 | 7,700.3 ns | 2,084.0 ns | 114.23 ns | 7,568.6 ns | 7,772.5 ns | 0.1221 | 0.1144 |     10 KB |
+| **AllocateStringStatic** |      **1** |   **760.9 ns** |   **188.9 ns** |  **10.35 ns** |   **749.2 ns** |   **769.1 ns** | **0.0124** | **0.0114** |      **1 KB** |
+|       AllocateString |      1 |   719.3 ns |   133.2 ns |   7.30 ns |   712.3 ns |   726.9 ns | 0.0124 | 0.0114 |      1 KB |
+|          AllocateLoH |      1 |   721.1 ns |   374.8 ns |  20.54 ns |   699.6 ns |   740.5 ns | 0.0124 | 0.0114 |      1 KB |
+|        AllocateArray |      1 |   740.3 ns |   306.8 ns |  16.82 ns |   725.1 ns |   758.3 ns | 0.0124 | 0.0114 |      1 KB |
+|    AllocateArrayPool |      1 |   706.9 ns |   537.6 ns |  29.47 ns |   684.2 ns |   740.2 ns | 0.0124 | 0.0114 |      1 KB |
+| **AllocateStringStatic** |     **10** | **7,557.7 ns** | **2,787.2 ns** | **152.78 ns** | **7,404.2 ns** | **7,709.7 ns** | **0.1221** | **0.1144** |     **10 KB** |
+|       AllocateString |     10 | 7,199.3 ns | 4,872.0 ns | 267.05 ns | 6,894.4 ns | 7,391.8 ns | 0.1221 | 0.1144 |     10 KB |
+|          AllocateLoH |     10 | 7,174.9 ns |   768.1 ns |  42.10 ns | 7,141.7 ns | 7,222.2 ns | 0.1221 | 0.1144 |     10 KB |
+|        AllocateArray |     10 | 7,445.5 ns | 2,445.7 ns | 134.06 ns | 7,296.7 ns | 7,556.9 ns | 0.1221 | 0.1144 |     10 KB |
+|    AllocateArrayPool |     10 | 7,276.4 ns | 2,094.1 ns | 114.79 ns | 7,193.0 ns | 7,407.4 ns | 0.1221 | 0.1144 |     10 KB |
 # MemoryLeak.Benchmark.NoAllocMemoryLeakBenchmarks-report-github.md
 
 ``` ini
@@ -31,8 +31,8 @@ WarmupCount=3
 BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
 AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
 .NET SDK=8.0.100
-  [Host]   : .NET 7.0.14 (7.0.1423.51910), X64 RyuJIT
-  ShortRun : .NET 7.0.14 (7.0.1423.51910), X64 RyuJIT
+  [Host]   : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT
+  ShortRun : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT
 
 Job=ShortRun  IterationCount=3  LaunchCount=1  
 WarmupCount=3  
@@ -40,7 +40,7 @@ WarmupCount=3
 ```
 |            Method | Number |      Mean |      Error |   StdDev |       Min |       Max | Allocated |
 |------------------ |------- |----------:|-----------:|---------:|----------:|----------:|----------:|
-|        **RentReturn** |      **1** |  **38.70 ns** |  **14.963 ns** | **0.820 ns** |  **38.09 ns** |  **39.64 ns** |         **-** |
-| AllocateArrayPool |      1 |  98.69 ns |   1.176 ns | 0.064 ns |  98.62 ns |  98.75 ns |         - |
-|        **RentReturn** |     **10** | **551.86 ns** | **146.565 ns** | **8.034 ns** | **546.48 ns** | **561.09 ns** |         **-** |
-| AllocateArrayPool |     10 | 718.09 ns |  29.113 ns | 1.596 ns | 716.86 ns | 719.90 ns |         - |
+|        **RentReturn** |      **1** |  **34.32 ns** |   **0.873 ns** | **0.048 ns** |  **34.29 ns** |  **34.38 ns** |         **-** |
+| AllocateArrayPool |      1 |  99.97 ns |   2.934 ns | 0.161 ns |  99.86 ns | 100.16 ns |         - |
+|        **RentReturn** |     **10** | **521.97 ns** |  **20.578 ns** | **1.128 ns** | **521.27 ns** | **523.27 ns** |         **-** |
+| AllocateArrayPool |     10 | 715.10 ns | 134.128 ns | 7.352 ns | 706.63 ns | 719.80 ns |         - |
