@@ -78,7 +78,6 @@ jobs:
 
   # run on pull_request only
   update-doc:
-    if: ${{ github.event_name != 'pull_request' }}
     needs: [benchmark]
     permissions:
       contents: write
@@ -103,6 +102,7 @@ jobs:
           done <<< $(find "${{ env.TEMP_UPLOAD_PATH }}/" ! -name "dummy.md" -name "*.md" -type f)
 
       - name: Commit & Push changes
+        if: ${{ github.event_name != 'pull_request' }}
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
