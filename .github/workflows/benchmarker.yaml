@@ -70,7 +70,7 @@ jobs:
         if: ${{ steps.cpu.outputs.execute == 0 }}
         run: mkdir -p ${{ env.TEMP_UPLOAD_PATH }} && echo "" >> ${{ env.TEMP_UPLOAD_PATH }}/dummy.md # dummy file to upload
       - name: Upload summary
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: "benchmarks"
           path: ${{ env.TEMP_UPLOAD_PATH }}/
