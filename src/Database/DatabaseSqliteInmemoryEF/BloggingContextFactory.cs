@@ -1,8 +1,8 @@
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore;
 using DatabaseCore.Models;
-using System.Reflection;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using System.Reflection;
 
 namespace DatabaseSqliteInmemoryEF;
 
@@ -18,7 +18,7 @@ public class BloggingContextFactory : IDesignTimeDbContextFactory<BloggingDbCont
             .AddCommandLine(args)
             .AddEnvironmentVariables()
             .Build();
-        var conn = config.GetConnectionString("Default");
+        var conn = config.GetConnectionString("Default") ?? throw new ArgumentNullException($"Default ConnectionString not found.");
         var optionsBuilder = new DbContextOptionsBuilder<BloggingDbContext>();
         optionsBuilder.UseSqlite(conn, options =>
         {

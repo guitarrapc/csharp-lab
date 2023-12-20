@@ -1,7 +1,7 @@
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using DatabaseCore.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
 namespace DatabasePostgresqlEf;
@@ -17,7 +17,7 @@ public class BloggingContextFactory : IDesignTimeDbContextFactory<BloggingDbCont
             .AddCommandLine(args)
             .AddEnvironmentVariables()
             .Build();
-        var conn = config.GetConnectionString("Default");
+        var conn = config.GetConnectionString("Default") ?? throw new ArgumentNullException($"Default ConnectionString not found.");
         var optionsBuilder = new DbContextOptionsBuilder<BloggingDbContext>();
         optionsBuilder.UseNpgsql(conn, options =>
         {

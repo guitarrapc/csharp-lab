@@ -65,7 +65,7 @@ public static class CsharplabBuilderExtensions
     /// <param name="builder"></param>
     public static ICsharplabBuilder AddCsharpLabDatabase(this ICsharplabBuilder builder)
     {
-        var connectionString = builder.Configuration.GetConnectionString("Default");
+        var connectionString = builder.Configuration.GetConnectionString("Default") ?? throw new ArgumentNullException($"Default ConnectionString not found.");
 
         // Wants use IDbContextFactory instead of DbContext.
         builder.Services.AddDbContextFactory<BloggingDbContext>(optionBuilder =>

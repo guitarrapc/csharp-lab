@@ -67,7 +67,7 @@ public static class CsharplabBuilderExtensions
     /// <param name="builder"></param>
     public static ICsharplabBuilder AddCsharpLabDatabase(this ICsharplabBuilder builder)
     {
-        var connectionString = builder.Configuration.GetConnectionString("Default");
+        var connectionString = builder.Configuration.GetConnectionString("Default") ?? throw new ArgumentNullException($"Default ConnectionString not found.");
         var conn = new SqliteConnection(connectionString);
         conn.Open(); // Don't use directly. Inmemory Sqlite will deleted when all connection closed. Lets keep this connection for Migration and App. 
 
