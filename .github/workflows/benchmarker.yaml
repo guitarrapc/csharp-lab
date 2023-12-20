@@ -14,6 +14,7 @@ on:
 env:
   BUILD_CONFIG: Release
   SKIP_CPU: Intel(R) Xeon(R) CPU E5-2673 v4 @ 2.30GHz # Q4 2016, too slow to benchmark. Skip benchmark if detected.
+  TEMP_UPLOAD_PATH: ./BenchmarkDotNet.Artifacts/outputs
 
 jobs:
   benchmark:
@@ -22,11 +23,14 @@ jobs:
       matrix:
         include:
           - project: Logger.Benchmark
-            csproj: ./src/Logger/Logger.Benchmark/Logger.Benchmark.csproj
+            csproj: Logger.Benchmark.csproj
+            path: src/Logger/Logger.Benchmark
           - project: Logic.Benchmark
-            csproj: ./src/Logic/Logic.Benchmark/Logic.Benchmark.csproj
+            csproj: Logic.Benchmark.csproj
+            path: src/Logic/Logic.Benchmark
           - project: MemoryLeak.Benchmark
-            csproj: ./src/MemoryLeak/MemoryLeak.Benchmark/MemoryLeak.Benchmark.csproj
+            csproj: MemoryLeak.Benchmark.csproj
+            path: src/MemoryLeak/MemoryLeak.Benchmark
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -44,28 +48,37 @@ jobs:
             6.0.x
             7.0.x
       - name: dotnet build
-        run: dotnet build ${{ matrix.csproj }} -c ${{ env.BUILD_CONFIG }}
+        run: dotnet build ./${{ matrix.path}}/${{ matrix.csproj }} -c ${{ env.BUILD_CONFIG }}
       - name: Run benchmark
         if: ${{ steps.cpu.outputs.execute == 1 }}
         run: |
-          dotnet run --project ${{ matrix.csproj }} -c ${{ env.BUILD_CONFIG }}
+          dotnet run --project ./${{ matrix.path}}/${{ matrix.csproj }} -c ${{ env.BUILD_CONFIG }}
+          mkdir -p ${{ env.TEMP_UPLOAD_PATH }}/${{ matrix.path}}
           while read -r file; do
+            echo "Write '$file' to GITHUB_STEP_SUMMARY"
             cat "$file" >> "$GITHUB_STEP_SUMMARY"
+
+            echo "Write '$file' to outputs"
+            bench_name=$(echo "$file" | cut -d '/' -f 4 | cut -d '-' -f 1)
+            cat "$file" > ${{ env.TEMP_UPLOAD_PATH }}/${{ matrix.path }}/${bench_name}.md
+            echo "${{ matrix.path }}/README.${bench_name}.md" | tee ${{ env.TEMP_UPLOAD_PATH }}/${{ matrix.path }}/${bench_name}.md.path
           done <<< "$(find "./BenchmarkDotNet.Artifacts/results" -name "*.md" -type f)"
       - name: Skip benchmark
         if: ${{ steps.cpu.outputs.execute == 0 }}
-        run: mkdir -p ./BenchmarkDotNet.Artifacts/results/ && echo "" >> ./BenchmarkDotNet.Artifacts/results/dummy.md # dummy file to upload
+        run: mkdir -p ${{ env.TEMP_UPLOAD_PATH }} && echo "" >> ${{ env.TEMP_UPLOAD_PATH }}/dummy.md # dummy file to upload
       - name: Upload summary
         uses: actions/upload-artifact@v2
         with:
-          name: "${{ matrix.project }}"
-          path: ./BenchmarkDotNet.Artifacts/results/*.md
+          name: "benchmarks"
+          path: ${{ env.TEMP_UPLOAD_PATH }}/
           retention-days: 1
 
   # run on pull_request only
   update-doc:
     if: ${{ github.event_name == 'pull_request' }}
     needs: [benchmark]
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -76,41 +89,15 @@ jobs:
       - name: Download Logger.Benchmark
         uses: actions/download-artifact@v3
         with:
-          name: Logger.Benchmark
-          path: ./BenchmarkDotNet.Artifacts/Logger.Benchmark/
-      # find *.md files exclude dummy.md and cat all files.
-      # -exec cat + is not stable order.
-      # write to README.md if *.md files are found. ignore if only dummy.md found.
-      - name: Write summary to README.md
-        run: |
-          files=$(find "./BenchmarkDotNet.Artifacts/Logger.Benchmark/" ! -name "dummy.md" -name "*.md" -type f)
-          if [[ "${files}" != "" ]]; then
-            echo "${files}" | xargs -I {i} sh -c 'echo "# $(basename {i})\n"; cat {i}' > ./src/Logger/Logger.Benchmark/README.md
-          fi
+          path: ${{ env.TEMP_UPLOAD_PATH }}/
 
-      - name: Download Logic.Benchmark
-        uses: actions/download-artifact@v3
-        with:
-          name: Logic.Benchmark
-          path: ./BenchmarkDotNet.Artifacts/Logic.Benchmark/
       - name: Write summary to README.md
         run: |
-          files=$(find "./BenchmarkDotNet.Artifacts/Logic.Benchmark/" ! -name "dummy.md" -name "*.md" -type f)
-          if [[ "${files}" != "" ]]; then
-            echo "${files}" | xargs -I {i} sh -c 'echo "# $(basename {i})\n"; cat {i}' > ./src/Logic/Logic.Benchmark/README.md
-          fi
-
-      - name: Download MemoryLeak.Benchmark
-        uses: actions/download-artifact@v3
-        with:
-          name: MemoryLeak.Benchmark
-          path: ./BenchmarkDotNet.Artifacts/MemoryLeak.Benchmark/
-      - name: Write summary to README.md
-        run: |
-          files=$(find "./BenchmarkDotNet.Artifacts/MemoryLeak.Benchmark/" ! -name "dummy.md" -name "*.md" -type f)
-          if [[ "${files}" != "" ]]; then
-            echo "${files}" | xargs -I {i} sh -c 'echo "# $(basename {i})\n"; cat {i}' > ./src/MemoryLeak/MemoryLeak.Benchmark/README.md
-          fi
+          while read -r file; do
+            echo "Processing ${file}."
+            md_path=$(head -n 1 "${file}.path")
+            cat "$file" > $md_path
+          done <<< $(find "${{ env.TEMP_UPLOAD_PATH }}/" ! -name "dummy.md" -name "*.md" -type f)
 
       - name: Commit & Push changes
         uses: actions-js/push@master

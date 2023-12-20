@@ -1,4 +1,6 @@
 using BenchmarkDotNet.Running;
 using LoggerBenchmark;
 
-BenchmarkRunner.Run<Benchmarks>();
+var summary = BenchmarkRunner.Run(typeof(Program).Assembly);
+
+// BenchmarkRunner.Run<LoggerBenchmarks>();
