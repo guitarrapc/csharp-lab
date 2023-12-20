@@ -14,16 +14,16 @@ WarmupCount=3
 ```
 |               Method | Number |       Mean |      Error |    StdDev |        Min |        Max |  Gen 0 |  Gen 1 | Allocated |
 |--------------------- |------- |-----------:|-----------:|----------:|-----------:|-----------:|-------:|-------:|----------:|
-| **AllocateStringStatic** |      **1** |   **738.9 ns** |   **123.1 ns** |   **6.74 ns** |   **731.4 ns** |   **744.5 ns** | **0.0124** | **0.0114** |      **1 KB** |
-|       AllocateString |      1 |   689.5 ns |   156.4 ns |   8.57 ns |   681.8 ns |   698.7 ns | 0.0124 | 0.0114 |      1 KB |
-|          AllocateLoH |      1 |   702.4 ns |   222.2 ns |  12.18 ns |   690.0 ns |   714.4 ns | 0.0124 | 0.0114 |      1 KB |
-|        AllocateArray |      1 |   731.7 ns |   308.0 ns |  16.88 ns |   712.3 ns |   742.6 ns | 0.0124 | 0.0114 |      1 KB |
-|    AllocateArrayPool |      1 |   688.2 ns |   655.7 ns |  35.94 ns |   666.0 ns |   729.6 ns | 0.0124 | 0.0114 |      1 KB |
-| **AllocateStringStatic** |     **10** | **7,573.3 ns** | **2,699.7 ns** | **147.98 ns** | **7,455.1 ns** | **7,739.3 ns** | **0.1221** | **0.1144** |     **10 KB** |
-|       AllocateString |     10 | 7,219.5 ns | 1,343.0 ns |  73.62 ns | 7,167.3 ns | 7,303.7 ns | 0.1221 | 0.1144 |     10 KB |
-|          AllocateLoH |     10 | 7,152.8 ns | 6,666.5 ns | 365.41 ns | 6,771.1 ns | 7,499.4 ns | 0.1221 | 0.1144 |     10 KB |
-|        AllocateArray |     10 | 7,303.7 ns | 4,133.6 ns | 226.57 ns | 7,087.0 ns | 7,539.0 ns | 0.1221 | 0.1144 |     10 KB |
-|    AllocateArrayPool |     10 | 7,033.2 ns | 5,064.9 ns | 277.63 ns | 6,727.4 ns | 7,269.4 ns | 0.1221 | 0.1144 |     10 KB |
+| **AllocateStringStatic** |      **1** |   **740.7 ns** |   **149.5 ns** |   **8.20 ns** |   **732.3 ns** |   **748.7 ns** | **0.0124** | **0.0114** |      **1 KB** |
+|       AllocateString |      1 |   713.6 ns |   302.0 ns |  16.56 ns |   694.4 ns |   723.6 ns | 0.0124 | 0.0114 |      1 KB |
+|          AllocateLoH |      1 |   700.2 ns |   346.0 ns |  18.96 ns |   680.2 ns |   717.9 ns | 0.0124 | 0.0114 |      1 KB |
+|        AllocateArray |      1 |   731.1 ns |   395.2 ns |  21.66 ns |   706.5 ns |   747.1 ns | 0.0124 | 0.0114 |      1 KB |
+|    AllocateArrayPool |      1 |   721.7 ns |   222.5 ns |  12.20 ns |   708.8 ns |   733.1 ns | 0.0124 | 0.0114 |      1 KB |
+| **AllocateStringStatic** |     **10** | **7,454.3 ns** | **1,881.2 ns** | **103.12 ns** | **7,335.8 ns** | **7,523.5 ns** | **0.1221** | **0.1144** |     **10 KB** |
+|       AllocateString |     10 | 7,138.3 ns | 1,324.8 ns |  72.62 ns | 7,062.4 ns | 7,207.1 ns | 0.1221 | 0.1144 |     10 KB |
+|          AllocateLoH |     10 | 7,025.5 ns | 5,336.8 ns | 292.53 ns | 6,689.1 ns | 7,219.6 ns | 0.1221 | 0.1144 |     10 KB |
+|        AllocateArray |     10 | 7,424.2 ns | 1,522.3 ns |  83.44 ns | 7,375.8 ns | 7,520.5 ns | 0.1221 | 0.1144 |     10 KB |
+|    AllocateArrayPool |     10 | 7,340.3 ns | 4,461.2 ns | 244.53 ns | 7,067.9 ns | 7,540.7 ns | 0.1221 | 0.1144 |     10 KB |
 # MemoryLeak.Benchmark.NoAllocMemoryLeakBenchmarks-report-github.md
 
 ``` ini
@@ -40,7 +40,7 @@ WarmupCount=3
 ```
 |            Method | Number |      Mean |     Error |   StdDev |       Min |       Max | Allocated |
 |------------------ |------- |----------:|----------:|---------:|----------:|----------:|----------:|
-|        **RentReturn** |      **1** |  **35.71 ns** |  **4.756 ns** | **0.261 ns** |  **35.41 ns** |  **35.90 ns** |         **-** |
-| AllocateArrayPool |      1 | 103.27 ns | 37.832 ns | 2.074 ns | 100.87 ns | 104.51 ns |         - |
-|        **RentReturn** |     **10** | **556.20 ns** | **20.215 ns** | **1.108 ns** | **555.55 ns** | **557.48 ns** |         **-** |
-| AllocateArrayPool |     10 | 701.31 ns |  9.487 ns | 0.520 ns | 700.76 ns | 701.80 ns |         - |
+|        **RentReturn** |      **1** |  **34.44 ns** |  **1.204 ns** | **0.066 ns** |  **34.40 ns** |  **34.52 ns** |         **-** |
+| AllocateArrayPool |      1 |  99.67 ns |  1.905 ns | 0.104 ns |  99.61 ns |  99.79 ns |         - |
+|        **RentReturn** |     **10** | **525.89 ns** | **33.819 ns** | **1.854 ns** | **523.75 ns** | **527.05 ns** |         **-** |
+| AllocateArrayPool |     10 | 706.84 ns | 52.333 ns | 2.869 ns | 703.98 ns | 709.71 ns |         - |
