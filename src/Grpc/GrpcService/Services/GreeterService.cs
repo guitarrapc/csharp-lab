@@ -1,7 +1,7 @@
 using Grpc.Core;
+using GrpcService;
 
-namespace AspNetCore60.Services;
-
+namespace GrpcService.Services;
 public class GreeterService : Greeter.GreeterBase
 {
     private readonly ILogger<GreeterService> _logger;

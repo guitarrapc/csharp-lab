@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "AspNetCore60.HealthCheckSupport";
+option csharp_namespace = "GrpcServiceHealthCheck";
 
 package greet;
 

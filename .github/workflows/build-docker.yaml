@@ -54,11 +54,11 @@ jobs:
           - project: GrpcApiService
             dockerfile: ./src/Grpc/GrpcApiService/Dockerfile
             tag: grpc
-          - project: GrpcAspNetCore60
-            dockerfile: ./src/Grpc/GrpcAspNetCore60/Dockerfile
+          - project: GrpcService
+            dockerfile: ./src/Grpc/GrpcService/Dockerfile
             tag: grpc
-          - project: GrpcAspNetCore60.HealthCheckSupport
-            dockerfile: ./src/Grpc/GrpcAspNetCore60.HealthCheckSupport/Dockerfile
+          - project: GrpcServiceHealthCheck
+            dockerfile: ./src/Grpc/GrpcServiceHealthCheck/Dockerfile
             tag: grpc
           - project: Logger.Benchmark
             dockerfile: ./src/Logger/Logger.Benchmark/Dockerfile

@@ -1,7 +1,6 @@
 using Grpc.Core;
 
-namespace AspNetCore60.HealthCheckSupport.Services;
-
+namespace GrpcServiceHealthCheck.Services;
 public class GreeterService : Greeter.GreeterBase
 {
     private readonly ILogger<GreeterService> _logger;
