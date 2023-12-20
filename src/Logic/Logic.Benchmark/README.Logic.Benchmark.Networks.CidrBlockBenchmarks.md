@@ -12,15 +12,15 @@ WarmupCount=3
 ```
 |                  Method | Number |          Mean |       Error |    StdDev |           Min |           Max | Allocated |
 |------------------------ |------- |--------------:|------------:|----------:|--------------:|--------------:|----------:|
-|      **CidrBlockNewString** |      **1** |    **60.4468 ns** |   **0.4410 ns** | **0.0242 ns** |    **60.4219 ns** |    **60.4702 ns** |         **-** |
-|       CidrBlockNewBytes |      1 |     0.3085 ns |   0.0024 ns | 0.0001 ns |     0.3083 ns |     0.3086 ns |         - |
-| CidrBlockTryParseString |      1 |    66.6364 ns |  57.1442 ns | 3.1323 ns |    64.8210 ns |    70.2532 ns |         - |
-|  CidrBlockTryParseBytes |      1 |     3.2525 ns |   1.3432 ns | 0.0736 ns |     3.1675 ns |     3.2952 ns |         - |
-|      **CidrBlockNewString** |     **10** |   **598.9617 ns** |   **7.8041 ns** | **0.4278 ns** |   **598.5003 ns** |   **599.3450 ns** |         **-** |
-|       CidrBlockNewBytes |     10 |     2.9027 ns |   0.1664 ns | 0.0091 ns |     2.8931 ns |     2.9113 ns |         - |
-| CidrBlockTryParseString |     10 |   626.3834 ns |  17.4555 ns | 0.9568 ns |   625.4063 ns |   627.3185 ns |         - |
-|  CidrBlockTryParseBytes |     10 |    28.5267 ns |   0.2765 ns | 0.0152 ns |    28.5180 ns |    28.5442 ns |         - |
-|      **CidrBlockNewString** |    **100** | **5,918.8385 ns** | **108.9953 ns** | **5.9744 ns** | **5,914.9640 ns** | **5,925.7189 ns** |         **-** |
-|       CidrBlockNewBytes |    100 |    68.9987 ns |   2.0720 ns | 0.1136 ns |    68.9091 ns |    69.1264 ns |         - |
-| CidrBlockTryParseString |    100 | 6,271.3927 ns |  77.9536 ns | 4.2729 ns | 6,267.7459 ns | 6,276.0942 ns |         - |
-|  CidrBlockTryParseBytes |    100 |   290.4015 ns |   2.9909 ns | 0.1639 ns |   290.2716 ns |   290.5857 ns |         - |
+|      **CidrBlockNewString** |      **1** |    **59.8864 ns** |   **0.5641 ns** | **0.0309 ns** |    **59.8591 ns** |    **59.9200 ns** |         **-** |
+|       CidrBlockNewBytes |      1 |     0.3088 ns |   0.0027 ns | 0.0001 ns |     0.3086 ns |     0.3089 ns |         - |
+| CidrBlockTryParseString |      1 |    63.2428 ns |   1.3169 ns | 0.0722 ns |    63.1784 ns |    63.3208 ns |         - |
+|  CidrBlockTryParseBytes |      1 |     3.3104 ns |   0.1567 ns | 0.0086 ns |     3.3024 ns |     3.3195 ns |         - |
+|      **CidrBlockNewString** |     **10** |   **625.0561 ns** |  **22.5213 ns** | **1.2345 ns** |   **623.7876 ns** |   **626.2534 ns** |         **-** |
+|       CidrBlockNewBytes |     10 |     2.8962 ns |   0.1340 ns | 0.0073 ns |     2.8902 ns |     2.9044 ns |         - |
+| CidrBlockTryParseString |     10 |   628.4105 ns |  17.0076 ns | 0.9322 ns |   627.5410 ns |   629.3948 ns |         - |
+|  CidrBlockTryParseBytes |     10 |    28.5344 ns |   0.2100 ns | 0.0115 ns |    28.5218 ns |    28.5443 ns |         - |
+|      **CidrBlockNewString** |    **100** | **5,934.8892 ns** | **151.2075 ns** | **8.2882 ns** | **5,929.1363 ns** | **5,944.3893 ns** |         **-** |
+|       CidrBlockNewBytes |    100 |    69.1267 ns |   1.7193 ns | 0.0942 ns |    69.0195 ns |    69.1967 ns |         - |
+| CidrBlockTryParseString |    100 | 6,190.6776 ns | 164.3546 ns | 9.0088 ns | 6,181.9688 ns | 6,199.9591 ns |         - |
+|  CidrBlockTryParseBytes |    100 |   290.2355 ns |   2.8298 ns | 0.1551 ns |   290.0706 ns |   290.3785 ns |         - |
