@@ -14,16 +14,16 @@ WarmupCount=3
 ```
 |               Method | Number |       Mean |      Error |    StdDev |        Min |        Max |  Gen 0 |  Gen 1 | Allocated |
 |--------------------- |------- |-----------:|-----------:|----------:|-----------:|-----------:|-------:|-------:|----------:|
-| **AllocateStringStatic** |      **1** |   **760.9 ns** |   **188.9 ns** |  **10.35 ns** |   **749.2 ns** |   **769.1 ns** | **0.0124** | **0.0114** |      **1 KB** |
-|       AllocateString |      1 |   719.3 ns |   133.2 ns |   7.30 ns |   712.3 ns |   726.9 ns | 0.0124 | 0.0114 |      1 KB |
-|          AllocateLoH |      1 |   721.1 ns |   374.8 ns |  20.54 ns |   699.6 ns |   740.5 ns | 0.0124 | 0.0114 |      1 KB |
-|        AllocateArray |      1 |   740.3 ns |   306.8 ns |  16.82 ns |   725.1 ns |   758.3 ns | 0.0124 | 0.0114 |      1 KB |
-|    AllocateArrayPool |      1 |   706.9 ns |   537.6 ns |  29.47 ns |   684.2 ns |   740.2 ns | 0.0124 | 0.0114 |      1 KB |
-| **AllocateStringStatic** |     **10** | **7,557.7 ns** | **2,787.2 ns** | **152.78 ns** | **7,404.2 ns** | **7,709.7 ns** | **0.1221** | **0.1144** |     **10 KB** |
-|       AllocateString |     10 | 7,199.3 ns | 4,872.0 ns | 267.05 ns | 6,894.4 ns | 7,391.8 ns | 0.1221 | 0.1144 |     10 KB |
-|          AllocateLoH |     10 | 7,174.9 ns |   768.1 ns |  42.10 ns | 7,141.7 ns | 7,222.2 ns | 0.1221 | 0.1144 |     10 KB |
-|        AllocateArray |     10 | 7,445.5 ns | 2,445.7 ns | 134.06 ns | 7,296.7 ns | 7,556.9 ns | 0.1221 | 0.1144 |     10 KB |
-|    AllocateArrayPool |     10 | 7,276.4 ns | 2,094.1 ns | 114.79 ns | 7,193.0 ns | 7,407.4 ns | 0.1221 | 0.1144 |     10 KB |
+| **AllocateStringStatic** |      **1** |   **738.9 ns** |   **123.1 ns** |   **6.74 ns** |   **731.4 ns** |   **744.5 ns** | **0.0124** | **0.0114** |      **1 KB** |
+|       AllocateString |      1 |   689.5 ns |   156.4 ns |   8.57 ns |   681.8 ns |   698.7 ns | 0.0124 | 0.0114 |      1 KB |
+|          AllocateLoH |      1 |   702.4 ns |   222.2 ns |  12.18 ns |   690.0 ns |   714.4 ns | 0.0124 | 0.0114 |      1 KB |
+|        AllocateArray |      1 |   731.7 ns |   308.0 ns |  16.88 ns |   712.3 ns |   742.6 ns | 0.0124 | 0.0114 |      1 KB |
+|    AllocateArrayPool |      1 |   688.2 ns |   655.7 ns |  35.94 ns |   666.0 ns |   729.6 ns | 0.0124 | 0.0114 |      1 KB |
+| **AllocateStringStatic** |     **10** | **7,573.3 ns** | **2,699.7 ns** | **147.98 ns** | **7,455.1 ns** | **7,739.3 ns** | **0.1221** | **0.1144** |     **10 KB** |
+|       AllocateString |     10 | 7,219.5 ns | 1,343.0 ns |  73.62 ns | 7,167.3 ns | 7,303.7 ns | 0.1221 | 0.1144 |     10 KB |
+|          AllocateLoH |     10 | 7,152.8 ns | 6,666.5 ns | 365.41 ns | 6,771.1 ns | 7,499.4 ns | 0.1221 | 0.1144 |     10 KB |
+|        AllocateArray |     10 | 7,303.7 ns | 4,133.6 ns | 226.57 ns | 7,087.0 ns | 7,539.0 ns | 0.1221 | 0.1144 |     10 KB |
+|    AllocateArrayPool |     10 | 7,033.2 ns | 5,064.9 ns | 277.63 ns | 6,727.4 ns | 7,269.4 ns | 0.1221 | 0.1144 |     10 KB |
 # MemoryLeak.Benchmark.NoAllocMemoryLeakBenchmarks-report-github.md
 
 ``` ini
@@ -38,9 +38,9 @@ Job=ShortRun  IterationCount=3  LaunchCount=1
 WarmupCount=3  
 
 ```
-|            Method | Number |      Mean |      Error |   StdDev |       Min |       Max | Allocated |
-|------------------ |------- |----------:|-----------:|---------:|----------:|----------:|----------:|
-|        **RentReturn** |      **1** |  **34.32 ns** |   **0.873 ns** | **0.048 ns** |  **34.29 ns** |  **34.38 ns** |         **-** |
-| AllocateArrayPool |      1 |  99.97 ns |   2.934 ns | 0.161 ns |  99.86 ns | 100.16 ns |         - |
-|        **RentReturn** |     **10** | **521.97 ns** |  **20.578 ns** | **1.128 ns** | **521.27 ns** | **523.27 ns** |         **-** |
-| AllocateArrayPool |     10 | 715.10 ns | 134.128 ns | 7.352 ns | 706.63 ns | 719.80 ns |         - |
+|            Method | Number |      Mean |     Error |   StdDev |       Min |       Max | Allocated |
+|------------------ |------- |----------:|----------:|---------:|----------:|----------:|----------:|
+|        **RentReturn** |      **1** |  **35.71 ns** |  **4.756 ns** | **0.261 ns** |  **35.41 ns** |  **35.90 ns** |         **-** |
+| AllocateArrayPool |      1 | 103.27 ns | 37.832 ns | 2.074 ns | 100.87 ns | 104.51 ns |         - |
+|        **RentReturn** |     **10** | **556.20 ns** | **20.215 ns** | **1.108 ns** | **555.55 ns** | **557.48 ns** |         **-** |
+| AllocateArrayPool |     10 | 701.31 ns |  9.487 ns | 0.520 ns | 700.76 ns | 701.80 ns |         - |
