@@ -1,5 +1,7 @@
 <Project>
   <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
     <!-- Set this to true to enable faster builds in Visual Studio. https://github.com/dotnet/project-system/blob/main/docs/build-acceleration.md -->
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
   </PropertyGroup>

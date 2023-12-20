@@ -41,8 +41,7 @@ jobs:
         with:
           restore-wasm-workload: true
           dotnet-version: |
-            6.0.x
-            7.0.x
+            8.0.x
       - name: dotnet build
         run: dotnet build ${{ matrix.csproj }} -c ${{ env.BUILD_CONFIG }}
       - name: Run benchmark
