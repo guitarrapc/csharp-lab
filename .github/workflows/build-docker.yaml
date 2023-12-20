@@ -36,9 +36,6 @@ jobs:
           - project: BlazorServerIPBlockApp
             dockerfile: ./src/Blazor/BlazorServerIPBlockApp/Dockerfile
             tag: blazor
-          - project: BlazorWasmAotApp
-            dockerfile: ./src/Blazor/BlazorWasmAotApp/Dockerfile
-            tag: blazor
           - project: DatabaseMySqlEf
             dockerfile: ./src/Database/DatabaseMySqlEf/Dockerfile
             tag: database
