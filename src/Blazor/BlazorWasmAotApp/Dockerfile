@@ -4,7 +4,7 @@ FROM nginx:1.21.6 AS base
 WORKDIR /usr/share/nginx/html
 EXPOSE 80
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY ["src/Blazor/BlazorWasmAotApp/BlazorWasmAotApp.csproj", "src/Blazor/BlazorWasmAotApp/"]
 RUN set -x \
