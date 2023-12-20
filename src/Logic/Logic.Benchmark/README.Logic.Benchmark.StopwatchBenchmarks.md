@@ -3,8 +3,8 @@
 BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
 AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
 .NET SDK=8.0.100
-  [Host]   : .NET 6.0.25 (6.0.2523.51912), X64 RyuJIT
-  ShortRun : .NET 6.0.25 (6.0.2523.51912), X64 RyuJIT
+  [Host]   : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT
+  ShortRun : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT
 
 Job=ShortRun  IterationCount=3  LaunchCount=1  
 WarmupCount=3  
@@ -12,9 +12,9 @@ WarmupCount=3
 ```
 |         Method | Number |        Mean |     Error |   StdDev |         Min |         Max |  Gen 0 | Allocated |
 |--------------- |------- |------------:|----------:|---------:|------------:|------------:|-------:|----------:|
-|      **Stopwatch** |      **1** |    **60.25 ns** |  **0.929 ns** | **0.051 ns** |    **60.20 ns** |    **60.30 ns** | **0.0005** |      **40 B** |
-| ValueStopwatch |      1 |    56.22 ns |  0.689 ns | 0.038 ns |    56.19 ns |    56.26 ns |      - |         - |
-|      **Stopwatch** |     **10** |   **314.57 ns** |  **8.707 ns** | **0.477 ns** |   **314.27 ns** |   **315.12 ns** | **0.0005** |      **40 B** |
-| ValueStopwatch |     10 |   312.19 ns | 12.000 ns | 0.658 ns |   311.72 ns |   312.94 ns |      - |         - |
-|      **Stopwatch** |    **100** | **2,853.02 ns** |  **7.674 ns** | **0.421 ns** | **2,852.75 ns** | **2,853.50 ns** |      **-** |      **40 B** |
-| ValueStopwatch |    100 | 2,876.08 ns | 74.200 ns | 4.067 ns | 2,871.39 ns | 2,878.70 ns |      - |         - |
+|      **Stopwatch** |      **1** |    **61.59 ns** |  **2.545 ns** | **0.139 ns** |    **61.51 ns** |    **61.75 ns** | **0.0005** |      **40 B** |
+| ValueStopwatch |      1 |    56.59 ns |  0.692 ns | 0.038 ns |    56.54 ns |    56.62 ns |      - |         - |
+|      **Stopwatch** |     **10** |   **318.55 ns** |  **7.581 ns** | **0.416 ns** |   **318.29 ns** |   **319.03 ns** | **0.0005** |      **40 B** |
+| ValueStopwatch |     10 |   310.46 ns | 20.120 ns | 1.103 ns |   309.78 ns |   311.74 ns |      - |         - |
+|      **Stopwatch** |    **100** | **2,894.40 ns** | **24.655 ns** | **1.351 ns** | **2,892.99 ns** | **2,895.69 ns** |      **-** |      **40 B** |
+| ValueStopwatch |    100 | 2,844.03 ns | 27.619 ns | 1.514 ns | 2,842.80 ns | 2,845.72 ns |      - |         - |

@@ -6,7 +6,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.WebHost.UseUrls(builder.Configuration.GetSection("UseUrls").Get<string[]>());
+builder.WebHost.UseUrls(builder.Configuration.GetSection("UseUrls").Get<string[]>()!);
 
 var app = builder.Build();
 
