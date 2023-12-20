@@ -90,7 +90,7 @@ jobs:
           ref: ${{ github.event_name == 'pull_request' && github.head_ref || '' }} # checkout PR HEAD branch instead of merge commit. use ref instead of sha to avoid detached HEAD and re-run.
 
       - name: Download Logger.Benchmark
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: ${{ env.TEMP_UPLOAD_PATH }}/
 
