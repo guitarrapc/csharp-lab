@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IPNetwork2" Version="2.5.420" >
+    <PackageReference Include="IPNetwork2" Version="2.6.618" >
       <!-- .NET8 conflicts namespace. see: https://github.com/lduchosal/ipnetwork/issues/280 -->
       <Aliases>IPNetwork2</Aliases>
     </PackageReference>
