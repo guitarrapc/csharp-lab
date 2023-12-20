@@ -1,5 +1,9 @@
 name: Benchmarker
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   workflow_dispatch:
   schedule:
@@ -74,7 +78,7 @@ jobs:
 
   # run on pull_request only
   update-doc:
-    if: ${{ github.event_name == 'pull_request' }}
+    if: ${{ github.event_name != 'pull_request' }}
     needs: [benchmark]
     permissions:
       contents: write
