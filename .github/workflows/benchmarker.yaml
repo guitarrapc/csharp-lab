@@ -59,7 +59,7 @@ jobs:
             cat "$file" >> "$GITHUB_STEP_SUMMARY"
 
             echo "Write '$file' to outputs"
-            bench_name=$(echo "$file" | cut -d '/' -f 4 | cut -d '.' -f 2 | cut -d '-' -f 1)
+            bench_name=$(echo "$file" | cut -d '/' -f 4 | cut -d '-' -f 1)
             cat "$file" > ${{ env.TEMP_UPLOAD_PATH }}/${{ matrix.path }}/${bench_name}.md
             echo "${{ matrix.path }}/README.${bench_name}.md" | tee ${{ env.TEMP_UPLOAD_PATH }}/${{ matrix.path }}/${bench_name}.md.path
           done <<< "$(find "./BenchmarkDotNet.Artifacts/results" -name "*.md" -type f)"
