@@ -11,7 +11,7 @@
       <!-- .NET8 conflicts namespace. see: https://github.com/lduchosal/ipnetwork/issues/280 -->
       <Aliases>IPNetwork2</Aliases>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
   </ItemGroup>
 
 </Project>
