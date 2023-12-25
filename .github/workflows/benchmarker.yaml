@@ -44,7 +44,7 @@ jobs:
           cpu=$(less /proc/cpuinfo | grep -m 1 'model name' | cut -f 2 -d ":")
           echo "name=${cpu:1}" | tee -a "${GITHUB_OUTPUT}"
           echo "execute=$([[ "${cpu:1}" != "${{ env.SKIP_CPU }}" ]] && echo 1 || echo 0)" | tee -a "${GITHUB_OUTPUT}"
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
         with:
           restore-wasm-workload: true
@@ -84,7 +84,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.event_name == 'pull_request' && github.head_ref || '' }} # checkout PR HEAD branch instead of merge commit. use ref instead of sha to avoid detached HEAD and re-run.
 
