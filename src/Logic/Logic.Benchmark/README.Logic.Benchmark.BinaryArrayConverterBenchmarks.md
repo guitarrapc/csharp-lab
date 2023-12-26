@@ -1,30 +1,30 @@
-``` ini
+```
 
-BenchmarkDotNet=v0.13.1, OS=ubuntu 22.04
+BenchmarkDotNet v0.13.11, Ubuntu 22.04.3 LTS (Jammy Jellyfish)
 AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
-.NET SDK=8.0.100
-  [Host]   : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT
-  ShortRun : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT
+.NET SDK 8.0.100
+  [Host]   : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
+  ShortRun : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
 
 Job=ShortRun  IterationCount=3  LaunchCount=1  
 WarmupCount=3  
 
 ```
-|                       Method | Number |         Mean |        Error |     StdDev |          Min |          Max |  Gen 0 | Allocated |
+| Method                       | Number | Mean         | Error        | StdDev     | Min          | Max          | Gen0   | Allocated |
 |----------------------------- |------- |-------------:|-------------:|-----------:|-------------:|-------------:|-------:|----------:|
-|             **ToBinaryArrayInt** |      **1** |     **19.54 ns** |    **13.513 ns** |   **0.741 ns** |     **18.72 ns** |     **20.17 ns** | **0.0004** |      **32 B** |
-| ToBinaryArrayConvertToString |      1 |     66.82 ns |     7.082 ns |   0.388 ns |     66.54 ns |     67.26 ns | 0.0011 |      96 B |
-|          ToBinaryArrayIntMod |      1 |     20.88 ns |     2.756 ns |   0.151 ns |     20.71 ns |     21.01 ns | 0.0004 |      32 B |
-|    ToBinaryArrayIntModNumber |      1 |     11.67 ns |     1.532 ns |   0.084 ns |     11.62 ns |     11.77 ns | 0.0004 |      32 B |
-|             **ToBinaryArrayInt** |     **10** |    **189.56 ns** |    **49.421 ns** |   **2.709 ns** |    **187.17 ns** |    **192.50 ns** | **0.0038** |     **320 B** |
-| ToBinaryArrayConvertToString |     10 |    681.52 ns |   114.091 ns |   6.254 ns |    675.69 ns |    688.12 ns | 0.0114 |   1,024 B |
-|          ToBinaryArrayIntMod |     10 |    209.53 ns |     9.268 ns |   0.508 ns |    208.95 ns |    209.89 ns | 0.0038 |     320 B |
-|    ToBinaryArrayIntModNumber |     10 |    156.48 ns |   103.898 ns |   5.695 ns |    151.07 ns |    162.42 ns | 0.0038 |     320 B |
-|             **ToBinaryArrayInt** |    **100** |  **1,746.67 ns** |   **454.200 ns** |  **24.896 ns** |  **1,731.54 ns** |  **1,775.40 ns** | **0.0381** |   **3,200 B** |
-| ToBinaryArrayConvertToString |    100 |  7,352.01 ns |   445.276 ns |  24.407 ns |  7,327.14 ns |  7,375.93 ns | 0.1297 |  10,928 B |
-|          ToBinaryArrayIntMod |    100 |  2,070.78 ns |   519.254 ns |  28.462 ns |  2,040.79 ns |  2,097.42 ns | 0.0381 |   3,200 B |
-|    ToBinaryArrayIntModNumber |    100 |  1,810.04 ns |   127.404 ns |   6.983 ns |  1,805.14 ns |  1,818.03 ns | 0.0381 |   3,200 B |
-|             **ToBinaryArrayInt** |    **255** |  **4,479.41 ns** | **2,506.657 ns** | **137.398 ns** |  **4,397.04 ns** |  **4,638.03 ns** | **0.0916** |   **8,160 B** |
-| ToBinaryArrayConvertToString |    255 | 17,294.13 ns |   977.598 ns |  53.585 ns | 17,250.74 ns | 17,354.03 ns | 0.2747 |  23,208 B |
-|          ToBinaryArrayIntMod |    255 |  5,003.41 ns |   503.160 ns |  27.580 ns |  4,971.59 ns |  5,020.32 ns | 0.0916 |   8,160 B |
-|    ToBinaryArrayIntModNumber |    255 |  5,114.11 ns |   357.354 ns |  19.588 ns |  5,099.68 ns |  5,136.41 ns | 0.0916 |   8,160 B |
+| **ToBinaryArrayInt**             | **1**      |     **18.09 ns** |     **3.651 ns** |   **0.200 ns** |     **17.87 ns** |     **18.26 ns** | **0.0004** |      **32 B** |
+| ToBinaryArrayConvertToString | 1      |     65.33 ns |    17.427 ns |   0.955 ns |     64.62 ns |     66.42 ns | 0.0011 |      96 B |
+| ToBinaryArrayIntMod          | 1      |     20.47 ns |     1.820 ns |   0.100 ns |     20.36 ns |     20.55 ns | 0.0004 |      32 B |
+| ToBinaryArrayIntModNumber    | 1      |     10.85 ns |     0.944 ns |   0.052 ns |     10.79 ns |     10.89 ns | 0.0004 |      32 B |
+| **ToBinaryArrayInt**             | **10**     |    **186.62 ns** |   **189.088 ns** |  **10.365 ns** |    **179.30 ns** |    **198.48 ns** | **0.0038** |     **320 B** |
+| ToBinaryArrayConvertToString | 10     |    710.28 ns |   247.199 ns |  13.550 ns |    694.77 ns |    719.82 ns | 0.0114 |    1024 B |
+| ToBinaryArrayIntMod          | 10     |    229.14 ns |    52.624 ns |   2.884 ns |    226.00 ns |    231.67 ns | 0.0038 |     320 B |
+| ToBinaryArrayIntModNumber    | 10     |    152.40 ns |    60.036 ns |   3.291 ns |    148.84 ns |    155.33 ns | 0.0038 |     320 B |
+| **ToBinaryArrayInt**             | **100**    |  **1,747.54 ns** |   **391.447 ns** |  **21.457 ns** |  **1,723.39 ns** |  **1,764.42 ns** | **0.0381** |    **3200 B** |
+| ToBinaryArrayConvertToString | 100    |  7,248.84 ns |   277.927 ns |  15.234 ns |  7,232.53 ns |  7,262.70 ns | 0.1297 |   10928 B |
+| ToBinaryArrayIntMod          | 100    |  2,158.16 ns |   953.626 ns |  52.271 ns |  2,119.99 ns |  2,217.73 ns | 0.0381 |    3200 B |
+| ToBinaryArrayIntModNumber    | 100    |  2,059.90 ns |    72.344 ns |   3.965 ns |  2,055.64 ns |  2,063.49 ns | 0.0381 |    3200 B |
+| **ToBinaryArrayInt**             | **255**    |  **4,420.95 ns** |   **346.832 ns** |  **19.011 ns** |  **4,405.58 ns** |  **4,442.20 ns** | **0.0916** |    **8160 B** |
+| ToBinaryArrayConvertToString | 255    | 17,146.84 ns | 4,244.370 ns | 232.648 ns | 16,968.88 ns | 17,410.10 ns | 0.2747 |   23208 B |
+| ToBinaryArrayIntMod          | 255    |  5,397.77 ns |   450.030 ns |  24.668 ns |  5,369.29 ns |  5,412.05 ns | 0.0916 |    8160 B |
+| ToBinaryArrayIntModNumber    | 255    |  5,556.93 ns |   252.195 ns |  13.824 ns |  5,544.22 ns |  5,571.65 ns | 0.0916 |    8160 B |
