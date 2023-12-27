@@ -1,4 +1,6 @@
-﻿@page "/"
+@page "/"
+@using ZLogger;
+@inject ILogger<Index> Logger;
 
 <PageTitle>Index</PageTitle>
 
@@ -7,3 +9,37 @@
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+
+<button @onclick="WarningSubmit">Make Warning</button>
+<button @onclick="ErrorSubmit">Make Error</button>
+<button @onclick="CriticalSubmit">Make Critical</button>
+
+@code {
+    private void CriticalSubmit()
+    {
+        try
+        {
+            throw new Exception("Sample Critical");
+        }
+        catch (Exception ex)
+        {
+            Logger.ZLogCritical(ex, $"{ex.Message} {ex.GetType().FullName} {ex.StackTrace}");
+            throw;
+        }
+    }
+    private void ErrorSubmit()
+    {
+        try
+        {
+            throw new Exception("Sample Error");
+        }
+        catch (Exception ex)
+        {
+            Logger.ZLogError(ex, $"{ex.Message} {ex.GetType().FullName} {ex.StackTrace}");
+        }
+    }
+    private void WarningSubmit()
+    {
+        Logger.ZLogWarning($"Sample Warning");
+    }
+}

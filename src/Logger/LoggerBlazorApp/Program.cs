@@ -21,7 +21,6 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error");
 }
 
-
 app.UseStaticFiles();
 
 app.UseRouting();
@@ -64,7 +63,10 @@ public static class LoggingExtentions
         if (enableConsoleLogging)
         {
             Console.WriteLine("[Logging] Console Logging Enabled.");
-            builder.Logging.AddZLoggerConsole(configure => configure.EnableStructuredLogging = structuredLogging, configureEnableAnsiEscapeCode: true);
+            builder.Logging.AddZLoggerConsole(configure =>
+            {
+                configure.SetZLoggerFormatter(structuredLogging, true);
+            });
         }
         // File Logging
         if (enableFileLogging)
@@ -72,7 +74,7 @@ public static class LoggingExtentions
             if (!string.IsNullOrEmpty(fileLoggingPath))
             {
                 Console.WriteLine($"[Logging] File Logging Enabled.");
-                builder.Logging.AddZLoggerFile(fileLoggingPath, configure => configure.EnableStructuredLogging = structuredLogging);
+                builder.Logging.AddZLoggerFile(fileLoggingPath, configure => configure.SetZLoggerFormatter(structuredLogging));
             }
         }
         // Stream Logging
@@ -82,7 +84,7 @@ public static class LoggingExtentions
             var socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
             socket.RetryableSocketConnect(streamLoggingHost, streamLoggingPort);
             var network = new NetworkStream(socket);
-            builder.Logging.AddZLoggerStream(network, configure => configure.EnableStructuredLogging = structuredLogging);
+            builder.Logging.AddZLoggerStream(network, configure => configure.SetZLoggerFormatter(structuredLogging));
         }
     }
 
@@ -104,5 +106,50 @@ public static class LoggingExtentions
                 Thread.Sleep(1000 * sleep);
             }
         } while (current <= retryCount);
+    }
+}
+
+public static class ZLoggerOptionExtensions
+{
+    public static void SetZLoggerFormatter(this ZLoggerOptions options, bool structuredLogging, bool useConsoleColor = false)
+    {
+        if (structuredLogging)
+        {
+            options.UseJsonFormatter();
+        }
+        else
+        {
+            options.UsePlainTextFormatter(formatter =>
+            {
+                if (useConsoleColor)
+                {
+                    // \u001b[31m => Red(ANSI Escape Code)
+                    // \u001b[0m => Reset
+                    // \u001b[38;5;***m => 256 Colors(08 is Gray)
+                    formatter.SetPrefixFormatter($"{0}{1}|{2:short}|", (writer, info) =>
+                    {
+                        var escapeSequence = "";
+                        if (info.LogLevel >= LogLevel.Error)
+                        {
+                            escapeSequence = "\u001b[31m";
+                        }
+                        else if (!info.Category.Name.Contains("MyApp"))
+                        {
+                            escapeSequence = "\u001b[38;5;08m";
+                        }
+
+                        writer.Format(escapeSequence, info.Timestamp, info.LogLevel);
+                    });
+
+                    formatter.SetSuffixFormatter($"{0}", (writer, info) =>
+                    {
+                        if (info.LogLevel == LogLevel.Error || !info.Category.Name.Contains("MyApp"))
+                        {
+                            writer.Format("\u001b[0m");
+                        }
+                    });
+                }
+            });
+        }
     }
 }

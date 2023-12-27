@@ -36,6 +36,6 @@ public class AccessLoggingMiddleware
         // "%REQ(X-REQUEST-ID)%" "%REQ(:AUTHORITY)%" "%UPSTREAM_HOST%"\n
         var duration = sw.Elapsed.TotalMilliseconds;
         sw.Stop();
-        _logger.ZLogInformation("[{0}] \"{1} {2} {3}\" {4} - - - {5} - \"-\" \"{6}\" \"-\" \"-\" \"-\"", DateTime.Now, context.Request.Method, context.Request.Path, context.Request.Protocol, context.Response.StatusCode, duration, context.Request.Headers.UserAgent);
+        _logger.ZLogInformation($"[{DateTime.Now}] \"{context.Request.Method} {context.Request.Path} {context.Request.Protocol}\" {context.Response.StatusCode} - - - {duration} - \"-\" \"{context.Request.Headers.UserAgent}\" \"-\" \"-\" \"-\"");
     }
 }
