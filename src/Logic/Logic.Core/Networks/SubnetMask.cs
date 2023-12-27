@@ -1,3 +1,5 @@
+using System.Net;
+
 namespace Logic.Networks;
 
 /// <summary>
@@ -36,6 +38,25 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
         return new SubnetMask(byteArray);
     }
 
+    /// <summary>
+    /// Calculate Subnetmask from IPAddress
+    /// </summary>
+    /// <param name="ipAddress">IPAddress. 10.0.0.0</param>
+    /// <returns></returns>
+    /// <example>
+    /// 192.168.0.0: 11000000 10101000 00000000 00000000
+    /// 10.1.0.0:    00001010 00000001 00000000 00000000
+    /// </example>
+    public static SubnetMask FromIPAddress(IPAddress ipAddress)
+    {
+        var address = ipAddress.GetAddressBytes();
+        Span<byte> byteArray = stackalloc byte[bitLength * 4];
+        SetBinaryArray(byteArray, address[0], 1);
+        SetBinaryArray(byteArray, address[1], 2);
+        SetBinaryArray(byteArray, address[2], 3);
+        SetBinaryArray(byteArray, address[3], 4);
+        return new SubnetMask(byteArray);
+    }
     /// <summary>
     /// Calculate Subnetmask from IPAddress
     /// </summary>
@@ -83,23 +104,21 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
         var oct4 = rest;
 
         Span<byte> byteArray = stackalloc byte[bitLength * 4];
-        SetBinaryArray(byteArray, oct1, 1);
-        SetBinaryArray(byteArray, oct2, 2);
-        SetBinaryArray(byteArray, oct3, 3);
-        SetBinaryArray(byteArray, oct4, 4);
+        SetBinaryArray(byteArray, byte.Parse(oct1), 1);
+        SetBinaryArray(byteArray, byte.Parse(oct2), 2);
+        SetBinaryArray(byteArray, byte.Parse(oct3), 3);
+        SetBinaryArray(byteArray, byte.Parse(oct4), 4);
         return new SubnetMask(byteArray);
-
-        static void SetBinaryArray(Span<byte> byteArray, ReadOnlySpan<char> octed, int loop)
+    }
+    private static void SetBinaryArray(Span<byte> byteArray, byte octed, int loop)
+    {
+        var position = bitLength * loop - 1;
+        var number = octed;
+        for (var j = bitLength - 1; j >= 0; j--)
         {
-            var position = bitLength * loop - 1;
-            var b = byte.Parse(octed);
-            var number = b;
-            for (var j = bitLength - 1; j >= 0; j--)
-            {
-                byteArray[position] = Convert.ToByte(number & (2 - 1)); // n % m == n & (m - 1)
-                number = Convert.ToByte(number / 2);
-                position--;
-            }
+            byteArray[position] = Convert.ToByte(number & (2 - 1)); // n % m == n & (m - 1)
+            number = Convert.ToByte(number / 2);
+            position--;
         }
     }
 
