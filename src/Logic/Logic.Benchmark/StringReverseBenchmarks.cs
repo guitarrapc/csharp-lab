@@ -7,7 +7,7 @@ namespace Logic.Benchmark;
 [MinColumn, MaxColumn]
 public class StringReverseBenchmarks
 {
-    [Params(1, 10, 100, 1000, 10000)]
+    [Params(1, 10, 100)]
     public int Number { get; set; }
 
     private readonly string _source;

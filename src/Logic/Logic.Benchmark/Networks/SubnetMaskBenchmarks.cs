@@ -13,7 +13,7 @@ public class SubnetMaskBenchmarks
     private static readonly SubnetMask _networkAddress = SubnetMask.GetNetworkAddress(_cidr.Address, _cidr.Subnet);
     private readonly IPAddress _ipaddress = IPAddress.Parse("10.0.0.0");
 
-    [Params(1, 10, 100)]
+    [Params(1, 10)]
     public int Number { get; set; }
 
     [Benchmark]

@@ -7,7 +7,7 @@ namespace Logic.Benchmark;
 [MinColumn, MaxColumn]
 public class BinaryArrayConverterBenchmarks
 {
-    [Params(1, 10, 100, 255)]
+    [Params(1, 10)]
     public int Number { get; set; }
 
     [Benchmark]

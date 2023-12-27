@@ -9,7 +9,7 @@ public class StringSplitBenchmarks
 {
     private static readonly string _value = string.Join(".", Enumerable.Range(0, 100).Select(x => (char)x));
 
-    [Params(1, 10, 100, 1000)] // 10000 is too many
+    [Params(1, 10)] // 10000 is too many
     public int Number { get; set; }
 
     [Benchmark]
