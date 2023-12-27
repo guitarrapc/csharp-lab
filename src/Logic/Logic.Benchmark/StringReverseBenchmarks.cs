@@ -7,16 +7,18 @@ namespace Logic.Benchmark;
 [MinColumn, MaxColumn]
 public class StringReverseBenchmarks
 {
-    [Params(1, 10, 100)]
+    [Params(10, 64)]
+    public int Length { get; set; }
+    [Params(100)]
     public int Number { get; set; }
 
-    private readonly string _source;
-    private readonly StringReverse _stringReverse;
+    private string? _source;
+    private StringReverse _stringReverse = new StringReverse();
 
-    public StringReverseBenchmarks()
+    [IterationSetup]
+    public void IterationSetup()
     {
-        _source = StringReverse.GenerateText();
-        _stringReverse = new StringReverse();
+        _source = StringReverse.GenerateText(Length);
     }
 
     [Benchmark]
@@ -24,7 +26,7 @@ public class StringReverseBenchmarks
     {
         for (var i = 0; i < Number; i++)
         {
-            _stringReverse.ArrayReverse(_source);
+            _stringReverse.ArrayReverse(_source!);
         }
     }
 
@@ -33,7 +35,7 @@ public class StringReverseBenchmarks
     {
         for (var i = 0; i < Number; i++)
         {
-            _stringReverse.EnumerableReverse(_source);
+            _stringReverse.EnumerableReverse(_source!);
         }
     }
 
@@ -42,7 +44,7 @@ public class StringReverseBenchmarks
     {
         for (var i = 0; i < Number; i++)
         {
-            _stringReverse.RecursiveReverse(_source);
+            _stringReverse.RecursiveReverse(_source!);
         }
     }
 
@@ -51,7 +53,7 @@ public class StringReverseBenchmarks
     {
         for (var i = 0; i < Number; i++)
         {
-            _stringReverse.ReverseXor(_source);
+            _stringReverse.ReverseXor(_source!);
         }
     }
 
@@ -60,7 +62,7 @@ public class StringReverseBenchmarks
     {
         for (var i = 0; i < Number; i++)
         {
-            _stringReverse.StackReverse(_source);
+            _stringReverse.StackReverse(_source!);
         }
     }
 
@@ -69,7 +71,7 @@ public class StringReverseBenchmarks
     {
         for (var i = 0; i < Number; i++)
         {
-            _stringReverse.StringSpan(_source);
+            _stringReverse.StringSpan(_source!);
         }
     }
 
@@ -78,7 +80,7 @@ public class StringReverseBenchmarks
     {
         for (var i = 0; i < Number; i++)
         {
-            _stringReverse.StringExtensionReverse(_source);
+            _stringReverse.StringExtensionReverse(_source!);
         }
     }
 }
