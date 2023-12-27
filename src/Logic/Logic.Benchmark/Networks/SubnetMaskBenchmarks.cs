@@ -1,5 +1,6 @@
 using BenchmarkDotNet.Attributes;
 using Logic.Networks;
+using System.Net;
 
 namespace Logic.Benchmark.Networks;
 
@@ -10,8 +11,9 @@ public class SubnetMaskBenchmarks
 {
     private static readonly (SubnetMask Address, SubnetMask Subnet) _cidr = SubnetMask.FromCidrAddress("192.168.150.121", "32");
     private static readonly SubnetMask _networkAddress = SubnetMask.GetNetworkAddress(_cidr.Address, _cidr.Subnet);
+    private readonly IPAddress _ipaddress = IPAddress.Parse("10.0.0.0");
 
-    [Params(1, 10, 100)]
+    [Params(1, 10)]
     public int Number { get; set; }
 
     [Benchmark]
@@ -42,11 +44,20 @@ public class SubnetMaskBenchmarks
     }
 
     [Benchmark]
-    public void SubnetMaskFromIPAddress()
+    public void SubnetMaskFromIPAddressString()
     {
         for (byte i = 0; i < Number; i++)
         {
             SubnetMask.FromIPAddress("10.0.0.0");
+        }
+    }
+
+    [Benchmark]
+    public void SubnetMaskFromIPAddressType()
+    {
+        for (byte i = 0; i < Number; i++)
+        {
+            SubnetMask.FromIPAddress(_ipaddress);
         }
     }
 

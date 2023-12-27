@@ -8,7 +8,7 @@ namespace Logic.Benchmark.Networks;
 [MinColumn, MaxColumn]
 public class CidrBlockBenchmarks
 {
-    [Params(1, 10, 100)]
+    [Params(1, 10)]
     public int Number { get; set; }
 
     [Benchmark]

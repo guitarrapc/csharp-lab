@@ -1,4 +1,5 @@
 using Logic.Networks;
+using System.Net;
 
 namespace Logic.Tests.Networks;
 
@@ -77,19 +78,25 @@ public class SubnetMaskTest
     public void FromIPAddressTest()
     {
         // 00001010 00000000 00000000 00000000
-        var actual = SubnetMask.FromIPAddress("10.0.0.0");
         var expected = new[] { 10.ToBinaryArray(), 0.ToBinaryArray(), 0.ToBinaryArray(), 0.ToBinaryArray() }.SelectMany(x => x).ToArray();
+        var actual = SubnetMask.FromIPAddress("10.0.0.0");
+        var actual2 = SubnetMask.FromIPAddress(IPAddress.Parse("10.0.0.0"));
         actual.ByteArray.SequenceEqual(expected).Should().BeTrue();
+        actual2.ByteArray.SequenceEqual(expected).Should().BeTrue();
 
         // 00000000 00000000 00000000 00000000
-        var min = SubnetMask.FromIPAddress("0.0.0.0");
         var expectedMin = new[] { 0.ToBinaryArray(), 0.ToBinaryArray(), 0.ToBinaryArray(), 0.ToBinaryArray() }.SelectMany(x => x).ToArray();
-        min.ByteArray.SequenceEqual(expectedMin).Should().BeTrue();
+        var actualMin = SubnetMask.FromIPAddress("0.0.0.0");
+        var actualMin2 = SubnetMask.FromIPAddress(IPAddress.Parse("0.0.0.0"));
+        actualMin.ByteArray.SequenceEqual(expectedMin).Should().BeTrue();
+        actualMin2.ByteArray.SequenceEqual(expectedMin).Should().BeTrue();
 
         // 11111111 11111111 11111111 11111111
-        var max = SubnetMask.FromIPAddress("255.255.255.255");
         var expectedMax = new[] { 255.ToBinaryArray(), 255.ToBinaryArray(), 255.ToBinaryArray(), 255.ToBinaryArray() }.SelectMany(x => x).ToArray();
-        max.ByteArray.SequenceEqual(expectedMax).Should().BeTrue();
+        var actualMax = SubnetMask.FromIPAddress("255.255.255.255");
+        var actualMax2 = SubnetMask.FromIPAddress(IPAddress.Parse("255.255.255.255"));
+        actualMax.ByteArray.SequenceEqual(expectedMax).Should().BeTrue();
+        actualMax2.ByteArray.SequenceEqual(expectedMax).Should().BeTrue();
     }
 
     [Fact]
