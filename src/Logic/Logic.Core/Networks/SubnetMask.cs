@@ -1,10 +1,19 @@
 namespace Logic.Networks;
 
+/// <summary>
+/// Create Subnetmask for CIDR, IPAddress, Notion.
+/// </summary>
+/// <example>
+/// 192.168.0.0: 11000000 10101000 00000000 00000000
+/// 24:          11111111 11111111 11111111 00000000
+/// 
+/// 10.1.0.0:    00001010 00000001 00000000 00000000
+/// 8:           11111111 00000000 00000000 00000000
+/// </example>
 public readonly struct SubnetMask : IEquatable<SubnetMask>
 {
     const int bitLength = 8;
 
-    // 11111111 00000000 00000000 00000000
     public ReadOnlySpan<byte> ByteArray => _byteArray;
     private readonly byte[] _byteArray = new byte[bitLength * 4];
 

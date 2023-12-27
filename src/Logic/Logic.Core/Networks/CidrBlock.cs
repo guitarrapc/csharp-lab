@@ -1,5 +1,8 @@
 namespace Logic.Networks;
 
+/// <summary>
+/// Create CidrBlock
+/// </summary>
 public readonly struct CidrBlock : IEquatable<CidrBlock>
 {
     public readonly byte VpcCidr1;
