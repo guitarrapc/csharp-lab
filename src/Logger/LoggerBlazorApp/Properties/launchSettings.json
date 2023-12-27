@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "LoggerBlazorApp": {
+    "ConsoleLogging": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
