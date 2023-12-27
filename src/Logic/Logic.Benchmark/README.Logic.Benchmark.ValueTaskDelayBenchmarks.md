@@ -10,9 +10,9 @@ Job=ShortRun  IterationCount=3  LaunchCount=1
 WarmupCount=3  
 
 ```
-| Method         | Number | Mean      | Error     | StdDev   | Min       | Max       | Allocated |
-|--------------- |------- |----------:|----------:|---------:|----------:|----------:|----------:|
-| **TaskDelay**      | **1**      |  **12.24 ms** |  **0.108 ms** | **0.006 ms** |  **12.23 ms** |  **12.24 ms** |     **352 B** |
-| ValueTaskDelay | 1      |  10.13 ms |  0.062 ms | 0.003 ms |  10.13 ms |  10.13 ms |     192 B |
-| **TaskDelay**      | **10**     | **121.83 ms** | **41.217 ms** | **2.259 ms** | **119.25 ms** | **123.46 ms** |    **2053 B** |
-| ValueTaskDelay | 10     | 101.07 ms |  0.220 ms | 0.012 ms | 101.05 ms | 101.08 ms |     381 B |
+| Method         | Number | Mean      | Error    | StdDev   | Min       | Max       | Allocated |
+|--------------- |------- |----------:|---------:|---------:|----------:|----------:|----------:|
+| **TaskDelay**      | **1**      |  **11.98 ms** | **0.467 ms** | **0.026 ms** |  **11.95 ms** |  **11.99 ms** |     **352 B** |
+| ValueTaskDelay | 1      |  10.14 ms | 0.162 ms | 0.009 ms |  10.13 ms |  10.15 ms |     192 B |
+| **TaskDelay**      | **10**     | **119.78 ms** | **4.142 ms** | **0.227 ms** | **119.62 ms** | **120.04 ms** |    **2053 B** |
+| ValueTaskDelay | 10     | 101.11 ms | 0.240 ms | 0.013 ms | 101.09 ms | 101.12 ms |     381 B |
