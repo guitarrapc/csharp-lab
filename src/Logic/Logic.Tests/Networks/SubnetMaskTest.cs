@@ -348,6 +348,26 @@ public class SubnetMaskTest
             addressRange.EndAddress.ByteArray.SequenceEqual(expectedEnd).Should().BeTrue();
         }
     }
+
+    [Fact]
+    public void EqualsTest()
+    {
+        var a = SubnetMask.FromCidrAddress("192.168.10.10/24");
+        var b = SubnetMask.FromCidrAddress("192.168.10.10/24");
+        var c = SubnetMask.FromCidrAddress("192.168.10.10/25");
+        a.Equals(b).Should().BeTrue();
+        a.Equals(c).Should().BeFalse();
+        (a == b).Should().BeTrue();
+        (a == c).Should().BeFalse();
+
+        var d = SubnetMask.FromCidrAddress("10.0.0.1/16");
+        var e = SubnetMask.FromCidrAddress("10.0.0.1/16");
+        var f = SubnetMask.FromCidrAddress("10.1.0.2/16");
+        d.Equals(e).Should().BeTrue();
+        d.Equals(f).Should().BeFalse();
+        (d == e).Should().BeTrue();
+        (d == f).Should().BeFalse();
+    }
 }
 
 public static class SubnetExtensions

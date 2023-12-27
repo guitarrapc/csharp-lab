@@ -3,13 +3,6 @@ namespace Logic.Networks;
 /// <summary>
 /// Create Subnetmask for CIDR, IPAddress, Notion.
 /// </summary>
-/// <example>
-/// 192.168.0.0: 11000000 10101000 00000000 00000000
-/// 24:          11111111 11111111 11111111 00000000
-/// 
-/// 10.1.0.0:    00001010 00000001 00000000 00000000
-/// 8:           11111111 00000000 00000000 00000000
-/// </example>
 public readonly struct SubnetMask : IEquatable<SubnetMask>
 {
     const int bitLength = 8;
@@ -27,6 +20,10 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     /// </summary>
     /// <param name="bit"></param>
     /// <returns></returns>
+    /// <example>
+    /// 24:          11111111 11111111 11111111 00000000
+    /// 8:           11111111 00000000 00000000 00000000
+    /// </example>
     public static SubnetMask FromCidrNotion(byte bit)
     {
         if (bit > bitLength * 4) throw new ArgumentOutOfRangeException("Input bit must be lower than 32.");
@@ -44,12 +41,20 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     /// </summary>
     /// <param name="ipAddress">IPAddress. Format like 10.0.0.0</param>
     /// <returns></returns>
+    /// <example>
+    /// 192.168.0.0: 11000000 10101000 00000000 00000000
+    /// 10.1.0.0:    00001010 00000001 00000000 00000000
+    /// </example>
     public static SubnetMask FromIPAddress(string ipAddress) => FromIPAddress(ipAddress.AsSpan());
     /// <summary>
     /// Calculate Subnetmask from IPAddress
     /// </summary>
     /// <param name="ipAddress">IPAddress. Format like 10.0.0.0</param>
     /// <returns></returns>
+    /// <example>
+    /// 192.168.0.0: 11000000 10101000 00000000 00000000
+    /// 10.1.0.0:    00001010 00000001 00000000 00000000
+    /// </example>
     public static SubnetMask FromIPAddress(ReadOnlySpan<char> ipAddress)
     {
         ReadOnlySpan<char> rest = ipAddress;
@@ -103,12 +108,20 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     /// </summary>
     /// <param name="cidrAddress">CidrAddress. Format like 10.0.0.0/24</param>
     /// <returns></returns>
+    /// <example>
+    /// 192.168.0.0/32: (11000000 10101000 00000000 00000000, 11111111 11111111 11111111 00000000)
+    /// 10.1.0.0/8:    (00001010 00000001 00000000 00000000, 11111111 00000000 00000000 00000000)
+    /// </example>
     public static (SubnetMask Address, SubnetMask Subnet) FromCidrAddress(string cidrAddress) => FromCidrAddress(cidrAddress.AsSpan());
     /// <summary>
     /// Calculate Subnetmask from CidrAddress
     /// </summary>
     /// <param name="cidrAddress">CidrAddress. Format like 10.0.0.0/24</param>
     /// <returns></returns>
+    /// <example>
+    /// 192.168.0.0/32: (11000000 10101000 00000000 00000000, 11111111 11111111 11111111 00000000)
+    /// 10.1.0.0/8:    (00001010 00000001 00000000 00000000, 11111111 00000000 00000000 00000000)
+    /// </example>
     public static (SubnetMask Address, SubnetMask Subnet) FromCidrAddress(ReadOnlySpan<char> cidrAddress)
     {
         var index = cidrAddress.IndexOf('/');
@@ -116,13 +129,16 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
         var subnet = cidrAddress.Slice(index + 1, cidrAddress.Length - (index + 1));
         return FromCidrAddress(cidr, subnet);
     }
-
     /// <summary>
     /// Calculate Subnetmask from CidrAddress
     /// </summary>
     /// <param name="ipAddress">IPAddress. Format like 10.0.0.0</param>
     /// <param name="subnetmask">Subnetmask. Format like 24</param>
     /// <returns></returns>
+    /// <example>
+    /// 192.168.0.0, 32: (11000000 10101000 00000000 00000000, 11111111 11111111 11111111 00000000)
+    /// 10.1.0.0, 8:    (00001010 00000001 00000000 00000000, 11111111 00000000 00000000 00000000)
+    /// </example>
     public static (SubnetMask Address, SubnetMask Subnet) FromCidrAddress(string ipAddress, string subnetmask) => FromCidrAddress(ipAddress.AsSpan(), subnetmask.AsSpan());
     /// <summary>
     /// Calculate Subnetmask from CidrAddress
@@ -130,6 +146,10 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     /// <param name="ipAddress">IPAddress. Format like 10.0.0.0</param>
     /// <param name="subnetmask">Subnetmask. Format like 24</param>
     /// <returns></returns>
+    /// <example>
+    /// 192.168.0.0, 32: (11000000 10101000 00000000 00000000, 11111111 11111111 11111111 00000000)
+    /// 10.1.0.0, 8:    (00001010 00000001 00000000 00000000, 11111111 00000000 00000000 00000000)
+    /// </example>
     public static (SubnetMask Address, SubnetMask Subnet) FromCidrAddress(ReadOnlySpan<char> ipAddress, ReadOnlySpan<char> subnetmask)
     {
         return (FromIPAddress(ipAddress), FromCidrNotion(byte.Parse(subnetmask)));
@@ -138,12 +158,28 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     /// <summary>
     /// Calculate Networkmask.
     /// </summary>
-    /// <example>
-    /// Networkmask for 192.168.10.10/24 is 192.168.0.0
-    /// </example>
     /// <param name="ipAddress">IPAddress. Format like 10.0.0.0</param>
     /// <param name="subnetmask">Subnetmask. Format like 24</param>
     /// <returns></returns>
+    /// <example>
+    /// 192.168.10.10/24: 192.168.10.0
+    /// 11000000 10101000 00001010 00001010, 11111111 11111111 11111111 00000000 : 11000000 10101000 00001010 00000000
+    /// </example>
+    public static SubnetMask GetNetworkAddress(string cidrAddress)
+    {
+        var (address, subnetmask) = FromCidrAddress(cidrAddress);
+        return GetNetworkAddress(address, subnetmask);
+    }
+    /// <summary>
+    /// Calculate Networkmask.
+    /// </summary>
+    /// <param name="ipAddress">IPAddress. Format like 10.0.0.0</param>
+    /// <param name="subnetmask">Subnetmask. Format like 24</param>
+    /// <returns></returns>
+    /// <example>
+    /// 192.168.10.10/24                                                         : 192.168.10.0
+    /// 11000000 10101000 00001010 00001010, 11111111 11111111 11111111 00000000 : 11000000 10101000 00001010 00000000
+    /// </example>
     public static SubnetMask GetNetworkAddress(SubnetMask ipAddress, SubnetMask subnetmask)
     {
         Span<byte> networkmask = stackalloc byte[32];
@@ -157,15 +193,17 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     /// <summary>
     /// Calculate Network Range for the NetworkAddress.
     /// </summary>
-    /// <example>
-    /// Networkmask for 192.168.10.10/24...
-    /// BroadcastAddress is 192.168.10.255
-    /// FirstAddress is 192.168.10.0
-    /// EndAddress is 192.168.10.255
-    /// </example>
     /// <param name="networkAddress">Network Address, Not IPAddress. format like 192.168.0.0</param>
     /// <param name="subnetmask">Subnetmask string. Format like 24</param>
     /// <returns></returns>
+    /// <example>
+    /// 192.168.10.10/24
+    /// 11000000 10101000 00001010 00001010, 11111111 11111111 11111111 00000000
+    /// 
+    /// BroadcastAddress: 192.168.10.255
+    /// FirstAddress    : 192.168.10.0
+    /// EndAddress      : 192.168.10.255
+    /// </example>
     public static (SubnetMask BroadcastAddress, SubnetMask FirstAddress, SubnetMask EndAddress) GetAddressRange(SubnetMask networkAddress, SubnetMask subnetmask)
     {
         Span<byte> broadcastAddress = stackalloc byte[32];
@@ -206,10 +244,10 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
         return bit;
     }
 
-    // 255.0.0.0
+    // 11111111 00000000 00000000 00000000 -> 255.0.0.0
     public override string ToString()
     {
-        // 00000000 00000000 00000000 00000000
+        
         Span<byte> byteArray = stackalloc byte[bitLength * 4];
         var octet1 = CalculateOctet(_byteArray[..bitLength]);
         var octet2 = CalculateOctet(_byteArray[bitLength..(bitLength * 2)]);
