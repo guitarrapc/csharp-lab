@@ -10,9 +10,9 @@ Job=ShortRun  IterationCount=3  LaunchCount=1
 WarmupCount=3  
 
 ```
-| Method            | Number | Mean      | Error      | StdDev    | Min       | Max       | Allocated |
-|------------------ |------- |----------:|-----------:|----------:|----------:|----------:|----------:|
-| **RentReturn**        | **1**      |  **41.93 ns** |   **0.668 ns** |  **0.037 ns** |  **41.89 ns** |  **41.96 ns** |         **-** |
-| AllocateArrayPool | 1      |  97.11 ns |   3.990 ns |  0.219 ns |  96.97 ns |  97.36 ns |         - |
-| **RentReturn**        | **10**     | **518.98 ns** |   **7.139 ns** |  **0.391 ns** | **518.72 ns** | **519.43 ns** |         **-** |
-| AllocateArrayPool | 10     | 713.22 ns | 211.327 ns | 11.584 ns | 700.13 ns | 722.15 ns |         - |
+| Method            | Number | Mean      | Error     | StdDev   | Min       | Max       | Allocated |
+|------------------ |------- |----------:|----------:|---------:|----------:|----------:|----------:|
+| **RentReturn**        | **1**      |  **34.33 ns** |  **0.138 ns** | **0.008 ns** |  **34.32 ns** |  **34.33 ns** |         **-** |
+| AllocateArrayPool | 1      |  98.16 ns | 12.278 ns | 0.673 ns |  97.75 ns |  98.94 ns |         - |
+| **RentReturn**        | **10**     | **518.91 ns** | **49.342 ns** | **2.705 ns** | **517.23 ns** | **522.03 ns** |         **-** |
+| AllocateArrayPool | 10     | 707.79 ns | 86.322 ns | 4.732 ns | 704.19 ns | 713.15 ns |         - |
