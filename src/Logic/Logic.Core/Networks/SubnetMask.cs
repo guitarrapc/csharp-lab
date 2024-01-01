@@ -266,7 +266,7 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     // 11111111 00000000 00000000 00000000 -> 255.0.0.0
     public override string ToString()
     {
-        
+
         Span<byte> byteArray = stackalloc byte[bitLength * 4];
         var octet1 = CalculateOctet(_byteArray[..bitLength]);
         var octet2 = CalculateOctet(_byteArray[bitLength..(bitLength * 2)]);
