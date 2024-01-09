@@ -12,17 +12,17 @@ WarmupCount=3
 ```
 | Method                        | Number | Mean        | Error      | StdDev    | Min         | Max         | Gen0   | Allocated |
 |------------------------------ |------- |------------:|-----------:|----------:|------------:|------------:|-------:|----------:|
-| **SubnetMaskFromCidrNotion**      | **1**      |    **17.18 ns** |   **1.422 ns** |  **0.078 ns** |    **17.14 ns** |    **17.27 ns** | **0.0007** |      **56 B** |
-| SubnetMaskFromCidrAddress     | 1      |   107.66 ns |   5.124 ns |  0.281 ns |   107.48 ns |   107.99 ns | 0.0013 |     112 B |
-| SubnetMaskFromCidrAddress2    | 1      |   103.53 ns |   3.365 ns |  0.184 ns |   103.32 ns |   103.65 ns | 0.0013 |     112 B |
-| SubnetMaskFromIPAddressString | 1      |    76.38 ns |   4.538 ns |  0.249 ns |    76.21 ns |    76.66 ns | 0.0006 |      56 B |
-| SubnetMaskFromIPAddressType   | 1      |    45.42 ns |   2.993 ns |  0.164 ns |    45.32 ns |    45.61 ns | 0.0010 |      88 B |
-| SubnetMaskGetNetworkAddress   | 1      |    45.25 ns |  13.805 ns |  0.757 ns |    44.62 ns |    46.09 ns | 0.0007 |      56 B |
-| SubnetMaskGetAddressRange     | 1      |   124.45 ns |   9.294 ns |  0.509 ns |   123.86 ns |   124.80 ns | 0.0019 |     168 B |
-| **SubnetMaskFromCidrNotion**      | **10**     |   **191.72 ns** |   **6.592 ns** |  **0.361 ns** |   **191.37 ns** |   **192.09 ns** | **0.0067** |     **560 B** |
-| SubnetMaskFromCidrAddress     | 10     | 1,069.61 ns |  72.313 ns |  3.964 ns | 1,066.40 ns | 1,074.04 ns | 0.0134 |    1120 B |
-| SubnetMaskFromCidrAddress2    | 10     | 1,029.10 ns |  23.449 ns |  1.285 ns | 1,028.28 ns | 1,030.59 ns | 0.0134 |    1120 B |
-| SubnetMaskFromIPAddressString | 10     |   803.59 ns | 292.270 ns | 16.020 ns |   792.51 ns |   821.96 ns | 0.0067 |     560 B |
-| SubnetMaskFromIPAddressType   | 10     |   451.76 ns |  24.860 ns |  1.363 ns |   450.68 ns |   453.29 ns | 0.0105 |     880 B |
-| SubnetMaskGetNetworkAddress   | 10     |   448.56 ns |  64.158 ns |  3.517 ns |   446.40 ns |   452.61 ns | 0.0067 |     560 B |
-| SubnetMaskGetAddressRange     | 10     | 1,172.36 ns |  13.658 ns |  0.749 ns | 1,171.51 ns | 1,172.88 ns | 0.0191 |    1680 B |
+| **SubnetMaskFromCidrNotion**      | **1**      |    **17.34 ns** |   **2.148 ns** |  **0.118 ns** |    **17.25 ns** |    **17.47 ns** | **0.0007** |      **56 B** |
+| SubnetMaskFromCidrAddress     | 1      |   108.27 ns |   2.980 ns |  0.163 ns |   108.08 ns |   108.39 ns | 0.0013 |     112 B |
+| SubnetMaskFromCidrAddress2    | 1      |   103.38 ns |   4.619 ns |  0.253 ns |   103.17 ns |   103.66 ns | 0.0013 |     112 B |
+| SubnetMaskFromIPAddressString | 1      |    77.94 ns |   3.252 ns |  0.178 ns |    77.81 ns |    78.14 ns | 0.0006 |      56 B |
+| SubnetMaskFromIPAddressType   | 1      |    45.22 ns |   3.113 ns |  0.171 ns |    45.03 ns |    45.36 ns | 0.0010 |      88 B |
+| SubnetMaskGetNetworkAddress   | 1      |    43.80 ns |  12.952 ns |  0.710 ns |    43.01 ns |    44.38 ns | 0.0007 |      56 B |
+| SubnetMaskGetAddressRange     | 1      |   129.61 ns |  55.815 ns |  3.059 ns |   126.61 ns |   132.73 ns | 0.0019 |     168 B |
+| **SubnetMaskFromCidrNotion**      | **10**     |   **189.12 ns** |  **77.300 ns** |  **4.237 ns** |   **186.50 ns** |   **194.01 ns** | **0.0067** |     **560 B** |
+| SubnetMaskFromCidrAddress     | 10     | 1,067.93 ns |  83.421 ns |  4.573 ns | 1,063.30 ns | 1,072.44 ns | 0.0134 |    1120 B |
+| SubnetMaskFromCidrAddress2    | 10     | 1,026.23 ns |  77.643 ns |  4.256 ns | 1,021.32 ns | 1,028.71 ns | 0.0134 |    1120 B |
+| SubnetMaskFromIPAddressString | 10     |   803.33 ns | 556.926 ns | 30.527 ns |   785.27 ns |   838.58 ns | 0.0067 |     560 B |
+| SubnetMaskFromIPAddressType   | 10     |   483.37 ns |  17.092 ns |  0.937 ns |   482.51 ns |   484.37 ns | 0.0105 |     880 B |
+| SubnetMaskGetNetworkAddress   | 10     |   442.77 ns |  29.720 ns |  1.629 ns |   441.09 ns |   444.34 ns | 0.0067 |     560 B |
+| SubnetMaskGetAddressRange     | 10     | 1,175.75 ns |  69.561 ns |  3.813 ns | 1,171.49 ns | 1,178.85 ns | 0.0191 |    1680 B |
