@@ -7,21 +7,23 @@ public class StringFormat
 {
     private readonly CompositeFormat _compositeFormat;
     private readonly string _stringFormat;
-    public StringFormat(string formatString)
+
+    public StringFormat()
     {
-        _compositeFormat = CompositeFormat.Parse(formatString);
-        _stringFormat = formatString;
+        const string format = "{0:t}: Hello, {1}! I'll give you {2} apples.";
+        _compositeFormat = CompositeFormat.Parse(format);
+        _stringFormat = format;
     }
 
-    public string Composite(string name, int apples)
+    public string Composite(DateTime datetime, string name, int apples)
     {
-        var message = string.Format(CultureInfo.CurrentCulture, _compositeFormat, name, apples);
+        var message = string.Format(CultureInfo.CurrentCulture, _compositeFormat, datetime, name, apples);
         return message;
     }
 
-    public string Format(string name, int apples)
+    public string Format(DateTime datetime, string name, int apples)
     {
-        var message = string.Format(_stringFormat, name, apples);
+        var message = string.Format(_stringFormat, datetime, name, apples);
         return message;
     }
 }

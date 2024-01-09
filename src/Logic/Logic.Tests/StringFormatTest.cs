@@ -7,14 +7,16 @@ public class StringFormatTest
     [Fact]
     public void CompositeTest()
     {
-        var formatter = new StringFormat("Hello, {0}! I'll give you {1} apples.");
-        formatter.Composite("foo", 100).Should().Be("Hello, foo! I'll give you 100 apples.");
+        var formatter = new StringFormat();
+        var datetime = DateTime.Now;
+        formatter.Composite(datetime, "foo", 100).Should().Be($"{datetime:t}: Hello, foo! I'll give you 100 apples.");
     }
 
     [Fact]
     public void FormatTest()
     {
-        var formatter = new StringFormat("Hello, {0}! I'll give you {1} apples.");
-        formatter.Format("foo", 100).Should().Be("Hello, foo! I'll give you 100 apples.");
+        var formatter = new StringFormat();
+        var datetime = DateTime.Now;
+        formatter.Format(datetime, "foo", 100).Should().Be($"{datetime:t}: Hello, foo! I'll give you 100 apples.");
     }
 }

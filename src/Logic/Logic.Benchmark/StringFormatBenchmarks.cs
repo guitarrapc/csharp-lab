@@ -11,14 +11,21 @@ public class StringFormatBenchmarks
     [Params(100)]
     public int Number { get; set; }
 
-    private readonly StringFormat _formatter = new("Hello, {0}! I'll give you {1} apples.");
+    private readonly StringFormat _formatter = new();
+    private DateTime _datetime = default!;
+
+    [IterationSetup]
+    public void IterationSetup()
+    {
+        _datetime = DateTime.Now;
+    }
 
     [Benchmark]
     public void CompositeFormat()
     {
         for (var i = 0; i < Number; i++)
         {
-            _formatter.Composite("foo", i);
+            _formatter.Composite(_datetime, "foo", i);
         }
     }
 
@@ -27,7 +34,7 @@ public class StringFormatBenchmarks
     {
         for (var i = 0; i < Number; i++)
         {
-            _formatter.Format("foo", i);
+            _formatter.Format(_datetime, "foo", i);
         }
     }
 
@@ -37,7 +44,7 @@ public class StringFormatBenchmarks
         var name = "foo";
         for (var i = 0; i < Number; i++)
         {
-            _ = $"Hello, {name}! I'll give you {i} apples.";
+            _ = $"{_datetime:t}: Hello, {name}! I'll give you {i} apples.";
         }
     }
 }
