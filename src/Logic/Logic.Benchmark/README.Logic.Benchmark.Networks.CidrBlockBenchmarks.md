@@ -12,11 +12,11 @@ WarmupCount=3
 ```
 | Method                  | Number | Mean        | Error      | StdDev    | Min         | Max         | Allocated |
 |------------------------ |------- |------------:|-----------:|----------:|------------:|------------:|----------:|
-| **CidrBlockNewString**      | **1**      |  **59.2151 ns** |  **1.3712 ns** | **0.0752 ns** |  **59.1705 ns** |  **59.3019 ns** |         **-** |
+| **CidrBlockNewString**      | **1**      |  **59.6533 ns** | **21.7484 ns** | **1.1921 ns** |  **58.9536 ns** |  **61.0297 ns** |         **-** |
 | CidrBlockNewBytes       | 1      |   0.0000 ns |  0.0000 ns | 0.0000 ns |   0.0000 ns |   0.0000 ns |         - |
-| CidrBlockTryParseString | 1      |  62.4212 ns |  2.7352 ns | 0.1499 ns |  62.2895 ns |  62.5844 ns |         - |
-| CidrBlockTryParseBytes  | 1      |   3.0451 ns |  0.3306 ns | 0.0181 ns |   3.0338 ns |   3.0660 ns |         - |
-| **CidrBlockNewString**      | **10**     | **603.9461 ns** | **50.3409 ns** | **2.7594 ns** | **602.3440 ns** | **607.1323 ns** |         **-** |
-| CidrBlockNewBytes       | 10     |   2.8412 ns |  0.0077 ns | 0.0004 ns |   2.8409 ns |   2.8417 ns |         - |
-| CidrBlockTryParseString | 10     | 648.9168 ns |  7.4254 ns | 0.4070 ns | 648.4823 ns | 649.2892 ns |         - |
-| CidrBlockTryParseBytes  | 10     |  28.5554 ns |  1.7710 ns | 0.0971 ns |  28.4947 ns |  28.6674 ns |         - |
+| CidrBlockTryParseString | 1      |  62.3626 ns |  0.2081 ns | 0.0114 ns |  62.3512 ns |  62.3740 ns |         - |
+| CidrBlockTryParseBytes  | 1      |   3.0540 ns |  0.3462 ns | 0.0190 ns |   3.0330 ns |   3.0699 ns |         - |
+| **CidrBlockNewString**      | **10**     | **607.4024 ns** |  **4.9494 ns** | **0.2713 ns** | **607.1463 ns** | **607.6867 ns** |         **-** |
+| CidrBlockNewBytes       | 10     |   2.8465 ns |  0.0945 ns | 0.0052 ns |   2.8406 ns |   2.8502 ns |         - |
+| CidrBlockTryParseString | 10     | 631.5547 ns | 10.8736 ns | 0.5960 ns | 630.8929 ns | 632.0491 ns |         - |
+| CidrBlockTryParseBytes  | 10     |  28.7014 ns |  2.8099 ns | 0.1540 ns |  28.6055 ns |  28.8791 ns |         - |
