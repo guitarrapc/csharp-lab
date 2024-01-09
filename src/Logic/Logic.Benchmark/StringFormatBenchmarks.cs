@@ -31,4 +31,13 @@ public class StringFormatBenchmarks
         }
     }
 
+    [Benchmark]
+    public void InterpolatedFormat()
+    {
+        var name = "foo";
+        for (var i = 0; i < Number; i++)
+        {
+            _ = $"Hello, {name}! I'll give you {i} apples.";
+        }
+    }
 }

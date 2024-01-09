@@ -3,19 +3,25 @@ using System.Text;
 
 namespace Logic.Core;
 
-public class StringFormat(string formatString)
+public class StringFormat
 {
+    private readonly CompositeFormat _compositeFormat;
+    private readonly string _stringFormat;
+    public StringFormat(string formatString)
+    {
+        _compositeFormat = CompositeFormat.Parse(formatString);
+        _stringFormat = formatString;
+    }
+
     public string Composite(string name, int apples)
     {
-        var compositeFormat = CompositeFormat.Parse(formatString);
-        var message = string.Format(CultureInfo.CurrentCulture, compositeFormat, name, apples);
+        var message = string.Format(CultureInfo.CurrentCulture, _compositeFormat, name, apples);
         return message;
     }
 
     public string Format(string name, int apples)
     {
-        var format = formatString;
-        var message = string.Format(format, name, apples);
+        var message = string.Format(_stringFormat, name, apples);
         return message;
     }
 }
