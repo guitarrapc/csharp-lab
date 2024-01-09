@@ -15,6 +15,13 @@ public class StringFormat
         _stringFormat = format;
     }
 
+    /// <summary>
+    /// .NET 8 Introduce CompositeFormat, which can reuse CompositeFormat instance multiple times.
+    /// </summary>
+    /// <param name="datetime"></param>
+    /// <param name="name"></param>
+    /// <param name="apples"></param>
+    /// <returns></returns>
     public string Composite(DateTime datetime, string name, int apples)
     {
         var message = string.Format(CultureInfo.CurrentCulture, _compositeFormat, datetime, name, apples);
