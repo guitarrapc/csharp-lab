@@ -13,7 +13,7 @@ public class StringReverseBenchmarks
     public int Number { get; set; }
 
     private string? _source;
-    private StringReverse _stringReverse = new StringReverse();
+    private readonly StringReverse _stringReverse = new ();
 
     [IterationSetup]
     public void IterationSetup()
