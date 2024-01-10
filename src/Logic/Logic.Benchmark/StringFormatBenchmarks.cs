@@ -8,7 +8,7 @@ namespace Logic.Benchmark;
 [MinColumn, MaxColumn]
 public class StringFormatBenchmarks
 {
-    [Params(100)]
+    [Params(1, 100)]
     public int Number { get; set; }
 
     private readonly StringFormat _formatter = new();
@@ -20,6 +20,7 @@ public class StringFormatBenchmarks
         _datetime = DateTime.Now;
     }
 
+    // good like StringInterpolated.
     [Benchmark]
     public void CompositeFormat()
     {
@@ -29,6 +30,7 @@ public class StringFormatBenchmarks
         }
     }
 
+    // avoid if format is reusable.
     [Benchmark]
     public void StringFormat()
     {
@@ -38,6 +40,9 @@ public class StringFormatBenchmarks
         }
     }
 
+    // good.
+    // C# 10.0 string interpolation use StringInterpolatedHandler pattern.
+    // This removed boxing and improve performance.
     [Benchmark]
     public void InterpolatedFormat()
     {
