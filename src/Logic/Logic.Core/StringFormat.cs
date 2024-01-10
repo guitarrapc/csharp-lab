@@ -17,6 +17,8 @@ public class StringFormat
 
     /// <summary>
     /// .NET 8 Introduce CompositeFormat, which can reuse CompositeFormat instance multiple times.
+    /// String Interpolation moved parsing to compile-time and removed boxing allocation.
+    /// CompositeFormat braing effiency of compile-time parsing to runtime.
     /// </summary>
     /// <param name="datetime"></param>
     /// <param name="name"></param>
