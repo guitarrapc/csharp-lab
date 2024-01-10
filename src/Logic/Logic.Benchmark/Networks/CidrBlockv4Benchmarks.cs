@@ -6,44 +6,44 @@ namespace Logic.Benchmark.Networks;
 [ShortRunJob]
 [MemoryDiagnoser]
 [MinColumn, MaxColumn]
-public class CidrBlockBenchmarks
+public class CidrBlockv4Benchmarks
 {
     [Params(1, 10)]
     public int Number { get; set; }
 
     [Benchmark]
-    public void CidrBlockNewString()
+    public void NewString()
     {
         for (byte i = 0; i < Number; i++)
         {
-            new CidrBlock("10.0.0.1/24");
+            _ = new CidrBlockv4("10.0.0.1/24");
         }
     }
 
     [Benchmark]
-    public void CidrBlockNewBytes()
+    public void NewBytes()
     {
         for (byte i = 0; i < Number; i++)
         {
-            new CidrBlock(10, 0, 0, 1, 24);
+            _ = new CidrBlockv4(10, 0, 0, 1, 24);
         }
     }
 
     [Benchmark]
-    public void CidrBlockTryParseString()
+    public void TryParseString()
     {
         for (byte i = 0; i < Number; i++)
         {
-            CidrBlock.TryParse("10.0.0.1/24", out var cidr);
+            _ = CidrBlockv4.TryParse("10.0.0.1/24", out var _);
         }
     }
 
     [Benchmark]
-    public void CidrBlockTryParseBytes()
+    public void TryParseBytes()
     {
         for (byte i = 0; i < Number; i++)
         {
-            CidrBlock.TryParse(10, 0, 0, 1, 24, out var cidr);
+            _ = CidrBlockv4.TryParse(10, 0, 0, 1, 24, out var _);
         }
     }
 }
