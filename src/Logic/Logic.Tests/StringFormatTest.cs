@@ -1,5 +1,3 @@
-using Logic.Core;
-
 namespace Logic.Tests;
 
 public class StringFormatTest
