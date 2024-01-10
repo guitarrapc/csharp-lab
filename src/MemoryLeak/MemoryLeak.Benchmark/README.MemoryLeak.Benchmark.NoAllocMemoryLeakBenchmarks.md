@@ -2,9 +2,9 @@
 
 BenchmarkDotNet v0.13.11, Ubuntu 22.04.3 LTS (Jammy Jellyfish)
 AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
-.NET SDK 8.0.100
-  [Host]   : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
-  ShortRun : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
+.NET SDK 8.0.101
+  [Host]   : .NET 8.0.1 (8.0.123.58001), X64 RyuJIT AVX2
+  ShortRun : .NET 8.0.1 (8.0.123.58001), X64 RyuJIT AVX2
 
 Job=ShortRun  IterationCount=3  LaunchCount=1  
 WarmupCount=3  
@@ -12,7 +12,7 @@ WarmupCount=3
 ```
 | Method            | Number | Mean      | Error     | StdDev   | Min       | Max       | Allocated |
 |------------------ |------- |----------:|----------:|---------:|----------:|----------:|----------:|
-| **RentReturn**        | **1**      |  **34.32 ns** |  **2.588 ns** | **0.142 ns** |  **34.16 ns** |  **34.43 ns** |         **-** |
-| AllocateArrayPool | 1      |  97.68 ns |  4.178 ns | 0.229 ns |  97.47 ns |  97.92 ns |         - |
-| **RentReturn**        | **10**     | **532.43 ns** |  **4.936 ns** | **0.271 ns** | **532.13 ns** | **532.65 ns** |         **-** |
-| AllocateArrayPool | 10     | 703.02 ns | 88.212 ns | 4.835 ns | 700.04 ns | 708.60 ns |         - |
+| **RentReturn**        | **1**      |  **34.05 ns** |  **0.710 ns** | **0.039 ns** |  **34.01 ns** |  **34.09 ns** |         **-** |
+| AllocateArrayPool | 1      |  97.31 ns |  3.139 ns | 0.172 ns |  97.16 ns |  97.50 ns |         - |
+| **RentReturn**        | **10**     | **538.05 ns** | **41.109 ns** | **2.253 ns** | **535.48 ns** | **539.68 ns** |         **-** |
+| AllocateArrayPool | 10     | 717.56 ns | 33.359 ns | 1.829 ns | 715.94 ns | 719.54 ns |         - |
