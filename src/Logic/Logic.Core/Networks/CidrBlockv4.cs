@@ -1,9 +1,9 @@
 namespace Logic.Networks;
 
 /// <summary>
-/// Create CidrBlock
+/// Create CidrBlock for IPv4
 /// </summary>
-public readonly struct CidrBlock : IEquatable<CidrBlock>
+public readonly struct CidrBlockv4 : IEquatable<CidrBlockv4>
 {
     public readonly byte VpcCidr1;
     public readonly byte VpcCidr2;
@@ -11,7 +11,7 @@ public readonly struct CidrBlock : IEquatable<CidrBlock>
     public readonly byte VpcCidr4;
     public readonly byte VpcCidrSubnet;
 
-    public CidrBlock(string cidrAddress)
+    public CidrBlockv4(string cidrAddress)
     {
         // cidrAddress.Split("/");
         var cidrSpan = cidrAddress.AsSpan();
@@ -20,25 +20,25 @@ public readonly struct CidrBlock : IEquatable<CidrBlock>
         {
             throw new FormatException($"{nameof(cidrAddress)} '{cidrAddress}' is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx/xxx'.");
         }
-        var address = cidrSpan.Slice(0, indexSubnet);
-        var subnetmask = cidrSpan.Slice(indexSubnet + 1, cidrSpan.Length - (indexSubnet + 1));
+        var address = cidrSpan[..indexSubnet];
+        var subnetmask = cidrSpan[(indexSubnet + 1)..]; // same as `cidrSpan.Slice(indexSubnet + 1, cidrSpan.Length - (indexSubnet + 1))`
 
         // cidrTokens[0].Split(".");
         ReadOnlySpan<char> rest = address;
         var oct1End = rest.IndexOf('.');
         if (oct1End == -1) throw new FormatException($"{nameof(cidrAddress)} '{cidrAddress}' is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx/xxx'.");
-        var oct1 = rest.Slice(0, oct1End);
-        rest = rest.Slice(oct1End + 1, rest.Length - (oct1End + 1));
+        var oct1 = rest[..oct1End]; // same as `rest.Slice(0, oct1End)`
+        rest = rest[(oct1End + 1)..]; // same as rest.Slice(oct1End + 1, rest.Length - (oct1End + 1));
 
         var oct2End = rest.IndexOf('.');
         if (oct2End == -1) throw new FormatException($"{nameof(cidrAddress)} '{cidrAddress}' is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx/xxx'.");
-        var oct2 = rest.Slice(0, oct2End);
-        rest = rest.Slice(oct2End + 1, rest.Length - (oct2End + 1));
+        var oct2 = rest[..oct2End];
+        rest = rest[(oct2End + 1)..];
 
         var oct3End = rest.IndexOf('.');
         if (oct3End == -1) throw new FormatException($"{nameof(cidrAddress)} '{cidrAddress}' is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx/xxx'.");
-        var oct3 = rest.Slice(0, oct3End);
-        rest = rest.Slice(oct3End + 1, rest.Length - (oct3End + 1));
+        var oct3 = rest[..oct3End];
+        rest = rest[(oct3End + 1)..];
 
         var oct4End = rest.IndexOf('.');
         if (oct4End != -1 || rest.Length > 3)
@@ -74,7 +74,7 @@ public readonly struct CidrBlock : IEquatable<CidrBlock>
         (VpcCidr1, VpcCidr2, VpcCidr3, VpcCidr4, VpcCidrSubnet) = (cidr1, cidr2, cidr3, cidr4, subnet);
     }
 
-    public CidrBlock(byte cidr1, byte cidr2, byte cidr3, byte cidr4, byte subnet)
+    public CidrBlockv4(byte cidr1, byte cidr2, byte cidr3, byte cidr4, byte subnet)
     {
         ValidateSubnetValue(subnet);
         (VpcCidr1, VpcCidr2, VpcCidr3, VpcCidr4, VpcCidrSubnet) = (cidr1, cidr2, cidr3, cidr4, subnet);
@@ -98,22 +98,22 @@ public readonly struct CidrBlock : IEquatable<CidrBlock>
     /// </summary>
     /// <param name="cidrBlock"></param>
     /// <returns></returns>
-    public CidrBlock AddCidr(CidrBlock cidrBlock)
-        => new CidrBlock(
+    public CidrBlockv4 AddCidr(CidrBlockv4 cidrBlock)
+        => new CidrBlockv4(
             (byte)(VpcCidr1 + cidrBlock.VpcCidr1),
             (byte)(VpcCidr2 + cidrBlock.VpcCidr2),
             (byte)(VpcCidr3 + cidrBlock.VpcCidr3),
             (byte)(VpcCidr4 + cidrBlock.VpcCidr4),
             (byte)(VpcCidrSubnet + cidrBlock.VpcCidrSubnet));
 
-    public bool Equals(CidrBlock other)
+    public bool Equals(CidrBlockv4 other)
     {
-        return other is CidrBlock block && Equals(block);
+        return other is CidrBlockv4 block && Equals(block);
     }
 
     public override bool Equals(object? obj)
     {
-        return obj is CidrBlock block &&
+        return obj is CidrBlockv4 block &&
                VpcCidr1 == block.VpcCidr1 &&
                VpcCidr2 == block.VpcCidr2 &&
                VpcCidr3 == block.VpcCidr3 &&
@@ -131,12 +131,12 @@ public readonly struct CidrBlock : IEquatable<CidrBlock>
         return $"{VpcCidr1}.{VpcCidr2}.{VpcCidr3}.{VpcCidr4}/{VpcCidrSubnet}";
     }
 
-    public static bool TryParse(string cidrAddress, out CidrBlock cidrBlock)
+    public static bool TryParse(string cidrAddress, out CidrBlockv4 cidrBlock)
     {
         cidrBlock = default;
         try
         {
-            cidrBlock = new CidrBlock(cidrAddress);
+            cidrBlock = new CidrBlockv4(cidrAddress);
             return true;
         }
         catch (Exception)
@@ -145,7 +145,7 @@ public readonly struct CidrBlock : IEquatable<CidrBlock>
         }
     }
 
-    public static bool TryParse(byte cidr1, byte cidr2, byte cidr3, byte cidr4, byte subnet, out CidrBlock cidrBlock)
+    public static bool TryParse(byte cidr1, byte cidr2, byte cidr3, byte cidr4, byte subnet, out CidrBlockv4 cidrBlock)
     {
         cidrBlock = default;
 
@@ -156,7 +156,7 @@ public readonly struct CidrBlock : IEquatable<CidrBlock>
 
         try
         {
-            cidrBlock = new CidrBlock(cidr1, cidr2, cidr3, cidr4, subnet);
+            cidrBlock = new CidrBlockv4(cidr1, cidr2, cidr3, cidr4, subnet);
             return true;
         }
         catch (Exception)
@@ -165,12 +165,12 @@ public readonly struct CidrBlock : IEquatable<CidrBlock>
         }
     }
 
-    public static bool operator ==(CidrBlock left, CidrBlock right)
+    public static bool operator ==(CidrBlockv4 left, CidrBlockv4 right)
     {
         return left.Equals(right);
     }
 
-    public static bool operator !=(CidrBlock left, CidrBlock right)
+    public static bool operator !=(CidrBlockv4 left, CidrBlockv4 right)
     {
         return !(left == right);
     }

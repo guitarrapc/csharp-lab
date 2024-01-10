@@ -28,7 +28,10 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     /// </example>
     public static SubnetMask FromCidrNotion(byte bit)
     {
-        if (bit > bitLength * 4) throw new ArgumentOutOfRangeException("Input bit must be lower than 32.");
+        if (bit > bitLength * 4)
+        {
+            throw new ArgumentOutOfRangeException("Input bit must be lower than 32.");
+        }
 
         Span<byte> byteArray = stackalloc byte[bitLength * 4];
         for (var i = 0; i < bit; i++)
@@ -81,18 +84,18 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
         ReadOnlySpan<char> rest = ipAddress;
         var oct1End = rest.IndexOf('.');
         if (oct1End == -1) throw new FormatException($"{nameof(ipAddress)} is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx'.");
-        var oct1 = rest.Slice(0, oct1End);
-        rest = rest.Slice(oct1End + 1, rest.Length - (oct1End + 1));
+        var oct1 = rest[..oct1End];
+        rest = rest[(oct1End + 1)..];
 
         var oct2End = rest.IndexOf('.');
         if (oct2End == -1) throw new FormatException($"{nameof(ipAddress)} is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx'.");
-        var oct2 = rest.Slice(0, oct2End);
-        rest = rest.Slice(oct2End + 1, rest.Length - (oct2End + 1));
+        var oct2 = rest[..oct2End];
+        rest = rest[(oct2End + 1)..];
 
         var oct3End = rest.IndexOf('.');
         if (oct3End == -1) throw new FormatException($"{nameof(ipAddress)} is incorrect format. Plase follow format 'xxx.xxx.xxx.xxx'.");
-        var oct3 = rest.Slice(0, oct3End);
-        rest = rest.Slice(oct3End + 1, rest.Length - (oct3End + 1));
+        var oct3 = rest[..oct3End];
+        rest = rest[(oct3End + 1)..];
 
         var oct4End = rest.IndexOf('.');
         if (oct4End != -1 || rest.Length > 3)
@@ -144,8 +147,8 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     public static (SubnetMask Address, SubnetMask Subnet) FromCidrAddress(ReadOnlySpan<char> cidrAddress)
     {
         var index = cidrAddress.IndexOf('/');
-        var cidr = cidrAddress.Slice(0, index);
-        var subnet = cidrAddress.Slice(index + 1, cidrAddress.Length - (index + 1));
+        var cidr = cidrAddress[..index];
+        var subnet = cidrAddress[(index + 1)..];
         return FromCidrAddress(cidr, subnet);
     }
     /// <summary>
@@ -268,14 +271,14 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     {
 
         Span<byte> byteArray = stackalloc byte[bitLength * 4];
-        var octet1 = CalculateOctet(_byteArray[..bitLength]);
-        var octet2 = CalculateOctet(_byteArray[bitLength..(bitLength * 2)]);
-        var octet3 = CalculateOctet(_byteArray[(bitLength * 2)..(bitLength * 3)]);
-        var octet4 = CalculateOctet(_byteArray[(bitLength * 3)..(bitLength * 4)]);
+        var octet1 = CalculateOctet(_byteArray.AsSpan()[..bitLength]);
+        var octet2 = CalculateOctet(_byteArray.AsSpan()[bitLength..(bitLength * 2)]);
+        var octet3 = CalculateOctet(_byteArray.AsSpan()[(bitLength * 2)..(bitLength * 3)]);
+        var octet4 = CalculateOctet(_byteArray.AsSpan()[(bitLength * 3)..(bitLength * 4)]);
         return $"{octet1}.{octet2}.{octet3}.{octet4}";
     }
 
-    private byte CalculateOctet(ReadOnlySpan<byte> octet)
+    private static byte CalculateOctet(ReadOnlySpan<byte> octet)
     {
         int subnet = 0;
         for (var i = 0; i <= octet.Length - 1; i++)

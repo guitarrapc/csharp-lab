@@ -69,9 +69,6 @@ dotnet_diagnostic.VSTHRD003.severity = none  # VSTHRD003 Avoid awaiting foreign 
 # Format Rulesets
 # =================
 
-# IDE0005: Remove unnecessary imports
-dotnet_diagnostic.IDE0005.severity = warning
-
 # IDE0160: Convert to file-scoped namespace
 csharp_style_namespace_declarations = file_scoped:warning
 
@@ -83,8 +80,7 @@ dotnet_diagnostic.CA2200.severity = error # Rethrow to preserve stack details
 # =================
 
 # CONSIDER: Are IDE0051 and IDE0052 too noisy to be warnings for IDE editing scenarios? Should they be made build-only warnings?
-# IDE0051: Remove unused private member
-dotnet_diagnostic.IDE0051.severity = warning
-
-# IDE0052: Remove unread private member
-dotnet_diagnostic.IDE0052.severity = warning
+dotnet_diagnostic.IDE0005.severity = warning # Remove unnecessary imports
+dotnet_diagnostic.IDE0051.severity = warning # Remove unused private member
+dotnet_diagnostic.IDE0052.severity = warning # Remove unread private member
+dotnet_diagnostic.IDE0090.severity = none # Simplify new expression
