@@ -10,19 +10,19 @@ Job=ShortRun  IterationCount=3  LaunchCount=1
 WarmupCount=3  
 
 ```
-| Method                        | Number | Mean        | Error     | StdDev   | Min         | Max         | Gen0   | Allocated |
-|------------------------------ |------- |------------:|----------:|---------:|------------:|------------:|-------:|----------:|
-| **SubnetMaskFromCidrNotion**      | **1**      |    **17.90 ns** |  **4.539 ns** | **0.249 ns** |    **17.64 ns** |    **18.13 ns** | **0.0007** |      **56 B** |
-| SubnetMaskFromCidrAddress     | 1      |   110.09 ns |  3.549 ns | 0.195 ns |   109.95 ns |   110.31 ns | 0.0013 |     112 B |
-| SubnetMaskFromCidrAddress2    | 1      |   108.97 ns |  2.309 ns | 0.127 ns |   108.87 ns |   109.11 ns | 0.0013 |     112 B |
-| SubnetMaskFromIPAddressString | 1      |    79.85 ns |  3.803 ns | 0.208 ns |    79.62 ns |    80.03 ns | 0.0006 |      56 B |
-| SubnetMaskFromIPAddressType   | 1      |    45.29 ns |  2.981 ns | 0.163 ns |    45.15 ns |    45.47 ns | 0.0010 |      88 B |
-| SubnetMaskGetNetworkAddress   | 1      |    44.62 ns | 34.300 ns | 1.880 ns |    43.14 ns |    46.73 ns | 0.0007 |      56 B |
-| SubnetMaskGetAddressRange     | 1      |   121.40 ns | 36.585 ns | 2.005 ns |   120.09 ns |   123.71 ns | 0.0019 |     168 B |
-| **SubnetMaskFromCidrNotion**      | **10**     |   **198.36 ns** | **22.444 ns** | **1.230 ns** |   **196.95 ns** |   **199.25 ns** | **0.0067** |     **560 B** |
-| SubnetMaskFromCidrAddress     | 10     | 1,089.93 ns | 68.915 ns | 3.777 ns | 1,086.05 ns | 1,093.59 ns | 0.0134 |    1120 B |
-| SubnetMaskFromCidrAddress2    | 10     | 1,056.73 ns | 10.836 ns | 0.594 ns | 1,056.04 ns | 1,057.12 ns | 0.0134 |    1120 B |
-| SubnetMaskFromIPAddressString | 10     |   811.38 ns |  7.064 ns | 0.387 ns |   810.95 ns |   811.71 ns | 0.0067 |     560 B |
-| SubnetMaskFromIPAddressType   | 10     |   511.48 ns |  9.616 ns | 0.527 ns |   511.09 ns |   512.08 ns | 0.0105 |     880 B |
-| SubnetMaskGetNetworkAddress   | 10     |   447.76 ns | 38.715 ns | 2.122 ns |   445.34 ns |   449.31 ns | 0.0067 |     560 B |
-| SubnetMaskGetAddressRange     | 10     | 1,191.37 ns | 83.132 ns | 4.557 ns | 1,187.04 ns | 1,196.12 ns | 0.0191 |    1680 B |
+| Method                        | Number | Mean        | Error      | StdDev    | Min         | Max         | Gen0   | Allocated |
+|------------------------------ |------- |------------:|-----------:|----------:|------------:|------------:|-------:|----------:|
+| **SubnetMaskFromCidrNotion**      | **1**      |    **17.55 ns** |   **0.471 ns** |  **0.026 ns** |    **17.53 ns** |    **17.57 ns** | **0.0007** |      **56 B** |
+| SubnetMaskFromCidrAddress     | 1      |   112.12 ns |   6.289 ns |  0.345 ns |   111.72 ns |   112.32 ns | 0.0013 |     112 B |
+| SubnetMaskFromCidrAddress2    | 1      |   104.84 ns |   3.016 ns |  0.165 ns |   104.65 ns |   104.95 ns | 0.0013 |     112 B |
+| SubnetMaskFromIPAddressString | 1      |    78.05 ns |   3.414 ns |  0.187 ns |    77.93 ns |    78.27 ns | 0.0006 |      56 B |
+| SubnetMaskFromIPAddressType   | 1      |    44.78 ns |   3.081 ns |  0.169 ns |    44.65 ns |    44.97 ns | 0.0010 |      88 B |
+| SubnetMaskGetNetworkAddress   | 1      |    43.68 ns |   7.987 ns |  0.438 ns |    43.21 ns |    44.08 ns | 0.0007 |      56 B |
+| SubnetMaskGetAddressRange     | 1      |   118.59 ns |  33.389 ns |  1.830 ns |   117.16 ns |   120.66 ns | 0.0019 |     168 B |
+| **SubnetMaskFromCidrNotion**      | **10**     |   **193.71 ns** |   **3.386 ns** |  **0.186 ns** |   **193.50 ns** |   **193.84 ns** | **0.0067** |     **560 B** |
+| SubnetMaskFromCidrAddress     | 10     | 1,126.72 ns |  39.754 ns |  2.179 ns | 1,124.64 ns | 1,128.99 ns | 0.0134 |    1120 B |
+| SubnetMaskFromCidrAddress2    | 10     | 1,071.90 ns |  49.388 ns |  2.707 ns | 1,068.88 ns | 1,074.12 ns | 0.0134 |    1120 B |
+| SubnetMaskFromIPAddressString | 10     |   810.76 ns |   7.479 ns |  0.410 ns |   810.45 ns |   811.23 ns | 0.0067 |     560 B |
+| SubnetMaskFromIPAddressType   | 10     |   453.52 ns |  40.498 ns |  2.220 ns |   451.68 ns |   455.99 ns | 0.0105 |     880 B |
+| SubnetMaskGetNetworkAddress   | 10     |   433.59 ns |  28.145 ns |  1.543 ns |   432.26 ns |   435.28 ns | 0.0067 |     560 B |
+| SubnetMaskGetAddressRange     | 10     | 1,186.62 ns | 311.566 ns | 17.078 ns | 1,175.16 ns | 1,206.25 ns | 0.0191 |    1680 B |
