@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Text;
 
-namespace Logic.Core;
+namespace Logic;
 
 public class StringFormat
 {
