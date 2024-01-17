@@ -16,46 +16,38 @@ public class CidrSubnetBenchmarks
     public int Number { get; set; }
 
     [Benchmark]
-    public void CidrSubnetCalculateSubnetRangeIPv6()
+    public void CidrSubnetCalculateSubnetRangeIPv6BigInteger()
     {
-        const int subnetMask = 64;
-
         for (byte i = 0; i < Number; i++)
         {
-            _ = CidrSubnet.CalculateSubnetRange(ipv6Address, subnetMask);
+            _ = CidrSubnet.CalculateSubnetRangeSlow(ipv6Address, 64);
         }
     }
 
     [Benchmark]
-    public void CidrSubnetCalculateSubnetRange2IPv6()
+    public void CidrSubnetCalculateSubnetRangeIPv6Shift()
     {
-        const int subnetMask = 64;
-
         for (byte i = 0; i < Number; i++)
         {
-            _ = CidrSubnet.CalculateSubnetRange2(ipv6Address, subnetMask);
+            _ = CidrSubnet.CalculateSubnetRange(ipv6Address, 64);
         }
     }
 
     [Benchmark]
-    public void CidrSubnetCalculateSubnetRangeIPv4()
+    public void CidrSubnetCalculateSubnetRangeIPv4BigInteger()
     {
-        const int subnetMask = 24;
-
         for (byte i = 0; i < Number; i++)
         {
-            _ = CidrSubnet.CalculateSubnetRange(ipv4Address, subnetMask);
+            _ = CidrSubnet.CalculateSubnetRangeSlow(ipv4Address, 24);
         }
     }
 
     [Benchmark]
-    public void CidrSubnetCalculateSubnetRange2IPv4()
+    public void CidrSubnetCalculateSubnetRangeIPv4Shift()
     {
-        const int subnetMask = 24;
-
         for (byte i = 0; i < Number; i++)
         {
-            _ = CidrSubnet.CalculateSubnetRange2(ipv4Address, subnetMask);
+            _ = CidrSubnet.CalculateSubnetRange(ipv4Address, 24);
         }
     }
 }

@@ -137,7 +137,7 @@ public class CidrSubnetTest
     [InlineData("2001:0db8:85a3::8a2e:0370:7334/1", "::", "7fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff")]
     public void CalculateSubnetRangeIPv6Test(string ipaddress, string expectedStartAddress, string expectedEndAddress)
     {
-        var actual = CidrSubnet.CalculateSubnetRange(ipaddress);
+        var actual = CidrSubnet.CalculateSubnetRangeSlow(ipaddress);
         actual.StartAddress.Should().Be(IPAddress.Parse(expectedStartAddress));
         actual.EndAddress.Should().Be(IPAddress.Parse(expectedEndAddress));
     }
@@ -171,7 +171,7 @@ public class CidrSubnetTest
     [InlineData("10.1.100.30/8", "10.0.0.0", "10.255.255.255")]
     public void CalculateSubnetRangeIPv4Test(string ipaddress, string expectedStartAddress, string expectedEndAddress)
     {
-        var actual = CidrSubnet.CalculateSubnetRange(ipaddress);
+        var actual = CidrSubnet.CalculateSubnetRangeSlow(ipaddress);
         actual.StartAddress.Should().Be(IPAddress.Parse(expectedStartAddress));
         actual.EndAddress.Should().Be(IPAddress.Parse(expectedEndAddress));
     }
@@ -191,13 +191,13 @@ public class CidrSubnetTest
         {
             foreach (var subnet in subnets)
             {
-                var (startAddress, endAddress) = CidrSubnet.CalculateSubnetRange(address, subnet);
-                var (startAddress2, endAddress2) = CidrSubnet.CalculateSubnetRange($"{address}/{subnet}");
+                var (startAddress, endAddress) = CidrSubnet.CalculateSubnetRangeSlow(address, subnet);
+                var (startAddress2, endAddress2) = CidrSubnet.CalculateSubnetRangeSlow($"{address}/{subnet}");
                 startAddress.Should().Be(startAddress2);
                 endAddress.Should().Be(endAddress2);
 
-                var (startAddress3, endAddress3) = CidrSubnet.CalculateSubnetRange2(address, subnet);
-                var (startAddress4, endAddress4) = CidrSubnet.CalculateSubnetRange2($"{address}/{subnet}");
+                var (startAddress3, endAddress3) = CidrSubnet.CalculateSubnetRange(address, subnet);
+                var (startAddress4, endAddress4) = CidrSubnet.CalculateSubnetRange($"{address}/{subnet}");
                 startAddress3.Should().Be(startAddress4);
                 endAddress3.Should().Be(endAddress4);
             }
@@ -218,13 +218,13 @@ public class CidrSubnetTest
         {
             foreach (var subnet in subnets)
             {
-                var (startAddress, endAddress) = CidrSubnet.CalculateSubnetRange(address, subnet);
-                var (startAddress2, endAddress2) = CidrSubnet.CalculateSubnetRange($"{address}/{subnet}");
+                var (startAddress, endAddress) = CidrSubnet.CalculateSubnetRangeSlow(address, subnet);
+                var (startAddress2, endAddress2) = CidrSubnet.CalculateSubnetRangeSlow($"{address}/{subnet}");
                 startAddress.Should().Be(startAddress2);
                 endAddress.Should().Be(endAddress2);
 
-                var (startAddress3, endAddress3) = CidrSubnet.CalculateSubnetRange2(address, subnet);
-                var (startAddress4, endAddress4) = CidrSubnet.CalculateSubnetRange2($"{address}/{subnet}");
+                var (startAddress3, endAddress3) = CidrSubnet.CalculateSubnetRange(address, subnet);
+                var (startAddress4, endAddress4) = CidrSubnet.CalculateSubnetRange($"{address}/{subnet}");
                 startAddress3.Should().Be(startAddress4);
                 endAddress3.Should().Be(endAddress4);
             }
@@ -246,8 +246,8 @@ public class CidrSubnetTest
         {
             foreach (var subnet in subnets)
             {
-                var (startAddress, endAddress) = CidrSubnet.CalculateSubnetRange(address, subnet);
-                var (startAddress2, endAddress2) = CidrSubnet.CalculateSubnetRange2(address, subnet);
+                var (startAddress, endAddress) = CidrSubnet.CalculateSubnetRangeSlow(address, subnet);
+                var (startAddress2, endAddress2) = CidrSubnet.CalculateSubnetRange(address, subnet);
                 startAddress.Should().Be(startAddress2);
                 endAddress.Should().Be(endAddress2);
             }
@@ -268,8 +268,8 @@ public class CidrSubnetTest
         {
             foreach (var subnet in subnets)
             {
-                var (startAddress, endAddress) = CidrSubnet.CalculateSubnetRange(address, subnet);
-                var (startAddress2, endAddress2) = CidrSubnet.CalculateSubnetRange2(address, subnet);
+                var (startAddress, endAddress) = CidrSubnet.CalculateSubnetRangeSlow(address, subnet);
+                var (startAddress2, endAddress2) = CidrSubnet.CalculateSubnetRange(address, subnet);
                 startAddress.Should().Be(startAddress2);
                 endAddress.Should().Be(endAddress2);
             }
