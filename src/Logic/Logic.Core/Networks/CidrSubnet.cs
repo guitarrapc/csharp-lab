@@ -3,21 +3,23 @@ using System.Net.Sockets;
 using System.Numerics;
 
 namespace Logic.Networks;
+
+// # Subnet Range formula:
+// * start address = Network & mask
+// * end address = (Network & mask | ~mask)
 public static class CidrSubnet
 {
-    // How to calculate SubnetRange
-    // * start address = Network & mask
-    // * end address = (Network & mask | ~mask)
+    // GetSubnetRange
 
     /// <summary>
     /// Calculate SubnetRange for both IPv4 and IPv6 with BigInteger.
     /// </summary>
     /// <param name="cidr">192.168.0.1/24</param>
     /// <returns></returns>
-    public static (IPAddress StartAddress, IPAddress EndAddress) CalculateSubnetRangeSlow(string cidr)
+    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRangeSlow(string cidr)
     {
         var (address, subnet) = DeconstructCIDR(cidr);
-        return CalculateSubnetRangeSlow(address, subnet);
+        return GetSubnetRangeSlow(address, subnet);
     }
     /// <summary>
     /// Calculate SubnetRange for both IPv4 and IPv6 with BigInteger.
@@ -25,10 +27,10 @@ public static class CidrSubnet
     /// <param name="ipaddress">192.168.0.1</param>
     /// <param name="subnetBits">24</param>
     /// <returns></returns>
-    public static (IPAddress StartAddress, IPAddress EndAddress) CalculateSubnetRangeSlow(string ipaddress, int subnetBits)
+    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRangeSlow(string ipaddress, int subnetBits)
     {
         var address = IPAddress.Parse(ipaddress);
-        return CalculateSubnetRangeSlow(address, subnetBits);
+        return GetSubnetRangeSlow(address, subnetBits);
     }
     /// <summary>
     /// Calculate SubnetRange for both IPv4 and IPv6 with BigInteger.
@@ -36,7 +38,7 @@ public static class CidrSubnet
     /// <param name="ipaddress">192.168.0.1</param>
     /// <param name="subnetBits">24</param>
     /// <returns></returns>
-    public static (IPAddress StartAddress, IPAddress EndAddress) CalculateSubnetRangeSlow(IPAddress ipaddress, int subnetBits)
+    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRangeSlow(IPAddress ipaddress, int subnetBits)
     { 
         // BigInteger can handle IPv6 range.
         var bytes = ipaddress.GetAddressBytes();
@@ -65,10 +67,10 @@ public static class CidrSubnet
     /// </summary>
     /// <param name="cidr">192.168.0.1/24</param>
     /// <returns></returns>
-    public static (IPAddress StartAddress, IPAddress EndAddress) CalculateSubnetRange(string cidr)
+    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRange(string cidr)
     {
         var (address, subnet) = DeconstructCIDR(cidr);
-        return CalculateSubnetRange(address, subnet);
+        return GetSubnetRange(address, subnet);
     }
     /// <summary>
     /// Calculate SubnetRange for both IPv4 and IPv6 with byte shift implementation.
@@ -76,9 +78,9 @@ public static class CidrSubnet
     /// <param name="ipaddress">192.168.0.1</param>
     /// <param name="subnetBits">24</param>
     /// <returns></returns>
-    public static (IPAddress StartAddress, IPAddress EndAddress) CalculateSubnetRange(string ipaddress, int subnetBits)
+    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRange(string ipaddress, int subnetBits)
     {
-        return CalculateSubnetRange(IPAddress.Parse(ipaddress), subnetBits);
+        return GetSubnetRange(IPAddress.Parse(ipaddress), subnetBits);
     }
     /// <summary>
     /// Calculate SubnetRange for both IPv4 and IPv6 with byte shift implementation.
@@ -87,12 +89,12 @@ public static class CidrSubnet
     /// <param name="subnetBits">24</param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public static (IPAddress StartAddress, IPAddress EndAddress) CalculateSubnetRange(IPAddress ipaddress, int subnetBits)
+    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRange(IPAddress ipaddress, int subnetBits)
     {
         return ipaddress.AddressFamily switch
         {
-            AddressFamily.InterNetwork => CalculateIPv4SubnetRange(ipaddress, subnetBits),
-            AddressFamily.InterNetworkV6 => CalculateIPv6SubnetRange(ipaddress, subnetBits),
+            AddressFamily.InterNetwork => GetSubnetRangeIPv4(ipaddress, subnetBits),
+            AddressFamily.InterNetworkV6 => GetSubnetRangeIPv6(ipaddress, subnetBits),
             _ => throw new NotImplementedException()
         };
     }
@@ -103,7 +105,7 @@ public static class CidrSubnet
     /// <param name="ipaddress">192.168.0.1</param>
     /// <param name="subnetBits">24</param>
     /// <returns></returns>
-    private static (IPAddress StartAddress, IPAddress EndAddress) CalculateIPv4SubnetRange(IPAddress ipaddress, int subnetBits)
+    private static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRangeIPv4(IPAddress ipaddress, int subnetBits)
     {
         var bytes = ipaddress.GetAddressBytes();
 
@@ -136,7 +138,7 @@ public static class CidrSubnet
     /// <param name="ipaddress">2001:db8::</param>
     /// <param name="prefix">56</param>
     /// <returns></returns>
-    private static (IPAddress StartAddress, IPAddress EndAddress) CalculateIPv6SubnetRange(IPAddress ipaddress, int prefix)
+    private static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRangeIPv6(IPAddress ipaddress, int prefix)
     {
         var fullPrefixBytes = prefix / 8;
         var remainingBitsInByte = prefix % 8; // could be 0
@@ -177,9 +179,9 @@ public static class CidrSubnet
         return (new IPAddress(firstAddressBytes), new IPAddress(lastAddressBytes));
     }
 
-    private static (IPAddress IPAddress, int Subnet) DeconstructCIDR(string ipaddress)
+    private static (IPAddress IPAddress, int Subnet) DeconstructCIDR(string cidr)
     {
-        ReadOnlySpan<char> span = ipaddress.AsSpan();
+        ReadOnlySpan<char> span = cidr.AsSpan();
         var index = span.IndexOf('/');
         var ipSpan = span.Slice(0, index);
         var ip = IPAddress.Parse(ipSpan);
