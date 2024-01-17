@@ -36,15 +36,13 @@ public static class CidrSubnet
         var endAddrBytes = ip | maskBits;
 
         // convert BigInteger IP to IPAddress
-        Span<byte> startSpan = stackalloc byte[bytes.Length];
-        startAddrBytes.TryWriteBytes(startSpan, out _, true, true);
-        var startAddress = new IPAddress(startSpan);
+        Span<byte> firstAddressBytes = stackalloc byte[bytes.Length];
+        startAddrBytes.TryWriteBytes(firstAddressBytes, out _, true, true);
 
-        Span<byte> endSpan = stackalloc byte[bytes.Length];
-        endAddrBytes.TryWriteBytes(endSpan, out _, true, true);
-        var endAddress = new IPAddress(endSpan);
+        Span<byte> lastAddressBytes = stackalloc byte[bytes.Length];
+        endAddrBytes.TryWriteBytes(lastAddressBytes, out _, true, true);
 
-        return (startAddress, endAddress);
+        return (new IPAddress(firstAddressBytes), new IPAddress(lastAddressBytes));
     }
 
     /// <summary>
@@ -84,51 +82,57 @@ public static class CidrSubnet
         var endAddrBytes = ip | ~maskBits;
 
         // convert LittleEndian uint IP to IPAddress
-        var startBytes = GetBigEndianBytes(startAddrBytes);
-        var startAddress = new IPAddress(startBytes);
+        var firstAddressBytes = GetBigEndianBytes(startAddrBytes);
+        var lastAddressBytes = GetBigEndianBytes(endAddrBytes);
 
-        var endBytes = GetBigEndianBytes(endAddrBytes);
-        var endAddress = new IPAddress(endBytes);
-
-        return (startAddress, endAddress);
+        return (new IPAddress(firstAddressBytes), new IPAddress(lastAddressBytes));
 
         // littleEndian -> bigendien
         static Span<byte> GetBigEndianBytes(uint addressBytes)
             => BitConverter.GetBytes((addressBytes & 0x000000FFU) << 24 | (addressBytes & 0x0000FF00U) << 8 | (addressBytes & 0x00FF0000U) >> 8 | (addressBytes & 0xFF000000U) >> 24);
     }
 
-    private static (IPAddress StartAddress, IPAddress EndAddress) CalculateIPv6SubnetRange(IPAddress ipaddress, int subnetBits)
+    private static (IPAddress StartAddress, IPAddress EndAddress) CalculateIPv6SubnetRange(IPAddress ipaddress, int prefix)
     {
-        var bytes = ipaddress.GetAddressBytes();
+        var ipBytes = ipaddress.GetAddressBytes();
 
-        // get int bit for subnetmask.
-        var maskBits = 128 - subnetBits;
+        var fullPrefixBytes = prefix / 8;
+        var remainingBitsInByte = prefix % 8; // could be 0
 
-        // サブネットで指定した下位ビット(サブネット64なら8ビット)を0にする
-        for (var i = 0; i < maskBits / 8; i++)
+        // First address is obtained be setting all bits outside prefix to 0
+        Span<byte> firstAddressBytes = stackalloc byte[16];
+        ipBytes.CopyTo(firstAddressBytes);
+        if (remainingBitsInByte > 0)
         {
-            bytes[15 - i] &= 0x00;
+            firstAddressBytes[fullPrefixBytes] &= (byte)(0xFF << (8 - remainingBitsInByte));
+            for (int i = fullPrefixBytes + 1; i < firstAddressBytes.Length; i++)
+            {
+                firstAddressBytes[i] = 0;
+            }
         }
-        // サブネットが8ビット単位じゃない場合、余りを0にする
-        if (maskBits % 8 != 0)
+        else if (fullPrefixBytes < firstAddressBytes.Length)
         {
-            bytes[15 - (maskBits / 8)] &= (byte)~(0xFF >> (maskBits % 8));
+            for (int i = fullPrefixBytes; i < firstAddressBytes.Length; i++)
+            {
+                firstAddressBytes[i] = 0;
+            }
         }
-        var startAddress = new IPAddress(bytes);
 
-        // TODO: 32 などにしたときにendAddressの計算がおかしい。64では問題ない。
-        // 終了アドレスを計算。サブネットで指定した下位ビット(サブネット64なら8ビット)の最終値を割り当てる
-        for (int i = 0; i < subnetBits / 8; i++)
+        // Last address is obtained by setting all bits outside prefix to 1
+        Span<byte> lastAddressBytes = stackalloc byte[16];
+        firstAddressBytes.CopyTo(lastAddressBytes);
+        // if there is an incomplete byte in prefix, set the remaining bits to 1
+        if (remainingBitsInByte > 0)
         {
-            bytes[15 - i] |= 0xFF;
+            lastAddressBytes[prefix / 8] |= (byte)(0xFF >> remainingBitsInByte);
         }
-        // サブネットが8ビット単位じゃない場合、余りを最終値にする
-        if (subnetBits % 8 != 0)
+        // set all bytes after the prefix to 1
+        for (int i = (prefix + 7) / 8; i < lastAddressBytes.Length; i++)
         {
-            bytes[15 - (subnetBits / 8)] |= (byte)(0xFF >> (8 - (subnetBits % 8)));
+            lastAddressBytes[i] = 0xFF;
         }
-        var endAddress = new IPAddress(bytes);
 
-        return (startAddress, endAddress);
+        return (new IPAddress(firstAddressBytes), new IPAddress(lastAddressBytes));
     }
+
 }
