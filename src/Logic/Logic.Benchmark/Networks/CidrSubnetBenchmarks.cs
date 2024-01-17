@@ -12,9 +12,6 @@ public class CidrSubnetBenchmarks
     private readonly IPAddress ipv6Address = IPAddress.Parse("2001:0db8:0001:0000:0000:0ab9:C0A8:0102");
     private readonly IPAddress ipv4Address = IPAddress.Parse("192.168.10.100");
 
-    private readonly string ipv6Cidr = "2001:0db8:0001:0000:0000:0ab9:C0A8:0102/64";
-    private readonly string ipv4Cidr = "192.168.10.100/24";
-
     [Params(1, 10)]
     public int Number { get; set; }
 
@@ -24,7 +21,7 @@ public class CidrSubnetBenchmarks
     {
         for (byte i = 0; i < Number; i++)
         {
-            _ = CidrSubnet.GetNthSubnet(ipv6Cidr, 8, 2 * i);
+            _ = CidrSubnet.GetNthSubnet(ipv6Address, 64, 8, 2 * i);
         }
     }
 
@@ -33,7 +30,7 @@ public class CidrSubnetBenchmarks
     {
         for (byte i = 0; i < Number; i++)
         {
-            _ = CidrSubnet.GetNthSubnet(ipv4Cidr, 8, 2 * i);
+            _ = CidrSubnet.GetNthSubnet(ipv4Address, 24, 8, 2 * i);
         }
     }
 
