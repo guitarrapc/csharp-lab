@@ -16,33 +16,72 @@ public static class CidrSubnet
     /// Get N-th subnet of a given CIDR with new bit size. Conpatible with terraform's `cidrsubnet(prefix, newbits, netnum)` function.
     /// </summary>
     /// <remarks>https://developer.hashicorp.com/terraform/language/functions/cidrsubnet</remarks>
-    /// <param name="cidr"></param>
-    /// <param name="newbits"></param>
-    /// <param name="netnum"></param>
+    /// <param name="cidr">192.168.0.1/24</param>
+    /// <param name="newbits">8</param>
+    /// <param name="netnum">1</param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public static string GetNthSubnet(string cidr, int newbits, int netnum)
-    {
-        var (address, subnet) = DeconstructCIDR(cidr);
-
-        return address.AddressFamily switch
-        {
-            AddressFamily.InterNetwork => GetNthSubnetIPv4(address, subnet, newbits, netnum),
-            AddressFamily.InterNetworkV6 => GetNthSubnetIPv6(address, subnet, newbits, netnum),
-            _ => throw new NotImplementedException()
-        };
-    }
-
+    public static string GetNthSubnet(string cidr, int newbits, int netnum) => GetNthSubnet(cidr.AsSpan(), newbits, netnum);
     /// <summary>
-    /// Get N-th subnet of a given CIDR with new bit size for IPv4.
+    /// Get N-th subnet of a given CIDR with new bit size. Conpatible with terraform's `cidrsubnet(prefix, newbits, netnum)` function.
     /// </summary>
+    /// <remarks>https://developer.hashicorp.com/terraform/language/functions/cidrsubnet</remarks>
+    /// <param name="cidr">192.168.0.1/24</param>
+    /// <param name="newbits">8</param>
+    /// <param name="netnum">1</param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public static string GetNthSubnet(string cidr, int newbits, BigInteger netnum) => GetNthSubnet(cidr.AsSpan(), newbits, netnum);
+    /// <summary>
+    /// Get N-th subnet of a given CIDR with new bit size. Conpatible with terraform's `cidrsubnet(prefix, newbits, netnum)` function.
+    /// </summary>
+    /// <remarks>https://developer.hashicorp.com/terraform/language/functions/cidrsubnet</remarks>
+    /// <param name="cidr">192.168.0.1/24</param>
+    /// <param name="newbits">8</param>
+    /// <param name="netnum">1</param>
+    /// <returns></returns>
+    public static string GetNthSubnet(ReadOnlySpan<char> cidr, int newbits, int netnum) => GetNthSubnet(cidr, newbits, new BigInteger(netnum));
+    /// <summary>
+    /// Get N-th subnet of a given CIDR with new bit size. Conpatible with terraform's `cidrsubnet(prefix, newbits, netnum)` function.
+    /// </summary>
+    /// <remarks>https://developer.hashicorp.com/terraform/language/functions/cidrsubnet</remarks>
+    /// <param name="cidr">192.168.0.1/24</param>
+    /// <param name="newbits">8</param>
+    /// <param name="netnum">1</param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public static string GetNthSubnet(ReadOnlySpan<char> cidr, int newbits, BigInteger netnum)
+    {
+        var (ipaddress, prefixLength) = DeconstructCIDR(cidr);
+        return GetNthSubnet(ipaddress, prefixLength, newbits, netnum);
+    }
+    /// <summary>
+    /// Get N-th subnet of a given CIDR with new bit size. Conpatible with terraform's `cidrsubnet(prefix, newbits, netnum)` function.
+    /// </summary>
+    /// <remarks>https://developer.hashicorp.com/terraform/language/functions/cidrsubnet</remarks>
     /// <param name="ipaddress"></param>
     /// <param name="prefixLength"></param>
     /// <param name="newbits"></param>
     /// <param name="netnum"></param>
     /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public static string GetNthSubnet(IPAddress ipaddress, int prefixLength, int newbits, BigInteger netnum) => ipaddress.AddressFamily switch
+    {
+        AddressFamily.InterNetwork => GetNthSubnetIPv4(ipaddress, prefixLength, newbits, (int)netnum),
+        AddressFamily.InterNetworkV6 => GetNthSubnetIPv6(ipaddress, prefixLength, newbits, netnum),
+        _ => throw new NotImplementedException()
+    };
+
+    /// <summary>
+    /// Get N-th subnet of a given CIDR with new bit size for IPv4.
+    /// </summary>
+    /// <param name="ipaddress">192.168.0.1</param>
+    /// <param name="prefixLength">24</param>
+    /// <param name="newbits">8</param>
+    /// <param name="netnum">1</param>
+    /// <returns></returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public static string GetNthSubnetIPv4(IPAddress ipaddress, int prefixLength, int newbits, int netnum)
+    private static string GetNthSubnetIPv4(IPAddress ipaddress, int prefixLength, int newbits, int netnum)
     {
         var ipBytes = ipaddress.GetAddressBytes();
         var newPrefixLength = prefixLength + newbits;
@@ -76,25 +115,13 @@ public static class CidrSubnet
     /// <summary>
     /// Get N-th subnet of a given CIDR with new bit size for IPv6.
     /// </summary>
-    /// <param name="ipaddress"></param>
-    /// <param name="prefixLength"></param>
-    /// <param name="newbits"></param>
-    /// <param name="netnum"></param>
-    /// <returns></returns>
-    public static string GetNthSubnetIPv6(IPAddress ipaddress, int prefixLength, int newbits, int netnum)
-    {
-        return GetNthSubnetIPv6(ipaddress, prefixLength, newbits, new BigInteger(netnum));
-    }
-    /// <summary>
-    /// Get N-th subnet of a given CIDR with new bit size for IPv6.
-    /// </summary>
-    /// <param name="ipaddress"></param>
-    /// <param name="prefixLength"></param>
-    /// <param name="newbits"></param>
-    /// <param name="netnum"></param>
+    /// <param name="ipaddress">2001:db8::</param>
+    /// <param name="prefixLength">56</param>
+    /// <param name="newbits">8</param>
+    /// <param name="netnum">1</param>
     /// <returns></returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public static string GetNthSubnetIPv6(IPAddress ipaddress, int prefixLength, int newbits, BigInteger netnum)
+    private static string GetNthSubnetIPv6(IPAddress ipaddress, int prefixLength, int newbits, BigInteger netnum)
     {
         var newPrefixLength = prefixLength + newbits;
         // If subnets are too small to split, throw an exception.
@@ -169,7 +196,13 @@ public static class CidrSubnet
     /// </summary>
     /// <param name="cidr">192.168.0.1/24</param>
     /// <returns></returns>
-    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRangeSlow(string cidr)
+    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRangeSlow(string cidr) => GetSubnetRangeSlow(cidr.AsSpan());
+    /// <summary>
+    /// Calculate SubnetRange for both IPv4 and IPv6 with BigInteger.
+    /// </summary>
+    /// <param name="cidr">192.168.0.1/24</param>
+    /// <returns></returns>
+    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRangeSlow(ReadOnlySpan<char> cidr)
     {
         var (address, subnet) = DeconstructCIDR(cidr);
         return GetSubnetRangeSlow(address, subnet);
@@ -180,11 +213,14 @@ public static class CidrSubnet
     /// <param name="ipaddress">192.168.0.1</param>
     /// <param name="prefixLength">24</param>
     /// <returns></returns>
-    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRangeSlow(string ipaddress, int prefixLength)
-    {
-        var address = IPAddress.Parse(ipaddress);
-        return GetSubnetRangeSlow(address, prefixLength);
-    }
+    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRangeSlow(string ipaddress, int prefixLength) => GetSubnetRangeSlow(ipaddress.AsSpan(), prefixLength);
+    /// <summary>
+    /// Calculate SubnetRange for both IPv4 and IPv6 with BigInteger.
+    /// </summary>
+    /// <param name="ipaddress">192.168.0.1</param>
+    /// <param name="prefixLength">24</param>
+    /// <returns></returns>
+    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRangeSlow(ReadOnlySpan<char> ipaddress, int prefixLength) => GetSubnetRangeSlow(IPAddress.Parse(ipaddress), prefixLength);
     /// <summary>
     /// Calculate SubnetRange for both IPv4 and IPv6 with BigInteger.
     /// </summary>
@@ -229,7 +265,13 @@ public static class CidrSubnet
     /// </summary>
     /// <param name="cidr">192.168.0.1/24</param>
     /// <returns></returns>
-    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRange(string cidr)
+    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRange(string cidr) => GetSubnetRange(cidr.AsSpan());
+    /// <summary>
+    /// Calculate SubnetRange for both IPv4 and IPv6 with byte shift implementation.
+    /// </summary>
+    /// <param name="cidr">192.168.0.1/24</param>
+    /// <returns></returns>
+    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRange(ReadOnlySpan<char> cidr)
     {
         var (address, prefixLength) = DeconstructCIDR(cidr);
         return GetSubnetRange(address, prefixLength);
@@ -251,15 +293,12 @@ public static class CidrSubnet
     /// <param name="prefixLength">24</param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRange(IPAddress ipaddress, int prefixLength)
+    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRange(IPAddress ipaddress, int prefixLength) => ipaddress.AddressFamily switch
     {
-        return ipaddress.AddressFamily switch
-        {
-            AddressFamily.InterNetwork => GetSubnetRangeIPv4(ipaddress, prefixLength),
-            AddressFamily.InterNetworkV6 => GetSubnetRangeIPv6(ipaddress, prefixLength),
-            _ => throw new NotImplementedException()
-        };
-    }
+        AddressFamily.InterNetwork => GetSubnetRangeIPv4(ipaddress, prefixLength),
+        AddressFamily.InterNetworkV6 => GetSubnetRangeIPv6(ipaddress, prefixLength),
+        _ => throw new NotImplementedException()
+    };
 
     /// <summary>
     /// Calculate SubnetRange for IPv4 by mask & shift operation.
@@ -351,9 +390,8 @@ public static class CidrSubnet
         return (new IPAddress(firstAddressBytes), new IPAddress(lastAddressBytes));
     }
 
-    private static (IPAddress IPAddress, int PrefixLength) DeconstructCIDR(string cidr)
+    private static (IPAddress IPAddress, int PrefixLength) DeconstructCIDR(ReadOnlySpan<char> span)
     {
-        ReadOnlySpan<char> span = cidr.AsSpan();
         var index = span.IndexOf('/');
         var ipSpan = span[..index];
         var ip = IPAddress.Parse(ipSpan);

@@ -15,6 +15,26 @@ public class CidrSubnetBenchmarks
     [Params(1, 10)]
     public int Number { get; set; }
 
+    // GetNthSubnet
+    [Benchmark]
+    public void CidrSubnetGetNthSubnetIPv6()
+    {
+        for (byte i = 0; i < Number; i++)
+        {
+            _ = CidrSubnet.GetNthSubnet(ipv6Address, 64, 8, 2 * i);
+        }
+    }
+
+    [Benchmark]
+    public void CidrSubnetGetNthSubnetIPv4()
+    {
+        for (byte i = 0; i < Number; i++)
+        {
+            _ = CidrSubnet.GetNthSubnet(ipv4Address, 24, 8, 2 * i);
+        }
+    }
+
+    // GetSubnetRange
     [Benchmark]
     public void CidrSubnetGetSubnetRangeIPv6BigInteger()
     {
