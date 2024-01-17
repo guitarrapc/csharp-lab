@@ -241,7 +241,7 @@ public class CidrSubnetTest
             "2001:db8:3333:4444:5555:6666:1.2.3.4",
             "2001:db8::123.123.123.123",
         };
-        var subnets = Enumerable.Range(32, 32 + 1); // サブネットに分割するビット数。42-64までチェックする。
+        var subnets = Enumerable.Range(1, 128); // サブネットに分割するビット数。1-128までチェックする。
         foreach (var address in addresses)
         {
             foreach (var subnet in subnets)
