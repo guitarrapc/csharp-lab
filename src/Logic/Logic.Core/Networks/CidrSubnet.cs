@@ -15,12 +15,28 @@ public static class CidrSubnet
     /// <param name="ipaddress"></param>
     /// <param name="subnetBits"></param>
     /// <returns></returns>
+    public static (IPAddress StartAddress, IPAddress EndAddress) CalculateSubnetRange(string ipaddress)
+    {
+        var (address, subnet) = SubstringIPAddress(ipaddress);
+        return CalculateSubnetRange(address, subnet);
+    }
+    /// <summary>
+    /// Calculate SubnetRange for both IPv4 and IPv6 with BigInteger.
+    /// </summary>
+    /// <param name="ipaddress">192.168.0.1</param>
+    /// <param name="subnetBits">24</param>
+    /// <returns></returns>
     public static (IPAddress StartAddress, IPAddress EndAddress) CalculateSubnetRange(string ipaddress, int subnetBits)
     {
         var address = IPAddress.Parse(ipaddress);
         return CalculateSubnetRange(address, subnetBits);
     }
-
+    /// <summary>
+    /// Calculate SubnetRange for both IPv4 and IPv6 with BigInteger.
+    /// </summary>
+    /// <param name="ipaddress"></param>
+    /// <param name="subnetBits"></param>
+    /// <returns></returns>
     public static (IPAddress StartAddress, IPAddress EndAddress) CalculateSubnetRange(IPAddress ipaddress, int subnetBits)
     { 
         // BigInteger can handle IPv6 range.
@@ -51,10 +67,28 @@ public static class CidrSubnet
     /// <param name="ipaddress"></param>
     /// <param name="subnetBits"></param>
     /// <returns></returns>
+    public static (IPAddress StartAddress, IPAddress EndAddress) CalculateSubnetRange2(string ipaddress)
+    {
+        var (address, subnet) = SubstringIPAddress(ipaddress);
+        return CalculateSubnetRange2(address, subnet);
+    }
+    /// <summary>
+    /// Calculate SubnetRange for both IPv4 and IPv6 with byte shift implementation.
+    /// </summary>
+    /// <param name="ipaddress"></param>
+    /// <param name="subnetBits"></param>
+    /// <returns></returns>
     public static (IPAddress StartAddress, IPAddress EndAddress) CalculateSubnetRange2(string ipaddress, int subnetBits)
     {
         return CalculateSubnetRange2(IPAddress.Parse(ipaddress), subnetBits);
     }
+    /// <summary>
+    /// Calculate SubnetRange for both IPv4 and IPv6 with byte shift implementation.
+    /// </summary>
+    /// <param name="ipaddress"></param>
+    /// <param name="subnetBits"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
     public static (IPAddress StartAddress, IPAddress EndAddress) CalculateSubnetRange2(IPAddress ipaddress, int subnetBits)
     {
         return ipaddress.AddressFamily switch
@@ -65,6 +99,12 @@ public static class CidrSubnet
         };
     }
 
+    /// <summary>
+    /// Calculate SubnetRange for IPv4 by mask & shift operation.
+    /// </summary>
+    /// <param name="ipaddress"></param>
+    /// <param name="subnetBits"></param>
+    /// <returns></returns>
     private static (IPAddress StartAddress, IPAddress EndAddress) CalculateIPv4SubnetRange(IPAddress ipaddress, int subnetBits)
     {
         var bytes = ipaddress.GetAddressBytes();
@@ -92,6 +132,12 @@ public static class CidrSubnet
             => BitConverter.GetBytes((addressBytes & 0x000000FFU) << 24 | (addressBytes & 0x0000FF00U) << 8 | (addressBytes & 0x00FF0000U) >> 8 | (addressBytes & 0xFF000000U) >> 24);
     }
 
+    /// <summary>
+    /// Calculate SubnetRange for IPv6 by mask & shift operation.
+    /// </summary>
+    /// <param name="ipaddress"></param>
+    /// <param name="prefix"></param>
+    /// <returns></returns>
     private static (IPAddress StartAddress, IPAddress EndAddress) CalculateIPv6SubnetRange(IPAddress ipaddress, int prefix)
     {
         var ipBytes = ipaddress.GetAddressBytes();
@@ -105,14 +151,14 @@ public static class CidrSubnet
         if (remainingBitsInByte > 0)
         {
             firstAddressBytes[fullPrefixBytes] &= (byte)(0xFF << (8 - remainingBitsInByte));
-            for (int i = fullPrefixBytes + 1; i < firstAddressBytes.Length; i++)
+            for (var i = fullPrefixBytes + 1; i < firstAddressBytes.Length; i++)
             {
                 firstAddressBytes[i] = 0;
             }
         }
         else if (fullPrefixBytes < firstAddressBytes.Length)
         {
-            for (int i = fullPrefixBytes; i < firstAddressBytes.Length; i++)
+            for (var i = fullPrefixBytes; i < firstAddressBytes.Length; i++)
             {
                 firstAddressBytes[i] = 0;
             }
@@ -127,7 +173,7 @@ public static class CidrSubnet
             lastAddressBytes[prefix / 8] |= (byte)(0xFF >> remainingBitsInByte);
         }
         // set all bytes after the prefix to 1
-        for (int i = (prefix + 7) / 8; i < lastAddressBytes.Length; i++)
+        for (var i = (prefix + 7) / 8; i < lastAddressBytes.Length; i++)
         {
             lastAddressBytes[i] = 0xFF;
         }
@@ -135,4 +181,15 @@ public static class CidrSubnet
         return (new IPAddress(firstAddressBytes), new IPAddress(lastAddressBytes));
     }
 
+    private static (IPAddress IPAddress, int Subnet) SubstringIPAddress(string ipaddress)
+    {
+        ReadOnlySpan<char> span = ipaddress.AsSpan();
+        var index = span.IndexOf('/');
+        var ipSpan = span.Slice(0, index);
+        var ip = IPAddress.Parse(ipSpan);
+        var subnetSpan = span.Slice(index + 1, span.Length - (index + 1));
+        var subnet = int.Parse(subnetSpan);
+
+        return (ip, subnet);
+    }
 }
