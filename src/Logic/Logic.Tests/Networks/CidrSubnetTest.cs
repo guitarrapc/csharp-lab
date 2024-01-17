@@ -5,6 +5,8 @@ namespace Logic.Tests.Networks;
 
 public class CidrSubnetTest
 {
+    // GetSubnetRangeSlow
+
     // check with https://www.vultr.com/resources/subnet-calculator-ipv6 & https://dnschecker.org/ipv6-cidr-to-range.php
     [Theory]
     [InlineData("2001:0db8:85a3::8a2e:0370:7334/128", "2001:db8:85a3::8a2e:370:7334", "2001:db8:85a3::8a2e:370:7334")]
@@ -135,9 +137,9 @@ public class CidrSubnetTest
     [InlineData("2001:0db8:85a3::8a2e:0370:7334/3", "2000::", "3fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff")]
     [InlineData("2001:0db8:85a3::8a2e:0370:7334/2", "::", "3fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff")]
     [InlineData("2001:0db8:85a3::8a2e:0370:7334/1", "::", "7fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff")]
-    public void GetSubnetRangeIPv6Test(string ipaddress, string expectedStartAddress, string expectedEndAddress)
+    public void GetSubnetRangeIPv6Test(string cidr, string expectedStartAddress, string expectedEndAddress)
     {
-        var (startAddress, endAddress) = CidrSubnet.GetSubnetRangeSlow(ipaddress);
+        var (startAddress, endAddress) = CidrSubnet.GetSubnetRangeSlow(cidr);
         startAddress.Should().Be(IPAddress.Parse(expectedStartAddress));
         endAddress.Should().Be(IPAddress.Parse(expectedEndAddress));
     }
@@ -169,9 +171,9 @@ public class CidrSubnetTest
     [InlineData("10.1.100.30/10", "10.0.0.0", "10.63.255.255")]
     [InlineData("10.1.100.30/9", "10.0.0.0", "10.127.255.255")]
     [InlineData("10.1.100.30/8", "10.0.0.0", "10.255.255.255")]
-    public void GetSubnetRangeIPv4Test(string ipaddress, string expectedStartAddress, string expectedEndAddress)
+    public void GetSubnetRangeIPv4Test(string cidr, string expectedStartAddress, string expectedEndAddress)
     {
-        var (startAddress, endAddress) = CidrSubnet.GetSubnetRangeSlow(ipaddress);
+        var (startAddress, endAddress) = CidrSubnet.GetSubnetRangeSlow(cidr);
         startAddress.Should().Be(IPAddress.Parse(expectedStartAddress));
         endAddress.Should().Be(IPAddress.Parse(expectedEndAddress));
     }
