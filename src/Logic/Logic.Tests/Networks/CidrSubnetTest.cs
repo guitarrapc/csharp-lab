@@ -5,6 +5,47 @@ namespace Logic.Tests.Networks;
 
 public class CidrSubnetTest
 {
+    // GetNthSubnet
+
+    // check with terraform function `cidrsubnet(cidr, newbits, newnum)` https://developer.hashicorp.com/terraform/language/functions/cidrsubnet
+
+    [Theory]
+    [InlineData("2001:db8::/56", 8, 0, "2001:db8::/64")]
+    [InlineData("2001:db8::/56", 8, 1, "2001:db8:0:1::/64")]
+    [InlineData("2001:db8::/56", 8, 2, "2001:db8:0:2::/64")]
+    [InlineData("2001:db8::/56", 8, 3, "2001:db8:0:3::/64")]
+    [InlineData("2001:db8::/56", 8, 4, "2001:db8:0:4::/64")]
+    [InlineData("2001:db8::/56", 10, 0, "2001:db8::/66")]
+    [InlineData("2001:db8::/56", 10, 1, "2001:db8:0:0:4000::/66")]
+    [InlineData("2001:db8::/56", 10, 2, "2001:db8:0:0:8000::/66")]
+    [InlineData("2001:db8::/56", 10, 3, "2001:db8:0:0:c000::/66")]
+    [InlineData("2001:db8::/56", 10, 4, "2001:db8:0:1::/66")]
+    [InlineData("fd00:fd12:3456:7890::/56", 16, 162, "fd00:fd12:3456:7800:a200::/72")] 
+    public void GetNthSubnetIPv6Test(string cidr, int newbits, int netnum, string expectedAddress)
+    {
+        var actual = CidrSubnet.GetNthSubnet(cidr, newbits, netnum);
+        actual.Should().Be(expectedAddress);
+    }
+
+    [Theory]
+    [InlineData("172.16.0.0/16", 8, 0, "172.16.0.0/24")]
+    [InlineData("172.16.0.0/16", 8, 1, "172.16.1.0/24")]
+    [InlineData("172.16.0.0/16", 8, 2, "172.16.2.0/24")]
+    [InlineData("172.16.0.0/16", 8, 3, "172.16.3.0/24")]
+    [InlineData("172.16.0.0/16", 8, 4, "172.16.4.0/24")]
+    [InlineData("172.16.0.0/16", 10, 0, "172.16.0.0/26")]
+    [InlineData("172.16.0.0/16", 10, 1, "172.16.0.64/26")]
+    [InlineData("172.16.0.0/16", 10, 2, "172.16.0.128/26")]
+    [InlineData("172.16.0.0/16", 10, 3, "172.16.0.192/26")]
+    [InlineData("172.16.0.0/16", 10, 4, "172.16.1.0/26")]
+    [InlineData("172.16.0.0/12", 4, 2, "172.18.0.0/16")]
+    [InlineData("10.1.2.0/24", 4, 15, "10.1.2.240/28")]
+    public void GetNthSubnetIPv4Test(string cidr, int newbits, int netnum, string expectedAddress)
+    {
+        var actual = CidrSubnet.GetNthSubnet(cidr, newbits, netnum);
+        actual.Should().Be(expectedAddress);
+    }
+
     // GetSubnetRangeSlow
 
     // check with https://www.vultr.com/resources/subnet-calculator-ipv6 & https://dnschecker.org/ipv6-cidr-to-range.php
