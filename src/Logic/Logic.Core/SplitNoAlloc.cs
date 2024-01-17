@@ -55,8 +55,8 @@ public static class StringExtensions
                 return true;
             }
 
-            Current = new SplitEntry(span.Slice(0, index), span.Slice(index, 1));
-            _str = span.Slice(index + 1);
+            Current = new SplitEntry(span[..index], span.Slice(index, 1));
+            _str = span[(index + 1)..];
             return true;
         }
 

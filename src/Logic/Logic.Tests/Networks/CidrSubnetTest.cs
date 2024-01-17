@@ -137,9 +137,9 @@ public class CidrSubnetTest
     [InlineData("2001:0db8:85a3::8a2e:0370:7334/1", "::", "7fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff")]
     public void GetSubnetRangeIPv6Test(string ipaddress, string expectedStartAddress, string expectedEndAddress)
     {
-        var actual = CidrSubnet.GetSubnetRangeSlow(ipaddress);
-        actual.StartAddress.Should().Be(IPAddress.Parse(expectedStartAddress));
-        actual.EndAddress.Should().Be(IPAddress.Parse(expectedEndAddress));
+        var (startAddress, endAddress) = CidrSubnet.GetSubnetRangeSlow(ipaddress);
+        startAddress.Should().Be(IPAddress.Parse(expectedStartAddress));
+        endAddress.Should().Be(IPAddress.Parse(expectedEndAddress));
     }
 
     // check with https://www.softel.co.jp/labs/tools/network/
@@ -171,9 +171,9 @@ public class CidrSubnetTest
     [InlineData("10.1.100.30/8", "10.0.0.0", "10.255.255.255")]
     public void GetSubnetRangeIPv4Test(string ipaddress, string expectedStartAddress, string expectedEndAddress)
     {
-        var actual = CidrSubnet.GetSubnetRangeSlow(ipaddress);
-        actual.StartAddress.Should().Be(IPAddress.Parse(expectedStartAddress));
-        actual.EndAddress.Should().Be(IPAddress.Parse(expectedEndAddress));
+        var (startAddress, endAddress) = CidrSubnet.GetSubnetRangeSlow(ipaddress);
+        startAddress.Should().Be(IPAddress.Parse(expectedStartAddress));
+        endAddress.Should().Be(IPAddress.Parse(expectedEndAddress));
     }
 
     [Fact]

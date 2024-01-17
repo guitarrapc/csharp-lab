@@ -202,9 +202,9 @@ public static class CidrSubnet
     {
         ReadOnlySpan<char> span = cidr.AsSpan();
         var index = span.IndexOf('/');
-        var ipSpan = span.Slice(0, index);
+        var ipSpan = span[..index];
         var ip = IPAddress.Parse(ipSpan);
-        var subnetSpan = span.Slice(index + 1, span.Length - (index + 1));
+        var subnetSpan = span[(index + 1)..];
         var subnet = int.Parse(subnetSpan);
 
         return (ip, subnet);
