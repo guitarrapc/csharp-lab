@@ -140,14 +140,12 @@ public static class CidrSubnet
     /// <returns></returns>
     private static (IPAddress StartAddress, IPAddress EndAddress) CalculateIPv6SubnetRange(IPAddress ipaddress, int prefix)
     {
-        var ipBytes = ipaddress.GetAddressBytes();
-
         var fullPrefixBytes = prefix / 8;
         var remainingBitsInByte = prefix % 8; // could be 0
 
         // First address is obtained be setting all bits outside prefix to 0
         Span<byte> firstAddressBytes = stackalloc byte[16];
-        ipBytes.CopyTo(firstAddressBytes);
+        ipaddress.TryWriteBytes(firstAddressBytes, out var _);
         if (remainingBitsInByte > 0)
         {
             firstAddressBytes[fullPrefixBytes] &= (byte)(0xFF << (8 - remainingBitsInByte));
