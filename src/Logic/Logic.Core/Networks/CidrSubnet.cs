@@ -9,6 +9,159 @@ namespace Logic.Networks;
 // * end address = (Network & mask | ~mask)
 public static class CidrSubnet
 {
+    // GetNthSubnet
+    private static readonly BigInteger IPv6MaxValue = BigInteger.Pow(2, 128) - 1;
+
+    /// <summary>
+    /// Get N-th subnet of a given CIDR with new bit size. Conpatible with terraform's `cidrsubnet(prefix, newbits, netnum)` function.
+    /// </summary>
+    /// <remarks>https://developer.hashicorp.com/terraform/language/functions/cidrsubnet</remarks>
+    /// <param name="cidr"></param>
+    /// <param name="newbits"></param>
+    /// <param name="netnum"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public static string GetNthSubnet(string cidr, int newbits, int netnum)
+    {
+        var (address, subnet) = DeconstructCIDR(cidr);
+
+        return address.AddressFamily switch
+        {
+            AddressFamily.InterNetwork => GetNthSubnetIPv4(address, subnet, newbits, netnum),
+            AddressFamily.InterNetworkV6 => GetNthSubnetIPv6(address, subnet, newbits, netnum),
+            _ => throw new NotImplementedException()
+        };
+    }
+
+    /// <summary>
+    /// Get N-th subnet of a given CIDR with new bit size for IPv4.
+    /// </summary>
+    /// <param name="ipaddress"></param>
+    /// <param name="prefixLength"></param>
+    /// <param name="newbits"></param>
+    /// <param name="netnum"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    public static string GetNthSubnetIPv4(IPAddress ipaddress, int prefixLength, int newbits, int netnum)
+    {
+        var ipBytes = ipaddress.GetAddressBytes();
+        var newPrefixLength = prefixLength + newbits;
+
+        // subnetwork bit size should not exceed 32
+        if (newPrefixLength > 32)
+        {
+            throw new ArgumentOutOfRangeException("subnetwork bit size should not exceed 32");
+        }
+
+        var shiftBits = (uint)(32 - newPrefixLength);
+
+        // Convert big endian byte array to little endian
+        Array.Reverse(ipBytes);
+
+        // Needs little endian
+        var ipValue = BitConverter.ToUInt32(ipBytes, 0);
+
+        // Right shift original network, then Left shift for sum of original-prefix & additional-prefix, then add netnum.
+        var startIpValue = (ipValue >> (int)shiftBits << (int)shiftBits) + ((uint)netnum << (int)(32 - (newPrefixLength)));
+        var startIpBytes = BitConverter.GetBytes(startIpValue);
+
+        // Convert little endian byte array back to big endian
+        Array.Reverse(startIpBytes);
+
+        var startIp = new IPAddress(startIpBytes);
+
+        return $"{startIp}/{newPrefixLength}";
+    }
+
+    /// <summary>
+    /// Get N-th subnet of a given CIDR with new bit size for IPv6.
+    /// </summary>
+    /// <param name="ipaddress"></param>
+    /// <param name="prefixLength"></param>
+    /// <param name="newbits"></param>
+    /// <param name="netnum"></param>
+    /// <returns></returns>
+    public static string GetNthSubnetIPv6(IPAddress ipaddress, int prefixLength, int newbits, int netnum)
+    {
+        return GetNthSubnetIPv6(ipaddress, prefixLength, newbits, new BigInteger(netnum));
+    }
+    /// <summary>
+    /// Get N-th subnet of a given CIDR with new bit size for IPv6.
+    /// </summary>
+    /// <param name="ipaddress"></param>
+    /// <param name="prefixLength"></param>
+    /// <param name="newbits"></param>
+    /// <param name="netnum"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    public static string GetNthSubnetIPv6(IPAddress ipaddress, int prefixLength, int newbits, BigInteger netnum)
+    {
+        var newPrefixLength = prefixLength + newbits;
+        // If subnets are too small to split, throw an exception.
+        if (newPrefixLength > 128)
+        {
+            throw new ArgumentOutOfRangeException(nameof(newbits), "Subnet size is too large.");
+        }
+
+        // Convert the network address to a BigInteger representation.
+        var networkNumber = IpToNumber(ipaddress, prefixLength);
+
+        // Calculate the mask for new subnet range.
+        var mask = BigInteger.One << (128 - prefixLength - newbits);
+
+        // Calculate the start of the new subnet.
+        var newNetworkNumber = (networkNumber & (~(mask - 1))) + (mask * netnum);
+
+        // If the new subnet falls out of the IPv6 range, throw an exception.
+        if (newNetworkNumber > IPv6MaxValue)
+        {
+            throw new ArgumentOutOfRangeException(nameof(netnum), "Subnet does not fit in IPv6 address space.");
+        }
+
+        // Convert the BigInteger back to an IPAddress object.
+        var newNetwork = NumberToIp(newNetworkNumber);
+
+        // Create subnet string in CIDR format.
+        return $"{newNetwork}/{newPrefixLength}";
+
+        // Convert an IPAddress to a BigInteger
+        static BigInteger IpToNumber(IPAddress ip, int prefixLength)
+        {
+            var bytes = ip.GetAddressBytes();
+
+            // Reverse the bytes if the system architecture is Little Endian.
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(bytes);
+
+            // Create a BigInteger from the byte array and normalize it.
+            // The IPAddress's byte array is reversed if the system uses little endian byte order,
+            // as BigInteger expects an array in little endian order.
+            //
+            // An extra 0-byte is prefixed to force the interpretation of the byte array as a positive number
+            // ensuring compatibility across different platforms, as the BigInteger constructor assumes a 
+            // 2's complement representation when the byte array is passed, and the most significant bit 
+            // is used to denote whether the number is positive or negative.
+            var num = new BigInteger(bytes.Concat(new byte[] { 0 }).ToArray());
+
+            // Normalize the BigInteger representation to remove any 'spill over' between zones.
+            return num >> (128 - prefixLength) << (128 - prefixLength);
+        }
+
+        // Convert a BigInteger to an IPAddress
+        //
+        // The BigInteger's byte array is reversed if the system uses little endian byte order,
+        // as BigInteger produces an array in little endian order.
+        static IPAddress NumberToIp(BigInteger number)
+        {
+            // The BigInteger's byte array is reversed if the system uses little endian byte order,
+            // as BigInteger produces an array in little endian order.
+            //
+            // GetByteArray will range from 1 to 17 bytes, AsSpan(..16) ensures the array is of length 16.
+            // This is required as GetBytes can return a variable length array.
+            return new IPAddress(number.ToByteArray(isUnsigned: true, isBigEndian: true).AsSpan(0, 16));
+        }
+    }
+
     // GetSubnetRange
 
     /// <summary>
