@@ -275,4 +275,28 @@ public class CidrSubnetTest
             }
         }
     }
+
+    [Fact]
+    public void GetSubnetRangeThrowTest()
+    {
+        // IPv4 Invalid CIDR format
+        Assert.Throws<FormatException>(() => CidrSubnet.GetSubnetRangeSlow("255.255.255.256/32"));
+        Assert.Throws<FormatException>(() => CidrSubnet.GetSubnetRange("255.255.255.256/32"));
+
+        // IPv6 Invalid CIDR format
+        Assert.Throws<FormatException>(() => CidrSubnet.GetSubnetRangeSlow("2001:db8:85a3::8a2e:/64"));
+        Assert.Throws<FormatException>(() => CidrSubnet.GetSubnetRange("2001:db8:85a3::8a2e:/64"));
+
+        // IPv4 Subnet allows 1-32
+        Assert.Throws<ArgumentOutOfRangeException>(() => CidrSubnet.GetSubnetRangeSlow("192.168.1.1/0"));
+        Assert.Throws<ArgumentOutOfRangeException>(() => CidrSubnet.GetSubnetRange("192.168.1.1/0"));
+        Assert.Throws<ArgumentOutOfRangeException>(() => CidrSubnet.GetSubnetRangeSlow("192.168.1.1/33"));
+        Assert.Throws<ArgumentOutOfRangeException>(() => CidrSubnet.GetSubnetRange("192.168.1.1/33"));
+
+        // IPv6 Subnet allows 1-128
+        Assert.Throws<ArgumentOutOfRangeException>(() => CidrSubnet.GetSubnetRangeSlow("2001:db8::1/0"));
+        Assert.Throws<ArgumentOutOfRangeException>(() => CidrSubnet.GetSubnetRange("2001:db8::1/0"));
+        Assert.Throws<ArgumentOutOfRangeException>(() => CidrSubnet.GetSubnetRangeSlow("2001:db8::1/129"));
+        Assert.Throws<ArgumentOutOfRangeException>(() => CidrSubnet.GetSubnetRange("2001:db8::1/129"));
+    }
 }
