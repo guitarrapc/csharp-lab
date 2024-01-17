@@ -25,28 +25,28 @@ public static class CidrSubnet
     /// Calculate SubnetRange for both IPv4 and IPv6 with BigInteger.
     /// </summary>
     /// <param name="ipaddress">192.168.0.1</param>
-    /// <param name="subnetBits">24</param>
+    /// <param name="prefixLength">24</param>
     /// <returns></returns>
-    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRangeSlow(string ipaddress, int subnetBits)
+    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRangeSlow(string ipaddress, int prefixLength)
     {
         var address = IPAddress.Parse(ipaddress);
-        return GetSubnetRangeSlow(address, subnetBits);
+        return GetSubnetRangeSlow(address, prefixLength);
     }
     /// <summary>
     /// Calculate SubnetRange for both IPv4 and IPv6 with BigInteger.
     /// </summary>
     /// <param name="ipaddress">192.168.0.1</param>
-    /// <param name="subnetBits">24</param>
+    /// <param name="prefixLength">24</param>
     /// <returns></returns>
-    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRangeSlow(IPAddress ipaddress, int subnetBits)
+    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRangeSlow(IPAddress ipaddress, int prefixLength)
     {
-        if (ipaddress.AddressFamily == AddressFamily.InterNetwork && (subnetBits < 1 || subnetBits > 32))
+        if (ipaddress.AddressFamily == AddressFamily.InterNetwork && (prefixLength < 1 || prefixLength > 32))
         {
-            throw new ArgumentOutOfRangeException(nameof(subnetBits), "Subnet does not fit in IPv4 space.");
+            throw new ArgumentOutOfRangeException(nameof(prefixLength), "Subnet does not fit in IPv4 space.");
         };
-        if (ipaddress.AddressFamily == AddressFamily.InterNetworkV6 && (subnetBits < 1 || subnetBits > 128))
+        if (ipaddress.AddressFamily == AddressFamily.InterNetworkV6 && (prefixLength < 1 || prefixLength > 128))
         {
-            throw new ArgumentOutOfRangeException(nameof(subnetBits), "Subnet does not fit in IPv6 space.");
+            throw new ArgumentOutOfRangeException(nameof(prefixLength), "Subnet does not fit in IPv6 space.");
         };
 
         // BigInteger can handle IPv6 range.
@@ -54,7 +54,7 @@ public static class CidrSubnet
 
         // get bit for subnetmask.
         var addressBits = bytes.Length * 8;
-        var maskBits = (BigInteger.One << (addressBits - subnetBits)) - 1;
+        var maskBits = (BigInteger.One << (addressBits - prefixLength)) - 1;
 
         // get bigInteger ip.
         var ip = new BigInteger(bytes, isUnsigned: true, isBigEndian: true);
@@ -78,32 +78,32 @@ public static class CidrSubnet
     /// <returns></returns>
     public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRange(string cidr)
     {
-        var (address, subnet) = DeconstructCIDR(cidr);
-        return GetSubnetRange(address, subnet);
+        var (address, prefixLength) = DeconstructCIDR(cidr);
+        return GetSubnetRange(address, prefixLength);
     }
     /// <summary>
     /// Calculate SubnetRange for both IPv4 and IPv6 with byte shift implementation.
     /// </summary>
     /// <param name="ipaddress">192.168.0.1</param>
-    /// <param name="subnetBits">24</param>
+    /// <param name="prefixLength">24</param>
     /// <returns></returns>
-    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRange(string ipaddress, int subnetBits)
+    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRange(string ipaddress, int prefixLength)
     {
-        return GetSubnetRange(IPAddress.Parse(ipaddress), subnetBits);
+        return GetSubnetRange(IPAddress.Parse(ipaddress), prefixLength);
     }
     /// <summary>
     /// Calculate SubnetRange for both IPv4 and IPv6 with byte shift implementation.
     /// </summary>
     /// <param name="ipaddress">192.168.0.1</param>
-    /// <param name="subnetBits">24</param>
+    /// <param name="prefixLength">24</param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRange(IPAddress ipaddress, int subnetBits)
+    public static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRange(IPAddress ipaddress, int prefixLength)
     {
         return ipaddress.AddressFamily switch
         {
-            AddressFamily.InterNetwork => GetSubnetRangeIPv4(ipaddress, subnetBits),
-            AddressFamily.InterNetworkV6 => GetSubnetRangeIPv6(ipaddress, subnetBits),
+            AddressFamily.InterNetwork => GetSubnetRangeIPv4(ipaddress, prefixLength),
+            AddressFamily.InterNetworkV6 => GetSubnetRangeIPv6(ipaddress, prefixLength),
             _ => throw new NotImplementedException()
         };
     }
@@ -112,20 +112,20 @@ public static class CidrSubnet
     /// Calculate SubnetRange for IPv4 by mask & shift operation.
     /// </summary>
     /// <param name="ipaddress">192.168.0.1</param>
-    /// <param name="subnetBits">24</param>
+    /// <param name="prefixLength">24</param>
     /// <returns></returns>
-    private static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRangeIPv4(IPAddress ipaddress, int subnetBits)
+    private static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRangeIPv4(IPAddress ipaddress, int prefixLength)
     {
-        if (ipaddress.AddressFamily == AddressFamily.InterNetwork && (subnetBits < 1 || subnetBits > 32))
+        if (ipaddress.AddressFamily == AddressFamily.InterNetwork && (prefixLength < 1 || prefixLength > 32))
         {
-            throw new ArgumentOutOfRangeException(nameof(subnetBits), "Subnet does not fit in IPv4 space.");
+            throw new ArgumentOutOfRangeException(nameof(prefixLength), "Subnet does not fit in IPv4 space.");
         };
 
         var bytes = ipaddress.GetAddressBytes();
 
         // get uint bit for subnetmask.
         uint maskBits = 0xffffffff;
-        maskBits <<= (32 - subnetBits);
+        maskBits <<= (32 - prefixLength);
 
         // get uint ipaddress
         var ip = (Convert.ToUInt32(bytes[0]) << 24)
@@ -150,17 +150,17 @@ public static class CidrSubnet
     /// Calculate SubnetRange for IPv6 by mask & shift operation.
     /// </summary>
     /// <param name="ipaddress">2001:db8::</param>
-    /// <param name="prefix">56</param>
+    /// <param name="prefixLength">56</param>
     /// <returns></returns>
-    private static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRangeIPv6(IPAddress ipaddress, int prefix)
+    private static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRangeIPv6(IPAddress ipaddress, int prefixLength)
     {
-        if (ipaddress.AddressFamily == AddressFamily.InterNetworkV6 && (prefix < 1 || prefix > 128))
+        if (ipaddress.AddressFamily == AddressFamily.InterNetworkV6 && (prefixLength < 1 || prefixLength > 128))
         {
-            throw new ArgumentOutOfRangeException(nameof(prefix), "Subnet does not fit in IPv6 space.");
+            throw new ArgumentOutOfRangeException(nameof(prefixLength), "Subnet does not fit in IPv6 space.");
         };
 
-        var fullPrefixBytes = prefix / 8;
-        var remainingBitsInByte = prefix % 8; // could be 0
+        var fullPrefixBytes = prefixLength / 8;
+        var remainingBitsInByte = prefixLength % 8; // could be 0
 
         // First address is obtained be setting all bits outside prefix to 0
         Span<byte> firstAddressBytes = stackalloc byte[16];
@@ -187,10 +187,10 @@ public static class CidrSubnet
         // if there is an incomplete byte in prefix, set the remaining bits to 1
         if (remainingBitsInByte > 0)
         {
-            lastAddressBytes[prefix / 8] |= (byte)(0xFF >> remainingBitsInByte);
+            lastAddressBytes[prefixLength / 8] |= (byte)(0xFF >> remainingBitsInByte);
         }
         // set all bytes after the prefix to 1
-        for (var i = (prefix + 7) / 8; i < lastAddressBytes.Length; i++)
+        for (var i = (prefixLength + 7) / 8; i < lastAddressBytes.Length; i++)
         {
             lastAddressBytes[i] = 0xFF;
         }
@@ -198,15 +198,15 @@ public static class CidrSubnet
         return (new IPAddress(firstAddressBytes), new IPAddress(lastAddressBytes));
     }
 
-    private static (IPAddress IPAddress, int Subnet) DeconstructCIDR(string cidr)
+    private static (IPAddress IPAddress, int PrefixLength) DeconstructCIDR(string cidr)
     {
         ReadOnlySpan<char> span = cidr.AsSpan();
         var index = span.IndexOf('/');
         var ipSpan = span[..index];
         var ip = IPAddress.Parse(ipSpan);
         var subnetSpan = span[(index + 1)..];
-        var subnet = int.Parse(subnetSpan);
+        var prefixLength = int.Parse(subnetSpan);
 
-        return (ip, subnet);
+        return (ip, prefixLength);
     }
 }
