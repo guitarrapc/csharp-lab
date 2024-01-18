@@ -71,7 +71,7 @@ jobs:
 
             echo "Write '$file' to outputs"
             cat "$file" > "$output_path"
-            echo "$output_path" | tee "${output_path}.path"
+            echo "${{ matrix.path }}/README.${bench_name}.md" | tee "${output_path}.path"
           done <<< "$(find "./BenchmarkDotNet.Artifacts/results" -name "*.md" -type f)"
       - name: Skip benchmark
         if: ${{ steps.cpu.outputs.execute == 0 }}
