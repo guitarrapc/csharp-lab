@@ -12,7 +12,7 @@ public class CidrBlockv4Benchmarks
     public int Number { get; set; }
 
     [Benchmark]
-    public void CidrBlockV4NewString()
+    public void NewString()
     {
         for (byte i = 0; i < Number; i++)
         {
@@ -21,7 +21,7 @@ public class CidrBlockv4Benchmarks
     }
 
     [Benchmark]
-    public void CidrBlockV4NewBytes()
+    public void NewBytes()
     {
         for (byte i = 0; i < Number; i++)
         {
@@ -30,7 +30,7 @@ public class CidrBlockv4Benchmarks
     }
 
     [Benchmark]
-    public void CidrBlockV4TryParseString()
+    public void TryParseString()
     {
         for (byte i = 0; i < Number; i++)
         {
@@ -39,7 +39,7 @@ public class CidrBlockv4Benchmarks
     }
 
     [Benchmark]
-    public void CidrBlockV4TryParseBytes()
+    public void TryParseBytes()
     {
         for (byte i = 0; i < Number; i++)
         {

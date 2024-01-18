@@ -5,20 +5,20 @@ namespace Logic.Networks;
 /// <summary>
 /// Create Subnetmask for CIDR, IPAddress, Notion.
 /// </summary>
-public readonly struct SubnetMask : IEquatable<SubnetMask>
+public readonly struct SubnetMaskv4 : IEquatable<SubnetMaskv4>
 {
     const int bitLength = 8;
 
     public ReadOnlySpan<byte> ByteArray => _byteArray;
     private readonly byte[] _byteArray = new byte[bitLength * 4];
 
-    public SubnetMask(ReadOnlySpan<byte> byteArray)
+    public SubnetMaskv4(ReadOnlySpan<byte> byteArray)
     {
         byteArray.CopyTo(_byteArray);
     }
 
     /// <summary>
-    /// Calculate Subnetmask from bit. Useful for calculate from subnet.
+    /// Calculate Subnetmask from prefix. Useful for calculate from subnet.
     /// </summary>
     /// <param name="bit"></param>
     /// <returns></returns>
@@ -26,7 +26,7 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     /// 24:          11111111 11111111 11111111 00000000
     /// 8:           11111111 00000000 00000000 00000000
     /// </example>
-    public static SubnetMask FromCidrNotion(byte bit)
+    public static SubnetMaskv4 FromPrefix(byte bit)
     {
         if (bit > bitLength * 4)
         {
@@ -38,7 +38,7 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
         {
             byteArray[i] = 1;
         }
-        return new SubnetMask(byteArray);
+        return new SubnetMaskv4(byteArray);
     }
 
     /// <summary>
@@ -50,7 +50,7 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     /// 192.168.0.0: 11000000 10101000 00000000 00000000
     /// 10.1.0.0:    00001010 00000001 00000000 00000000
     /// </example>
-    public static SubnetMask FromIPAddress(IPAddress ipAddress)
+    public static SubnetMaskv4 FromIPAddress(IPAddress ipAddress)
     {
         var address = ipAddress.GetAddressBytes();
         Span<byte> byteArray = stackalloc byte[bitLength * 4];
@@ -58,7 +58,7 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
         SetBinaryArray(byteArray, address[1], 2);
         SetBinaryArray(byteArray, address[2], 3);
         SetBinaryArray(byteArray, address[3], 4);
-        return new SubnetMask(byteArray);
+        return new SubnetMaskv4(byteArray);
     }
     /// <summary>
     /// Calculate Subnetmask from IPAddress
@@ -69,7 +69,7 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     /// 192.168.0.0: 11000000 10101000 00000000 00000000
     /// 10.1.0.0:    00001010 00000001 00000000 00000000
     /// </example>
-    public static SubnetMask FromIPAddress(string ipAddress) => FromIPAddress(ipAddress.AsSpan());
+    public static SubnetMaskv4 FromIPAddress(string ipAddress) => FromIPAddress(ipAddress.AsSpan());
     /// <summary>
     /// Calculate Subnetmask from IPAddress
     /// </summary>
@@ -79,7 +79,7 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     /// 192.168.0.0: 11000000 10101000 00000000 00000000
     /// 10.1.0.0:    00001010 00000001 00000000 00000000
     /// </example>
-    public static SubnetMask FromIPAddress(ReadOnlySpan<char> ipAddress)
+    public static SubnetMaskv4 FromIPAddress(ReadOnlySpan<char> ipAddress)
     {
         ReadOnlySpan<char> rest = ipAddress;
         var oct1End = rest.IndexOf('.');
@@ -111,7 +111,7 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
         SetBinaryArray(byteArray, byte.Parse(oct2), 2);
         SetBinaryArray(byteArray, byte.Parse(oct3), 3);
         SetBinaryArray(byteArray, byte.Parse(oct4), 4);
-        return new SubnetMask(byteArray);
+        return new SubnetMaskv4(byteArray);
     }
     private static void SetBinaryArray(Span<byte> byteArray, byte octed, int loop)
     {
@@ -134,7 +134,7 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     /// 192.168.0.0/32: (11000000 10101000 00000000 00000000, 11111111 11111111 11111111 00000000)
     /// 10.1.0.0/8:    (00001010 00000001 00000000 00000000, 11111111 00000000 00000000 00000000)
     /// </example>
-    public static (SubnetMask Address, SubnetMask Subnet) FromCidrAddress(string cidrAddress) => FromCidrAddress(cidrAddress.AsSpan());
+    public static (SubnetMaskv4 Address, SubnetMaskv4 Subnet) FromCidr(string cidrAddress) => FromCidr(cidrAddress.AsSpan());
     /// <summary>
     /// Calculate Subnetmask from CidrAddress
     /// </summary>
@@ -144,12 +144,12 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     /// 192.168.0.0/32: (11000000 10101000 00000000 00000000, 11111111 11111111 11111111 00000000)
     /// 10.1.0.0/8:    (00001010 00000001 00000000 00000000, 11111111 00000000 00000000 00000000)
     /// </example>
-    public static (SubnetMask Address, SubnetMask Subnet) FromCidrAddress(ReadOnlySpan<char> cidrAddress)
+    public static (SubnetMaskv4 Address, SubnetMaskv4 Subnet) FromCidr(ReadOnlySpan<char> cidrAddress)
     {
         var index = cidrAddress.IndexOf('/');
         var cidr = cidrAddress[..index];
         var subnet = cidrAddress[(index + 1)..];
-        return FromCidrAddress(cidr, subnet);
+        return FromCidr(cidr, subnet);
     }
     /// <summary>
     /// Calculate Subnetmask from CidrAddress
@@ -161,7 +161,7 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     /// 192.168.0.0, 32: (11000000 10101000 00000000 00000000, 11111111 11111111 11111111 00000000)
     /// 10.1.0.0, 8:    (00001010 00000001 00000000 00000000, 11111111 00000000 00000000 00000000)
     /// </example>
-    public static (SubnetMask Address, SubnetMask Subnet) FromCidrAddress(string ipAddress, string subnetmask) => FromCidrAddress(ipAddress.AsSpan(), subnetmask.AsSpan());
+    public static (SubnetMaskv4 Address, SubnetMaskv4 Subnet) FromCidr(string ipAddress, string subnetmask) => FromCidr(ipAddress.AsSpan(), subnetmask.AsSpan());
     /// <summary>
     /// Calculate Subnetmask from CidrAddress
     /// </summary>
@@ -172,9 +172,9 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     /// 192.168.0.0, 32: (11000000 10101000 00000000 00000000, 11111111 11111111 11111111 00000000)
     /// 10.1.0.0, 8:    (00001010 00000001 00000000 00000000, 11111111 00000000 00000000 00000000)
     /// </example>
-    public static (SubnetMask Address, SubnetMask Subnet) FromCidrAddress(ReadOnlySpan<char> ipAddress, ReadOnlySpan<char> subnetmask)
+    public static (SubnetMaskv4 Address, SubnetMaskv4 Subnet) FromCidr(ReadOnlySpan<char> ipAddress, ReadOnlySpan<char> subnetmask)
     {
-        return (FromIPAddress(ipAddress), FromCidrNotion(byte.Parse(subnetmask)));
+        return (FromIPAddress(ipAddress), FromPrefix(byte.Parse(subnetmask)));
     }
 
     /// <summary>
@@ -187,9 +187,9 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     /// 192.168.10.10/24: 192.168.10.0
     /// 11000000 10101000 00001010 00001010, 11111111 11111111 11111111 00000000 : 11000000 10101000 00001010 00000000
     /// </example>
-    public static SubnetMask GetNetworkAddress(string cidrAddress)
+    public static SubnetMaskv4 GetNetworkAddress(string cidrAddress)
     {
-        var (address, subnetmask) = FromCidrAddress(cidrAddress);
+        var (address, subnetmask) = FromCidr(cidrAddress);
         return GetNetworkAddress(address, subnetmask);
     }
     /// <summary>
@@ -202,14 +202,14 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     /// 192.168.10.10/24                                                         : 192.168.10.0
     /// 11000000 10101000 00001010 00001010, 11111111 11111111 11111111 00000000 : 11000000 10101000 00001010 00000000
     /// </example>
-    public static SubnetMask GetNetworkAddress(SubnetMask ipAddress, SubnetMask subnetmask)
+    public static SubnetMaskv4 GetNetworkAddress(SubnetMaskv4 ipAddress, SubnetMaskv4 subnetmask)
     {
         Span<byte> networkmask = stackalloc byte[32];
         for (var i = 0; i < 32; i++)
         {
             networkmask[i] = (byte)(ipAddress.ByteArray[i] & subnetmask.ByteArray[i]);
         }
-        return new SubnetMask(networkmask);
+        return new SubnetMaskv4(networkmask);
     }
 
     /// <summary>
@@ -226,7 +226,7 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     /// FirstAddress    : 192.168.10.0
     /// EndAddress      : 192.168.10.255
     /// </example>
-    public static (SubnetMask BroadcastAddress, SubnetMask FirstAddress, SubnetMask EndAddress) GetAddressRange(SubnetMask networkAddress, SubnetMask subnetmask)
+    public static (SubnetMaskv4 BroadcastAddress, SubnetMaskv4 FirstAddress, SubnetMaskv4 EndAddress) GetAddressRange(SubnetMaskv4 networkAddress, SubnetMaskv4 subnetmask)
     {
         Span<byte> broadcastAddress = stackalloc byte[32];
         Span<byte> rangeFirstAddress = stackalloc byte[32];
@@ -251,11 +251,11 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
             }
         }
 
-        return (new SubnetMask(broadcastAddress), new SubnetMask(rangeFirstAddress), new SubnetMask(rangeLastAddress));
+        return (new SubnetMaskv4(broadcastAddress), new SubnetMaskv4(rangeFirstAddress), new SubnetMaskv4(rangeLastAddress));
     }
 
     // 8
-    public byte ToCidrNotion()
+    public byte ToPrefix()
     {
         byte bit = 0;
         for (var i = 0; i < _byteArray.Length - 1; i++)
@@ -271,14 +271,14 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
     {
 
         Span<byte> byteArray = stackalloc byte[bitLength * 4];
-        var octet1 = CalculateOctet(_byteArray.AsSpan()[..bitLength]);
-        var octet2 = CalculateOctet(_byteArray.AsSpan()[bitLength..(bitLength * 2)]);
-        var octet3 = CalculateOctet(_byteArray.AsSpan()[(bitLength * 2)..(bitLength * 3)]);
-        var octet4 = CalculateOctet(_byteArray.AsSpan()[(bitLength * 3)..(bitLength * 4)]);
+        var octet1 = GetOctet(_byteArray.AsSpan()[..bitLength]);
+        var octet2 = GetOctet(_byteArray.AsSpan()[bitLength..(bitLength * 2)]);
+        var octet3 = GetOctet(_byteArray.AsSpan()[(bitLength * 2)..(bitLength * 3)]);
+        var octet4 = GetOctet(_byteArray.AsSpan()[(bitLength * 3)..(bitLength * 4)]);
         return $"{octet1}.{octet2}.{octet3}.{octet4}";
     }
 
-    private static byte CalculateOctet(ReadOnlySpan<byte> octet)
+    private static byte GetOctet(ReadOnlySpan<byte> octet)
     {
         int subnet = 0;
         for (var i = 0; i <= octet.Length - 1; i++)
@@ -290,10 +290,10 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
 
     public override bool Equals(object? obj)
     {
-        return obj is SubnetMask mask && Equals(mask);
+        return obj is SubnetMaskv4 mask && Equals(mask);
     }
 
-    public bool Equals(SubnetMask other)
+    public bool Equals(SubnetMaskv4 other)
     {
         ReadOnlySpan<byte> l = ByteArray;
         ReadOnlySpan<byte> r = other.ByteArray;
@@ -305,12 +305,12 @@ public readonly struct SubnetMask : IEquatable<SubnetMask>
         return HashCode.Combine(_byteArray);
     }
 
-    public static bool operator ==(SubnetMask left, SubnetMask right)
+    public static bool operator ==(SubnetMaskv4 left, SubnetMaskv4 right)
     {
         return left.Equals(right);
     }
 
-    public static bool operator !=(SubnetMask left, SubnetMask right)
+    public static bool operator !=(SubnetMaskv4 left, SubnetMaskv4 right)
     {
         return !(left == right);
     }

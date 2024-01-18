@@ -17,7 +17,7 @@ public class CidrSubnetBenchmarks
 
     // GetNthSubnet
     [Benchmark]
-    public void CidrSubnetGetNthSubnetIPv6()
+    public void GetNthSubnetIPv6()
     {
         for (byte i = 0; i < Number; i++)
         {
@@ -26,7 +26,7 @@ public class CidrSubnetBenchmarks
     }
 
     [Benchmark]
-    public void CidrSubnetGetNthSubnetIPv4()
+    public void GetNthSubnetIPv4()
     {
         for (byte i = 0; i < Number; i++)
         {
@@ -36,7 +36,7 @@ public class CidrSubnetBenchmarks
 
     // GetSubnetRange
     [Benchmark]
-    public void CidrSubnetGetSubnetRangeIPv6BigInteger()
+    public void GetSubnetRangeIPv6BigInteger()
     {
         for (byte i = 0; i < Number; i++)
         {
@@ -45,7 +45,7 @@ public class CidrSubnetBenchmarks
     }
 
     [Benchmark]
-    public void CidrSubnetGetSubnetRangeIPv6Shift()
+    public void GetSubnetRangeIPv6Shift()
     {
         for (byte i = 0; i < Number; i++)
         {
@@ -54,7 +54,7 @@ public class CidrSubnetBenchmarks
     }
 
     [Benchmark]
-    public void CidrSubnetGetSubnetRangeIPv4BigInteger()
+    public void GetSubnetRangeIPv4BigInteger()
     {
         for (byte i = 0; i < Number; i++)
         {
@@ -63,7 +63,7 @@ public class CidrSubnetBenchmarks
     }
 
     [Benchmark]
-    public void CidrSubnetGetSubnetRangeIPv4Shift()
+    public void GetSubnetRangeIPv4Shift()
     {
         for (byte i = 0; i < Number; i++)
         {
