@@ -62,14 +62,16 @@ jobs:
           mkdir -p ${{ env.TEMP_UPLOAD_PATH }}/${{ matrix.path}}
           while read -r file; do
             bench_name=$(echo "$file" | cut -d '/' -f 4 | cut -d '-' -f 1)
+            output_path="${{ env.TEMP_UPLOAD_PATH }}/${{ matrix.path }}/${bench_name}.md"
 
-            echo "Write '$bench_name' in 'file' to GITHUB_STEP_SUMMARY"
-            echo "$bench_name" >> "$GITHUB_STEP_SUMMARY"
+            echo "Write '$bench_name' in '$file' to GITHUB_STEP_SUMMARY"
+            echo "## $bench_name" >> "$GITHUB_STEP_SUMMARY"
             cat "$file" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
 
             echo "Write '$file' to outputs"
-            cat "$file" > ${{ env.TEMP_UPLOAD_PATH }}/${{ matrix.path }}/${bench_name}.md
-            echo "${{ matrix.path }}/README.${bench_name}.md" | tee ${{ env.TEMP_UPLOAD_PATH }}/${{ matrix.path }}/${bench_name}.md.path
+            mv "$file" "$output_path"
+            echo "$output_path" | tee ${{ env.TEMP_UPLOAD_PATH }}/${{ matrix.path }}/${bench_name}.md.path
           done <<< "$(find "./BenchmarkDotNet.Artifacts/results" -name "*.md" -type f)"
       - name: Skip benchmark
         if: ${{ steps.cpu.outputs.execute == 0 }}
