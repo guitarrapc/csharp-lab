@@ -394,10 +394,7 @@ public static class CidrSubnet
     {
         var index = span.IndexOf('/');
         var ipSpan = span[..index];
-        var ip = IPAddress.Parse(ipSpan);
         var subnetSpan = span[(index + 1)..];
-        var prefixLength = int.Parse(subnetSpan);
-
-        return (ip, prefixLength);
+        return (IPAddress.Parse(ipSpan), int.Parse(subnetSpan));
     }
 }
