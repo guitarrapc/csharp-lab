@@ -47,27 +47,6 @@ public class SubnetMaskv4Test
         var expectedSubnetMax = SubnetExtensions.CidrToBiteArray("255.255.255.255");
         max.Address.ByteArray.SequenceEqual(expectedMax).Should().BeTrue();
         max.Subnet.ByteArray.SequenceEqual(expectedSubnetMax).Should().BeTrue();
-
-        // 00001010 00000000 00000000 00000000 / 00011000
-        var actual2 = SubnetMaskv4.FromCidr("10.0.0.0", "24");
-        var expectedAddress2 = SubnetExtensions.CidrToBiteArray("10.0.0.0");
-        var expectedSubnet2 = SubnetExtensions.CidrToBiteArray("255.255.255.0");
-        actual2.Address.ByteArray.SequenceEqual(expectedAddress2).Should().BeTrue();
-        actual2.Subnet.ByteArray.SequenceEqual(expectedSubnet2).Should().BeTrue();
-
-        // 00000000 00000000 00000000 00000000 / 00000000
-        var min2 = SubnetMaskv4.FromCidr("0.0.0.0", "0");
-        var expectedMin2 = SubnetExtensions.CidrToBiteArray("0.0.0.0");
-        var expectedSubnetMin2 = SubnetExtensions.CidrToBiteArray("0.0.0.0");
-        min2.Address.ByteArray.SequenceEqual(expectedMin2).Should().BeTrue();
-        min2.Subnet.ByteArray.SequenceEqual(expectedSubnetMin2).Should().BeTrue();
-
-        // 11111111 11111111 11111111 11111111 / 11111111
-        var max2 = SubnetMaskv4.FromCidr("255.255.255.255", "32");
-        var expectedMax2 = SubnetExtensions.CidrToBiteArray("255.255.255.255");
-        var expectedSubnetMax2 = SubnetExtensions.CidrToBiteArray("255.255.255.255");
-        max2.Address.ByteArray.SequenceEqual(expectedMax2).Should().BeTrue();
-        max2.Subnet.ByteArray.SequenceEqual(expectedSubnetMax2).Should().BeTrue();
     }
 
     [Fact]
@@ -95,261 +74,53 @@ public class SubnetMaskv4Test
         actualMax2.ByteArray.SequenceEqual(expectedMax).Should().BeTrue();
     }
 
-    [Fact]
-    public void GetNetworkAddressTest()
+    [Theory]
+    [InlineData("192.168.150.121/32", "192.168.150.121")]
+    [InlineData("192.168.140.111/31", "192.168.140.110")]
+    [InlineData("192.168.130.90/30", "192.168.130.88")]
+    [InlineData("192.168.100.101/29", "192.168.100.96")]
+    [InlineData("192.168.120.200/28", "192.168.120.192")]
+    [InlineData("192.168.90.50/27", "192.168.90.32")]
+    [InlineData("192.168.80.30/26", "192.168.80.0")]
+    [InlineData("192.168.70.30/25", "192.168.70.0")]
+    [InlineData("192.168.60.30/24", "192.168.60.0")]
+    [InlineData("192.168.50.30/23", "192.168.50.0")]
+    [InlineData("172.16.40.30/16", "172.16.0.0")]
+    [InlineData("10.1.100.30/8", "10.0.0.0")]
+    public void GetNetworkAddressTest(string cidrAddress, string expectedAddress)
     {
-        {
-            // 32
-            var cidr = SubnetMaskv4.FromCidr("192.168.150.121/32");
-            var actual = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var expected = SubnetExtensions.CidrToBiteArray("192.168.150.121");
-            actual.ByteArray.SequenceEqual(expected).Should().BeTrue();
-        }
-        {
-            // 110 - .111
-            var cidr = SubnetMaskv4.FromCidr("192.168.140.111/31");
-            var actual = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var expected = SubnetExtensions.CidrToBiteArray("192.168.140.110");
-            actual.ByteArray.SequenceEqual(expected).Should().BeTrue();
-        }
-        {
-            // .88 - .91
-            var cidr = SubnetMaskv4.FromCidr("192.168.130.90/30");
-            var actual = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var expected = SubnetExtensions.CidrToBiteArray("192.168.130.88");
-            actual.ByteArray.SequenceEqual(expected).Should().BeTrue();
-        }
-        {
-            // .96 - .103
-            var cidr = SubnetMaskv4.FromCidr("192.168.100.101/29");
-            var actual = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var expected = SubnetExtensions.CidrToBiteArray("192.168.100.96");
-            actual.ByteArray.SequenceEqual(expected).Should().BeTrue();
-        }
-
-        {
-            // .192 - .207
-            var cidr = SubnetMaskv4.FromCidr("192.168.120.200/28");
-            var actual = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var expected = SubnetExtensions.CidrToBiteArray("192.168.120.192");
-            actual.ByteArray.SequenceEqual(expected).Should().BeTrue();
-        }
-
-        {
-            // .32 - .63
-            var cidr = SubnetMaskv4.FromCidr("192.168.90.50/27");
-            var actual = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var expected = SubnetExtensions.CidrToBiteArray("192.168.90.32");
-            actual.ByteArray.SequenceEqual(expected).Should().BeTrue();
-        }
-
-        {
-            // .0 - .63
-            var cidr = SubnetMaskv4.FromCidr("192.168.80.30/26");
-            var actual = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var expected = SubnetExtensions.CidrToBiteArray("192.168.80.0");
-            actual.ByteArray.SequenceEqual(expected).Should().BeTrue();
-        }
-
-        {
-            // .0 - .127
-            var cidr = SubnetMaskv4.FromCidr("192.168.70.30/25");
-            var actual = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var expected = SubnetExtensions.CidrToBiteArray("192.168.70.0");
-            actual.ByteArray.SequenceEqual(expected).Should().BeTrue();
-        }
-
-        {
-            // .0 - .255
-            var cidr = SubnetMaskv4.FromCidr("192.168.60.30/24");
-            var actual = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var expected = SubnetExtensions.CidrToBiteArray("192.168.60.0");
-            actual.ByteArray.SequenceEqual(expected).Should().BeTrue();
-        }
-
-        {
-            // .50.0 - .51.255
-            var cidr = SubnetMaskv4.FromCidr("192.168.50.30/23");
-            var actual = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var expected = SubnetExtensions.CidrToBiteArray("192.168.50.0");
-            actual.ByteArray.SequenceEqual(expected).Should().BeTrue();
-        }
-
-        {
-            // .16.0.0 - .16.255.255
-            var cidr = SubnetMaskv4.FromCidr("172.16.40.30/16");
-            var actual = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var expected = SubnetExtensions.CidrToBiteArray("172.16.0.0");
-            actual.ByteArray.SequenceEqual(expected).Should().BeTrue();
-        }
-
-        {
-            // 10.0.0.0 - 10.255.255.255
-            var cidr = SubnetMaskv4.FromCidr("10.1.100.30/8");
-            var actual = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var expected = SubnetExtensions.CidrToBiteArray("10.0.0.0");
-            actual.ByteArray.SequenceEqual(expected).Should().BeTrue();
-        }
+        var (Address, Subnet) = SubnetMaskv4.FromCidr(cidrAddress);
+        var actual = SubnetMaskv4.GetNetworkAddress(Address, Subnet);
+        var expected = SubnetExtensions.CidrToBiteArray(expectedAddress);
+        actual.ByteArray.SequenceEqual(expected).Should().BeTrue();
     }
 
-    [Fact]
-    public void GetAddressRangeTest()
+    [Theory]
+    [InlineData("192.168.150.121/32", "192.168.150.121", "192.168.150.121", "192.168.150.121")]
+    [InlineData("192.168.140.111/31", "192.168.140.111", "192.168.140.110", "192.168.140.111")]
+    [InlineData("192.168.130.90/30", "192.168.130.91", "192.168.130.88", "192.168.130.91")]
+    [InlineData("192.168.100.101/29", "192.168.100.103", "192.168.100.96", "192.168.100.103")]
+    [InlineData("192.168.120.200/28", "192.168.120.207", "192.168.120.192", "192.168.120.207")]
+    [InlineData("192.168.90.50/27", "192.168.90.63", "192.168.90.32", "192.168.90.63")]
+    [InlineData("192.168.80.30/26", "192.168.80.63", "192.168.80.0", "192.168.80.63")]
+    [InlineData("192.168.70.30/25", "192.168.70.127", "192.168.70.0", "192.168.70.127")]
+    [InlineData("192.168.60.1/24", "192.168.60.255", "192.168.60.0", "192.168.60.255")]
+    [InlineData("192.168.50.30/23", "192.168.51.255", "192.168.50.0", "192.168.51.255")]
+    [InlineData("172.16.40.30/16", "172.16.255.255", "172.16.0.0", "172.16.255.255")]
+    [InlineData("10.1.100.30/8", "10.255.255.255", "10.0.0.0", "10.255.255.255")]
+    public void GetAddressRangeTest(string cidraddress, string expectedBroadcastAddress, string expectedFirstAddress, string expectedEndAddress)
     {
-        {
-            // .121
-            var cidr = SubnetMaskv4.FromCidr("192.168.150.121", "32");
-            var networkAddress = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var addressRange = SubnetMaskv4.GetAddressRange(networkAddress, cidr.Subnet);
-            var expectedBroadcast = SubnetExtensions.CidrToBiteArray("192.168.150.121");
-            var expectedFirst = SubnetExtensions.CidrToBiteArray("192.168.150.121");
-            var expectedEnd = SubnetExtensions.CidrToBiteArray("192.168.150.121");
-            addressRange.BroadcastAddress.ByteArray.SequenceEqual(expectedBroadcast).Should().BeTrue();
-            addressRange.FirstAddress.ByteArray.SequenceEqual(expectedFirst).Should().BeTrue();
-            addressRange.EndAddress.ByteArray.SequenceEqual(expectedEnd).Should().BeTrue();
-        }
+        var expectedBroadcast = SubnetExtensions.CidrToBiteArray(expectedBroadcastAddress);
+        var expectedFirst = SubnetExtensions.CidrToBiteArray(expectedFirstAddress);
+        var expectedEnd = SubnetExtensions.CidrToBiteArray(expectedEndAddress);
 
-        {
-            // 110 - .111
-            var cidr = SubnetMaskv4.FromCidr("192.168.140.111", "31");
-            var networkAddress = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var addressRange = SubnetMaskv4.GetAddressRange(networkAddress, cidr.Subnet);
-            var expectedBroadcast = SubnetExtensions.CidrToBiteArray("192.168.140.111");
-            var expectedFirst = SubnetExtensions.CidrToBiteArray("192.168.140.110");
-            var expectedEnd = SubnetExtensions.CidrToBiteArray("192.168.140.111");
-            addressRange.BroadcastAddress.ByteArray.SequenceEqual(expectedBroadcast).Should().BeTrue();
-            addressRange.FirstAddress.ByteArray.SequenceEqual(expectedFirst).Should().BeTrue();
-            addressRange.EndAddress.ByteArray.SequenceEqual(expectedEnd).Should().BeTrue();
-        }
+        var cidr = SubnetMaskv4.FromCidr(cidraddress);
+        var networkAddress = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
+        var addressRange = SubnetMaskv4.GetAddressRange(networkAddress, cidr.Subnet);
 
-        {
-            // .88 - .91
-            var cidr = SubnetMaskv4.FromCidr("192.168.130.90", "30");
-            var networkAddress = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var addressRange = SubnetMaskv4.GetAddressRange(networkAddress, cidr.Subnet);
-            var expectedBroadcast = SubnetExtensions.CidrToBiteArray("192.168.130.91");
-            var expectedFirst = SubnetExtensions.CidrToBiteArray("192.168.130.88");
-            var expectedEnd = SubnetExtensions.CidrToBiteArray("192.168.130.91");
-            addressRange.BroadcastAddress.ByteArray.SequenceEqual(expectedBroadcast).Should().BeTrue();
-            addressRange.FirstAddress.ByteArray.SequenceEqual(expectedFirst).Should().BeTrue();
-            addressRange.EndAddress.ByteArray.SequenceEqual(expectedEnd).Should().BeTrue();
-        }
-
-        {
-            // .96 - .103
-            var cidr = SubnetMaskv4.FromCidr("192.168.100.101", "29");
-            var networkAddress = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var addressRange = SubnetMaskv4.GetAddressRange(networkAddress, cidr.Subnet);
-            var expectedBroadcast = SubnetExtensions.CidrToBiteArray("192.168.100.103");
-            var expectedFirst = SubnetExtensions.CidrToBiteArray("192.168.100.96");
-            var expectedEnd = SubnetExtensions.CidrToBiteArray("192.168.100.103");
-            addressRange.BroadcastAddress.ByteArray.SequenceEqual(expectedBroadcast).Should().BeTrue();
-            addressRange.FirstAddress.ByteArray.SequenceEqual(expectedFirst).Should().BeTrue();
-            addressRange.EndAddress.ByteArray.SequenceEqual(expectedEnd).Should().BeTrue();
-        }
-
-        {
-            // .192 - .207
-            var cidr = SubnetMaskv4.FromCidr("192.168.120.200", "28");
-            var networkAddress = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var addressRange = SubnetMaskv4.GetAddressRange(networkAddress, cidr.Subnet);
-            var expectedBroadcast = SubnetExtensions.CidrToBiteArray("192.168.120.207");
-            var expectedFirst = SubnetExtensions.CidrToBiteArray("192.168.120.192");
-            var expectedEnd = SubnetExtensions.CidrToBiteArray("192.168.120.207");
-            addressRange.BroadcastAddress.ByteArray.SequenceEqual(expectedBroadcast).Should().BeTrue();
-            addressRange.FirstAddress.ByteArray.SequenceEqual(expectedFirst).Should().BeTrue();
-            addressRange.EndAddress.ByteArray.SequenceEqual(expectedEnd).Should().BeTrue();
-        }
-
-        {
-            // .32 - .63
-            var cidr = SubnetMaskv4.FromCidr("192.168.90.50", "27");
-            var networkAddress = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var addressRange = SubnetMaskv4.GetAddressRange(networkAddress, cidr.Subnet);
-            var expectedBroadcast = SubnetExtensions.CidrToBiteArray("192.168.90.63");
-            var expectedFirst = SubnetExtensions.CidrToBiteArray("192.168.90.32");
-            var expectedEnd = SubnetExtensions.CidrToBiteArray("192.168.90.63");
-            addressRange.BroadcastAddress.ByteArray.SequenceEqual(expectedBroadcast).Should().BeTrue();
-            addressRange.FirstAddress.ByteArray.SequenceEqual(expectedFirst).Should().BeTrue();
-            addressRange.EndAddress.ByteArray.SequenceEqual(expectedEnd).Should().BeTrue();
-        }
-
-        {
-            // .0 - .63
-            var cidr = SubnetMaskv4.FromCidr("192.168.80.30", "26");
-            var networkAddress = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var addressRange = SubnetMaskv4.GetAddressRange(networkAddress, cidr.Subnet);
-            var expectedBroadcast = SubnetExtensions.CidrToBiteArray("192.168.80.63");
-            var expectedFirst = SubnetExtensions.CidrToBiteArray("192.168.80.0");
-            var expectedEnd = SubnetExtensions.CidrToBiteArray("192.168.80.63");
-            addressRange.BroadcastAddress.ByteArray.SequenceEqual(expectedBroadcast).Should().BeTrue();
-            addressRange.FirstAddress.ByteArray.SequenceEqual(expectedFirst).Should().BeTrue();
-            addressRange.EndAddress.ByteArray.SequenceEqual(expectedEnd).Should().BeTrue();
-        }
-
-        {
-            // .0 - .127
-            var cidr = SubnetMaskv4.FromCidr("192.168.70.30", "25");
-            var networkAddress = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var addressRange = SubnetMaskv4.GetAddressRange(networkAddress, cidr.Subnet);
-            var expectedBroadcast = SubnetExtensions.CidrToBiteArray("192.168.70.127");
-            var expectedFirst = SubnetExtensions.CidrToBiteArray("192.168.70.0");
-            var expectedEnd = SubnetExtensions.CidrToBiteArray("192.168.70.127");
-            addressRange.BroadcastAddress.ByteArray.SequenceEqual(expectedBroadcast).Should().BeTrue();
-            addressRange.FirstAddress.ByteArray.SequenceEqual(expectedFirst).Should().BeTrue();
-            addressRange.EndAddress.ByteArray.SequenceEqual(expectedEnd).Should().BeTrue();
-        }
-
-        {
-            // .0 - .255
-            var cidr = SubnetMaskv4.FromCidr("192.168.60.1", "24");
-            var networkAddress = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var addressRange = SubnetMaskv4.GetAddressRange(networkAddress, cidr.Subnet);
-            var expectedBroadcast = SubnetExtensions.CidrToBiteArray("192.168.60.255");
-            var expectedFirst = SubnetExtensions.CidrToBiteArray("192.168.60.0");
-            var expectedEnd = SubnetExtensions.CidrToBiteArray("192.168.60.255");
-            addressRange.BroadcastAddress.ByteArray.SequenceEqual(expectedBroadcast).Should().BeTrue();
-            addressRange.FirstAddress.ByteArray.SequenceEqual(expectedFirst).Should().BeTrue();
-            addressRange.EndAddress.ByteArray.SequenceEqual(expectedEnd).Should().BeTrue();
-        }
-
-        {
-            // .50.0 - .51.255
-            var cidr = SubnetMaskv4.FromCidr("192.168.50.30", "23");
-            var networkAddress = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var addressRange = SubnetMaskv4.GetAddressRange(networkAddress, cidr.Subnet);
-            var expectedBroadcast = SubnetExtensions.CidrToBiteArray("192.168.51.255");
-            var expectedFirst = SubnetExtensions.CidrToBiteArray("192.168.50.0");
-            var expectedEnd = SubnetExtensions.CidrToBiteArray("192.168.51.255");
-            addressRange.BroadcastAddress.ByteArray.SequenceEqual(expectedBroadcast).Should().BeTrue();
-            addressRange.FirstAddress.ByteArray.SequenceEqual(expectedFirst).Should().BeTrue();
-            addressRange.EndAddress.ByteArray.SequenceEqual(expectedEnd).Should().BeTrue();
-        }
-
-        {
-            // .16.0.0 - .16.255.255
-            var cidr = SubnetMaskv4.FromCidr("172.16.40.30", "16");
-            var networkAddress = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var addressRange = SubnetMaskv4.GetAddressRange(networkAddress, cidr.Subnet);
-            var expectedBroadcast = SubnetExtensions.CidrToBiteArray("172.16.255.255");
-            var expectedFirst = SubnetExtensions.CidrToBiteArray("172.16.0.0");
-            var expectedEnd = SubnetExtensions.CidrToBiteArray("172.16.255.255");
-            addressRange.BroadcastAddress.ByteArray.SequenceEqual(expectedBroadcast).Should().BeTrue();
-            addressRange.FirstAddress.ByteArray.SequenceEqual(expectedFirst).Should().BeTrue();
-            addressRange.EndAddress.ByteArray.SequenceEqual(expectedEnd).Should().BeTrue();
-        }
-
-        {
-            // 10.0.0.0 - 10.255.255.255
-            var cidr = SubnetMaskv4.FromCidr("10.1.100.30", "8");
-            var networkAddress = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
-            var addressRange = SubnetMaskv4.GetAddressRange(networkAddress, cidr.Subnet);
-            var expectedBroadcast = SubnetExtensions.CidrToBiteArray("10.255.255.255");
-            var expectedFirst = SubnetExtensions.CidrToBiteArray("10.0.0.0");
-            var expectedEnd = SubnetExtensions.CidrToBiteArray("10.255.255.255");
-            addressRange.BroadcastAddress.ByteArray.SequenceEqual(expectedBroadcast).Should().BeTrue();
-            addressRange.FirstAddress.ByteArray.SequenceEqual(expectedFirst).Should().BeTrue();
-            addressRange.EndAddress.ByteArray.SequenceEqual(expectedEnd).Should().BeTrue();
-        }
+        addressRange.BroadcastAddress.ByteArray.SequenceEqual(expectedBroadcast).Should().BeTrue();
+        addressRange.FirstAddress.ByteArray.SequenceEqual(expectedFirst).Should().BeTrue();
+        addressRange.EndAddress.ByteArray.SequenceEqual(expectedEnd).Should().BeTrue();
     }
 
     [Fact]
