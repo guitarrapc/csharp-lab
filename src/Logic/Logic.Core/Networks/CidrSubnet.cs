@@ -308,7 +308,7 @@ public static class CidrSubnet
     /// <returns></returns>
     private static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRangeIPv4(IPAddress ipaddress, int prefixLength)
     {
-        if (ipaddress.AddressFamily == AddressFamily.InterNetwork && (prefixLength < 1 || prefixLength > 32))
+        if (prefixLength < 1 || prefixLength > 32)
         {
             throw new ArgumentOutOfRangeException(nameof(prefixLength), "Subnet does not fit in IPv4 space.");
         };
@@ -346,7 +346,7 @@ public static class CidrSubnet
     /// <returns></returns>
     private static (IPAddress StartAddress, IPAddress EndAddress) GetSubnetRangeIPv6(IPAddress ipaddress, int prefixLength)
     {
-        if (ipaddress.AddressFamily == AddressFamily.InterNetworkV6 && (prefixLength < 1 || prefixLength > 128))
+        if (prefixLength < 1 || prefixLength > 128)
         {
             throw new ArgumentOutOfRangeException(nameof(prefixLength), "Subnet does not fit in IPv6 space.");
         };
