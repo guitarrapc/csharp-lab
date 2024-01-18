@@ -7,23 +7,14 @@
 
 # csharp-lab
 
+To execute Csharp-lab.sln, you need to install following tools.
 
-# Getting started
-
-## Prerequisites
-
-* Install .NET SDK 6 and 7.
-* Install wasm-tools-net6.
-
-```sh
-dotnet workload install wasm-tools-net6
-```
+* Install .NET8 SDK.
+* Install wasm-tools-net
 
 # Container Debugging
 
-## Attach Visual Studio 2022 to Linux Docker Container
-
-Run your .NET Application inside Docker container. Let's run Linux Docker on Windows.
+You can attch Visual Studio 2022 to Linux Docker Container, then debug your application. Let's run Docker.
 
 ```
 $ docker build -t blazorserverapp:dev -f src/Blazor/BlazorServerApp/Dockerfile .
@@ -46,7 +37,7 @@ CONTAINER ID   IMAGE                 COMMAND                   CREATED         S
 d1059e5349f3   blazorserverapp:dev   "dotnet BlazorServer…"   4 seconds ago   Up 3 seconds   0.0.0.0:8080->80/tcp   jolly_kare
 ```
 
-Open Visual Studio. Go to `Debug > Attach to process`.
+Open Visual Studio, Goto `Debug > Attach to process`.
 
 ![image](https://user-images.githubusercontent.com/3856350/256191790-e0e955f8-b2ab-4d21-b1f8-78c8d623d364.png)
 

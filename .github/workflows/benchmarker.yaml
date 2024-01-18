@@ -61,13 +61,17 @@ jobs:
           dotnet run --project ./${{ matrix.path}}/${{ matrix.csproj }} -c ${{ env.BUILD_CONFIG }}
           mkdir -p ${{ env.TEMP_UPLOAD_PATH }}/${{ matrix.path}}
           while read -r file; do
-            echo "Write '$file' to GITHUB_STEP_SUMMARY"
+            bench_name=$(echo "$file" | cut -d '/' -f 4 | cut -d '-' -f 1)
+            output_path="${{ env.TEMP_UPLOAD_PATH }}/${{ matrix.path }}/${bench_name}.md"
+
+            echo "Write '$bench_name' in '$file' to GITHUB_STEP_SUMMARY"
+            echo "## $bench_name" >> "$GITHUB_STEP_SUMMARY"
             cat "$file" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
 
             echo "Write '$file' to outputs"
-            bench_name=$(echo "$file" | cut -d '/' -f 4 | cut -d '-' -f 1)
-            cat "$file" > ${{ env.TEMP_UPLOAD_PATH }}/${{ matrix.path }}/${bench_name}.md
-            echo "${{ matrix.path }}/README.${bench_name}.md" | tee ${{ env.TEMP_UPLOAD_PATH }}/${{ matrix.path }}/${bench_name}.md.path
+            cat "$file" > "$output_path"
+            echo "${{ matrix.path }}/README.${bench_name}.md" | tee "${output_path}.path"
           done <<< "$(find "./BenchmarkDotNet.Artifacts/results" -name "*.md" -type f)"
       - name: Skip benchmark
         if: ${{ steps.cpu.outputs.execute == 0 }}
@@ -98,6 +102,7 @@ jobs:
 
       - name: Write summary to README.md
         run: |
+          ls -lR "${{ env.TEMP_UPLOAD_PATH }}/"
           while read -r file; do
             echo "Processing ${file}."
             md_path=$(head -n 1 "${file}.path")
