@@ -70,8 +70,8 @@ jobs:
             echo "" >> "$GITHUB_STEP_SUMMARY"
 
             echo "Write '$file' to outputs"
-            mv "$file" "$output_path"
-            echo "$output_path" | tee ${{ env.TEMP_UPLOAD_PATH }}/${{ matrix.path }}/${bench_name}.md.path
+            cat "$file" > "$output_path"
+            echo "$output_path" | tee "${output_path}.path"
           done <<< "$(find "./BenchmarkDotNet.Artifacts/results" -name "*.md" -type f)"
       - name: Skip benchmark
         if: ${{ steps.cpu.outputs.execute == 0 }}
@@ -102,6 +102,7 @@ jobs:
 
       - name: Write summary to README.md
         run: |
+          ls -lR "${{ env.TEMP_UPLOAD_PATH }}/"
           while read -r file; do
             echo "Processing ${file}."
             md_path=$(head -n 1 "${file}.path")
