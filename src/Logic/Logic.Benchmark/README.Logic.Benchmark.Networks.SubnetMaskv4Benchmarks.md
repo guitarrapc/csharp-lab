@@ -10,19 +10,19 @@ Job=ShortRun  IterationCount=3  LaunchCount=1
 WarmupCount=3  
 
 ```
-| Method              | Number | Mean        | Error      | StdDev    | Min         | Max         | Gen0   | Allocated |
-|-------------------- |------- |------------:|-----------:|----------:|------------:|------------:|-------:|----------:|
-| **FromPrefix**          | **1**      |    **17.64 ns** |   **4.210 ns** |  **0.231 ns** |    **17.49 ns** |    **17.90 ns** | **0.0007** |      **56 B** |
-| FromCidrAddress     | 1      |   130.51 ns |   3.169 ns |  0.174 ns |   130.41 ns |   130.72 ns | 0.0012 |     112 B |
-| FromCidrAddress2    | 1      |   117.01 ns |   3.240 ns |  0.178 ns |   116.85 ns |   117.20 ns | 0.0012 |     112 B |
-| FromIPAddressString | 1      |    94.96 ns |   3.098 ns |  0.170 ns |    94.82 ns |    95.15 ns | 0.0006 |      56 B |
-| FromIPAddressType   | 1      |    44.75 ns |   2.160 ns |  0.118 ns |    44.68 ns |    44.89 ns | 0.0010 |      88 B |
-| GetNetworkAddress   | 1      |    43.71 ns |  15.213 ns |  0.834 ns |    43.04 ns |    44.65 ns | 0.0007 |      56 B |
-| GetAddressRange     | 1      |   123.96 ns |   6.514 ns |  0.357 ns |   123.62 ns |   124.33 ns | 0.0019 |     168 B |
-| **FromPrefix**          | **10**     |   **194.77 ns** |   **9.609 ns** |  **0.527 ns** |   **194.16 ns** |   **195.11 ns** | **0.0067** |     **560 B** |
-| FromCidrAddress     | 10     | 1,229.24 ns | 462.811 ns | 25.368 ns | 1,202.71 ns | 1,253.26 ns | 0.0134 |    1120 B |
-| FromCidrAddress2    | 10     | 1,195.39 ns |  23.755 ns |  1.302 ns | 1,194.38 ns | 1,196.86 ns | 0.0134 |    1120 B |
-| FromIPAddressString | 10     |   928.99 ns |  14.418 ns |  0.790 ns |   928.10 ns |   929.59 ns | 0.0067 |     560 B |
-| FromIPAddressType   | 10     |   462.39 ns |  70.845 ns |  3.883 ns |   459.52 ns |   466.81 ns | 0.0105 |     880 B |
-| GetNetworkAddress   | 10     |   441.85 ns |  10.813 ns |  0.593 ns |   441.37 ns |   442.51 ns | 0.0067 |     560 B |
-| GetAddressRange     | 10     | 1,175.50 ns |  44.306 ns |  2.429 ns | 1,173.39 ns | 1,178.15 ns | 0.0191 |    1680 B |
+| Method              | Number | Mean        | Error      | StdDev   | Min         | Max         | Gen0   | Allocated |
+|-------------------- |------- |------------:|-----------:|---------:|------------:|------------:|-------:|----------:|
+| **FromPrefix**          | **1**      |    **17.37 ns** |   **0.741 ns** | **0.041 ns** |    **17.33 ns** |    **17.40 ns** | **0.0007** |      **56 B** |
+| FromCidrAddress     | 1      |   119.80 ns |   9.173 ns | 0.503 ns |   119.41 ns |   120.37 ns | 0.0012 |     112 B |
+| FromCidrAddress2    | 1      |   116.38 ns |   6.745 ns | 0.370 ns |   115.98 ns |   116.71 ns | 0.0013 |     112 B |
+| FromIPAddressString | 1      |    90.59 ns |   6.103 ns | 0.335 ns |    90.38 ns |    90.98 ns | 0.0006 |      56 B |
+| FromIPAddressType   | 1      |    44.37 ns |   1.211 ns | 0.066 ns |    44.32 ns |    44.44 ns | 0.0010 |      88 B |
+| GetNetworkAddress   | 1      |    42.99 ns |   3.057 ns | 0.168 ns |    42.83 ns |    43.16 ns | 0.0007 |      56 B |
+| GetAddressRange     | 1      |   123.70 ns |  27.715 ns | 1.519 ns |   122.17 ns |   125.21 ns | 0.0019 |     168 B |
+| **FromPrefix**          | **10**     |   **195.33 ns** |  **52.738 ns** | **2.891 ns** |   **192.82 ns** |   **198.49 ns** | **0.0067** |     **560 B** |
+| FromCidrAddress     | 10     | 1,233.31 ns |  98.507 ns | 5.400 ns | 1,229.20 ns | 1,239.43 ns | 0.0134 |    1120 B |
+| FromCidrAddress2    | 10     | 1,193.82 ns |  58.498 ns | 3.206 ns | 1,191.73 ns | 1,197.51 ns | 0.0134 |    1120 B |
+| FromIPAddressString | 10     |   922.52 ns |  24.125 ns | 1.322 ns |   921.39 ns |   923.97 ns | 0.0067 |     560 B |
+| FromIPAddressType   | 10     |   460.02 ns |  18.464 ns | 1.012 ns |   459.12 ns |   461.11 ns | 0.0105 |     880 B |
+| GetNetworkAddress   | 10     |   435.34 ns |  18.972 ns | 1.040 ns |   434.53 ns |   436.52 ns | 0.0067 |     560 B |
+| GetAddressRange     | 10     | 1,175.04 ns | 179.573 ns | 9.843 ns | 1,167.24 ns | 1,186.10 ns | 0.0191 |    1680 B |
