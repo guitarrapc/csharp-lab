@@ -20,7 +20,7 @@ public class CidrSubnetTest
     [InlineData("2001:db8::/56", 10, 2, "2001:db8:0:0:8000::/66")]
     [InlineData("2001:db8::/56", 10, 3, "2001:db8:0:0:c000::/66")]
     [InlineData("2001:db8::/56", 10, 4, "2001:db8:0:1::/66")]
-    [InlineData("fd00:fd12:3456:7890::/56", 16, 162, "fd00:fd12:3456:7800:a200::/72")] 
+    [InlineData("fd00:fd12:3456:7890::/56", 16, 162, "fd00:fd12:3456:7800:a200::/72")]
     public void GetNthSubnetIPv6Test(string cidr, int newbits, int netnum, string expectedAddress)
     {
         var actual = CidrSubnet.GetNthSubnet(cidr, newbits, netnum);
