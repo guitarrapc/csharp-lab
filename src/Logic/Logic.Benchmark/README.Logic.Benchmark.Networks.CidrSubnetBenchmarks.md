@@ -12,15 +12,15 @@ WarmupCount=3
 ```
 | Method                       | Number | Mean        | Error      | StdDev    | Min         | Max         | Gen0   | Allocated |
 |----------------------------- |------- |------------:|-----------:|----------:|------------:|------------:|-------:|----------:|
-| **GetNthSubnetIPv6**             | **1**      |   **495.62 ns** |  **42.174 ns** |  **2.312 ns** |   **493.73 ns** |   **498.20 ns** | **0.0076** |     **696 B** |
-| GetNthSubnetIPv4             | 1      |   113.78 ns |   2.921 ns |  0.160 ns |   113.66 ns |   113.96 ns | 0.0019 |     160 B |
-| GetSubnetRangeIPv6BigInteger | 1      |   244.16 ns |  49.784 ns |  2.729 ns |   241.06 ns |   246.19 ns | 0.0048 |     432 B |
-| GetSubnetRangeIPv6Shift      | 1      |    42.49 ns |   2.748 ns |  0.151 ns |    42.32 ns |    42.60 ns | 0.0019 |     160 B |
-| GetSubnetRangeIPv4BigInteger | 1      |   146.67 ns |   6.427 ns |  0.352 ns |   146.31 ns |   147.02 ns | 0.0024 |     208 B |
-| GetSubnetRangeIPv4Shift      | 1      |    39.71 ns |   4.730 ns |  0.259 ns |    39.48 ns |    39.99 ns | 0.0021 |     176 B |
-| **GetNthSubnetIPv6**             | **10**     | **5,184.32 ns** | **339.218 ns** | **18.594 ns** | **5,170.18 ns** | **5,205.38 ns** | **0.0839** |    **7336 B** |
-| GetNthSubnetIPv4             | 10     | 1,200.30 ns | 233.139 ns | 12.779 ns | 1,189.24 ns | 1,214.29 ns | 0.0191 |    1600 B |
-| GetSubnetRangeIPv6BigInteger | 10     | 2,398.87 ns |  80.279 ns |  4.400 ns | 2,395.36 ns | 2,403.81 ns | 0.0496 |    4320 B |
-| GetSubnetRangeIPv6Shift      | 10     |   428.16 ns |  55.207 ns |  3.026 ns |   425.27 ns |   431.31 ns | 0.0191 |    1600 B |
-| GetSubnetRangeIPv4BigInteger | 10     | 1,424.06 ns |  94.320 ns |  5.170 ns | 1,418.56 ns | 1,428.82 ns | 0.0248 |    2080 B |
-| GetSubnetRangeIPv4Shift      | 10     |   396.59 ns |  21.396 ns |  1.173 ns |   395.24 ns |   397.37 ns | 0.0210 |    1760 B |
+| **GetNthSubnetIPv6**             | **1**      |   **513.13 ns** |  **26.596 ns** |  **1.458 ns** |   **512.08 ns** |   **514.79 ns** | **0.0076** |     **696 B** |
+| GetNthSubnetIPv4             | 1      |   113.14 ns |   3.263 ns |  0.179 ns |   113.03 ns |   113.35 ns | 0.0019 |     160 B |
+| GetSubnetRangeIPv6BigInteger | 1      |   229.71 ns |  14.421 ns |  0.790 ns |   228.82 ns |   230.35 ns | 0.0050 |     432 B |
+| GetSubnetRangeIPv6Shift      | 1      |    42.06 ns |   3.521 ns |  0.193 ns |    41.91 ns |    42.27 ns | 0.0019 |     160 B |
+| GetSubnetRangeIPv4BigInteger | 1      |   145.47 ns |   2.635 ns |  0.144 ns |   145.33 ns |   145.62 ns | 0.0024 |     208 B |
+| GetSubnetRangeIPv4Shift      | 1      |    39.22 ns |   2.614 ns |  0.143 ns |    39.05 ns |    39.32 ns | 0.0021 |     176 B |
+| **GetNthSubnetIPv6**             | **10**     | **5,275.93 ns** | **915.475 ns** | **50.180 ns** | **5,238.89 ns** | **5,333.04 ns** | **0.0839** |    **7336 B** |
+| GetNthSubnetIPv4             | 10     | 1,188.63 ns | 483.520 ns | 26.503 ns | 1,158.04 ns | 1,204.52 ns | 0.0191 |    1600 B |
+| GetSubnetRangeIPv6BigInteger | 10     | 2,410.95 ns |  92.005 ns |  5.043 ns | 2,406.81 ns | 2,416.57 ns | 0.0496 |    4320 B |
+| GetSubnetRangeIPv6Shift      | 10     |   422.79 ns |  32.906 ns |  1.804 ns |   421.00 ns |   424.61 ns | 0.0191 |    1600 B |
+| GetSubnetRangeIPv4BigInteger | 10     | 1,517.45 ns |  28.488 ns |  1.562 ns | 1,516.30 ns | 1,519.23 ns | 0.0248 |    2080 B |
+| GetSubnetRangeIPv4Shift      | 10     |   396.93 ns |  25.979 ns |  1.424 ns |   395.83 ns |   398.54 ns | 0.0210 |    1760 B |
