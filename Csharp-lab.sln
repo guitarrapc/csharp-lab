@@ -48,7 +48,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_SolutionItems", "_SolutionItems", "{8107F6D9-86E5-4B25-B00F-F50FE22614CA}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		compose.yaml = compose.yaml
 		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
 		src\Nuget.Analyzer.props = src\Nuget.Analyzer.props
 	EndProjectSection
 EndProject
@@ -106,7 +108,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcService", "src\Grpc\Grp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcServiceHealthCheck", "src\Grpc\GrpcServiceHealthCheck\GrpcServiceHealthCheck.csproj", "{317BAE55-38F7-4971-85FC-4AA958FA859C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWasmAotApp", "src\Blazor\BlazorWasmAotApp\BlazorWasmAotApp.csproj", "{0C937C22-D792-4C7E-BAC1-EF83ADB66E26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWasmAotApp", "src\Blazor\BlazorWasmAotApp\BlazorWasmAotApp.csproj", "{0C937C22-D792-4C7E-BAC1-EF83ADB66E26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
