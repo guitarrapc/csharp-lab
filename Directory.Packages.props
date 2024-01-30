@@ -1,0 +1,70 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="ConsoleAppFramework" Version="4.2.4" />
+    <PackageVersion Include="IPNetwork2" Version="3.0.648" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.1" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.1" PrivateAssets="all" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.ObjectPool" Version="8.0.1" />
+    <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageVersion Include="ZLogger" Version="2.1.0" />
+    <!-- Benchmark -->
+    <PackageVersion Include="BenchmarkDotNet" Version="0.13.12" />
+    <!-- Database -->
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Analyzers" Version="8.0.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageVersion>
+    <PackageVersion Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.1" />
+    <!-- Redis -->
+    <PackageVersion Include="StackExchange.Redis" Version="2.7.17" />
+    <!-- gRPC -->
+    <PackageVersion Include="Google.Protobuf" Version="3.21.2" />
+    <PackageVersion Include="Grpc.AspNetCore" Version="2.60.0" />
+    <PackageVersion Include="Grpc.AspNetCore.HealthChecks" Version="2.60.0" />
+    <PackageVersion Include="Grpc.AspNetCore.Server.Reflection" Version="2.60.0" />
+    <PackageVersion Include="Grpc.Net.Client" Version="2.60.0" />
+    <PackageVersion Include="Grpc.Tools" Version="2.60.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageVersion>
+    <!-- SourceGenerator -->
+    <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageVersion>
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" />
+    <!-- SourceGenerator Test -->
+    <PackageVersion Include="Microsoft.CodeAnalysis.Common" Version="4.8.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.SourceGenerators.Testing.XUnit" Version="1.1.1" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.8.0" />
+    <!-- Test -->
+    <PackageVersion Include="FluentAssertions" Version="6.12.0" />
+    <PackageVersion Include="GitHubActionsTestLogger" Version="2.3.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageVersion>
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageVersion Include="xRetry" Version="1.9.0" />
+    <PackageVersion Include="xunit" Version="2.6.5" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.6">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageVersion>
+    <PackageVersion Include="coverlet.collector" Version="3.2.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageVersion>
+
+  </ItemGroup>
+</Project>

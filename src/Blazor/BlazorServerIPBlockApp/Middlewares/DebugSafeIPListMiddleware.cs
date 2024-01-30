@@ -1,4 +1,5 @@
-extern alias IPNetwork2; // see: https://github.com/lduchosal/ipnetwork/issues/280
+using System.Net;
+
 namespace BlazorServerIPBlockApp.Middlewares;
 
 public class DebugSafeIPListMiddleware
@@ -7,7 +8,7 @@ public class DebugSafeIPListMiddleware
     private readonly ILogger<DebugSafeIPListMiddleware> _logger;
     private readonly bool _enabled;
     private readonly IReadOnlyList<string> _allowedPath;
-    private readonly IPNetwork2.System.Net.IPNetwork[] _ipNetworks;
+    private readonly IPNetwork2[] _ipNetworks;
 
     public DebugSafeIPListMiddleware(RequestDelegate next, ILogger<DebugSafeIPListMiddleware> logger, DebugSafeIPOption option)
     {
@@ -18,7 +19,7 @@ public class DebugSafeIPListMiddleware
         if (!option.Enabled)
         {
             _allowedPath = Array.Empty<string>();
-            _ipNetworks = Array.Empty<IPNetwork2.System.Net.IPNetwork>();
+            _ipNetworks = Array.Empty<IPNetwork2>();
         }
         else
         {
@@ -26,15 +27,15 @@ public class DebugSafeIPListMiddleware
 
             if (option.IpNetworks is null)
             {
-                _ipNetworks = Array.Empty<IPNetwork2.System.Net.IPNetwork>();
+                _ipNetworks = Array.Empty<IPNetwork2>();
             }
             else
             {
                 var ipNetworks = option.IpNetworks;
-                _ipNetworks = new IPNetwork2.System.Net.IPNetwork[ipNetworks.Length];
+                _ipNetworks = new IPNetwork2[ipNetworks.Length];
                 for (var i = 0; i < _ipNetworks.Length; i++)
                 {
-                    if (IPNetwork2.System.Net.IPNetwork.TryParse(ipNetworks[i], out var ip))
+                    if (IPNetwork2.TryParse(ipNetworks[i], out var ip))
                     {
                         _ipNetworks[i] = ip;
                     }
