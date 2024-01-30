@@ -33,7 +33,7 @@ public class FakeLogger : ILogger
         _logLevel = logLevel;
     }
 
-    public IDisposable BeginScope<TState>(TState state)
+    public IDisposable? BeginScope<TState>(TState state) where TState : notnull
     {
         return NullDisposable.Instance;
     }

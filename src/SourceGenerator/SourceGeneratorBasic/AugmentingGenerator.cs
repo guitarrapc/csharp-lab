@@ -21,7 +21,7 @@ public class AugmentingGenerator : ISourceGenerator
 
     public void Execute(GeneratorExecutionContext context)
     {
-        if (!(context.SyntaxReceiver is MySyntaxReciever syntaxReciever))
+        if (context.SyntaxReceiver is not MySyntaxReciever syntaxReciever)
             return;
 
         // get the recorded user class

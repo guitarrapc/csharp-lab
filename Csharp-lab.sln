@@ -48,7 +48,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_SolutionItems", "_SolutionItems", "{8107F6D9-86E5-4B25-B00F-F50FE22614CA}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		compose.yaml = compose.yaml
 		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
 		src\Nuget.Analyzer.props = src\Nuget.Analyzer.props
 	EndProjectSection
 EndProject
@@ -88,8 +90,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic.Tests", "src\Logic\Lo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logger.Benchmark", "src\Logger\Logger.Benchmark\Logger.Benchmark.csproj", "{74016C58-4AC6-4374-B866-C53E5A094CCB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic.SandboxConsoleApp", "src\Logic\Logic.SandboxConsoleApp\Logic.SandboxConsoleApp.csproj", "{90263CE2-B9AF-42B9-9874-4665CBB09817}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MemoryLeak", "MemoryLeak", "{EFFE7670-AD3D-4CE5-9407-397CB134899A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemoryLeak.Core", "src\MemoryLeak\MemoryLeak.Core\MemoryLeak.Core.csproj", "{56CABF42-272C-49FD-821C-ECA39855BE93}"
@@ -106,7 +106,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcService", "src\Grpc\Grp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcServiceHealthCheck", "src\Grpc\GrpcServiceHealthCheck\GrpcServiceHealthCheck.csproj", "{317BAE55-38F7-4971-85FC-4AA958FA859C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWasmAotApp", "src\Blazor\BlazorWasmAotApp\BlazorWasmAotApp.csproj", "{0C937C22-D792-4C7E-BAC1-EF83ADB66E26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWasmAotApp", "src\Blazor\BlazorWasmAotApp\BlazorWasmAotApp.csproj", "{0C937C22-D792-4C7E-BAC1-EF83ADB66E26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -230,10 +230,6 @@ Global
 		{74016C58-4AC6-4374-B866-C53E5A094CCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74016C58-4AC6-4374-B866-C53E5A094CCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74016C58-4AC6-4374-B866-C53E5A094CCB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{90263CE2-B9AF-42B9-9874-4665CBB09817}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{90263CE2-B9AF-42B9-9874-4665CBB09817}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{90263CE2-B9AF-42B9-9874-4665CBB09817}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{90263CE2-B9AF-42B9-9874-4665CBB09817}.Release|Any CPU.Build.0 = Release|Any CPU
 		{56CABF42-272C-49FD-821C-ECA39855BE93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{56CABF42-272C-49FD-821C-ECA39855BE93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56CABF42-272C-49FD-821C-ECA39855BE93}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -300,7 +296,6 @@ Global
 		{78FD41B2-26B5-4A9E-A492-FB58E8583842} = {0778B89C-4D53-468D-AB7A-C05D04238C05}
 		{443680F6-148A-47C5-9AB8-6E1AC6E54D22} = {0778B89C-4D53-468D-AB7A-C05D04238C05}
 		{74016C58-4AC6-4374-B866-C53E5A094CCB} = {A60DE0A8-D3F7-4BCF-B5C6-A59D03E99151}
-		{90263CE2-B9AF-42B9-9874-4665CBB09817} = {0778B89C-4D53-468D-AB7A-C05D04238C05}
 		{56CABF42-272C-49FD-821C-ECA39855BE93} = {EFFE7670-AD3D-4CE5-9407-397CB134899A}
 		{FA98EC1C-1D70-43F3-B2FF-AFED8F33BA6E} = {EFFE7670-AD3D-4CE5-9407-397CB134899A}
 		{85505632-4B91-419B-A6D2-4DC3E83718C8} = {EFFE7670-AD3D-4CE5-9407-397CB134899A}
