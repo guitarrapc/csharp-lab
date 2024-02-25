@@ -1,6 +1,6 @@
 ```
 
-BenchmarkDotNet v0.13.12, Ubuntu 22.04.3 LTS (Jammy Jellyfish)
+BenchmarkDotNet v0.13.12, Ubuntu 22.04.4 LTS (Jammy Jellyfish)
 AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
 .NET SDK 8.0.201
   [Host]   : .NET 8.0.2 (8.0.224.6711), X64 RyuJIT AVX2
@@ -10,9 +10,9 @@ Job=ShortRun  IterationCount=3  LaunchCount=1
 WarmupCount=3  
 
 ```
-| Method             | Number | Mean        | Error     | StdDev   | Min         | Max         | Gen0   | Allocated |
-|------------------- |------- |------------:|----------:|---------:|------------:|------------:|-------:|----------:|
-| **StringSplitNoAlloc** | **1**      |    **837.0 ns** |  **30.34 ns** |  **1.66 ns** |    **835.2 ns** |    **838.4 ns** |      **-** |         **-** |
-| StringSplit        | 1      |  1,458.5 ns | 164.17 ns |  9.00 ns |  1,448.1 ns |  1,463.9 ns | 0.0381 |    3208 B |
-| **StringSplitNoAlloc** | **10**     |  **8,791.8 ns** | **141.72 ns** |  **7.77 ns** |  **8,783.0 ns** |  **8,797.7 ns** |      **-** |         **-** |
-| StringSplit        | 10     | 14,869.6 ns | 716.45 ns | 39.27 ns | 14,829.6 ns | 14,908.1 ns | 0.3815 |   32080 B |
+| Method             | Number | Mean        | Error       | StdDev   | Min         | Max         | Gen0   | Allocated |
+|------------------- |------- |------------:|------------:|---------:|------------:|------------:|-------:|----------:|
+| **StringSplitNoAlloc** | **1**      |    **834.8 ns** |    **25.53 ns** |  **1.40 ns** |    **833.2 ns** |    **835.9 ns** |      **-** |         **-** |
+| StringSplit        | 1      |  1,494.2 ns |    38.61 ns |  2.12 ns |  1,492.5 ns |  1,496.6 ns | 0.0381 |    3208 B |
+| **StringSplitNoAlloc** | **10**     |  **8,342.5 ns** |   **139.63 ns** |  **7.65 ns** |  **8,334.0 ns** |  **8,348.9 ns** |      **-** |         **-** |
+| StringSplit        | 10     | 14,833.7 ns | 1,194.93 ns | 65.50 ns | 14,786.3 ns | 14,908.4 ns | 0.3815 |   32080 B |

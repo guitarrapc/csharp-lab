@@ -1,6 +1,6 @@
 ```
 
-BenchmarkDotNet v0.13.12, Ubuntu 22.04.3 LTS (Jammy Jellyfish)
+BenchmarkDotNet v0.13.12, Ubuntu 22.04.4 LTS (Jammy Jellyfish)
 AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
 .NET SDK 8.0.201
   [Host]   : .NET 8.0.2 (8.0.224.6711), X64 RyuJIT AVX2
@@ -12,11 +12,11 @@ WarmupCount=3
 ```
 | Method                       | Number | Mean      | Error      | StdDev   | Min       | Max       | Gen0   | Allocated |
 |----------------------------- |------- |----------:|-----------:|---------:|----------:|----------:|-------:|----------:|
-| **ToBinaryArrayInt**             | **1**      |  **18.07 ns** |   **6.092 ns** | **0.334 ns** |  **17.73 ns** |  **18.40 ns** | **0.0004** |      **32 B** |
-| ToBinaryArrayConvertToString | 1      |  66.46 ns |   2.342 ns | 0.128 ns |  66.33 ns |  66.59 ns | 0.0011 |      96 B |
-| ToBinaryArrayIntMod          | 1      |  20.52 ns |   8.530 ns | 0.468 ns |  20.04 ns |  20.97 ns | 0.0004 |      32 B |
-| ToBinaryArrayIntModNumber    | 1      |  10.91 ns |   3.482 ns | 0.191 ns |  10.80 ns |  11.13 ns | 0.0004 |      32 B |
-| **ToBinaryArrayInt**             | **10**     | **187.65 ns** | **125.023 ns** | **6.853 ns** | **182.18 ns** | **195.34 ns** | **0.0038** |     **320 B** |
-| ToBinaryArrayConvertToString | 10     | 718.32 ns |  44.876 ns | 2.460 ns | 716.59 ns | 721.13 ns | 0.0114 |    1024 B |
-| ToBinaryArrayIntMod          | 10     | 218.94 ns | 105.042 ns | 5.758 ns | 212.81 ns | 224.24 ns | 0.0038 |     320 B |
-| ToBinaryArrayIntModNumber    | 10     | 149.44 ns |  51.217 ns | 2.807 ns | 147.12 ns | 152.56 ns | 0.0038 |     320 B |
+| **ToBinaryArrayInt**             | **1**      |  **18.03 ns** |   **8.218 ns** | **0.450 ns** |  **17.53 ns** |  **18.40 ns** | **0.0004** |      **32 B** |
+| ToBinaryArrayConvertToString | 1      |  67.58 ns |   9.796 ns | 0.537 ns |  67.26 ns |  68.20 ns | 0.0011 |      96 B |
+| ToBinaryArrayIntMod          | 1      |  20.46 ns |   3.539 ns | 0.194 ns |  20.34 ns |  20.69 ns | 0.0004 |      32 B |
+| ToBinaryArrayIntModNumber    | 1      |  11.32 ns |   3.837 ns | 0.210 ns |  11.15 ns |  11.56 ns | 0.0004 |      32 B |
+| **ToBinaryArrayInt**             | **10**     | **190.71 ns** | **181.053 ns** | **9.924 ns** | **179.85 ns** | **199.31 ns** | **0.0038** |     **320 B** |
+| ToBinaryArrayConvertToString | 10     | 708.56 ns |  59.587 ns | 3.266 ns | 704.97 ns | 711.35 ns | 0.0114 |    1024 B |
+| ToBinaryArrayIntMod          | 10     | 224.60 ns |  27.372 ns | 1.500 ns | 222.87 ns | 225.53 ns | 0.0038 |     320 B |
+| ToBinaryArrayIntModNumber    | 10     | 151.71 ns |   6.554 ns | 0.359 ns | 151.50 ns | 152.13 ns | 0.0038 |     320 B |
