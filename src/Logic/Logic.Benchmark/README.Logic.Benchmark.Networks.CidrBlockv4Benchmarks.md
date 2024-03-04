@@ -12,11 +12,11 @@ WarmupCount=3
 ```
 | Method             | Number | Mean        | Error      | StdDev    | Min         | Max         | Allocated |
 |------------------- |------- |------------:|-----------:|----------:|------------:|------------:|----------:|
-| **NewFromCidrString**  | **1**      |  **68.8324 ns** |  **1.4564 ns** | **0.0798 ns** |  **68.7490 ns** |  **68.9081 ns** |         **-** |
+| **NewFromCidrString**  | **1**      |  **60.1647 ns** |  **3.7728 ns** | **0.2068 ns** |  **59.9592 ns** |  **60.3728 ns** |         **-** |
 | NewFromCirBytes    | 1      |   0.0000 ns |  0.0000 ns | 0.0000 ns |   0.0000 ns |   0.0000 ns |         - |
-| TryParseCidrString | 1      |  76.8971 ns |  3.3685 ns | 0.1846 ns |  76.6912 ns |  77.0480 ns |         - |
-| TryParseCidrBytes  | 1      |   3.0434 ns |  0.2773 ns | 0.0152 ns |   3.0338 ns |   3.0609 ns |         - |
-| **NewFromCidrString**  | **10**     | **661.1394 ns** | **42.8389 ns** | **2.3481 ns** | **659.3114 ns** | **663.7877 ns** |         **-** |
-| NewFromCirBytes    | 10     |   3.3225 ns |  0.2656 ns | 0.0146 ns |   3.3057 ns |   3.3310 ns |         - |
-| TryParseCidrString | 10     | 700.6579 ns |  7.2236 ns | 0.3960 ns | 700.3200 ns | 701.0936 ns |         - |
-| TryParseCidrBytes  | 10     |  28.5152 ns |  1.4325 ns | 0.0785 ns |  28.4675 ns |  28.6058 ns |         - |
+| TryParseCidrString | 1      |  68.4836 ns |  1.7201 ns | 0.0943 ns |  68.3929 ns |  68.5811 ns |         - |
+| TryParseCidrBytes  | 1      |   2.8283 ns |  0.1687 ns | 0.0092 ns |   2.8181 ns |   2.8361 ns |         - |
+| **NewFromCidrString**  | **10**     | **609.7847 ns** | **72.2310 ns** | **3.9592 ns** | **607.2539 ns** | **614.3473 ns** |         **-** |
+| NewFromCirBytes    | 10     |   3.1012 ns |  0.5241 ns | 0.0287 ns |   3.0773 ns |   3.1331 ns |         - |
+| TryParseCidrString | 10     | 652.7137 ns | 26.8439 ns | 1.4714 ns | 651.6847 ns | 654.3990 ns |         - |
+| TryParseCidrBytes  | 10     |  26.7508 ns |  2.2448 ns | 0.1230 ns |  26.6515 ns |  26.8885 ns |         - |
