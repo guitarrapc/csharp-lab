@@ -7,7 +7,7 @@ namespace Logic.Benchmark;
 [MinColumn, MaxColumn]
 public class ValueTaskDelayBenchmarks
 {
-    [Params(1, 3)] // 100 is too many
+    [Params(1)] // 100 is too many
     public int Number { get; set; }
 
     [Benchmark]

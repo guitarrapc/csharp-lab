@@ -7,7 +7,7 @@ namespace Logic.Benchmark;
 [MinColumn, MaxColumn]
 public class StopwatchBenchmarks
 {
-    [Params(1, 10)] // 1000 is too many
+    [Params(1, 3)] // 1000 is too many
     public int Number { get; set; }
 
     [Benchmark]

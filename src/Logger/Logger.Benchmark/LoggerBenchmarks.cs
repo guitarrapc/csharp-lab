@@ -16,7 +16,7 @@ public class LoggerBenchmarks
     private readonly ILogger<LoggerBenchmarks> _logger;
     private readonly ILoggerAdapter<LoggerBenchmarks> _loggerAdapter;
 
-    [Params(1, 10, 100)]
+    [Params(1, 3)]
     public int Number { get; set; }
 
     public LoggerBenchmarks()
