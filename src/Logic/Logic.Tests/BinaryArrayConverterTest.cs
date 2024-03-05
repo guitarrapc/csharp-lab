@@ -1,4 +1,4 @@
-namespace Logic.Tests;
+namespace Logic.Core.Tests;
 
 public class BinaryArrayConverterTest
 {

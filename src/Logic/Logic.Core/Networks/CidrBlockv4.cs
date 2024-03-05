@@ -1,4 +1,4 @@
-namespace Logic.Networks;
+namespace Logic.Core.Networks;
 
 /// <summary>
 /// Create CidrBlock for IPv4

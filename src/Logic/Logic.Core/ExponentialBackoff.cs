@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace Logic;
+namespace Logic.Core;
 
 public class ExponentialBackoff(int delayMilliseconds, int maxDelayMilliseconds)
 {

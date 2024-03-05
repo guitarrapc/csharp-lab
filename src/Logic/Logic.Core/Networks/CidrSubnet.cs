@@ -2,7 +2,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Numerics;
 
-namespace Logic.Networks;
+namespace Logic.Core.Networks;
 
 // # Subnet Range formula:
 // * start address = Network & mask

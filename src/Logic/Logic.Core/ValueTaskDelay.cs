@@ -1,7 +1,7 @@
 using Microsoft.Extensions.ObjectPool;
 using System.Threading.Tasks.Sources;
 
-namespace NonAllocs.Core;
+namespace Logic.Core;
 
 // inspired: https://gist.github.com/itn3000/9ba6671c1b590ecf999404d964ad8839
 public static class ValueTaskExtension

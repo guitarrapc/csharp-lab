@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace Logic.Networks;
+namespace Logic.Core.Networks;
 
 /// <summary>
 /// Create Subnetmask for CIDR, IPAddress, Notion.

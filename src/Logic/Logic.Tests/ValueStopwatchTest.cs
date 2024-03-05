@@ -1,8 +1,8 @@
-using NonAllocs.Core;
+using Logic.Core;
 using System.Diagnostics;
 using xRetry;
 
-namespace NonAllocs.Tests;
+namespace Logic.Tests;
 
 public class ValueStopwatchTest
 {

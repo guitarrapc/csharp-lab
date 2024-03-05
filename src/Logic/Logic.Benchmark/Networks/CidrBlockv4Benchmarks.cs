@@ -1,5 +1,5 @@
 using BenchmarkDotNet.Attributes;
-using Logic.Networks;
+using Logic.Core.Networks;
 
 namespace Logic.Benchmark.Networks;
 

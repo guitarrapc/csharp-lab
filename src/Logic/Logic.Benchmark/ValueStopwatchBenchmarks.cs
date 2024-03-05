@@ -1,6 +1,6 @@
 using BenchmarkDotNet.Attributes;
 
-namespace NonAllocs.Benchmark;
+namespace Logic.Benchmark;
 
 [ShortRunJob]
 [MemoryDiagnoser]
@@ -23,7 +23,7 @@ public class ValueStopwatchBenchmarks
     [Benchmark]
     public void ValueStopwatch()
     {
-        var sw = NonAllocs.Core.ValueStopwatch.StartNew();
+        var sw = Logic.Core.ValueStopwatch.StartNew();
         for (var i = 0; i < Number; i++)
         {
             _ = sw.GetElapsedTime().TotalSeconds;
