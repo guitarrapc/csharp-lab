@@ -32,6 +32,8 @@ jobs:
             path: src/Logic
           - project: MemoryLeak.Benchmark
             path: src/MemoryLeak
+          - project: Serialization.Benchmark
+            path: src/Serialization
           - project: Strings.Benchmark
             path: src/Strings
     runs-on: ubuntu-latest

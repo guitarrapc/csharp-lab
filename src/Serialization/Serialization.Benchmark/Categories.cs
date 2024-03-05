@@ -2,6 +2,8 @@ namespace Serialization.Benchmark;
 
 public class Categories
 {
-    public const string Serialize = "Serialize";
-    public const string Deserialize = "Deserialize";
+    public const string Complex = "Complex";
+    public const string Simple = "Simple";
+    public const string Primitives = "Primitives";
+    public const string Nest = "Nest";
 }
