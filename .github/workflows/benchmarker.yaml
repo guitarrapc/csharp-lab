@@ -35,6 +35,9 @@ jobs:
           - project: MemoryLeak.Benchmark
             csproj: MemoryLeak.Benchmark.csproj
             path: src/MemoryLeak/MemoryLeak.Benchmark
+          - project: Strings.Benchmark
+            csproj: Strings.Benchmark.csproj
+            path: src/Strings/Strings.Benchmark
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:

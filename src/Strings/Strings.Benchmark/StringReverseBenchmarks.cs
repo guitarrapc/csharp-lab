@@ -1,6 +1,7 @@
 using BenchmarkDotNet.Attributes;
+using Strings.Core;
 
-namespace Logic.Benchmark;
+namespace Strings.Benchmark;
 
 [ShortRunJob]
 [MemoryDiagnoser]
@@ -26,7 +27,7 @@ public class StringReverseBenchmarks
     {
         for (var i = 0; i < Number; i++)
         {
-            _stringReverse.ArrayReverse(_source!);
+            StringReverse.ArrayReverse(_source!);
         }
     }
 
@@ -35,7 +36,7 @@ public class StringReverseBenchmarks
     {
         for (var i = 0; i < Number; i++)
         {
-            _stringReverse.EnumerableReverse(_source!);
+            StringReverse.EnumerableReverse(_source!);
         }
     }
 
@@ -44,7 +45,7 @@ public class StringReverseBenchmarks
     {
         for (var i = 0; i < Number; i++)
         {
-            _stringReverse.RecursiveReverse(_source!);
+            StringReverse.RecursiveReverse(_source!);
         }
     }
 
@@ -53,7 +54,7 @@ public class StringReverseBenchmarks
     {
         for (var i = 0; i < Number; i++)
         {
-            _stringReverse.ReverseXor(_source!);
+            StringReverse.ReverseXor(_source!);
         }
     }
 
@@ -62,7 +63,7 @@ public class StringReverseBenchmarks
     {
         for (var i = 0; i < Number; i++)
         {
-            _stringReverse.StackReverse(_source!);
+            StringReverse.StackReverse(_source!);
         }
     }
 
@@ -71,7 +72,7 @@ public class StringReverseBenchmarks
     {
         for (var i = 0; i < Number; i++)
         {
-            _stringReverse.StringSpan(_source!);
+            StringReverse.StringSpan(_source!);
         }
     }
 
@@ -80,7 +81,7 @@ public class StringReverseBenchmarks
     {
         for (var i = 0; i < Number; i++)
         {
-            _stringReverse.StringExtensionReverse(_source!);
+            StringReverse.StringExtensionReverse(_source!);
         }
     }
 }

@@ -1,4 +1,4 @@
-namespace Logic;
+namespace Strings.Core;
 
 public static class StringExtensions
 {
@@ -26,17 +26,10 @@ public static class StringExtensions
     }
 
     // Must be a ref struct as it contains a ReadOnlySpan<char>
-    public ref struct SplitEnumerator
+    public ref struct SplitEnumerator(ReadOnlySpan<char> str, char separator)
     {
-        private readonly char _separator;
-        private ReadOnlySpan<char> _str;
-
-        public SplitEnumerator(ReadOnlySpan<char> str, char separator)
-        {
-            _separator = separator;
-            _str = str;
-            Current = default;
-        }
+        private readonly char _separator = separator;
+        private ReadOnlySpan<char> _str = str;
 
         // Needed to be compatible with the foreach operator
         public SplitEnumerator GetEnumerator() => this;
@@ -50,8 +43,8 @@ public static class StringExtensions
             var index = span.IndexOf(_separator);
             if (index == -1) // The string is composed of only one line
             {
-                _str = ReadOnlySpan<char>.Empty; // The remaining string is an empty string
-                Current = new SplitEntry(span, ReadOnlySpan<char>.Empty);
+                _str = []; // The remaining string is an empty string
+                Current = new SplitEntry(span, []);
                 return true;
             }
 
@@ -60,19 +53,13 @@ public static class StringExtensions
             return true;
         }
 
-        public SplitEntry Current { get; private set; }
+        public SplitEntry Current { get; private set; } = default;
     }
 
-    public readonly ref struct SplitEntry
+    public readonly ref struct SplitEntry(ReadOnlySpan<char> word, ReadOnlySpan<char> separator)
     {
-        public SplitEntry(ReadOnlySpan<char> word, ReadOnlySpan<char> separator)
-        {
-            Word = word;
-            Separator = separator;
-        }
-
-        public ReadOnlySpan<char> Word { get; }
-        public ReadOnlySpan<char> Separator { get; }
+        public ReadOnlySpan<char> Word { get; } = word;
+        public ReadOnlySpan<char> Separator { get; } = separator;
 
         // This method allow to deconstruct the type, so you can write any of the following code
         // foreach (var entry in str.SplitNoAlloc()) { _ = entry.Line; }

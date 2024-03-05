@@ -1,6 +1,6 @@
 using BenchmarkDotNet.Running;
 
-var summary = BenchmarkRunner.Run(typeof(Program).Assembly);
+BenchmarkRunner.Run(typeof(Program).Assembly);
 
 //BenchmarkRunner.Run<Logic.Benchmark.BinaryArrayConverterBenchmarks>();
 //BenchmarkRunner.Run<Logic.Benchmark.ExponentialBackoffBenchmarks>();

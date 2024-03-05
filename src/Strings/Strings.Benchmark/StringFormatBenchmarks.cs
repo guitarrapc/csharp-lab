@@ -1,6 +1,7 @@
 using BenchmarkDotNet.Attributes;
+using Strings.Core;
 
-namespace Logic.Benchmark;
+namespace Strings.Benchmark;
 
 [ShortRunJob]
 [MemoryDiagnoser]

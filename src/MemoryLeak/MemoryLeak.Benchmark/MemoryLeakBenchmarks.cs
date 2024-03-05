@@ -20,10 +20,7 @@ public class MemoryLeakBenchmarks : IDisposable
     }
 
     [GlobalCleanup]
-    public void Dispose()
-    {
-        _allocator.Dispose();
-    }
+    public void Dispose() => _allocator.Dispose();
 
     [Benchmark]
     public void AllocateStringStatic()
@@ -109,7 +106,7 @@ public class NoAllocMemoryLeakBenchmarks
     public NoAllocMemoryLeakBenchmarks()
     {
         _allocator = new MemoryAllocator();
-        _returnRentBags = new List<byte[]>();
+        _returnRentBags = [];
     }
 
     [Benchmark]

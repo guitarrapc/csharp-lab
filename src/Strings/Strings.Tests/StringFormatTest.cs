@@ -1,4 +1,6 @@
-namespace Logic.Tests;
+using Strings.Core;
+
+namespace Strings.Tests;
 
 public class StringFormatTest
 {
