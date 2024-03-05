@@ -1,4 +1,4 @@
-namespace Strings.Core;
+namespace NonAllocs.Core;
 
 public static class StringExtensions
 {

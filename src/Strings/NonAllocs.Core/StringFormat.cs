@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Text;
 
-namespace Strings.Core;
+namespace NonAllocs.Core;
 
 public class StringFormat
 {

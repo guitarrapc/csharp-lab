@@ -12,6 +12,7 @@ public class SerializeBenchmark
     {
     }
 
+    [Benchmark]
     public void SystemTextJsonSourceGen()
     {
     }

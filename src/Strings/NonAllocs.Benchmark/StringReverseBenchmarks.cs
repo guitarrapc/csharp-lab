@@ -1,7 +1,7 @@
 using BenchmarkDotNet.Attributes;
-using Strings.Core;
+using NonAllocs.Core;
 
-namespace Strings.Benchmark;
+namespace NonAllocs.Benchmark;
 
 [ShortRunJob]
 [MemoryDiagnoser]
@@ -14,7 +14,6 @@ public class StringReverseBenchmarks
     public int Number { get; set; }
 
     private string? _source;
-    private readonly StringReverse _stringReverse = new();
 
     [IterationSetup]
     public void IterationSetup()

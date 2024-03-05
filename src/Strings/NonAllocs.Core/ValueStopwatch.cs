@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace Logic;
+namespace NonAllocs.Core;
 
 // idea from: https://github.com/dotnet/runtime/blob/26b6e4ea97a627ab800362b2c10f32ebecea041d/src/libraries/Common/src/Extensions/ValueStopwatch/ValueStopwatch.cs
 public readonly struct ValueStopwatch

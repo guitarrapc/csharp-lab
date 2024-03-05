@@ -1,6 +1,6 @@
-using Strings.Core;
+using NonAllocs.Core;
 
-namespace Strings.Tests;
+namespace NonAllocs.Tests;
 
 public class StringSplitTest
 {

@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Strings.Core\Strings.Core.csproj" />
+    <ProjectReference Include="..\NonAllocs.Core\NonAllocs.Core.csproj" />
   </ItemGroup>
 
 </Project>
