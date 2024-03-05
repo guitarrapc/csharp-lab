@@ -1,6 +1,7 @@
 using BenchmarkDotNet.Attributes;
+using NonAllocs.Core;
 
-namespace Logic.Benchmark;
+namespace NonAllocs.Benchmark;
 
 [ShortRunJob]
 [MemoryDiagnoser]
@@ -13,7 +14,6 @@ public class StringReverseBenchmarks
     public int Number { get; set; }
 
     private string? _source;
-    private readonly StringReverse _stringReverse = new();
 
     [IterationSetup]
     public void IterationSetup()
@@ -26,7 +26,7 @@ public class StringReverseBenchmarks
     {
         for (var i = 0; i < Number; i++)
         {
-            _stringReverse.ArrayReverse(_source!);
+            StringReverse.ArrayReverse(_source!);
         }
     }
 
@@ -35,7 +35,7 @@ public class StringReverseBenchmarks
     {
         for (var i = 0; i < Number; i++)
         {
-            _stringReverse.EnumerableReverse(_source!);
+            StringReverse.EnumerableReverse(_source!);
         }
     }
 
@@ -44,7 +44,7 @@ public class StringReverseBenchmarks
     {
         for (var i = 0; i < Number; i++)
         {
-            _stringReverse.RecursiveReverse(_source!);
+            StringReverse.RecursiveReverse(_source!);
         }
     }
 
@@ -53,7 +53,7 @@ public class StringReverseBenchmarks
     {
         for (var i = 0; i < Number; i++)
         {
-            _stringReverse.ReverseXor(_source!);
+            StringReverse.ReverseXor(_source!);
         }
     }
 
@@ -62,7 +62,7 @@ public class StringReverseBenchmarks
     {
         for (var i = 0; i < Number; i++)
         {
-            _stringReverse.StackReverse(_source!);
+            StringReverse.StackReverse(_source!);
         }
     }
 
@@ -71,7 +71,7 @@ public class StringReverseBenchmarks
     {
         for (var i = 0; i < Number; i++)
         {
-            _stringReverse.StringSpan(_source!);
+            StringReverse.StringSpan(_source!);
         }
     }
 
@@ -80,7 +80,7 @@ public class StringReverseBenchmarks
     {
         for (var i = 0; i < Number; i++)
         {
-            _stringReverse.StringExtensionReverse(_source!);
+            StringReverse.StringExtensionReverse(_source!);
         }
     }
 }

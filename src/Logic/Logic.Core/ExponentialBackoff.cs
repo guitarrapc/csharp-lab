@@ -1,22 +1,14 @@
 using System.Diagnostics;
 
-namespace Logic;
+namespace Logic.Core;
 
-public class ExponentialBackoff
+public class ExponentialBackoff(int delayMilliseconds, int maxDelayMilliseconds)
 {
-    private readonly int _delayMilliseconds;
-    private readonly int _maxDelayMilliseconds;
+    private readonly int _delayMilliseconds = delayMilliseconds;
+    private readonly int _maxDelayMilliseconds = maxDelayMilliseconds;
     public int Retries => _retries;
-    private int _retries;
-    private int _pow;
-
-    public ExponentialBackoff(int delayMilliseconds, int maxDelayMilliseconds)
-    {
-        _delayMilliseconds = delayMilliseconds;
-        _maxDelayMilliseconds = maxDelayMilliseconds;
-        _retries = 0;
-        _pow = 0;
-    }
+    private int _retries = 0;
+    private int _pow = 0;
 
     public async ValueTask DelayAsync(CancellationToken ct = default)
     {

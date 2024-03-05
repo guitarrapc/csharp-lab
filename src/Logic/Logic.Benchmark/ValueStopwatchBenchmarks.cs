@@ -5,7 +5,7 @@ namespace Logic.Benchmark;
 [ShortRunJob]
 [MemoryDiagnoser]
 [MinColumn, MaxColumn]
-public class StopwatchBenchmarks
+public class ValueStopwatchBenchmarks
 {
     [Params(1, 3)] // 1000 is too many
     public int Number { get; set; }
@@ -23,7 +23,7 @@ public class StopwatchBenchmarks
     [Benchmark]
     public void ValueStopwatch()
     {
-        var sw = Logic.ValueStopwatch.StartNew();
+        var sw = Logic.Core.ValueStopwatch.StartNew();
         for (var i = 0; i < Number; i++)
         {
             _ = sw.GetElapsedTime().TotalSeconds;

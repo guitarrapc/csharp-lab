@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Text;
 
-namespace Logic;
+namespace NonAllocs.Core;
 
 // inspire from https://code-maze.com/csharp-reverse-string/
 public class StringReverse
@@ -11,7 +11,7 @@ public class StringReverse
     /// </summary>
     /// <param name="text"></param>
     /// <returns></returns>
-    public string ArrayReverse(string text)
+    public static string ArrayReverse(string text)
     {
         var charArray = text.ToCharArray();
         Array.Reverse(charArray);
@@ -24,7 +24,7 @@ public class StringReverse
     /// </summary>
     /// <param name="text"></param>
     /// <returns></returns>
-    public string EnumerableReverse(string text)
+    public static string EnumerableReverse(string text)
     {
         return string.Concat(Enumerable.Reverse(text));
     }
@@ -35,7 +35,7 @@ public class StringReverse
     /// </summary>
     /// <param name="text"></param>
     /// <returns></returns>
-    public string RecursiveReverse(string text)
+    public static string RecursiveReverse(string text)
     {
         if (text.Length <= 1)
             return text;
@@ -49,7 +49,7 @@ public class StringReverse
     /// </summary>
     /// <param name="text"></param>
     /// <returns></returns>
-    public string ReverseXor(string text)
+    public static string ReverseXor(string text)
     {
         var charArray = text.ToCharArray();
         var len = text.Length - 1;
@@ -70,7 +70,7 @@ public class StringReverse
     /// </summary>
     /// <param name="text"></param>
     /// <returns></returns>
-    public string StackReverse(string text)
+    public static string StackReverse(string text)
     {
         var resultStack = new Stack<char>();
         foreach (char c in text)
@@ -93,7 +93,7 @@ public class StringReverse
     /// </summary>
     /// <param name="text"></param>
     /// <returns></returns>
-    public string StringSpan(string text)
+    public static string StringSpan(string text)
     {
         return string.Create(text.Length, text, (chars, state) =>
         {
@@ -108,7 +108,7 @@ public class StringReverse
     /// </summary>
     /// <param name="text"></param>
     /// <returns></returns>
-    public string StringExtensionReverse(string text)
+    public static string StringExtensionReverse(string text)
     {
         return new string(text.Reverse().ToArray());
     }
@@ -119,7 +119,7 @@ public class StringReverse
     /// </summary>
     /// <param name="text"></param>
     /// <returns></returns>
-    public string TextElementEnumerator(string text)
+    public static string TextElementEnumerator(string text)
     {
         return string.Create(text.Length, text, (chars, val) =>
         {

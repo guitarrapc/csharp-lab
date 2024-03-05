@@ -27,14 +27,13 @@ jobs:
       matrix:
         include:
           - project: Logger.Benchmark
-            csproj: Logger.Benchmark.csproj
-            path: src/Logger/Logger.Benchmark
+            path: src/Logger
           - project: Logic.Benchmark
-            csproj: Logic.Benchmark.csproj
-            path: src/Logic/Logic.Benchmark
+            path: src/Logic
           - project: MemoryLeak.Benchmark
-            csproj: MemoryLeak.Benchmark.csproj
-            path: src/MemoryLeak/MemoryLeak.Benchmark
+            path: src/MemoryLeak
+          - project: Strings.Benchmark
+            path: src/Strings
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -54,15 +53,15 @@ jobs:
           dotnet-version: |
             8.0.x
       - name: dotnet build
-        run: dotnet build ./${{ matrix.path}}/${{ matrix.csproj }} -c ${{ env.BUILD_CONFIG }}
+        run: dotnet build ./${{ matrix.path }}/${{ matrix.project }}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
       - name: Run benchmark
         if: ${{ steps.cpu.outputs.execute == 1 }}
         run: |
-          dotnet run --project ./${{ matrix.path}}/${{ matrix.csproj }} -c ${{ env.BUILD_CONFIG }}
-          mkdir -p ${{ env.TEMP_UPLOAD_PATH }}/${{ matrix.path}}
+          dotnet run --project ./${{ matrix.path }}/${{ matrix.project }}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
+          mkdir -p ${{ env.TEMP_UPLOAD_PATH }}/${{ matrix.path }}/${{ matrix.project }}
           while read -r file; do
             bench_name=$(echo "$file" | cut -d '/' -f 4 | cut -d '-' -f 1)
-            output_path="${{ env.TEMP_UPLOAD_PATH }}/${{ matrix.path }}/${bench_name}.md"
+            output_path="${{ env.TEMP_UPLOAD_PATH }}/${{ matrix.path }}/${{ matrix.project }}/${bench_name}.md"
 
             echo "Write '$bench_name' in '$file' to GITHUB_STEP_SUMMARY"
             echo "## $bench_name" >> "$GITHUB_STEP_SUMMARY"
@@ -71,7 +70,7 @@ jobs:
 
             echo "Write '$file' to outputs"
             cat "$file" > "$output_path"
-            echo "${{ matrix.path }}/README.${bench_name}.md" | tee "${output_path}.path"
+            echo "${{ matrix.path }}/${{ matrix.project }}/README.${bench_name}.md" | tee "${output_path}.path"
           done <<< "$(find "./BenchmarkDotNet.Artifacts/results" -name "*.md" -type f)"
       - name: Skip benchmark
         if: ${{ steps.cpu.outputs.execute == 0 }}

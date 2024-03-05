@@ -1,6 +1,7 @@
 using BenchmarkDotNet.Attributes;
+using NonAllocs.Core;
 
-namespace Logic.Benchmark;
+namespace NonAllocs.Benchmark;
 
 [ShortRunJob]
 [MemoryDiagnoser]

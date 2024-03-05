@@ -1,4 +1,6 @@
-namespace Logic.Tests;
+using NonAllocs.Core;
+
+namespace NonAllocs.Tests;
 
 public class StringSplitTest
 {

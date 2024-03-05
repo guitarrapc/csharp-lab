@@ -1,4 +1,5 @@
 using BenchmarkDotNet.Attributes;
+using Logic.Core;
 
 namespace Logic.Benchmark;
 

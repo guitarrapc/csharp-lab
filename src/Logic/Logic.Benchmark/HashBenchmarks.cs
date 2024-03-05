@@ -9,6 +9,7 @@ namespace Logic.Benchmark;
 [ShortRunJob]
 [MemoryDiagnoser]
 [MinColumn, MaxColumn]
+[CategoriesColumn]
 public class HashBenchmarks
 {
     public static IEnumerable<byte[]> TestBinaryData()
@@ -22,7 +23,6 @@ public class HashBenchmarks
     }
 
     [Benchmark]
-    [DisplayNameAttribute("MD5")]
     [ArgumentsSource(nameof(TestBinaryData))]
     [Category(HashCategories.Binary)]
     public void MD5Binary(byte[] data)
@@ -31,7 +31,6 @@ public class HashBenchmarks
     }
 
     [Benchmark]
-    [DisplayNameAttribute("MD5")]
     [ArgumentsSource(nameof(TestStringData))]
     [Category(HashCategories.String)]
     public void MD5String(string data)
@@ -40,7 +39,6 @@ public class HashBenchmarks
     }
 
     [Benchmark]
-    [DisplayNameAttribute("SHA1")]
     [ArgumentsSource(nameof(TestBinaryData))]
     [Category(HashCategories.Binary)]
     public void SHA1Binary(byte[] data)
@@ -49,7 +47,6 @@ public class HashBenchmarks
     }
 
     [Benchmark]
-    [DisplayNameAttribute("SHA1")]
     [ArgumentsSource(nameof(TestStringData))]
     [Category(HashCategories.String)]
     public void SHA1String(string data)
@@ -58,7 +55,6 @@ public class HashBenchmarks
     }
 
     [Benchmark]
-    [DisplayNameAttribute("SHA256")]
     [ArgumentsSource(nameof(TestBinaryData))]
     [Category(HashCategories.Binary)]
     public void SHA256Binary(byte[] data)
@@ -67,7 +63,6 @@ public class HashBenchmarks
     }
 
     [Benchmark]
-    [DisplayNameAttribute("SHA256")]
     [ArgumentsSource(nameof(TestStringData))]
     [Category(HashCategories.String)]
     public void SHA256String(string data)
@@ -76,7 +71,6 @@ public class HashBenchmarks
     }
 
     [Benchmark]
-    [DisplayNameAttribute("SHA512")]
     [ArgumentsSource(nameof(TestBinaryData))]
     [Category(HashCategories.Binary)]
     public void SHA512Binary(byte[] data)
@@ -85,7 +79,6 @@ public class HashBenchmarks
     }
 
     [Benchmark]
-    [DisplayNameAttribute("SHA512")]
     [ArgumentsSource(nameof(TestStringData))]
     [Category(HashCategories.String)]
     public void SHA512String(string data)
@@ -94,7 +87,6 @@ public class HashBenchmarks
     }
 
     [Benchmark]
-    [DisplayNameAttribute("XxHash32")]
     [ArgumentsSource(nameof(TestBinaryData))]
     [Category(HashCategories.Binary)]
     public void XxHash32Binary(byte[] data)
@@ -103,7 +95,6 @@ public class HashBenchmarks
     }
 
     [Benchmark]
-    [DisplayNameAttribute("XxHash32")]
     [ArgumentsSource(nameof(TestStringData))]
     [Category(HashCategories.String)]
     public void XxHash32String(string data)
@@ -112,7 +103,6 @@ public class HashBenchmarks
     }
 
     [Benchmark]
-    [DisplayNameAttribute("XxHash64")]
     [ArgumentsSource(nameof(TestBinaryData))]
     [Category(HashCategories.Binary)]
     public void XxHash64Binary(byte[] data)
@@ -121,7 +111,6 @@ public class HashBenchmarks
     }
 
     [Benchmark]
-    [DisplayNameAttribute("XxHash64")]
     [ArgumentsSource(nameof(TestStringData))]
     [Category(HashCategories.String)]
     public void XxHash64String(string data)
@@ -130,7 +119,6 @@ public class HashBenchmarks
     }
 
     [Benchmark]
-    [DisplayNameAttribute("XxHash128")]
     [ArgumentsSource(nameof(TestBinaryData))]
     [Category(HashCategories.Binary)]
     public void XxHash128Binary(byte[] data)
@@ -139,7 +127,6 @@ public class HashBenchmarks
     }
 
     [Benchmark]
-    [DisplayNameAttribute("XxHash128")]
     [ArgumentsSource(nameof(TestStringData))]
     [Category(HashCategories.String)]
     public void XxHash128String(string data)
