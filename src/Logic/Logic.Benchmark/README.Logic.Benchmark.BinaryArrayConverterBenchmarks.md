@@ -10,13 +10,13 @@ Job=ShortRun  IterationCount=3  LaunchCount=1
 WarmupCount=3  
 
 ```
-| Method                       | Number | Mean      | Error      | StdDev   | Min       | Max       | Gen0   | Allocated |
-|----------------------------- |------- |----------:|-----------:|---------:|----------:|----------:|-------:|----------:|
-| **ToBinaryArrayInt**             | **1**      |  **18.78 ns** |   **3.958 ns** | **0.217 ns** |  **18.59 ns** |  **19.02 ns** | **0.0004** |      **32 B** |
-| ToBinaryArrayConvertToString | 1      |  69.39 ns |  48.585 ns | 2.663 ns |  67.21 ns |  72.36 ns | 0.0011 |      96 B |
-| ToBinaryArrayIntMod          | 1      |  20.58 ns |   4.005 ns | 0.220 ns |  20.34 ns |  20.77 ns | 0.0004 |      32 B |
-| ToBinaryArrayIntModNumber    | 1      |  10.85 ns |   0.827 ns | 0.045 ns |  10.82 ns |  10.90 ns | 0.0004 |      32 B |
-| **ToBinaryArrayInt**             | **10**     | **198.04 ns** |  **81.479 ns** | **4.466 ns** | **193.07 ns** | **201.71 ns** | **0.0038** |     **320 B** |
-| ToBinaryArrayConvertToString | 10     | 694.97 ns |  30.875 ns | 1.692 ns | 693.23 ns | 696.61 ns | 0.0114 |    1024 B |
-| ToBinaryArrayIntMod          | 10     | 223.24 ns |  46.291 ns | 2.537 ns | 221.65 ns | 226.17 ns | 0.0038 |     320 B |
-| ToBinaryArrayIntModNumber    | 10     | 146.29 ns | 148.047 ns | 8.115 ns | 141.17 ns | 155.64 ns | 0.0038 |     320 B |
+| Method                       | Number | Mean      | Error     | StdDev   | Min       | Max       | Gen0   | Allocated |
+|----------------------------- |------- |----------:|----------:|---------:|----------:|----------:|-------:|----------:|
+| **ToBinaryArrayInt**             | **1**      |  **18.64 ns** |  **1.338 ns** | **0.073 ns** |  **18.59 ns** |  **18.72 ns** | **0.0004** |      **32 B** |
+| ToBinaryArrayConvertToString | 1      |  65.38 ns |  8.063 ns | 0.442 ns |  64.97 ns |  65.85 ns | 0.0011 |      96 B |
+| ToBinaryArrayIntMod          | 1      |  20.30 ns |  1.586 ns | 0.087 ns |  20.20 ns |  20.35 ns | 0.0004 |      32 B |
+| ToBinaryArrayIntModNumber    | 1      |  10.90 ns |  2.593 ns | 0.142 ns |  10.81 ns |  11.07 ns | 0.0004 |      32 B |
+| **ToBinaryArrayInt**             | **3**      |  **55.08 ns** | **28.176 ns** | **1.544 ns** |  **53.42 ns** |  **56.46 ns** | **0.0011** |      **96 B** |
+| ToBinaryArrayConvertToString | 3      | 197.72 ns |  3.534 ns | 0.194 ns | 197.50 ns | 197.85 ns | 0.0033 |     296 B |
+| ToBinaryArrayIntMod          | 3      |  62.73 ns | 12.339 ns | 0.676 ns |  62.24 ns |  63.50 ns | 0.0011 |      96 B |
+| ToBinaryArrayIntModNumber    | 3      |  37.62 ns |  7.838 ns | 0.430 ns |  37.13 ns |  37.95 ns | 0.0011 |      96 B |

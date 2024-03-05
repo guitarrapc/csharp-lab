@@ -10,9 +10,7 @@ Job=ShortRun  IterationCount=3  LaunchCount=1
 WarmupCount=3  
 
 ```
-| Method             | Number | Mean        | Error     | StdDev   | Min         | Max         | Gen0   | Allocated |
-|------------------- |------- |------------:|----------:|---------:|------------:|------------:|-------:|----------:|
-| **StringSplitNoAlloc** | **1**      |    **838.2 ns** |   **0.93 ns** |  **0.05 ns** |    **838.1 ns** |    **838.2 ns** |      **-** |         **-** |
-| StringSplit        | 1      |  1,475.8 ns | 819.80 ns | 44.94 ns |  1,449.5 ns |  1,527.7 ns | 0.0381 |    3208 B |
-| **StringSplitNoAlloc** | **10**     |  **8,419.0 ns** | **285.19 ns** | **15.63 ns** |  **8,401.6 ns** |  **8,431.8 ns** |      **-** |         **-** |
-| StringSplit        | 10     | 14,550.4 ns | 962.19 ns | 52.74 ns | 14,493.3 ns | 14,597.3 ns | 0.3815 |   32080 B |
+| Method             | Number | Mean       | Error     | StdDev   | Min        | Max        | Gen0   | Allocated |
+|------------------- |------- |-----------:|----------:|---------:|-----------:|-----------:|-------:|----------:|
+| StringSplitNoAlloc | 1      |   888.1 ns |  22.81 ns |  1.25 ns |   886.7 ns |   889.2 ns |      - |         - |
+| StringSplit        | 1      | 1,517.8 ns | 199.60 ns | 10.94 ns | 1,511.5 ns | 1,530.4 ns | 0.0381 |    3208 B |
