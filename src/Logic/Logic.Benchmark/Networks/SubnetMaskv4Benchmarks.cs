@@ -13,7 +13,7 @@ public class SubnetMaskv4Benchmarks
     private static readonly SubnetMaskv4 _networkAddress = SubnetMaskv4.GetNetworkAddress(_cidr.Address, _cidr.Subnet);
     private readonly IPAddress _ipaddress = IPAddress.Parse("10.0.0.0");
 
-    [Params(1, 10)]
+    [Params(1, 3)]
     public int Number { get; set; }
 
     [Benchmark]

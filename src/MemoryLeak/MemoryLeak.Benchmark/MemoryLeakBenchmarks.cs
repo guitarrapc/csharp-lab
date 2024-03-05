@@ -9,7 +9,7 @@ namespace MemoryLeak.Benchmark;
 [MinColumn, MaxColumn]
 public class MemoryLeakBenchmarks : IDisposable
 {
-    [Params(1, 10)]
+    [Params(1, 3)]
     public int Number { get; set; }
 
     private readonly MemoryAllocator _allocator;

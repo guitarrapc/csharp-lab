@@ -12,7 +12,7 @@ public class CidrSubnetBenchmarks
     private readonly IPAddress ipv6Address = IPAddress.Parse("2001:0db8:0001:0000:0000:0ab9:C0A8:0102");
     private readonly IPAddress ipv4Address = IPAddress.Parse("192.168.10.100");
 
-    [Params(1, 10)]
+    [Params(1, 3)]
     public int Number { get; set; }
 
     // GetNthSubnet
