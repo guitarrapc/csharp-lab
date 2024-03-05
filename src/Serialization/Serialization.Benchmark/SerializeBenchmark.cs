@@ -22,7 +22,7 @@ public class SerializeBenchmark : BenchmarkBase
     [Benchmark]
     [ArgumentsSource(nameof(TestComplexData))]
     [Category(Categories.Complex)]
-    public void SystemTextJsonSourceGenComplex(HyperClass data)
+    public void SystemTextJsonComplexSourceGen(HyperClass data)
     {
         _ = JsonSerializer.Serialize(data, SourceGenerationJsonSerializerContext.Default.HyperClass);
     }
@@ -38,7 +38,7 @@ public class SerializeBenchmark : BenchmarkBase
     [Benchmark]
     [ArgumentsSource(nameof(TestSimpleData))]
     [Category(Categories.Simple)]
-    public void SystemTextJsonSourceGenSimple(MyClass data)
+    public void SystemTextJsonSimpleSourceGen(MyClass data)
     {
         _ = JsonSerializer.Serialize(data, SourceGenerationJsonSerializerContext.Default.MyClass);
     }
@@ -46,31 +46,31 @@ public class SerializeBenchmark : BenchmarkBase
     [Benchmark]
     [ArgumentsSource(nameof(TestPrimitivesData))]
     [Category(Categories.Primitives)]
-    public void SystemTextJsonSimplePrimitives(Primitives data)
+    public void SystemTextJsonPrimitives(Primitives data)
     {
         _ = JsonSerializer.Serialize(data);
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(TestPrimitivesData))]
-    [Category(Categories.Complex)]
-    public void SystemTextJsonSourceGenPrimitives(Primitives data)
+    [Category(Categories.Primitives)]
+    public void SystemTextJsonPrimitivesSourceGen(Primitives data)
     {
         _ = JsonSerializer.Serialize(data, SourceGenerationJsonSerializerContext.Default.Primitives);
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(TestNestData))]
-    [Category(Categories.Primitives)]
-    public void SystemTextJsonSimpleNest(NestClass data)
+    [Category(Categories.Nest)]
+    public void SystemTextJsonNest(NestClass data)
     {
         _ = JsonSerializer.Serialize(data);
     }
 
     [Benchmark]
     [ArgumentsSource(nameof(TestNestData))]
-    [Category(Categories.Complex)]
-    public void SystemTextJsonSourceGenNest(NestClass data)
+    [Category(Categories.Nest)]
+    public void SystemTextJsonNestSourceGen(NestClass data)
     {
         _ = JsonSerializer.Serialize(data, SourceGenerationJsonSerializerContext.Default.NestClass);
     }

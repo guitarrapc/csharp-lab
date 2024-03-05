@@ -13,7 +13,7 @@ public class DeserializeBenchmark : BenchmarkBase
     [Benchmark]
     [ArgumentsSource(nameof(TestComplexJson))]
     [Category(Categories.Complex)]
-    public void SystemTextJson(string json)
+    public void SystemTextJsonComplex(string json)
     {
         _ = JsonSerializer.Deserialize<HyperClass>(json);
     }
@@ -21,7 +21,7 @@ public class DeserializeBenchmark : BenchmarkBase
     [Benchmark]
     [ArgumentsSource(nameof(TestComplexJson))]
     [Category(Categories.Complex)]
-    public void SystemTextJsonSourceGen(string json)
+    public void SystemTextJsonComplexSourceGen(string json)
     {
         _ = JsonSerializer.Deserialize(json, SourceGenerationJsonSerializerContext.Default.HyperClass);
     }
@@ -37,7 +37,7 @@ public class DeserializeBenchmark : BenchmarkBase
     [Benchmark]
     [ArgumentsSource(nameof(TestSimpleJson))]
     [Category(Categories.Simple)]
-    public void SystemTextJsonSourceGenSimple(string json)
+    public void SystemTextJsonSimpleSourceGen(string json)
     {
         _ = JsonSerializer.Deserialize(json, SourceGenerationJsonSerializerContext.Default.MyClass);
     }
@@ -45,7 +45,7 @@ public class DeserializeBenchmark : BenchmarkBase
     [Benchmark]
     [ArgumentsSource(nameof(TestPrimitivesJson))]
     [Category(Categories.Primitives)]
-    public void SystemTextJsonSimplePrimitives(string json)
+    public void SystemTextJsonPrimitives(string json)
     {
         _ = JsonSerializer.Deserialize<Primitives>(json);
     }
@@ -53,7 +53,7 @@ public class DeserializeBenchmark : BenchmarkBase
     [Benchmark]
     [ArgumentsSource(nameof(TestPrimitivesJson))]
     [Category(Categories.Primitives)]
-    public void SystemTextJsonSourceGenPrimitives(string json)
+    public void SystemTextJsonPrimitivesSourceGen(string json)
     {
         _ = JsonSerializer.Deserialize(json, SourceGenerationJsonSerializerContext.Default.Primitives);
     }
@@ -61,7 +61,7 @@ public class DeserializeBenchmark : BenchmarkBase
     [Benchmark]
     [ArgumentsSource(nameof(TestNestJson))]
     [Category(Categories.Nest)]
-    public void SystemTextJsonSimpleNest(string json)
+    public void SystemTextJsonNest(string json)
     {
         _ = JsonSerializer.Deserialize<NestClass>(json);
     }
@@ -69,7 +69,7 @@ public class DeserializeBenchmark : BenchmarkBase
     [Benchmark]
     [ArgumentsSource(nameof(TestNestJson))]
     [Category(Categories.Nest)]
-    public void SystemTextJsonSourceGenNest(string json)
+    public void SystemTextJsonNestSourceGen(string json)
     {
         _ = JsonSerializer.Deserialize(json, SourceGenerationJsonSerializerContext.Default.NestClass);
     }
