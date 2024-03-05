@@ -7,7 +7,7 @@ namespace Logic.Benchmark;
 [MinColumn, MaxColumn]
 public class ExponentialBackoffBenchmarks
 {
-    [Params(1, 10)]
+    [Params(1, 3)]
     public int Number { get; set; }
 
     [Benchmark]
