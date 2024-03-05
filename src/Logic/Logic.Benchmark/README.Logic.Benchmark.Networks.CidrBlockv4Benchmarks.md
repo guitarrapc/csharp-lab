@@ -12,11 +12,11 @@ WarmupCount=3
 ```
 | Method             | Number | Mean        | Error      | StdDev    | Min         | Max         | Allocated |
 |------------------- |------- |------------:|-----------:|----------:|------------:|------------:|----------:|
-| **NewFromCidrString**  | **1**      |  **60.1647 ns** |  **3.7728 ns** | **0.2068 ns** |  **59.9592 ns** |  **60.3728 ns** |         **-** |
+| **NewFromCidrString**  | **1**      |  **65.3608 ns** |  **3.5652 ns** | **0.1954 ns** |  **65.2412 ns** |  **65.5863 ns** |         **-** |
 | NewFromCirBytes    | 1      |   0.0000 ns |  0.0000 ns | 0.0000 ns |   0.0000 ns |   0.0000 ns |         - |
-| TryParseCidrString | 1      |  68.4836 ns |  1.7201 ns | 0.0943 ns |  68.3929 ns |  68.5811 ns |         - |
-| TryParseCidrBytes  | 1      |   2.8283 ns |  0.1687 ns | 0.0092 ns |   2.8181 ns |   2.8361 ns |         - |
-| **NewFromCidrString**  | **10**     | **609.7847 ns** | **72.2310 ns** | **3.9592 ns** | **607.2539 ns** | **614.3473 ns** |         **-** |
-| NewFromCirBytes    | 10     |   3.1012 ns |  0.5241 ns | 0.0287 ns |   3.0773 ns |   3.1331 ns |         - |
-| TryParseCidrString | 10     | 652.7137 ns | 26.8439 ns | 1.4714 ns | 651.6847 ns | 654.3990 ns |         - |
-| TryParseCidrBytes  | 10     |  26.7508 ns |  2.2448 ns | 0.1230 ns |  26.6515 ns |  26.8885 ns |         - |
+| TryParseCidrString | 1      |  73.5441 ns |  2.7054 ns | 0.1483 ns |  73.4534 ns |  73.7153 ns |         - |
+| TryParseCidrBytes  | 1      |   3.0453 ns |  0.2028 ns | 0.0111 ns |   3.0352 ns |   3.0572 ns |         - |
+| **NewFromCidrString**  | **10**     | **666.1529 ns** |  **3.2518 ns** | **0.1782 ns** | **665.9482 ns** | **666.2738 ns** |         **-** |
+| NewFromCirBytes    | 10     |   3.3029 ns |  0.2658 ns | 0.0146 ns |   3.2932 ns |   3.3197 ns |         - |
+| TryParseCidrString | 10     | 697.3503 ns | 26.4859 ns | 1.4518 ns | 695.6983 ns | 698.4232 ns |         - |
+| TryParseCidrBytes  | 10     |  28.5622 ns |  1.7790 ns | 0.0975 ns |  28.4771 ns |  28.6686 ns |         - |
