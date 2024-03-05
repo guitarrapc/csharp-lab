@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.ObjectPool" />
+    <PackageReference Include="System.IO.Hashing" />
   </ItemGroup>
 
 </Project>
