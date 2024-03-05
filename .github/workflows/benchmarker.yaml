@@ -32,8 +32,8 @@ jobs:
             path: src/Logic
           - project: MemoryLeak.Benchmark
             path: src/MemoryLeak
-          - project: NonAllocs.Benchmark
-            path: src/NonAllocs
+          - project: Strings.Benchmark
+            path: src/Strings
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
