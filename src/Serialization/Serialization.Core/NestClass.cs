@@ -1,8 +1,8 @@
 namespace Serialization.Core;
 
-public class NestClass
+public partial class NestClass
 {
-    public class Inner
+    public partial class Inner
     {
         public int Int { get; set; }
         public double Double { get; set; }

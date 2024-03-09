@@ -1,5 +1,6 @@
 namespace Serialization.Core;
-public class Primitives
+
+public partial class Primitives
 {
     public short Short { get; set; }
     public int Int { get; set; }
