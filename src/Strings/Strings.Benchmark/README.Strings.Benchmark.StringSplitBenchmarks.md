@@ -10,7 +10,7 @@ Job=ShortRun  IterationCount=3  LaunchCount=1
 WarmupCount=3  
 
 ```
-| Method             | Number | Mean       | Error     | StdDev   | Min        | Max        | Gen0   | Allocated |
-|------------------- |------- |-----------:|----------:|---------:|-----------:|-----------:|-------:|----------:|
-| StringSplitNoAlloc | 1      |   888.1 ns |  22.81 ns |  1.25 ns |   886.7 ns |   889.2 ns |      - |         - |
-| StringSplit        | 1      | 1,517.8 ns | 199.60 ns | 10.94 ns | 1,511.5 ns | 1,530.4 ns | 0.0381 |    3208 B |
+| Method             | Number | Mean       | Error    | StdDev  | Min        | Max        | Gen0   | Allocated |
+|------------------- |------- |-----------:|---------:|--------:|-----------:|-----------:|-------:|----------:|
+| StringSplitNoAlloc | 1      |   873.3 ns | 10.40 ns | 0.57 ns |   872.7 ns |   873.9 ns |      - |         - |
+| StringSplit        | 1      | 1,501.1 ns | 89.26 ns | 4.89 ns | 1,495.5 ns | 1,504.2 ns | 0.0381 |    3208 B |
