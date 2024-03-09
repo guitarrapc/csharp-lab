@@ -25,4 +25,6 @@ public class DeserializeNestBenchmark : BenchmarkBase
     {
         _ = JsonSerializer.Deserialize(json, SourceGenerationJsonSerializerContext.Default.NestClass);
     }
+
+    // MemoryPack not support Nested Class
 }

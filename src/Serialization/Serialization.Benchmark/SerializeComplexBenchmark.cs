@@ -1,4 +1,5 @@
 using BenchmarkDotNet.Attributes;
+using MemoryPack;
 using Serialization.Core;
 using System.ComponentModel;
 using System.Text.Json;
@@ -25,5 +26,13 @@ public class SerializeComplexBenchmark : BenchmarkBase
     public void SystemTextJsonSourceGen(HyperClass data)
     {
         _ = JsonSerializer.Serialize(data, SourceGenerationJsonSerializerContext.Default.HyperClass);
+    }
+
+    [Benchmark]
+    [ArgumentsSource(nameof(TestComplexData))]
+    [Category(Categories.MemoryPack)]
+    public void MemoryPack(HyperClass data)
+    {
+        _ = MemoryPackSerializer.Serialize(data);
     }
 }
