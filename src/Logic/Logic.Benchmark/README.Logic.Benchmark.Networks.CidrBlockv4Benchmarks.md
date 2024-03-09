@@ -12,11 +12,11 @@ WarmupCount=3
 ```
 | Method             | Number | Mean        | Error      | StdDev    | Min         | Max         | Allocated |
 |------------------- |------- |------------:|-----------:|----------:|------------:|------------:|----------:|
-| **NewFromCidrString**  | **1**      |  **65.6135 ns** |  **1.7214 ns** | **0.0944 ns** |  **65.5364 ns** |  **65.7187 ns** |         **-** |
+| **NewFromCidrString**  | **1**      |  **64.8124 ns** |  **2.0998 ns** | **0.1151 ns** |  **64.7311 ns** |  **64.9441 ns** |         **-** |
 | NewFromCirBytes    | 1      |   0.0000 ns |  0.0000 ns | 0.0000 ns |   0.0000 ns |   0.0000 ns |         - |
-| TryParseCidrString | 1      |  75.1587 ns |  3.9556 ns | 0.2168 ns |  74.9102 ns |  75.3098 ns |         - |
-| TryParseCidrBytes  | 1      |   3.0399 ns |  0.1292 ns | 0.0071 ns |   3.0330 ns |   3.0472 ns |         - |
-| **NewFromCidrString**  | **3**      | **198.4174 ns** | **41.2160 ns** | **2.2592 ns** | **197.0141 ns** | **201.0236 ns** |         **-** |
-| NewFromCirBytes    | 3      |   0.3110 ns |  0.2319 ns | 0.0127 ns |   0.2980 ns |   0.3234 ns |         - |
-| TryParseCidrString | 3      | 213.8018 ns | 57.0853 ns | 3.1290 ns | 211.6077 ns | 217.3848 ns |         - |
-| TryParseCidrBytes  | 3      |   9.4256 ns |  2.2492 ns | 0.1233 ns |   9.2871 ns |   9.5235 ns |         - |
+| TryParseCidrString | 1      |  73.4973 ns |  3.6555 ns | 0.2004 ns |  73.2665 ns |  73.6266 ns |         - |
+| TryParseCidrBytes  | 1      |   3.0410 ns |  0.2495 ns | 0.0137 ns |   3.0319 ns |   3.0567 ns |         - |
+| **NewFromCidrString**  | **3**      | **194.9742 ns** |  **7.0106 ns** | **0.3843 ns** | **194.5304 ns** | **195.1971 ns** |         **-** |
+| NewFromCirBytes    | 3      |   0.6055 ns |  0.1173 ns | 0.0064 ns |   0.6006 ns |   0.6128 ns |         - |
+| TryParseCidrString | 3      | 212.4154 ns | 38.1878 ns | 2.0932 ns | 211.0454 ns | 214.8249 ns |         - |
+| TryParseCidrBytes  | 3      |   9.2506 ns |  1.6192 ns | 0.0888 ns |   9.1876 ns |   9.3521 ns |         - |
