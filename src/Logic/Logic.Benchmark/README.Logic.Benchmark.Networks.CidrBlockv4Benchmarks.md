@@ -12,11 +12,11 @@ WarmupCount=3
 ```
 | Method             | Number | Mean        | Error      | StdDev    | Min         | Max         | Allocated |
 |------------------- |------- |------------:|-----------:|----------:|------------:|------------:|----------:|
-| **NewFromCidrString**  | **1**      |  **64.8124 ns** |  **2.0998 ns** | **0.1151 ns** |  **64.7311 ns** |  **64.9441 ns** |         **-** |
+| **NewFromCidrString**  | **1**      |  **65.5659 ns** |  **2.5564 ns** | **0.1401 ns** |  **65.4649 ns** |  **65.7259 ns** |         **-** |
 | NewFromCirBytes    | 1      |   0.0000 ns |  0.0000 ns | 0.0000 ns |   0.0000 ns |   0.0000 ns |         - |
-| TryParseCidrString | 1      |  73.4973 ns |  3.6555 ns | 0.2004 ns |  73.2665 ns |  73.6266 ns |         - |
-| TryParseCidrBytes  | 1      |   3.0410 ns |  0.2495 ns | 0.0137 ns |   3.0319 ns |   3.0567 ns |         - |
-| **NewFromCidrString**  | **3**      | **194.9742 ns** |  **7.0106 ns** | **0.3843 ns** | **194.5304 ns** | **195.1971 ns** |         **-** |
-| NewFromCirBytes    | 3      |   0.6055 ns |  0.1173 ns | 0.0064 ns |   0.6006 ns |   0.6128 ns |         - |
-| TryParseCidrString | 3      | 212.4154 ns | 38.1878 ns | 2.0932 ns | 211.0454 ns | 214.8249 ns |         - |
-| TryParseCidrBytes  | 3      |   9.2506 ns |  1.6192 ns | 0.0888 ns |   9.1876 ns |   9.3521 ns |         - |
+| TryParseCidrString | 1      |  76.8975 ns | 29.2189 ns | 1.6016 ns |  75.8216 ns |  78.7381 ns |         - |
+| TryParseCidrBytes  | 1      |   3.0339 ns |  0.0462 ns | 0.0025 ns |   3.0311 ns |   3.0360 ns |         - |
+| **NewFromCidrString**  | **3**      | **198.8249 ns** | **10.1147 ns** | **0.5544 ns** | **198.4172 ns** | **199.4562 ns** |         **-** |
+| NewFromCirBytes    | 3      |   0.6061 ns |  0.1489 ns | 0.0082 ns |   0.5994 ns |   0.6152 ns |         - |
+| TryParseCidrString | 3      | 212.0480 ns | 12.2918 ns | 0.6738 ns | 211.5930 ns | 212.8220 ns |         - |
+| TryParseCidrBytes  | 3      |   9.0913 ns |  1.3209 ns | 0.0724 ns |   9.0091 ns |   9.1458 ns |         - |

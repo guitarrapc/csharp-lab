@@ -10,7 +10,7 @@ Job=ShortRun  IterationCount=3  LaunchCount=1
 WarmupCount=3  
 
 ```
-| Method                  | json                | Mean     | Error    | StdDev  | Min      | Max      | Allocated |
-|------------------------ |-------------------- |---------:|---------:|--------:|---------:|---------:|----------:|
-| **SystemTextJson**          | **{&quot;Gn(...)&quot;:0} [182]** | **959.1 ns** | **77.21 ns** | **4.23 ns** | **955.6 ns** | **963.8 ns** |     **104 B** |
-| **SystemTextJsonSourceGen** | **{&quot;Gn(...)&quot;:0} [180]** | **944.0 ns** | **15.63 ns** | **0.86 ns** | **943.3 ns** | **944.9 ns** |     **104 B** |
+| Method                  | json                | Mean     | Error     | StdDev  | Min      | Max      | Gen0   | Allocated |
+|------------------------ |-------------------- |---------:|----------:|--------:|---------:|---------:|-------:|----------:|
+| **SystemTextJson**          | **{&quot;Gn(...)&quot;:1} [183]** | **963.3 ns** |   **2.57 ns** | **0.14 ns** | **963.1 ns** | **963.4 ns** |      **-** |     **104 B** |
+| **SystemTextJsonSourceGen** | **{&quot;Gn(...)&quot;:0} [181]** | **931.7 ns** | **166.35 ns** | **9.12 ns** | **925.8 ns** | **942.2 ns** | **0.0010** |     **104 B** |
