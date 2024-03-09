@@ -21,7 +21,7 @@ public partial class Primitives
         Int = (int)rnd.Next();
         Long = (short)rnd.Next();
         Byte = (byte)rnd.Next();
-        Char = (char)rnd.Next();
+        Char = (char)rnd.Next(0, 11840); // over 11840 includes CJK
         Float = (float)rnd.NextDouble();
         Double = rnd.NextDouble();
         Decimal = (decimal)rnd.NextDouble();
