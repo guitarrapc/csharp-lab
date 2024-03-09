@@ -1,4 +1,5 @@
 using BenchmarkDotNet.Attributes;
+using MemoryPack;
 using Serialization.Core;
 using System.ComponentModel;
 using System.Text.Json;
@@ -25,5 +26,13 @@ public class SerializePrimitivesBenchmark : BenchmarkBase
     public void SystemTextJsonSourceGen(Primitives data)
     {
         _ = JsonSerializer.Serialize(data, SourceGenerationJsonSerializerContext.Default.Primitives);
+    }
+
+    [Benchmark]
+    [ArgumentsSource(nameof(TestPrimitivesData))]
+    [Category(Categories.MemoryPack)]
+    public void MemoryPack(Primitives data)
+    {
+        _ = MemoryPackSerializer.Serialize(data);
     }
 }
