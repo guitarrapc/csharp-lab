@@ -2,16 +2,16 @@
 
 BenchmarkDotNet v0.13.12, Ubuntu 22.04.4 LTS (Jammy Jellyfish)
 AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
-.NET SDK 8.0.201
-  [Host]   : .NET 8.0.2 (8.0.224.6711), X64 RyuJIT AVX2
-  ShortRun : .NET 8.0.2 (8.0.224.6711), X64 RyuJIT AVX2
+.NET SDK 8.0.203
+  [Host]   : .NET 8.0.3 (8.0.324.11423), X64 RyuJIT AVX2
+  ShortRun : .NET 8.0.3 (8.0.324.11423), X64 RyuJIT AVX2
 
 Job=ShortRun  IterationCount=3  LaunchCount=1  
 WarmupCount=3  
 
 ```
-| Method                  | data     | json                | Mean      | Error      | StdDev   | Min       | Max       | Gen0   | Allocated |
-|------------------------ |--------- |-------------------- |----------:|-----------:|---------:|----------:|----------:|-------:|----------:|
-| **MemoryPack**              | **Byte[89]** | **?**                   |  **52.04 ns** |   **2.470 ns** | **0.135 ns** |  **51.89 ns** |  **52.16 ns** | **0.0012** |     **104 B** |
-| **SystemTextJson**          | **?**        | **{&quot;Gn(...)&quot;:0} [182]** | **980.42 ns** | **103.108 ns** | **5.652 ns** | **974.03 ns** | **984.76 ns** |      **-** |     **104 B** |
-| SystemTextJsonSourceGen | ?        | {&quot;Gn(...)&quot;:0} [182] | 952.19 ns |  69.729 ns | 3.822 ns | 947.79 ns | 954.68 ns |      - |     104 B |
+| Method                  | data     | json                | Mean      | Error      | StdDev    | Min       | Max         | Gen0   | Allocated |
+|------------------------ |--------- |-------------------- |----------:|-----------:|----------:|----------:|------------:|-------:|----------:|
+| **MemoryPack**              | **Byte[89]** | **?**                   |  **53.79 ns** |   **3.759 ns** |  **0.206 ns** |  **53.56 ns** |    **53.94 ns** | **0.0012** |     **104 B** |
+| **SystemTextJson**          | **?**        | **{&quot;Gn(...)&quot;:0} [182]** | **959.94 ns** |  **72.017 ns** |  **3.947 ns** | **957.00 ns** |   **964.43 ns** |      **-** |     **104 B** |
+| SystemTextJsonSourceGen | ?        | {&quot;Gn(...)&quot;:0} [182] | 987.94 ns | 582.314 ns | 31.919 ns | 965.96 ns | 1,024.55 ns |      - |     104 B |
