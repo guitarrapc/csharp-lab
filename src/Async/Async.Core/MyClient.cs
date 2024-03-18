@@ -13,22 +13,26 @@ public class MyClient(HttpClient httpClient)
     /// <exception cref="TimeoutException"></exception>
     public async Task<HttpResponseMessage> RequestAsync(HttpRequestMessage message, TimeSpan timeout, CancellationToken cancellationToken)
     {
+        // Create CancelltationToken to link Timeout and Cancel.
         using var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-        cts.CancelAfter(timeout);
+        cts.CancelAfter(timeout); // timeout handling
 
         try
         {
+            // Both Timeout and Cancel will cancel SendAsync, or it succeed if not cancel occur.
             var result = await httpClient.SendAsync(message, HttpCompletionOption.ResponseHeadersRead, cts.Token);
             return result;
         }
         catch (OperationCanceledException ex) when (ex.CancellationToken == cts.Token)
         {
+            // Cancel should swap linked CancellationToken to invokation CancellationToken, so that caller can identify your token is cause of cancellation.
             if (cancellationToken.IsCancellationRequested)
             {
                 throw new OperationCanceledException(ex.Message, ex, cancellationToken);
             }
             else
             {
+                // throw Timeout when CancellationToken is not canceld but OperationCanceledException occur.
                 throw new TimeoutException($"The request was canceled due to the configured Timeout of {timeout.TotalSeconds} seconds elapsing.", ex);
             }
 
