@@ -4,17 +4,17 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="ConsoleAppFramework" Version="4.2.4" />
-    <PackageVersion Include="IPNetwork2" Version="3.0.651" />
-    <PackageVersion Include="MemoryPack" Version="1.10.0" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.1" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.1" PrivateAssets="all" />
+    <PackageVersion Include="IPNetwork2" Version="3.0.667" />
+    <PackageVersion Include="MemoryPack" Version="1.20.2" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.3" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.3" PrivateAssets="all" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.ObjectPool" Version="8.0.2" />
+    <PackageVersion Include="Microsoft.Extensions.ObjectPool" Version="8.0.3" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageVersion Include="System.IO.Hashing" Version="8.0.0" />
-    <PackageVersion Include="ZLogger" Version="2.3.1" />
+    <PackageVersion Include="ZLogger" Version="2.4.1" />
     <!-- Benchmark -->
     <PackageVersion Include="BenchmarkDotNet" Version="0.13.12" />
     <!-- Database -->
@@ -25,18 +25,18 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageVersion>
-    <PackageVersion Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.1" />
-    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
+    <PackageVersion Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.3" />
     <!-- Redis -->
-    <PackageVersion Include="StackExchange.Redis" Version="2.7.17" />
+    <PackageVersion Include="StackExchange.Redis" Version="2.7.33" />
     <!-- gRPC -->
-    <PackageVersion Include="Google.Protobuf" Version="3.24.0" />
+    <PackageVersion Include="Google.Protobuf" Version="3.26.0" />
     <PackageVersion Include="Grpc.AspNetCore" Version="2.61.0" />
-    <PackageVersion Include="Grpc.AspNetCore.HealthChecks" Version="2.60.0" />
-    <PackageVersion Include="Grpc.AspNetCore.Server.Reflection" Version="2.60.0" />
+    <PackageVersion Include="Grpc.AspNetCore.HealthChecks" Version="2.61.0" />
+    <PackageVersion Include="Grpc.AspNetCore.Server.Reflection" Version="2.61.0" />
     <PackageVersion Include="Grpc.Net.Client" Version="2.61.0" />
-    <PackageVersion Include="Grpc.Tools" Version="2.61.0">
+    <PackageVersion Include="Grpc.Tools" Version="2.62.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageVersion>
@@ -63,7 +63,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageVersion>
-    <PackageVersion Include="coverlet.collector" Version="6.0.0">
+    <PackageVersion Include="coverlet.collector" Version="6.0.2">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageVersion>
