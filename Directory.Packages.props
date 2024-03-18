@@ -27,7 +27,7 @@
     </PackageVersion>
     <PackageVersion Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.1" />
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.3" />
     <!-- Redis -->
     <PackageVersion Include="StackExchange.Redis" Version="2.7.17" />
     <!-- gRPC -->
