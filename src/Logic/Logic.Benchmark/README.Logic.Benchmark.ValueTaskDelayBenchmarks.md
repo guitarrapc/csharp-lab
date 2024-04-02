@@ -12,5 +12,5 @@ WarmupCount=3
 ```
 | Method         | Number | Mean     | Error    | StdDev   | Min      | Max      | Allocated |
 |--------------- |------- |---------:|---------:|---------:|---------:|---------:|----------:|
-| TaskDelay      | 1      | 11.98 ms | 0.121 ms | 0.007 ms | 11.97 ms | 11.99 ms |     352 B |
-| ValueTaskDelay | 1      | 10.14 ms | 0.299 ms | 0.016 ms | 10.13 ms | 10.16 ms |     192 B |
+| TaskDelay      | 1      | 11.98 ms | 0.262 ms | 0.014 ms | 11.96 ms | 11.99 ms |     352 B |
+| ValueTaskDelay | 1      | 10.15 ms | 0.042 ms | 0.002 ms | 10.14 ms | 10.15 ms |     192 B |
