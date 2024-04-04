@@ -12,5 +12,5 @@ WarmupCount=3
 ```
 | Method                  | data                 | Mean     | Error     | StdDev    | Min      | Max      | Gen0   | Allocated |
 |------------------------ |--------------------- |---------:|----------:|----------:|---------:|---------:|-------:|----------:|
-| SystemTextJson          | Seria(...)Class [28] | 3.480 μs | 0.3416 μs | 0.0187 μs | 3.467 μs | 3.501 μs | 0.0229 |   2.07 KB |
-| SystemTextJsonSourceGen | Seria(...)Class [28] | 3.038 μs | 0.1894 μs | 0.0104 μs | 3.032 μs | 3.050 μs | 0.0267 |    2.2 KB |
+| SystemTextJson          | Seria(...)Class [28] | 3.790 μs | 0.1634 μs | 0.0090 μs | 3.780 μs | 3.798 μs | 0.0229 |   2.07 KB |
+| SystemTextJsonSourceGen | Seria(...)Class [28] | 3.072 μs | 0.2797 μs | 0.0153 μs | 3.059 μs | 3.089 μs | 0.0267 |    2.2 KB |
