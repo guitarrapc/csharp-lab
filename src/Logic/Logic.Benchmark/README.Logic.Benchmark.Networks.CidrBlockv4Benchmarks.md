@@ -12,11 +12,11 @@ WarmupCount=3
 ```
 | Method             | Number | Mean        | Error      | StdDev    | Min         | Max         | Allocated |
 |------------------- |------- |------------:|-----------:|----------:|------------:|------------:|----------:|
-| **NewFromCidrString**  | **1**      |  **65.0560 ns** |  **0.2387 ns** | **0.0131 ns** |  **65.0450 ns** |  **65.0705 ns** |         **-** |
+| **NewFromCidrString**  | **1**      |  **64.5682 ns** |  **3.6514 ns** | **0.2001 ns** |  **64.4140 ns** |  **64.7944 ns** |         **-** |
 | NewFromCirBytes    | 1      |   0.0000 ns |  0.0000 ns | 0.0000 ns |   0.0000 ns |   0.0000 ns |         - |
-| TryParseCidrString | 1      |  75.4435 ns |  1.7382 ns | 0.0953 ns |  75.3366 ns |  75.5195 ns |         - |
-| TryParseCidrBytes  | 1      |   3.0360 ns |  0.0915 ns | 0.0050 ns |   3.0322 ns |   3.0417 ns |         - |
-| **NewFromCidrString**  | **3**      | **197.2712 ns** |  **3.9309 ns** | **0.2155 ns** | **197.0224 ns** | **197.3961 ns** |         **-** |
-| NewFromCirBytes    | 3      |   0.5991 ns |  0.0233 ns | 0.0013 ns |   0.5976 ns |   0.6001 ns |         - |
-| TryParseCidrString | 3      | 213.3106 ns | 36.7273 ns | 2.0131 ns | 212.0381 ns | 215.6316 ns |         - |
-| TryParseCidrBytes  | 3      |   9.3455 ns |  1.3646 ns | 0.0748 ns |   9.2708 ns |   9.4204 ns |         - |
+| TryParseCidrString | 1      |  72.2624 ns |  5.7582 ns | 0.3156 ns |  71.8983 ns |  72.4597 ns |         - |
+| TryParseCidrBytes  | 1      |   2.9571 ns |  1.3069 ns | 0.0716 ns |   2.8748 ns |   3.0058 ns |         - |
+| **NewFromCidrString**  | **3**      | **197.1664 ns** | **15.4813 ns** | **0.8486 ns** | **196.2039 ns** | **197.8066 ns** |         **-** |
+| NewFromCirBytes    | 3      |   0.6039 ns |  0.0800 ns | 0.0044 ns |   0.6006 ns |   0.6089 ns |         - |
+| TryParseCidrString | 3      | 212.4572 ns |  5.0511 ns | 0.2769 ns | 212.1898 ns | 212.7427 ns |         - |
+| TryParseCidrBytes  | 3      |   9.2630 ns |  1.4000 ns | 0.0767 ns |   9.1750 ns |   9.3164 ns |         - |
