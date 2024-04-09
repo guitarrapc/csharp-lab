@@ -12,5 +12,5 @@ WarmupCount=3
 ```
 | Method             | Number | Mean       | Error     | StdDev   | Min        | Max        | Gen0   | Allocated |
 |------------------- |------- |-----------:|----------:|---------:|-----------:|-----------:|-------:|----------:|
-| StringSplitNoAlloc | 1      |   826.2 ns |  58.32 ns |  3.20 ns |   822.7 ns |   829.0 ns |      - |         - |
-| StringSplit        | 1      | 1,465.1 ns | 342.59 ns | 18.78 ns | 1,448.1 ns | 1,485.2 ns | 0.0381 |    3208 B |
+| StringSplitNoAlloc | 1      |   825.0 ns |  22.18 ns |  1.22 ns |   824.2 ns |   826.4 ns |      - |         - |
+| StringSplit        | 1      | 1,479.0 ns | 612.22 ns | 33.56 ns | 1,459.4 ns | 1,517.7 ns | 0.0381 |    3208 B |
