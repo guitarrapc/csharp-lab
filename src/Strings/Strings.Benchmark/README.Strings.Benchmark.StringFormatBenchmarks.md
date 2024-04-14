@@ -2,19 +2,19 @@
 
 BenchmarkDotNet v0.13.12, Ubuntu 22.04.4 LTS (Jammy Jellyfish)
 AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
-.NET SDK 8.0.203
-  [Host]   : .NET 8.0.3 (8.0.324.11423), X64 RyuJIT AVX2
-  ShortRun : .NET 8.0.3 (8.0.324.11423), X64 RyuJIT AVX2
+.NET SDK 8.0.204
+  [Host]   : .NET 8.0.4 (8.0.424.16909), X64 RyuJIT AVX2
+  ShortRun : .NET 8.0.4 (8.0.424.16909), X64 RyuJIT AVX2
 
 Job=ShortRun  InvocationCount=1  IterationCount=3  
 LaunchCount=1  UnrollFactor=1  WarmupCount=3  
 
 ```
-| Method             | Number | Mean      | Error      | StdDev     | Min       | Max       | Allocated |
-|------------------- |------- |----------:|-----------:|-----------:|----------:|----------:|----------:|
-| **CompositeFormat**    | **1**      |  **6.301 μs** |   **8.976 μs** |  **0.4920 μs** |  **6.006 μs** |  **6.869 μs** |     **872 B** |
-| StringFormat       | 1      |  6.081 μs |   1.441 μs |  0.0790 μs |  5.991 μs |  6.140 μs |     896 B |
-| InterpolatedFormat | 1      |  5.801 μs |   1.150 μs |  0.0630 μs |  5.751 μs |  5.872 μs |     872 B |
-| **CompositeFormat**    | **100**    | **39.307 μs** | **224.573 μs** | **12.3096 μs** | **32.130 μs** | **53.521 μs** |   **14336 B** |
-| StringFormat       | 100    | 37.257 μs | 133.027 μs |  7.2917 μs | 33.032 μs | 45.677 μs |   16736 B |
-| InterpolatedFormat | 100    | 34.525 μs | 123.627 μs |  6.7764 μs | 30.547 μs | 42.349 μs |   14336 B |
+| Method             | Number | Mean      | Error      | StdDev    | Min       | Max       | Allocated |
+|------------------- |------- |----------:|-----------:|----------:|----------:|----------:|----------:|
+| **CompositeFormat**    | **1**      |  **6.027 μs** |   **4.804 μs** | **0.2633 μs** |  **5.730 μs** |  **6.231 μs** |     **872 B** |
+| StringFormat       | 1      |  7.250 μs |   2.595 μs | 0.1422 μs |  7.153 μs |  7.413 μs |     896 B |
+| InterpolatedFormat | 1      |  6.428 μs |   5.701 μs | 0.3125 μs |  6.237 μs |  6.788 μs |     872 B |
+| **CompositeFormat**    | **100**    | **37.398 μs** | **158.561 μs** | **8.6913 μs** | **32.295 μs** | **47.434 μs** |   **14336 B** |
+| StringFormat       | 100    | 37.867 μs | 148.369 μs | 8.1326 μs | 33.072 μs | 47.257 μs |   16736 B |
+| InterpolatedFormat | 100    | 42.350 μs |  47.025 μs | 2.5776 μs | 40.506 μs | 45.295 μs |   14336 B |
