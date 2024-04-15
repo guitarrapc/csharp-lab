@@ -20,7 +20,7 @@
     <!-- Database -->
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.3" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.3" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Analyzers" Version="8.0.3" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Analyzers" Version="8.0.4" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
