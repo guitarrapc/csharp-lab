@@ -12,11 +12,11 @@ WarmupCount=3
 ```
 | Method             | Number | Mean        | Error      | StdDev    | Min         | Max         | Allocated |
 |------------------- |------- |------------:|-----------:|----------:|------------:|------------:|----------:|
-| **NewFromCidrString**  | **1**      |  **74.1999 ns** |  **4.0867 ns** | **0.2240 ns** |  **74.0334 ns** |  **74.4546 ns** |         **-** |
+| **NewFromCidrString**  | **1**      |  **66.7929 ns** |  **1.7713 ns** | **0.0971 ns** |  **66.7322 ns** |  **66.9049 ns** |         **-** |
 | NewFromCirBytes    | 1      |   0.0000 ns |  0.0000 ns | 0.0000 ns |   0.0000 ns |   0.0000 ns |         - |
-| TryParseCidrString | 1      |  73.8217 ns |  2.6728 ns | 0.1465 ns |  73.7121 ns |  73.9881 ns |         - |
-| TryParseCidrBytes  | 1      |   3.0436 ns |  0.2025 ns | 0.0111 ns |   3.0323 ns |   3.0545 ns |         - |
-| **NewFromCidrString**  | **3**      | **196.8556 ns** | **16.0523 ns** | **0.8799 ns** | **196.2435 ns** | **197.8639 ns** |         **-** |
-| NewFromCirBytes    | 3      |   0.6408 ns |  1.2681 ns | 0.0695 ns |   0.6005 ns |   0.7211 ns |         - |
-| TryParseCidrString | 3      | 211.8995 ns |  5.6194 ns | 0.3080 ns | 211.7137 ns | 212.2551 ns |         - |
-| TryParseCidrBytes  | 3      |   9.1255 ns |  1.9031 ns | 0.1043 ns |   9.0521 ns |   9.2449 ns |         - |
+| TryParseCidrString | 1      |  74.2490 ns | 10.9466 ns | 0.6000 ns |  73.8001 ns |  74.9305 ns |         - |
+| TryParseCidrBytes  | 1      |   3.0356 ns |  0.0091 ns | 0.0005 ns |   3.0350 ns |   3.0358 ns |         - |
+| **NewFromCidrString**  | **3**      | **196.4787 ns** | **32.6165 ns** | **1.7878 ns** | **195.1437 ns** | **198.5099 ns** |         **-** |
+| NewFromCirBytes    | 3      |   0.6036 ns |  0.1167 ns | 0.0064 ns |   0.5993 ns |   0.6110 ns |         - |
+| TryParseCidrString | 3      | 212.7978 ns |  2.7535 ns | 0.1509 ns | 212.6455 ns | 212.9473 ns |         - |
+| TryParseCidrBytes  | 3      |   9.2905 ns |  1.6011 ns | 0.0878 ns |   9.2184 ns |   9.3882 ns |         - |
