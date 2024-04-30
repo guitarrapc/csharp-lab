@@ -12,11 +12,11 @@ WarmupCount=3
 ```
 | Method             | Number | Mean        | Error      | StdDev    | Min         | Max         | Allocated |
 |------------------- |------- |------------:|-----------:|----------:|------------:|------------:|----------:|
-| **NewFromCidrString**  | **1**      |  **66.7929 ns** |  **1.7713 ns** | **0.0971 ns** |  **66.7322 ns** |  **66.9049 ns** |         **-** |
+| **NewFromCidrString**  | **1**      |  **64.7666 ns** |  **0.2727 ns** | **0.0149 ns** |  **64.7560 ns** |  **64.7837 ns** |         **-** |
 | NewFromCirBytes    | 1      |   0.0000 ns |  0.0000 ns | 0.0000 ns |   0.0000 ns |   0.0000 ns |         - |
-| TryParseCidrString | 1      |  74.2490 ns | 10.9466 ns | 0.6000 ns |  73.8001 ns |  74.9305 ns |         - |
-| TryParseCidrBytes  | 1      |   3.0356 ns |  0.0091 ns | 0.0005 ns |   3.0350 ns |   3.0358 ns |         - |
-| **NewFromCidrString**  | **3**      | **196.4787 ns** | **32.6165 ns** | **1.7878 ns** | **195.1437 ns** | **198.5099 ns** |         **-** |
-| NewFromCirBytes    | 3      |   0.6036 ns |  0.1167 ns | 0.0064 ns |   0.5993 ns |   0.6110 ns |         - |
-| TryParseCidrString | 3      | 212.7978 ns |  2.7535 ns | 0.1509 ns | 212.6455 ns | 212.9473 ns |         - |
-| TryParseCidrBytes  | 3      |   9.2905 ns |  1.6011 ns | 0.0878 ns |   9.2184 ns |   9.3882 ns |         - |
+| TryParseCidrString | 1      |  73.9046 ns |  2.8088 ns | 0.1540 ns |  73.7552 ns |  74.0628 ns |         - |
+| TryParseCidrBytes  | 1      |   3.0429 ns |  0.2405 ns | 0.0132 ns |   3.0349 ns |   3.0582 ns |         - |
+| **NewFromCidrString**  | **3**      | **198.3836 ns** | **19.5063 ns** | **1.0692 ns** | **197.5870 ns** | **199.5988 ns** |         **-** |
+| NewFromCirBytes    | 3      |   0.6002 ns |  0.0136 ns | 0.0007 ns |   0.5994 ns |   0.6008 ns |         - |
+| TryParseCidrString | 3      | 215.0292 ns | 45.2403 ns | 2.4798 ns | 212.9087 ns | 217.7559 ns |         - |
+| TryParseCidrBytes  | 3      |   9.3714 ns |  0.3372 ns | 0.0185 ns |   9.3540 ns |   9.3908 ns |         - |
