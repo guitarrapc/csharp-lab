@@ -12,11 +12,11 @@ WarmupCount=3
 ```
 | Method             | Number | Mean        | Error      | StdDev    | Min         | Max         | Allocated |
 |------------------- |------- |------------:|-----------:|----------:|------------:|------------:|----------:|
-| **NewFromCidrString**  | **1**      |  **65.3990 ns** |  **0.5210 ns** | **0.0286 ns** |  **65.3789 ns** |  **65.4317 ns** |         **-** |
+| **NewFromCidrString**  | **1**      |  **67.1207 ns** |  **4.3487 ns** | **0.2384 ns** |  **66.9205 ns** |  **67.3844 ns** |         **-** |
 | NewFromCirBytes    | 1      |   0.0000 ns |  0.0000 ns | 0.0000 ns |   0.0000 ns |   0.0000 ns |         - |
-| TryParseCidrString | 1      |  73.8557 ns |  0.8750 ns | 0.0480 ns |  73.8004 ns |  73.8861 ns |         - |
-| TryParseCidrBytes  | 1      |   3.0458 ns |  0.3468 ns | 0.0190 ns |   3.0334 ns |   3.0677 ns |         - |
-| **NewFromCidrString**  | **3**      | **198.5908 ns** | **37.6067 ns** | **2.0613 ns** | **196.6318 ns** | **200.7412 ns** |         **-** |
-| NewFromCirBytes    | 3      |   0.6017 ns |  0.0570 ns | 0.0031 ns |   0.5986 ns |   0.6049 ns |         - |
-| TryParseCidrString | 3      | 225.9940 ns | 49.0164 ns | 2.6868 ns | 224.1959 ns | 229.0825 ns |         - |
-| TryParseCidrBytes  | 3      |   9.1509 ns |  1.2299 ns | 0.0674 ns |   9.0749 ns |   9.2034 ns |         - |
+| TryParseCidrString | 1      |  74.1346 ns |  4.0345 ns | 0.2211 ns |  73.9519 ns |  74.3805 ns |         - |
+| TryParseCidrBytes  | 1      |   3.0436 ns |  0.2117 ns | 0.0116 ns |   3.0366 ns |   3.0570 ns |         - |
+| **NewFromCidrString**  | **3**      | **197.6233 ns** | **47.2325 ns** | **2.5890 ns** | **195.9188 ns** | **200.6025 ns** |         **-** |
+| NewFromCirBytes    | 3      |   0.6090 ns |  0.1508 ns | 0.0083 ns |   0.6003 ns |   0.6168 ns |         - |
+| TryParseCidrString | 3      | 215.5767 ns | 26.3922 ns | 1.4466 ns | 214.2510 ns | 217.1197 ns |         - |
+| TryParseCidrBytes  | 3      |   9.1718 ns |  0.2389 ns | 0.0131 ns |   9.1572 ns |   9.1824 ns |         - |
