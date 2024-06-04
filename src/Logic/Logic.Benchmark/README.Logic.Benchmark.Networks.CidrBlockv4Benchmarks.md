@@ -12,11 +12,11 @@ WarmupCount=3
 ```
 | Method             | Number | Mean        | Error      | StdDev    | Min         | Max         | Allocated |
 |------------------- |------- |------------:|-----------:|----------:|------------:|------------:|----------:|
-| **NewFromCidrString**  | **1**      |  **69.3071 ns** | **57.1735 ns** | **3.1339 ns** |  **67.4782 ns** |  **72.9257 ns** |         **-** |
+| **NewFromCidrString**  | **1**      |  **65.1977 ns** |  **2.9296 ns** | **0.1606 ns** |  **65.0365 ns** |  **65.3577 ns** |         **-** |
 | NewFromCirBytes    | 1      |   0.0000 ns |  0.0000 ns | 0.0000 ns |   0.0000 ns |   0.0000 ns |         - |
-| TryParseCidrString | 1      |  72.5875 ns |  1.4438 ns | 0.0791 ns |  72.5059 ns |  72.6639 ns |         - |
-| TryParseCidrBytes  | 1      |   3.0420 ns |  0.1690 ns | 0.0093 ns |   3.0345 ns |   3.0524 ns |         - |
-| **NewFromCidrString**  | **3**      | **195.9179 ns** |  **6.3722 ns** | **0.3493 ns** | **195.5827 ns** | **196.2798 ns** |         **-** |
-| NewFromCirBytes    | 3      |   0.6112 ns |  0.3114 ns | 0.0171 ns |   0.6003 ns |   0.6309 ns |         - |
-| TryParseCidrString | 3      | 211.6520 ns | 11.6597 ns | 0.6391 ns | 211.2375 ns | 212.3880 ns |         - |
-| TryParseCidrBytes  | 3      |   9.2055 ns |  1.1352 ns | 0.0622 ns |   9.1556 ns |   9.2752 ns |         - |
+| TryParseCidrString | 1      |  74.1276 ns |  2.8952 ns | 0.1587 ns |  74.0275 ns |  74.3105 ns |         - |
+| TryParseCidrBytes  | 1      |   3.0465 ns |  0.1978 ns | 0.0108 ns |   3.0366 ns |   3.0581 ns |         - |
+| **NewFromCidrString**  | **3**      | **196.9899 ns** |  **3.0981 ns** | **0.1698 ns** | **196.7962 ns** | **197.1133 ns** |         **-** |
+| NewFromCirBytes    | 3      |   0.6073 ns |  0.1461 ns | 0.0080 ns |   0.5987 ns |   0.6146 ns |         - |
+| TryParseCidrString | 3      | 217.6221 ns | 28.8848 ns | 1.5833 ns | 216.6236 ns | 219.4476 ns |         - |
+| TryParseCidrBytes  | 3      |   9.1542 ns |  1.2496 ns | 0.0685 ns |   9.0829 ns |   9.2195 ns |         - |
