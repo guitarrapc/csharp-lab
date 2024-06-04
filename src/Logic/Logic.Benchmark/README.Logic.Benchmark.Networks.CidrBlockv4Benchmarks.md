@@ -10,13 +10,13 @@ Job=ShortRun  IterationCount=3  LaunchCount=1
 WarmupCount=3  
 
 ```
-| Method             | Number | Mean        | Error      | StdDev    | Min         | Max         | Allocated |
-|------------------- |------- |------------:|-----------:|----------:|------------:|------------:|----------:|
-| **NewFromCidrString**  | **1**      |  **65.1977 ns** |  **2.9296 ns** | **0.1606 ns** |  **65.0365 ns** |  **65.3577 ns** |         **-** |
-| NewFromCirBytes    | 1      |   0.0000 ns |  0.0000 ns | 0.0000 ns |   0.0000 ns |   0.0000 ns |         - |
-| TryParseCidrString | 1      |  74.1276 ns |  2.8952 ns | 0.1587 ns |  74.0275 ns |  74.3105 ns |         - |
-| TryParseCidrBytes  | 1      |   3.0465 ns |  0.1978 ns | 0.0108 ns |   3.0366 ns |   3.0581 ns |         - |
-| **NewFromCidrString**  | **3**      | **196.9899 ns** |  **3.0981 ns** | **0.1698 ns** | **196.7962 ns** | **197.1133 ns** |         **-** |
-| NewFromCirBytes    | 3      |   0.6073 ns |  0.1461 ns | 0.0080 ns |   0.5987 ns |   0.6146 ns |         - |
-| TryParseCidrString | 3      | 217.6221 ns | 28.8848 ns | 1.5833 ns | 216.6236 ns | 219.4476 ns |         - |
-| TryParseCidrBytes  | 3      |   9.1542 ns |  1.2496 ns | 0.0685 ns |   9.0829 ns |   9.2195 ns |         - |
+| Method             | Number | Mean        | Error      | StdDev    | Median      | Min         | Max         | Allocated |
+|------------------- |------- |------------:|-----------:|----------:|------------:|------------:|------------:|----------:|
+| **NewFromCidrString**  | **1**      |  **67.0169 ns** |  **5.9914 ns** | **0.3284 ns** |  **66.8914 ns** |  **66.7698 ns** |  **67.3896 ns** |         **-** |
+| NewFromCirBytes    | 1      |   0.0101 ns |  0.3205 ns | 0.0176 ns |   0.0000 ns |   0.0000 ns |   0.0304 ns |         - |
+| TryParseCidrString | 1      |  75.4484 ns |  7.1801 ns | 0.3936 ns |  75.2739 ns |  75.1722 ns |  75.8990 ns |         - |
+| TryParseCidrBytes  | 1      |   3.0389 ns |  0.0852 ns | 0.0047 ns |   3.0409 ns |   3.0336 ns |   3.0422 ns |         - |
+| **NewFromCidrString**  | **3**      | **199.9348 ns** | **35.5286 ns** | **1.9474 ns** | **198.8703 ns** | **198.7516 ns** | **202.1825 ns** |         **-** |
+| NewFromCirBytes    | 3      |   0.6014 ns |  0.0796 ns | 0.0044 ns |   0.5991 ns |   0.5986 ns |   0.6064 ns |         - |
+| TryParseCidrString | 3      | 215.0442 ns |  6.7733 ns | 0.3713 ns | 214.9616 ns | 214.7212 ns | 215.4498 ns |         - |
+| TryParseCidrBytes  | 3      |   9.0768 ns |  1.8725 ns | 0.1026 ns |   9.0420 ns |   8.9961 ns |   9.1923 ns |         - |
