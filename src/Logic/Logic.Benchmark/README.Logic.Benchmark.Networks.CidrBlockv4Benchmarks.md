@@ -12,11 +12,11 @@ WarmupCount=3
 ```
 | Method             | Number | Mean        | Error      | StdDev    | Min         | Max         | Allocated |
 |------------------- |------- |------------:|-----------:|----------:|------------:|------------:|----------:|
-| **NewFromCidrString**  | **1**      |  **65.2444 ns** |  **2.1164 ns** | **0.1160 ns** |  **65.1609 ns** |  **65.3768 ns** |         **-** |
+| **NewFromCidrString**  | **1**      |  **65.6722 ns** |  **4.2397 ns** | **0.2324 ns** |  **65.4116 ns** |  **65.8581 ns** |         **-** |
 | NewFromCirBytes    | 1      |   0.0000 ns |  0.0000 ns | 0.0000 ns |   0.0000 ns |   0.0000 ns |         - |
-| TryParseCidrString | 1      |  73.9533 ns |  0.5395 ns | 0.0296 ns |  73.9192 ns |  73.9708 ns |         - |
-| TryParseCidrBytes  | 1      |   3.0413 ns |  0.1560 ns | 0.0085 ns |   3.0360 ns |   3.0512 ns |         - |
-| **NewFromCidrString**  | **3**      | **197.5726 ns** | **22.0716 ns** | **1.2098 ns** | **196.5336 ns** | **198.9008 ns** |         **-** |
-| NewFromCirBytes    | 3      |   0.6124 ns |  0.0961 ns | 0.0053 ns |   0.6071 ns |   0.6177 ns |         - |
-| TryParseCidrString | 3      | 218.8864 ns |  0.9709 ns | 0.0532 ns | 218.8251 ns | 218.9211 ns |         - |
-| TryParseCidrBytes  | 3      |   9.0796 ns |  0.4688 ns | 0.0257 ns |   9.0592 ns |   9.1085 ns |         - |
+| TryParseCidrString | 1      |  74.3380 ns | 21.1817 ns | 1.1610 ns |  73.4789 ns |  75.6589 ns |         - |
+| TryParseCidrBytes  | 1      |   3.0426 ns |  0.2395 ns | 0.0131 ns |   3.0339 ns |   3.0577 ns |         - |
+| **NewFromCidrString**  | **3**      | **199.3546 ns** | **62.7179 ns** | **3.4378 ns** | **197.2595 ns** | **203.3221 ns** |         **-** |
+| NewFromCirBytes    | 3      |   0.6018 ns |  0.0241 ns | 0.0013 ns |   0.6010 ns |   0.6034 ns |         - |
+| TryParseCidrString | 3      | 214.1264 ns |  9.8283 ns | 0.5387 ns | 213.5093 ns | 214.5032 ns |         - |
+| TryParseCidrBytes  | 3      |   9.1079 ns |  0.0387 ns | 0.0021 ns |   9.1063 ns |   9.1103 ns |         - |
