@@ -18,16 +18,16 @@
     <!-- Benchmark -->
     <PackageVersion Include="BenchmarkDotNet" Version="0.13.12" />
     <!-- Database -->
-    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.5" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.5" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Analyzers" Version="8.0.5" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.6" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Analyzers" Version="8.0.6" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageVersion>
     <PackageVersion Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.5" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.6" />
     <!-- Redis -->
     <PackageVersion Include="StackExchange.Redis" Version="2.7.33" />
     <!-- gRPC -->
