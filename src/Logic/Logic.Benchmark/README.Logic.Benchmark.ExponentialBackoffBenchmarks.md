@@ -2,7 +2,7 @@
 
 BenchmarkDotNet v0.13.12, Ubuntu 22.04.4 LTS (Jammy Jellyfish)
 AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
-.NET SDK 8.0.301
+.NET SDK 8.0.302
   [Host]   : .NET 8.0.6 (8.0.624.26715), X64 RyuJIT AVX2
   ShortRun : .NET 8.0.6 (8.0.624.26715), X64 RyuJIT AVX2
 
@@ -12,5 +12,5 @@ WarmupCount=3
 ```
 | Method             | Number | Mean      | Error     | StdDev   | Min       | Max       | Allocated |
 |------------------- |------- |----------:|----------:|---------:|----------:|----------:|----------:|
-| **ExponentialBackoff** | **1**      |  **11.96 ms** |  **0.301 ms** | **0.016 ms** |  **11.95 ms** |  **11.98 ms** |     **520 B** |
-| **ExponentialBackoff** | **10**     | **754.39 ms** | **56.570 ms** | **3.101 ms** | **751.65 ms** | **757.75 ms** |    **4120 B** |
+| **ExponentialBackoff** | **1**      |  **11.97 ms** |  **0.211 ms** | **0.012 ms** |  **11.96 ms** |  **11.99 ms** |     **520 B** |
+| **ExponentialBackoff** | **10**     | **753.14 ms** | **21.838 ms** | **1.197 ms** | **751.76 ms** | **753.91 ms** |    **4120 B** |
