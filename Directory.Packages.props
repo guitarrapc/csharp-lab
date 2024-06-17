@@ -3,7 +3,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="ConsoleAppFramework" Version="4.2.4" />
+    <PackageVersion Include="ConsoleAppFramework" Version="5.2.1" />
     <PackageVersion Include="IPNetwork2" Version="3.0.667" />
     <PackageVersion Include="MemoryPack" Version="1.21.1" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.6" />
