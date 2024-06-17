@@ -52,7 +52,7 @@
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.9.2" />
     <!-- Test -->
     <PackageVersion Include="FluentAssertions" Version="6.12.0" />
-    <PackageVersion Include="GitHubActionsTestLogger" Version="2.3.3">
+    <PackageVersion Include="GitHubActionsTestLogger" Version="2.4.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageVersion>
