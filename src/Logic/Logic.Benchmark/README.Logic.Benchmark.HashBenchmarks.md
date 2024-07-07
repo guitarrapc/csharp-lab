@@ -3,8 +3,8 @@
 BenchmarkDotNet v0.13.12, Ubuntu 22.04.4 LTS (Jammy Jellyfish)
 AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
 .NET SDK 8.0.302
-  [Host]   : .NET 8.0.7 (8.0.724.27014), X64 RyuJIT AVX2
-  ShortRun : .NET 8.0.7 (8.0.724.27014), X64 RyuJIT AVX2
+  [Host]   : .NET 8.0.6 (8.0.624.26715), X64 RyuJIT AVX2
+  ShortRun : .NET 8.0.6 (8.0.624.26715), X64 RyuJIT AVX2
 
 Job=ShortRun  IterationCount=3  LaunchCount=1  
 WarmupCount=3  
@@ -12,17 +12,17 @@ WarmupCount=3
 ```
 | Method          | data                | Mean           | Error        | StdDev      | Min            | Max            | Gen0   | Allocated |
 |---------------- |-------------------- |---------------:|-------------:|------------:|---------------:|---------------:|-------:|----------:|
-| **MD5String**       | **KLVJ(...)0t2z [160]** |     **1,321.5 ns** |     **47.14 ns** |     **2.58 ns** |     **1,319.4 ns** |     **1,324.4 ns** | **0.0134** |    **1128 B** |
-| SHA1String      | KLVJ(...)0t2z [160] |     1,469.0 ns |    287.94 ns |    15.78 ns |     1,458.2 ns |     1,487.1 ns | 0.0153 |    1416 B |
-| SHA256String    | KLVJ(...)0t2z [160] |     1,718.5 ns |    448.39 ns |    24.58 ns |     1,704.0 ns |     1,746.8 ns | 0.0210 |    1856 B |
-| SHA512String    | KLVJ(...)0t2z [160] |     2,692.8 ns |     79.71 ns |     4.37 ns |     2,688.2 ns |     2,696.9 ns | 0.0381 |    3240 B |
-| XxHash32String  | KLVJ(...)0t2z [160] |       203.8 ns |     26.55 ns |     1.46 ns |       202.9 ns |       205.5 ns | 0.0069 |     584 B |
-| XxHash64String  | KLVJ(...)0t2z [160] |       288.3 ns |     52.58 ns |     2.88 ns |       285.3 ns |       291.1 ns | 0.0086 |     728 B |
-| XxHash128String | KLVJ(...)0t2z [160] |       478.2 ns |     24.68 ns |     1.35 ns |       476.7 ns |       479.1 ns | 0.0134 |    1128 B |
-| **MD5Binary**       | **Byte[1048576]**       | **1,545,687.7 ns** |  **5,137.02 ns** |   **281.58 ns** | **1,545,379.1 ns** | **1,545,930.6 ns** |      **-** |      **41 B** |
-| SHA1Binary      | Byte[1048576]       |   614,083.5 ns |    751.72 ns |    41.20 ns |   614,046.5 ns |   614,127.9 ns |      - |      49 B |
-| SHA256Binary    | Byte[1048576]       |   656,049.5 ns | 20,394.48 ns | 1,117.89 ns |   655,018.9 ns |   657,237.9 ns |      - |      57 B |
-| SHA512Binary    | Byte[1048576]       | 1,372,672.5 ns | 20,219.42 ns | 1,108.29 ns | 1,371,571.9 ns | 1,373,788.3 ns |      - |      89 B |
-| XxHash32Binary  | Byte[1048576]       |   162,204.0 ns |    576.16 ns |    31.58 ns |   162,169.0 ns |   162,230.5 ns |      - |      32 B |
-| XxHash64Binary  | Byte[1048576]       |    91,409.0 ns |  1,688.19 ns |    92.54 ns |    91,336.9 ns |    91,513.4 ns |      - |      32 B |
-| XxHash128Binary | Byte[1048576]       |    65,124.3 ns |    597.72 ns |    32.76 ns |    65,090.1 ns |    65,155.4 ns |      - |      40 B |
+| **MD5String**       | **KLVJ(...)0t2z [160]** |     **1,316.4 ns** |     **90.69 ns** |     **4.97 ns** |     **1,312.5 ns** |     **1,322.0 ns** | **0.0134** |    **1128 B** |
+| SHA1String      | KLVJ(...)0t2z [160] |     1,462.2 ns |     75.63 ns |     4.15 ns |     1,458.2 ns |     1,466.5 ns | 0.0153 |    1416 B |
+| SHA256String    | KLVJ(...)0t2z [160] |     1,697.1 ns |    108.08 ns |     5.92 ns |     1,690.4 ns |     1,701.6 ns | 0.0210 |    1856 B |
+| SHA512String    | KLVJ(...)0t2z [160] |     2,665.1 ns |    127.39 ns |     6.98 ns |     2,657.3 ns |     2,670.6 ns | 0.0381 |    3240 B |
+| XxHash32String  | KLVJ(...)0t2z [160] |       202.3 ns |     24.00 ns |     1.32 ns |       201.4 ns |       203.8 ns | 0.0069 |     584 B |
+| XxHash64String  | KLVJ(...)0t2z [160] |       288.1 ns |     10.51 ns |     0.58 ns |       287.4 ns |       288.5 ns | 0.0086 |     728 B |
+| XxHash128String | KLVJ(...)0t2z [160] |       464.9 ns |      7.57 ns |     0.41 ns |       464.4 ns |       465.3 ns | 0.0134 |    1128 B |
+| **MD5Binary**       | **Byte[1048576]**       | **1,545,987.6 ns** |    **848.46 ns** |    **46.51 ns** | **1,545,935.3 ns** | **1,546,024.4 ns** |      **-** |      **41 B** |
+| SHA1Binary      | Byte[1048576]       |   614,327.8 ns |  1,958.28 ns |   107.34 ns |   614,217.3 ns |   614,431.6 ns |      - |      49 B |
+| SHA256Binary    | Byte[1048576]       |   656,283.0 ns | 22,615.58 ns | 1,239.64 ns |   655,074.0 ns |   657,551.1 ns |      - |      57 B |
+| SHA512Binary    | Byte[1048576]       | 1,376,913.3 ns | 85,142.55 ns | 4,666.95 ns | 1,373,864.8 ns | 1,382,285.9 ns |      - |      89 B |
+| XxHash32Binary  | Byte[1048576]       |   162,649.5 ns |  9,480.57 ns |   519.66 ns |   162,262.4 ns |   163,240.1 ns |      - |      32 B |
+| XxHash64Binary  | Byte[1048576]       |    92,687.6 ns |  6,544.43 ns |   358.72 ns |    92,409.7 ns |    93,092.6 ns |      - |      32 B |
+| XxHash128Binary | Byte[1048576]       |    65,488.3 ns |  6,879.12 ns |   377.07 ns |    65,111.8 ns |    65,865.9 ns |      - |      40 B |
