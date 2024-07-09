@@ -14,7 +14,7 @@
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.6.2" />
     <PackageVersion Include="System.IO.Hashing" Version="8.0.0" />
-    <PackageVersion Include="ZLogger" Version="2.5.0" />
+    <PackageVersion Include="ZLogger" Version="2.5.2" />
     <!-- Benchmark -->
     <PackageVersion Include="BenchmarkDotNet" Version="0.13.12" />
     <!-- Database -->
