@@ -2,25 +2,25 @@
 
 BenchmarkDotNet v0.13.12, Ubuntu 22.04.4 LTS (Jammy Jellyfish)
 AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
-.NET SDK 8.0.302
-  [Host]   : .NET 8.0.6 (8.0.624.26715), X64 RyuJIT AVX2
-  ShortRun : .NET 8.0.6 (8.0.624.26715), X64 RyuJIT AVX2
+.NET SDK 8.0.303
+  [Host]   : .NET 8.0.7 (8.0.724.31311), X64 RyuJIT AVX2
+  ShortRun : .NET 8.0.7 (8.0.724.31311), X64 RyuJIT AVX2
 
 Job=ShortRun  IterationCount=3  LaunchCount=1  
 WarmupCount=3  
 
 ```
-| Method                       | Number | Mean        | Error     | StdDev   | Min         | Max         | Gen0   | Allocated |
-|----------------------------- |------- |------------:|----------:|---------:|------------:|------------:|-------:|----------:|
-| **GetNthSubnetIPv6**             | **1**      |   **505.55 ns** | **28.579 ns** | **1.567 ns** |   **504.64 ns** |   **507.36 ns** | **0.0076** |     **696 B** |
-| GetNthSubnetIPv4             | 1      |   114.33 ns |  1.635 ns | 0.090 ns |   114.24 ns |   114.42 ns | 0.0019 |     160 B |
-| GetSubnetRangeIPv6BigInteger | 1      |   246.48 ns |  3.846 ns | 0.211 ns |   246.24 ns |   246.61 ns | 0.0048 |     432 B |
-| GetSubnetRangeIPv6Shift      | 1      |    51.69 ns |  2.388 ns | 0.131 ns |    51.60 ns |    51.84 ns | 0.0019 |     160 B |
-| GetSubnetRangeIPv4BigInteger | 1      |   144.26 ns | 19.644 ns | 1.077 ns |   143.64 ns |   145.51 ns | 0.0024 |     208 B |
-| GetSubnetRangeIPv4Shift      | 1      |    40.94 ns | 18.752 ns | 1.028 ns |    40.33 ns |    42.13 ns | 0.0021 |     176 B |
-| **GetNthSubnetIPv6**             | **3**      | **1,638.65 ns** | **31.299 ns** | **1.716 ns** | **1,637.19 ns** | **1,640.54 ns** | **0.0248** |    **2168 B** |
-| GetNthSubnetIPv4             | 3      |   357.79 ns | 12.113 ns | 0.664 ns |   357.35 ns |   358.55 ns | 0.0057 |     480 B |
-| GetSubnetRangeIPv6BigInteger | 3      |   777.41 ns | 16.541 ns | 0.907 ns |   776.48 ns |   778.29 ns | 0.0153 |    1296 B |
-| GetSubnetRangeIPv6Shift      | 3      |   128.00 ns | 54.994 ns | 3.014 ns |   125.50 ns |   131.35 ns | 0.0057 |     480 B |
-| GetSubnetRangeIPv4BigInteger | 3      |   438.87 ns | 20.760 ns | 1.138 ns |   437.79 ns |   440.05 ns | 0.0072 |     624 B |
-| GetSubnetRangeIPv4Shift      | 3      |   117.91 ns | 24.255 ns | 1.330 ns |   116.85 ns |   119.41 ns | 0.0062 |     528 B |
+| Method                       | Number | Mean        | Error      | StdDev    | Min         | Max         | Gen0   | Allocated |
+|----------------------------- |------- |------------:|-----------:|----------:|------------:|------------:|-------:|----------:|
+| **GetNthSubnetIPv6**             | **1**      |   **527.79 ns** | **144.163 ns** |  **7.902 ns** |   **518.68 ns** |   **532.84 ns** | **0.0076** |     **696 B** |
+| GetNthSubnetIPv4             | 1      |   114.54 ns |   6.251 ns |  0.343 ns |   114.15 ns |   114.80 ns | 0.0019 |     160 B |
+| GetSubnetRangeIPv6BigInteger | 1      |   234.87 ns |  19.421 ns |  1.065 ns |   234.06 ns |   236.07 ns | 0.0048 |     432 B |
+| GetSubnetRangeIPv6Shift      | 1      |    42.89 ns |   3.792 ns |  0.208 ns |    42.70 ns |    43.11 ns | 0.0019 |     160 B |
+| GetSubnetRangeIPv4BigInteger | 1      |   145.95 ns |   5.079 ns |  0.278 ns |   145.72 ns |   146.26 ns | 0.0024 |     208 B |
+| GetSubnetRangeIPv4Shift      | 1      |    39.46 ns |   2.881 ns |  0.158 ns |    39.30 ns |    39.61 ns | 0.0021 |     176 B |
+| **GetNthSubnetIPv6**             | **3**      | **1,678.56 ns** | **408.480 ns** | **22.390 ns** | **1,664.59 ns** | **1,704.39 ns** | **0.0248** |    **2168 B** |
+| GetNthSubnetIPv4             | 3      |   342.09 ns |   2.800 ns |  0.153 ns |   341.99 ns |   342.26 ns | 0.0057 |     480 B |
+| GetSubnetRangeIPv6BigInteger | 3      |   733.36 ns |  52.948 ns |  2.902 ns |   730.26 ns |   736.02 ns | 0.0153 |    1296 B |
+| GetSubnetRangeIPv6Shift      | 3      |   124.76 ns |  10.739 ns |  0.589 ns |   124.13 ns |   125.30 ns | 0.0057 |     480 B |
+| GetSubnetRangeIPv4BigInteger | 3      |   448.94 ns |   3.768 ns |  0.207 ns |   448.78 ns |   449.17 ns | 0.0072 |     624 B |
+| GetSubnetRangeIPv4Shift      | 3      |   120.19 ns |   3.432 ns |  0.188 ns |   119.98 ns |   120.34 ns | 0.0062 |     528 B |
