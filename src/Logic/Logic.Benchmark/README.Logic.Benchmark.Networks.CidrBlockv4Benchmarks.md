@@ -12,11 +12,11 @@ WarmupCount=3
 ```
 | Method             | Number | Mean        | Error      | StdDev    | Min         | Max         | Allocated |
 |------------------- |------- |------------:|-----------:|----------:|------------:|------------:|----------:|
-| **NewFromCidrString**  | **1**      |  **65.0156 ns** |  **0.7249 ns** | **0.0397 ns** |  **64.9707 ns** |  **65.0463 ns** |         **-** |
+| **NewFromCidrString**  | **1**      |  **65.9333 ns** | **16.0144 ns** | **0.8778 ns** |  **65.4227 ns** |  **66.9469 ns** |         **-** |
 | NewFromCirBytes    | 1      |   0.0000 ns |  0.0000 ns | 0.0000 ns |   0.0000 ns |   0.0000 ns |         - |
-| TryParseCidrString | 1      |  73.0818 ns |  3.2391 ns | 0.1775 ns |  72.8769 ns |  73.1908 ns |         - |
-| TryParseCidrBytes  | 1      |   3.0418 ns |  0.1072 ns | 0.0059 ns |   3.0351 ns |   3.0453 ns |         - |
-| **NewFromCidrString**  | **3**      | **198.3077 ns** | **45.1809 ns** | **2.4765 ns** | **196.6545 ns** | **201.1550 ns** |         **-** |
-| NewFromCirBytes    | 3      |   0.6029 ns |  0.0546 ns | 0.0030 ns |   0.5998 ns |   0.6058 ns |         - |
-| TryParseCidrString | 3      | 212.7930 ns |  6.2323 ns | 0.3416 ns | 212.4335 ns | 213.1133 ns |         - |
-| TryParseCidrBytes  | 3      |   9.1912 ns |  1.6525 ns | 0.0906 ns |   9.0994 ns |   9.2805 ns |         - |
+| TryParseCidrString | 1      |  74.0953 ns |  3.0895 ns | 0.1693 ns |  73.9942 ns |  74.2908 ns |         - |
+| TryParseCidrBytes  | 1      |   3.0473 ns |  0.1985 ns | 0.0109 ns |   3.0360 ns |   3.0577 ns |         - |
+| **NewFromCidrString**  | **3**      | **198.9852 ns** | **18.6839 ns** | **1.0241 ns** | **198.2891 ns** | **200.1612 ns** |         **-** |
+| NewFromCirBytes    | 3      |   0.6004 ns |  0.0440 ns | 0.0024 ns |   0.5981 ns |   0.6029 ns |         - |
+| TryParseCidrString | 3      | 212.9019 ns |  5.6657 ns | 0.3106 ns | 212.6297 ns | 213.2402 ns |         - |
+| TryParseCidrBytes  | 3      |   9.1773 ns |  1.0010 ns | 0.0549 ns |   9.1139 ns |   9.2091 ns |         - |
