@@ -10,7 +10,7 @@ Job=ShortRun  IterationCount=3  LaunchCount=1
 WarmupCount=3  
 
 ```
-| Method                  | json                | Mean     | Error     | StdDev   | Min      | Max      | Gen0   | Allocated |
-|------------------------ |-------------------- |---------:|----------:|---------:|---------:|---------:|-------:|----------:|
-| SystemTextJson          | {&quot;A&quot;(...)e&quot;}} [891] | 20.66 μs | 13.854 μs | 0.759 μs | 20.21 μs | 21.53 μs | 0.0305 |   3.19 KB |
-| SystemTextJsonSourceGen | {&quot;A&quot;(...)e&quot;}} [891] | 19.31 μs |  2.148 μs | 0.118 μs | 19.23 μs | 19.44 μs | 0.0305 |   3.19 KB |
+| Method                  | json                | Mean     | Error    | StdDev   | Min      | Max      | Gen0   | Allocated |
+|------------------------ |-------------------- |---------:|---------:|---------:|---------:|---------:|-------:|----------:|
+| SystemTextJson          | {&quot;A&quot;(...)e&quot;}} [891] | 22.43 μs | 1.410 μs | 0.077 μs | 22.35 μs | 22.51 μs | 0.0305 |   3.19 KB |
+| SystemTextJsonSourceGen | {&quot;A&quot;(...)e&quot;}} [891] | 22.01 μs | 1.927 μs | 0.106 μs | 21.94 μs | 22.13 μs | 0.0305 |   3.19 KB |
