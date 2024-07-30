@@ -12,11 +12,11 @@ WarmupCount=3
 ```
 | Method             | Number | Mean        | Error      | StdDev    | Min         | Max         | Allocated |
 |------------------- |------- |------------:|-----------:|----------:|------------:|------------:|----------:|
-| **NewFromCidrString**  | **1**      |  **67.3142 ns** |  **5.8697 ns** | **0.3217 ns** |  **67.0101 ns** |  **67.6511 ns** |         **-** |
+| **NewFromCidrString**  | **1**      |  **64.9873 ns** |  **0.5211 ns** | **0.0286 ns** |  **64.9569 ns** |  **65.0135 ns** |         **-** |
 | NewFromCirBytes    | 1      |   0.0000 ns |  0.0000 ns | 0.0000 ns |   0.0000 ns |   0.0000 ns |         - |
-| TryParseCidrString | 1      |  73.8831 ns | 11.1067 ns | 0.6088 ns |  73.5067 ns |  74.5855 ns |         - |
-| TryParseCidrBytes  | 1      |   3.0573 ns |  0.3794 ns | 0.0208 ns |   3.0364 ns |   3.0780 ns |         - |
-| **NewFromCidrString**  | **3**      | **198.1100 ns** |  **5.2055 ns** | **0.2853 ns** | **197.8544 ns** | **198.4178 ns** |         **-** |
-| NewFromCirBytes    | 3      |   0.6018 ns |  0.1611 ns | 0.0088 ns |   0.5966 ns |   0.6119 ns |         - |
-| TryParseCidrString | 3      | 213.9702 ns |  4.4556 ns | 0.2442 ns | 213.7368 ns | 214.2240 ns |         - |
-| TryParseCidrBytes  | 3      |   9.2835 ns |  1.0249 ns | 0.0562 ns |   9.2193 ns |   9.3232 ns |         - |
+| TryParseCidrString | 1      |  73.9238 ns |  0.4453 ns | 0.0244 ns |  73.8961 ns |  73.9422 ns |         - |
+| TryParseCidrBytes  | 1      |   3.0946 ns |  1.8046 ns | 0.0989 ns |   3.0319 ns |   3.2087 ns |         - |
+| **NewFromCidrString**  | **3**      | **199.2819 ns** | **49.3455 ns** | **2.7048 ns** | **197.5797 ns** | **202.4007 ns** |         **-** |
+| NewFromCirBytes    | 3      |   0.6031 ns |  0.0658 ns | 0.0036 ns |   0.6002 ns |   0.6072 ns |         - |
+| TryParseCidrString | 3      | 212.5643 ns |  1.5406 ns | 0.0844 ns | 212.4795 ns | 212.6484 ns |         - |
+| TryParseCidrBytes  | 3      |   9.1225 ns |  0.5786 ns | 0.0317 ns |   9.0946 ns |   9.1570 ns |         - |
