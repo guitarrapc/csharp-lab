@@ -14,7 +14,7 @@
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.6.2" />
     <PackageVersion Include="System.IO.Hashing" Version="8.0.0" />
-    <PackageVersion Include="ZLogger" Version="2.5.3" />
+    <PackageVersion Include="ZLogger" Version="2.5.4" />
     <!-- Benchmark -->
     <PackageVersion Include="BenchmarkDotNet" Version="0.13.12" />
     <!-- Database -->
@@ -33,9 +33,9 @@
     <!-- gRPC -->
     <PackageVersion Include="Google.Protobuf" Version="3.27.2" />
     <PackageVersion Include="Grpc.AspNetCore" Version="2.63.0" />
-    <PackageVersion Include="Grpc.AspNetCore.HealthChecks" Version="2.64.0" />
+    <PackageVersion Include="Grpc.AspNetCore.HealthChecks" Version="2.65.0" />
     <PackageVersion Include="Grpc.AspNetCore.Server.Reflection" Version="2.65.0" />
-    <PackageVersion Include="Grpc.Net.Client" Version="2.63.0" />
+    <PackageVersion Include="Grpc.Net.Client" Version="2.65.0" />
     <PackageVersion Include="Grpc.Tools" Version="2.64.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
