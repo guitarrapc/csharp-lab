@@ -12,11 +12,11 @@ WarmupCount=3
 ```
 | Method             | Number | Mean        | Error     | StdDev    | Min         | Max         | Allocated |
 |------------------- |------- |------------:|----------:|----------:|------------:|------------:|----------:|
-| **NewFromCidrString**  | **1**      |  **64.7434 ns** | **3.9536 ns** | **0.2167 ns** |  **64.6005 ns** |  **64.9927 ns** |         **-** |
+| **NewFromCidrString**  | **1**      |  **65.6817 ns** | **4.2793 ns** | **0.2346 ns** |  **65.5074 ns** |  **65.9484 ns** |         **-** |
 | NewFromCirBytes    | 1      |   0.0000 ns | 0.0000 ns | 0.0000 ns |   0.0000 ns |   0.0000 ns |         - |
-| TryParseCidrString | 1      |  74.0072 ns | 3.9642 ns | 0.2173 ns |  73.8191 ns |  74.2451 ns |         - |
-| TryParseCidrBytes  | 1      |   3.0538 ns | 0.7739 ns | 0.0424 ns |   3.0285 ns |   3.1028 ns |         - |
-| **NewFromCidrString**  | **3**      | **204.3740 ns** | **1.6038 ns** | **0.0879 ns** | **204.2930 ns** | **204.4675 ns** |         **-** |
-| NewFromCirBytes    | 3      |   0.6049 ns | 0.0552 ns | 0.0030 ns |   0.6015 ns |   0.6074 ns |         - |
-| TryParseCidrString | 3      | 214.0047 ns | 8.2849 ns | 0.4541 ns | 213.5698 ns | 214.4759 ns |         - |
-| TryParseCidrBytes  | 3      |   9.2989 ns | 1.4319 ns | 0.0785 ns |   9.2466 ns |   9.3891 ns |         - |
+| TryParseCidrString | 1      |  74.3087 ns | 0.8715 ns | 0.0478 ns |  74.2642 ns |  74.3592 ns |         - |
+| TryParseCidrBytes  | 1      |   3.0490 ns | 0.4890 ns | 0.0268 ns |   3.0334 ns |   3.0800 ns |         - |
+| **NewFromCidrString**  | **3**      | **196.0561 ns** | **4.4052 ns** | **0.2415 ns** | **195.7821 ns** | **196.2380 ns** |         **-** |
+| NewFromCirBytes    | 3      |   0.5995 ns | 0.0057 ns | 0.0003 ns |   0.5991 ns |   0.5997 ns |         - |
+| TryParseCidrString | 3      | 218.7939 ns | 2.3107 ns | 0.1267 ns | 218.6611 ns | 218.9133 ns |         - |
+| TryParseCidrBytes  | 3      |   9.2382 ns | 1.8367 ns | 0.1007 ns |   9.1711 ns |   9.3540 ns |         - |
