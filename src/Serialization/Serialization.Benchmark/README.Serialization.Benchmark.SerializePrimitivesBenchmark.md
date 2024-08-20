@@ -10,8 +10,8 @@ Job=ShortRun  IterationCount=3  LaunchCount=1
 WarmupCount=3  
 
 ```
-| Method                  | data                 | Mean        | Error      | StdDev   | Min       | Max         | Gen0   | Allocated |
-|------------------------ |--------------------- |------------:|-----------:|---------:|----------:|------------:|-------:|----------:|
-| SystemTextJson          | Seria(...)tives [29] | 1,001.86 ns | 173.400 ns | 9.505 ns | 990.90 ns | 1,007.76 ns | 0.0038 |     464 B |
-| SystemTextJsonSourceGen | Seria(...)tives [29] |   916.19 ns |   4.555 ns | 0.250 ns | 915.93 ns |   916.42 ns | 0.0067 |     568 B |
-| MemoryPack              | Seria(...)tives [29] |    93.45 ns |   4.023 ns | 0.221 ns |  93.20 ns |    93.59 ns | 0.0014 |     120 B |
+| Method                  | data                 | Mean        | Error      | StdDev   | Min         | Max         | Gen0   | Allocated |
+|------------------------ |--------------------- |------------:|-----------:|---------:|------------:|------------:|-------:|----------:|
+| SystemTextJson          | Seria(...)tives [29] | 1,028.03 ns | 172.360 ns | 9.448 ns | 1,021.89 ns | 1,038.91 ns | 0.0038 |     464 B |
+| SystemTextJsonSourceGen | Seria(...)tives [29] |   945.62 ns |   3.986 ns | 0.219 ns |   945.40 ns |   945.84 ns | 0.0067 |     568 B |
+| MemoryPack              | Seria(...)tives [29] |    98.24 ns |   3.891 ns | 0.213 ns |    98.01 ns |    98.44 ns | 0.0014 |     120 B |
