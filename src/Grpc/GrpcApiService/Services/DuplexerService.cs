@@ -23,14 +23,16 @@ public class DuplexerService : Duplexer.DuplexerBase
                 var data = reader.Current;
                 var name = data.Name;
 
+                _logger.LogInformation($"({nameof(Echo)}) Recieved request: {name}");
                 if (string.Equals(name, "end", StringComparison.OrdinalIgnoreCase))
                 {
                     return;
                 }
 
+                _logger.LogInformation($"({nameof(Echo)}) Writing echo to Server Streaming: {name}");
                 await writer.WriteAsync(new BidiHelloReply
                 {
-                    Message = name,
+                    Message = $"Echo: {name}",
                 }, ct);
 
                 await Task.Delay(300, ct);

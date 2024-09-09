@@ -12,9 +12,11 @@ public class GreeterService : Greeter.GreeterBase
 
     public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
     {
+        var name = request.Name;
+        _logger.LogInformation($"({nameof(GreeterService)}) Recieved request: {name}");
         return Task.FromResult(new HelloReply
         {
-            Message = "Hello " + request.Name
+            Message = $"Hello {name}",
         });
     }
 }
