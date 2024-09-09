@@ -84,8 +84,9 @@ jobs:
           path: ${{ env.TEMP_UPLOAD_PATH }}/
           retention-days: 1
 
-  # run on pull_request only
+  # run except pull_request only
   update-doc:
+    if: ${{ github.event_name != 'pull_request' }}
     needs: [benchmark]
     permissions:
       contents: write
@@ -93,8 +94,6 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event_name == 'pull_request' && github.head_ref || '' }} # checkout PR HEAD branch instead of merge commit. use ref instead of sha to avoid detached HEAD and re-run.
       - name: Remove existing README.md
         run: rm -f src/**/*Benchmark*md
 
