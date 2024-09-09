@@ -1,10 +1,10 @@
 ```
 
-BenchmarkDotNet v0.13.12, Ubuntu 22.04.4 LTS (Jammy Jellyfish)
+BenchmarkDotNet v0.14.0, Ubuntu 22.04.4 LTS (Jammy Jellyfish)
 AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
-.NET SDK 8.0.300
-  [Host]   : .NET 8.0.5 (8.0.524.21615), X64 RyuJIT AVX2
-  ShortRun : .NET 8.0.5 (8.0.524.21615), X64 RyuJIT AVX2
+.NET SDK 8.0.401
+  [Host]   : .NET 8.0.8 (8.0.824.36612), X64 RyuJIT AVX2
+  ShortRun : .NET 8.0.8 (8.0.824.36612), X64 RyuJIT AVX2
 
 Job=ShortRun  IterationCount=3  LaunchCount=1  
 WarmupCount=3  
@@ -12,6 +12,6 @@ WarmupCount=3
 ```
 | Method                  | data      | json                 | Mean      | Error     | StdDev   | Min       | Max       | Gen0   | Allocated |
 |------------------------ |---------- |--------------------- |----------:|----------:|---------:|----------:|----------:|-------:|----------:|
-| **MemoryPack**              | **Byte[103]** | **?**                    |  **96.63 ns** |  **9.873 ns** | **0.541 ns** |  **96.05 ns** |  **97.12 ns** | **0.0029** |     **248 B** |
-| **SystemTextJson**          | **?**         | **{&quot;X&quot;(...)\\n&quot;} [150]** | **618.88 ns** | **54.328 ns** | **2.978 ns** | **617.03 ns** | **622.31 ns** | **0.0029** |     **248 B** |
-| SystemTextJsonSourceGen | ?         | {&quot;X&quot;(...)\\n&quot;} [150] | 605.60 ns | 34.422 ns | 1.887 ns | 603.96 ns | 607.66 ns | 0.0029 |     248 B |
+| **MemoryPack**              | **Byte[103]** | **?**                    |  **94.33 ns** | **11.924 ns** | **0.654 ns** |  **93.78 ns** |  **95.05 ns** | **0.0029** |     **248 B** |
+| **SystemTextJson**          | **?**         | **{&quot;X&quot;(...)\\n&quot;} [150]** | **611.49 ns** | **62.547 ns** | **3.428 ns** | **609.10 ns** | **615.42 ns** | **0.0029** |     **248 B** |
+| SystemTextJsonSourceGen | ?         | {&quot;X&quot;(...)\\n&quot;} [150] | 591.62 ns |  5.473 ns | 0.300 ns | 591.31 ns | 591.91 ns | 0.0029 |     248 B |
