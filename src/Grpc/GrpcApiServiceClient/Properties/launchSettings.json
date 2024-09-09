@@ -1,12 +1,12 @@
 {
   "profiles": {
-    "GrpcApiServiceClient": {
+    "GrpcApiServiceClient (greter)": {
       "commandName": "Project",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "https://localhost:64147;http://localhost:64148"
+      "commandLineArgs": "greeter --name foobar"
+    },
+    "GrpcApiServiceClient (duplexer)": {
+      "commandName": "Project",
+      "commandLineArgs": "duplexer --names foobar,piyopiyo,1,2,3,4,5,6,7,8,9,10,end,not_reach"
     }
   }
 }

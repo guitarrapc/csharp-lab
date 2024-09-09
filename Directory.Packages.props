@@ -3,16 +3,18 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="ConsoleAppFramework" Version="4.2.4" />
+    <PackageVersion Include="ConsoleAppFramework" Version="5.2.3" />
     <PackageVersion Include="IPNetwork2" Version="3.0.667" />
     <PackageVersion Include="MemoryPack" Version="1.21.1" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.7" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.8" PrivateAssets="all" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.8" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.ObjectPool" Version="8.0.8" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
-    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.7.3" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageVersion Include="System.IO.Hashing" Version="8.0.0" />
     <PackageVersion Include="ZLogger" Version="2.5.5" />
     <!-- Benchmark -->
@@ -29,7 +31,7 @@
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.8" />
     <!-- Redis -->
-    <PackageVersion Include="StackExchange.Redis" Version="2.8.0" />
+    <PackageVersion Include="StackExchange.Redis" Version="2.8.12" />
     <!-- gRPC -->
     <PackageVersion Include="Google.Protobuf" Version="3.27.3" />
     <PackageVersion Include="Grpc.AspNetCore" Version="2.65.0" />
