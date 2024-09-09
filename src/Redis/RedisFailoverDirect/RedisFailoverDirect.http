@@ -1,0 +1,6 @@
+@RedisFailoverDirect_HostAddress = http://localhost:5052
+
+GET {{RedisFailoverDirect_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
