@@ -1,10 +1,10 @@
 ```
 
-BenchmarkDotNet v0.13.12, Ubuntu 22.04.4 LTS (Jammy Jellyfish)
+BenchmarkDotNet v0.14.0, Ubuntu 22.04.4 LTS (Jammy Jellyfish)
 AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
-.NET SDK 8.0.203
-  [Host]   : .NET 8.0.3 (8.0.324.11423), X64 RyuJIT AVX2
-  ShortRun : .NET 8.0.3 (8.0.324.11423), X64 RyuJIT AVX2
+.NET SDK 8.0.401
+  [Host]   : .NET 8.0.8 (8.0.824.36612), X64 RyuJIT AVX2
+  ShortRun : .NET 8.0.8 (8.0.824.36612), X64 RyuJIT AVX2
 
 Job=ShortRun  IterationCount=3  LaunchCount=1  
 WarmupCount=3  
@@ -12,17 +12,17 @@ WarmupCount=3
 ```
 | Method              | Number | Mean      | Error     | StdDev   | Min       | Max       | Gen0   | Allocated |
 |-------------------- |------- |----------:|----------:|---------:|----------:|----------:|-------:|----------:|
-| **FromPrefix**          | **1**      |  **18.06 ns** |  **2.287 ns** | **0.125 ns** |  **17.97 ns** |  **18.20 ns** | **0.0007** |      **56 B** |
-| FromCidrAddress     | 1      | 122.61 ns | 75.302 ns | 4.128 ns | 120.18 ns | 127.38 ns | 0.0012 |     112 B |
-| FromCidrAddress2    | 1      | 117.18 ns | 12.793 ns | 0.701 ns | 116.77 ns | 117.99 ns | 0.0012 |     112 B |
-| FromIPAddressString | 1      |  91.02 ns |  6.877 ns | 0.377 ns |  90.71 ns |  91.44 ns | 0.0006 |      56 B |
-| FromIPAddressType   | 1      |  45.49 ns |  0.763 ns | 0.042 ns |  45.45 ns |  45.52 ns | 0.0010 |      88 B |
-| GetNetworkAddress   | 1      |  47.81 ns | 36.761 ns | 2.015 ns |  46.19 ns |  50.06 ns | 0.0007 |      56 B |
-| GetAddressRange     | 1      | 124.08 ns | 27.696 ns | 1.518 ns | 122.92 ns | 125.80 ns | 0.0019 |     168 B |
-| **FromPrefix**          | **3**      |  **56.32 ns** | **10.016 ns** | **0.549 ns** |  **55.69 ns** |  **56.69 ns** | **0.0020** |     **168 B** |
-| FromCidrAddress     | 3      | 366.07 ns | 40.439 ns | 2.217 ns | 363.66 ns | 368.01 ns | 0.0038 |     336 B |
-| FromCidrAddress2    | 3      | 355.00 ns | 59.646 ns | 3.269 ns | 352.06 ns | 358.52 ns | 0.0038 |     336 B |
-| FromIPAddressString | 3      | 288.94 ns | 40.101 ns | 2.198 ns | 287.28 ns | 291.43 ns | 0.0019 |     168 B |
-| FromIPAddressType   | 3      | 136.88 ns | 11.777 ns | 0.646 ns | 136.50 ns | 137.62 ns | 0.0031 |     264 B |
-| GetNetworkAddress   | 3      | 136.88 ns |  4.143 ns | 0.227 ns | 136.62 ns | 137.04 ns | 0.0019 |     168 B |
-| GetAddressRange     | 3      | 369.30 ns | 75.049 ns | 4.114 ns | 364.81 ns | 372.88 ns | 0.0057 |     504 B |
+| **FromPrefix**          | **1**      |  **18.28 ns** | **18.857 ns** | **1.034 ns** |  **17.52 ns** |  **19.45 ns** | **0.0007** |      **56 B** |
+| FromCidrAddress     | 1      | 123.91 ns |  0.603 ns | 0.033 ns | 123.88 ns | 123.95 ns | 0.0012 |     112 B |
+| FromCidrAddress2    | 1      | 117.55 ns |  1.433 ns | 0.079 ns | 117.48 ns | 117.64 ns | 0.0012 |     112 B |
+| FromIPAddressString | 1      |  91.24 ns |  2.349 ns | 0.129 ns |  91.15 ns |  91.39 ns | 0.0006 |      56 B |
+| FromIPAddressType   | 1      |  45.44 ns | 19.472 ns | 1.067 ns |  44.81 ns |  46.68 ns | 0.0010 |      88 B |
+| GetNetworkAddress   | 1      |  43.22 ns |  1.445 ns | 0.079 ns |  43.13 ns |  43.28 ns | 0.0007 |      56 B |
+| GetAddressRange     | 1      | 117.64 ns | 10.104 ns | 0.554 ns | 117.07 ns | 118.17 ns | 0.0019 |     168 B |
+| **FromPrefix**          | **3**      |  **55.03 ns** |  **4.455 ns** | **0.244 ns** |  **54.81 ns** |  **55.29 ns** | **0.0020** |     **168 B** |
+| FromCidrAddress     | 3      | 373.82 ns | 17.031 ns | 0.934 ns | 372.98 ns | 374.83 ns | 0.0038 |     336 B |
+| FromCidrAddress2    | 3      | 356.34 ns | 10.449 ns | 0.573 ns | 355.85 ns | 356.97 ns | 0.0038 |     336 B |
+| FromIPAddressString | 3      | 275.17 ns | 13.889 ns | 0.761 ns | 274.38 ns | 275.90 ns | 0.0019 |     168 B |
+| FromIPAddressType   | 3      | 135.89 ns | 14.433 ns | 0.791 ns | 135.25 ns | 136.78 ns | 0.0031 |     264 B |
+| GetNetworkAddress   | 3      | 137.81 ns | 58.645 ns | 3.215 ns | 135.45 ns | 141.47 ns | 0.0019 |     168 B |
+| GetAddressRange     | 3      | 373.64 ns |  4.804 ns | 0.263 ns | 373.46 ns | 373.94 ns | 0.0057 |     504 B |
