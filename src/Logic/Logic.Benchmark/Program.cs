@@ -4,9 +4,10 @@ BenchmarkRunner.Run(typeof(Program).Assembly);
 
 //BenchmarkRunner.Run<Logic.Benchmark.BinaryArrayConverterBenchmarks>();
 //BenchmarkRunner.Run<Logic.Benchmark.ExponentialBackoffBenchmarks>();
-//BenchmarkRunner.Run<Logic.Benchmark.Networks.CidrBlockBenchmarks>();
-//BenchmarkRunner.Run<Logic.Benchmark.Networks.SubnetMaskBenchmarks>();
-//BenchmarkRunner.Run<Logic.Benchmark.StopwatchBenchmarks>();
-//BenchmarkRunner.Run<Logic.Benchmark.StringReverseBenchmarks>();
-//BenchmarkRunner.Run<Logic.Benchmark.StringSplitBenchmarks>();
+//BenchmarkRunner.Run<Logic.Benchmark.GuidMergeBenchmarks>();
+//BenchmarkRunner.Run<Logic.Benchmark.HashBenchmarks>();
+//BenchmarkRunner.Run<Logic.Benchmark.Networks.CidrBlockv4Benchmarks>();
+//BenchmarkRunner.Run<Logic.Benchmark.Networks.CidrSubnetBenchmarks>();
+//BenchmarkRunner.Run<Logic.Benchmark.Networks.SubnetMaskv4Benchmarks>();
+//BenchmarkRunner.Run<Logic.Benchmark.ValueStopwatchBenchmarks>();
 //BenchmarkRunner.Run<Logic.Benchmark.ValueTaskDelayBenchmarks>();
