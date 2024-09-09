@@ -8,7 +8,7 @@ namespace Serialization.Benchmark;
 [ShortRunJob]
 [MemoryDiagnoser]
 [MinColumn, MaxColumn]
-public class DeserializeNestBenchmark : BenchmarkBase
+public class DeserializeNestBenchmarks : BenchmarkBase
 {
     [Benchmark]
     [ArgumentsSource(nameof(TestNestJson))]

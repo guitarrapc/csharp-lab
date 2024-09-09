@@ -10,7 +10,7 @@ namespace Serialization.Benchmark;
 [MemoryDiagnoser]
 [MinColumn, MaxColumn]
 [CategoriesColumn]
-public class SerializePrimitivesBenchmark : BenchmarkBase
+public class SerializePrimitivesBenchmarks : BenchmarkBase
 {
     [Benchmark]
     [ArgumentsSource(nameof(TestPrimitivesData))]
