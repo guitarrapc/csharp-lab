@@ -27,7 +27,7 @@ for (var i = 0; i < round; i++)
         while (await timer.WaitForNextTickAsync(cts.Token))
         {
             var result = reporter.GetResultAndClear();
-            Console.WriteLine($"| {result.AvgCpuUsagePercent.ToString("00.00").PadLeft(7)}% | {result.MaxCpuUsagePercent.ToString("00.00").PadLeft(7)}% | {result.AvgMemoryUsageMB.ToString("#.00").PadLeft(9)}MB | {result.MaxMemoryUsageMB.ToString("#.00").PadLeft(9)}MB |" + suffix);
+            Console.WriteLine($"| {result.AvgCpuUsagePercent.ToString("#.00").PadLeft(7)}% | {result.MaxCpuUsagePercent.ToString("#.00").PadLeft(7)}% | {result.AvgMemoryUsageMB.ToString("#.00").PadLeft(9)}MB | {result.MaxMemoryUsageMB.ToString("#.00").PadLeft(9)}MB |" + suffix);
             suffix = "";
         }
     }
