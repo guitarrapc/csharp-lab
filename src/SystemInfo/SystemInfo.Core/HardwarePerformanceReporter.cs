@@ -50,7 +50,7 @@ public class HardwarePerformanceReporter
                 // CPU usage
                 var cpuUsedMs = (endCpuTime - startCpuTime).TotalMilliseconds;
                 var totalMsPassed = duration.TotalMilliseconds;
-                var cpuUsagePercentage = (cpuUsedMs / totalMsPassed) * 100 / _cpuCores;
+                var cpuUsagePercentage = (cpuUsedMs / (totalMsPassed * _cpuCores)) * 100;
                 _cpuUsages.Add(cpuUsagePercentage);
 
                 // Memory usage = working set
