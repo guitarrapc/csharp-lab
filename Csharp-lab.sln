@@ -140,7 +140,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharp6.Tests", "src\WhatsN
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedisFailover", "src\Redis\RedisFailover\RedisFailover.csproj", "{473A75DE-21AD-4A1C-BF50-59D3D1D4D1E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisFailoverDirect", "src\Redis\RedisFailoverDirect\RedisFailoverDirect.csproj", "{BCD1E0A6-9E62-4B22-86FF-F1207313615A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedisFailoverDirect", "src\Redis\RedisFailoverDirect\RedisFailoverDirect.csproj", "{BCD1E0A6-9E62-4B22-86FF-F1207313615A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SystemInfo", "SystemInfo", "{758C0491-77D7-45B6-9E03-5EE26671D447}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemInfo.Core", "src\SystemInfo\SystemInfo.Core\SystemInfo.Core.csproj", "{9BFE753D-C2D9-4022-A990-70A9831F6CDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemInfo.Sandbox", "src\SystemInfo\SystemInfo.Sandbox\SystemInfo.Sandbox.csproj", "{99FF245D-EB68-4623-B586-8E37B8E2D8FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -348,6 +354,14 @@ Global
 		{BCD1E0A6-9E62-4B22-86FF-F1207313615A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCD1E0A6-9E62-4B22-86FF-F1207313615A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCD1E0A6-9E62-4B22-86FF-F1207313615A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BFE753D-C2D9-4022-A990-70A9831F6CDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BFE753D-C2D9-4022-A990-70A9831F6CDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BFE753D-C2D9-4022-A990-70A9831F6CDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BFE753D-C2D9-4022-A990-70A9831F6CDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99FF245D-EB68-4623-B586-8E37B8E2D8FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99FF245D-EB68-4623-B586-8E37B8E2D8FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99FF245D-EB68-4623-B586-8E37B8E2D8FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99FF245D-EB68-4623-B586-8E37B8E2D8FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -403,6 +417,8 @@ Global
 		{6CA0D0AB-721D-401E-8592-8B2F81DF7B3B} = {D2828C01-951E-4344-B225-DBCDB9502F6A}
 		{473A75DE-21AD-4A1C-BF50-59D3D1D4D1E2} = {3910F58C-6DEB-4C30-8B10-B9DA74B58225}
 		{BCD1E0A6-9E62-4B22-86FF-F1207313615A} = {3910F58C-6DEB-4C30-8B10-B9DA74B58225}
+		{9BFE753D-C2D9-4022-A990-70A9831F6CDD} = {758C0491-77D7-45B6-9E03-5EE26671D447}
+		{99FF245D-EB68-4623-B586-8E37B8E2D8FD} = {758C0491-77D7-45B6-9E03-5EE26671D447}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6AD43C70-ADE6-43C4-A90D-F4E7CB0BD2F9}
