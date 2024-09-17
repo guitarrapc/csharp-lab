@@ -31,7 +31,7 @@
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.8" />
     <!-- Redis -->
-    <PackageVersion Include="StackExchange.Redis" Version="2.8.14" />
+    <PackageVersion Include="StackExchange.Redis" Version="2.8.16" />
     <!-- gRPC -->
     <PackageVersion Include="Google.Protobuf" Version="3.28.0" />
     <PackageVersion Include="Grpc.AspNetCore" Version="2.65.0" />
