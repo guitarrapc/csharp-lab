@@ -7,6 +7,9 @@
     "GrpcApiServiceClient (duplexer)": {
       "commandName": "Project",
       "commandLineArgs": "duplexer --names foobar,piyopiyo,1,2,3,4,5,6,7,8,9,10,end,not_reach"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
     }
   }
 }

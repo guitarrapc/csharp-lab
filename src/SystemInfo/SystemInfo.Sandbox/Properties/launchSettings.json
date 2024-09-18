@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "SystemInfo.Sandbox": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

@@ -13,7 +13,7 @@ on:
         required: true
         default: false
   schedule:
-    - cron: 0 0 * * 0 # At 00:00 on Sunday.
+    - cron: 0 0 * * 0 # At AM9:00 JST on Subday
   push:
     branches:
       - "main"
@@ -26,65 +26,37 @@ env:
   DOCKER_PUSH_ENABLED: "${{ github.event.inputs.push-image == 'true' && 'true' || (github.event_name == 'push' || github.event_name == 'schedule') }}"
 
 jobs:
+  find:
+    outputs:
+      build_matrix: ${{ steps.find.outputs.build_matrix }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create Matrix JSON with Dockerfile Projects
+        id: find
+        run: |
+          json=$(find src -name Dockerfile -exec dirname {} \; | jq -R -s -c '
+            split("\n") | map(select(length > 0)) |
+            map({
+              project: (split("/")[2]),
+              dockerfile: (. + "/Dockerfile"),
+              tag: (split("/")[1] | ascii_downcase)
+            }) |
+            { include: . }
+          ')
+          echo "build_matrix=$json" | tee -a "$GITHUB_OUTPUT"
+
   docker:
+    needs: [find]
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - project: ApiMultiplePort
-            dockerfile: ./src/Api/ApiMultiplePort/Dockerfile
-            tag: api
-          - project: BlazorServerApp
-            dockerfile: ./src/Blazor/BlazorServerApp/Dockerfile
-            tag: blazor
-          - project: BlazorServerIPBlockApp
-            dockerfile: ./src/Blazor/BlazorServerIPBlockApp/Dockerfile
-            tag: blazor
-          - project: DatabaseMySqlEf
-            dockerfile: ./src/Database/DatabaseMySqlEf/Dockerfile
-            tag: database
-          - project: DatabasePostgresqlEf
-            dockerfile: ./src/Database/DatabasePostgresqlEf/Dockerfile
-            tag: database
-          - project: DatabaseSqliteEF
-            dockerfile: ./src/Database/DatabaseSqliteEF/Dockerfile
-            tag: database
-          - project: DatabaseSqliteInmemoryEF
-            dockerfile: ./src/Database/DatabaseSqliteInmemoryEF/Dockerfile
-            tag: database
-          - project: GrpcApiService
-            dockerfile: ./src/Grpc/GrpcApiService/Dockerfile
-            tag: grpc
-          - project: GrpcService
-            dockerfile: ./src/Grpc/GrpcService/Dockerfile
-            tag: grpc
-          - project: GrpcServiceHealthCheck
-            dockerfile: ./src/Grpc/GrpcServiceHealthCheck/Dockerfile
-            tag: grpc
-          - project: Logger.Benchmark
-            dockerfile: ./src/Logger/Logger.Benchmark/Dockerfile
-            tag: logger
-          - project: LoggerBlazorApp
-            dockerfile: ./src/Logger/LoggerBlazorApp/Dockerfile
-            tag: logger
-          - project: LoggerHttpApi
-            dockerfile: ./src/Logger/LoggerHttpApi/Dockerfile
-            tag: logger
-          - project: LoggerWorker
-            dockerfile: ./src/Logger/LoggerWorker/Dockerfile
-            tag: logger
-          - project: Logic.Benchmark
-            dockerfile: ./src/Logic/Logic.Benchmark/Dockerfile
-            tag: logiclab
-          - project: MemoryLeakApi
-            dockerfile: ./src/MemoryLeak/MemoryLeakApi/Dockerfile
-            tag: memoryleak
-          - project: MemoryLeak.Benchmark
-            dockerfile: ./src/MemoryLeak/MemoryLeak.Benchmark/Dockerfile
-            tag: memoryleak
-          - project: RedisConnectTester
-            dockerfile: ./src/Redis/RedisConnectTester/Dockerfile
-            tag: redis
+      matrix: ${{ fromJson(needs.find.outputs.build_matrix) }}
+      # expected matrix format is as follows (YAML sample)
+      # include:
+      #   - project: ApiMultiplePort
+      #     dockerfile: ./src/Api/ApiMultiplePort/Dockerfile
+      #     tag: api
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

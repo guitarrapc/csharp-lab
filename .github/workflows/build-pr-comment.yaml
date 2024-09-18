@@ -22,8 +22,6 @@ jobs:
       - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
         with:
           restore-wasm-workload: true
-          dotnet-version: |
-            8.0.x
       - name: dotnet build
         run: dotnet build -c "${{ env.BUILD_CONFIG }}"
       - name: dotnet test
