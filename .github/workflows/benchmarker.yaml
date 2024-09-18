@@ -7,7 +7,7 @@ concurrency:
 on:
   workflow_dispatch:
   schedule:
-    - cron: 0 0 * * 0 # At 00:00 on Sunday.
+    - cron: 0 0 * * 0 # At AM9:00 JST on Subday
   push:
     branches:
       - "main"
@@ -52,8 +52,6 @@ jobs:
       - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
         with:
           restore-wasm-workload: true
-          dotnet-version: |
-            8.0.x
       - name: dotnet build
         run: dotnet build ./${{ matrix.path }}/${{ matrix.project }}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
       - name: Run benchmark
