@@ -28,7 +28,7 @@ env:
 jobs:
   find:
     outputs:
-      docker_matrix: ${{ steps.find.outputs.include }}
+      build_matrix: ${{ steps.find.outputs.build_matrix }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -36,7 +36,7 @@ jobs:
       - name: Create Matrix JSON with Dockerfile Projects
         id: find
         run: |
-          find src -name Dockerfile -exec dirname {} \; | jq -R -s -c '
+          json=$(find src -name Dockerfile -exec dirname {} \; | jq -R -s -c '
             split("\n") | map(select(length > 0)) |
             map({
               project: (split("/")[2]),
@@ -44,13 +44,14 @@ jobs:
               tag: (split("/")[1] | ascii_downcase)
             }) |
             { include: . }
-          ' | tee -a "$GITHUB_OUTPUT"
+          ')
+          echo "build_matrix=$json" | tee -a "$GITHUB_OUTPUT"
 
   docker:
     needs: [find]
     strategy:
       fail-fast: false
-      matrix: ${{fromJson(needs.find.outputs.docker_matrix)}}
+      matrix: ${{ fromJson(needs.find.outputs.build_matrix) }}
       # expected matrix format is as follows (YAML sample)
       # include:
       #   - project: ApiMultiplePort
