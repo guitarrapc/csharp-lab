@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
     <RunAOTCompilation>true</RunAOTCompilation>
     <WasmStripILAfterAOT>true</WasmStripILAfterAOT>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>

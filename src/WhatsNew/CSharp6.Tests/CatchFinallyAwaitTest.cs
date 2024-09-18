@@ -14,7 +14,7 @@ public class CatchFinallyAwaitTest
                 await Task.Delay(100);
                 x++;
             }
-            catch (OperationCanceledException e)
+            catch (OperationCanceledException)
             {
                 await Task.Delay(1);
                 x++;
