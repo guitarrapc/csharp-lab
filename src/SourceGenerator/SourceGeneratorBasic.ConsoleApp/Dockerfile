@@ -10,20 +10,20 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/Database/DatabaseSqliteEF/DatabaseSqliteEf.csproj", "src/Database/DatabaseSqliteEF/"]
-COPY ["src/Database/DatabaseCore/DatabaseCore.csproj", "src/Database/DatabaseCore/"]
-RUN dotnet restore "./src/Database/DatabaseSqliteEF/DatabaseSqliteEf.csproj"
+COPY ["src/SourceGenerator/SourceGeneratorBasic.ConsoleApp/SourceGeneratorBasic.ConsoleApp.csproj", "src/SourceGenerator/SourceGeneratorBasic.ConsoleApp/"]
+COPY ["src/SourceGenerator/SourceGeneratorBasic/SourceGeneratorBasic.csproj", "src/SourceGenerator/SourceGeneratorBasic/"]
+RUN dotnet restore "./src/SourceGenerator/SourceGeneratorBasic.ConsoleApp/SourceGeneratorBasic.ConsoleApp.csproj"
 COPY . .
-WORKDIR "/src/src/Database/DatabaseSqliteEF"
-RUN dotnet build "./DatabaseSqliteEf.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/src/SourceGenerator/SourceGeneratorBasic.ConsoleApp"
+RUN dotnet build "./SourceGeneratorBasic.ConsoleApp.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./DatabaseSqliteEf.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./SourceGeneratorBasic.ConsoleApp.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "DatabaseSqliteEf.dll"]
+ENTRYPOINT ["dotnet", "SourceGeneratorBasic.ConsoleApp.dll"]
