@@ -67,9 +67,13 @@ public class SelfcheckClient(IHttpClientFactory clientFactory, ILogger<Selfcheck
                 await JsonSerializer.DeserializeAsync<IEnumerable<WeatherForecast>>(contentStream);
             }
         }
-        catch (Exception ex)
+        catch (HttpRequestException ex)
         {
-            logger.LogError(ex, $"Error happen when calling {client.BaseAddress}.");
+            logger.LogError(ex, $"Error happen when calling {client.BaseAddress}. StatusCode={ex.StatusCode},");
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, $"Error happen when calling {client.BaseAddress}.");
         }
     }
 }
