@@ -144,9 +144,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedisFailoverDirect", "src\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SystemInfo", "SystemInfo", "{758C0491-77D7-45B6-9E03-5EE26671D447}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemInfo.Core", "src\SystemInfo\SystemInfo.Core\SystemInfo.Core.csproj", "{9BFE753D-C2D9-4022-A990-70A9831F6CDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemInfo.Core", "src\SystemInfo\SystemInfo.Core\SystemInfo.Core.csproj", "{9BFE753D-C2D9-4022-A990-70A9831F6CDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemInfo.Sandbox", "src\SystemInfo\SystemInfo.Sandbox\SystemInfo.Sandbox.csproj", "{99FF245D-EB68-4623-B586-8E37B8E2D8FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemInfo.Sandbox", "src\SystemInfo\SystemInfo.Sandbox\SystemInfo.Sandbox.csproj", "{99FF245D-EB68-4623-B586-8E37B8E2D8FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiHttp3", "src\Api\ApiHttp3\ApiHttp3.csproj", "{DD687CB7-106B-4AF1-8450-AB560FA3A1C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -362,6 +364,10 @@ Global
 		{99FF245D-EB68-4623-B586-8E37B8E2D8FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99FF245D-EB68-4623-B586-8E37B8E2D8FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99FF245D-EB68-4623-B586-8E37B8E2D8FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD687CB7-106B-4AF1-8450-AB560FA3A1C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD687CB7-106B-4AF1-8450-AB560FA3A1C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD687CB7-106B-4AF1-8450-AB560FA3A1C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD687CB7-106B-4AF1-8450-AB560FA3A1C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -419,6 +425,7 @@ Global
 		{BCD1E0A6-9E62-4B22-86FF-F1207313615A} = {3910F58C-6DEB-4C30-8B10-B9DA74B58225}
 		{9BFE753D-C2D9-4022-A990-70A9831F6CDD} = {758C0491-77D7-45B6-9E03-5EE26671D447}
 		{99FF245D-EB68-4623-B586-8E37B8E2D8FD} = {758C0491-77D7-45B6-9E03-5EE26671D447}
+		{DD687CB7-106B-4AF1-8450-AB560FA3A1C9} = {28CE7184-F1DE-44AE-922F-965FC3AA1768}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6AD43C70-ADE6-43C4-A90D-F4E7CB0BD2F9}
