@@ -45,7 +45,7 @@ public static class Http3BuilderExtensions
         builder.Services.AddHostedService<SelfcheckBackgroundService>();
 
         // Set HttpClient configuratioan
-        builder.Services.AddHttpClient("SelfcheckHttp3", static (sp, httpClient) =>
+        builder.Services.AddHttpClient("SelfcheckHttp", static (sp, httpClient) =>
         {
             var op = sp.GetRequiredService<SelfcheckServiceOptions>();
 
