@@ -1,7 +1,6 @@
 using Grpc.Core;
 
-namespace GrpcApiService.Services;
-
+namespace Grpc2.Services;
 public class GreeterService : Greeter.GreeterBase
 {
     private readonly ILogger<GreeterService> _logger;
@@ -12,11 +11,10 @@ public class GreeterService : Greeter.GreeterBase
 
     public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
     {
-        var name = request.Name;
-        _logger.LogInformation($"({nameof(GreeterService)}) Recieved request: {name}");
+        _logger.LogInformation($"Grpc Unary request accepted {request.Name}");
         return Task.FromResult(new HelloReply
         {
-            Message = $"Hello {name}",
+            Message = "Hello " + request.Name
         });
     }
 }

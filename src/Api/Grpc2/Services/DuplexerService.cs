@@ -1,7 +1,7 @@
 using Grpc.Core;
 using Microsoft.AspNetCore.Connections;
 
-namespace GrpcApiService.Services;
+namespace Grpc2.Services;
 
 public class DuplexerService : Duplexer.DuplexerBase
 {
@@ -56,7 +56,7 @@ public class DuplexerService : Duplexer.DuplexerBase
         }
         finally
         {
-            _logger.LogInformation("Client Disconnected");
+            _logger.LogDebug("Client Disconnected");
         }
     }
 }
