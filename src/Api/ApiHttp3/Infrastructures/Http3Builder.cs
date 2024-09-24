@@ -40,14 +40,14 @@ public static class Http3BuilderExtensions
     /// <returns></returns>
     public static IHttp3Builder EnableSelfcheck(this IHttp3Builder builder)
     {
-        builder.Services.AddSingleton<SelfcheckHttp3Options>();
-        builder.Services.AddSingleton<SelfcheckHttp3Service>();
+        builder.Services.AddSingleton<SelfcheckServiceOptions>();
+        builder.Services.AddSingleton<SelfcheckHttp3Client>();
         builder.Services.AddHostedService<SelfcheckBackgroundService>();
 
         // Set HttpClient configuratioan
         builder.Services.AddHttpClient("SelfcheckHttp3", static (sp, httpClient) =>
         {
-            var op = sp.GetRequiredService<SelfcheckHttp3Options>();
+            var op = sp.GetRequiredService<SelfcheckServiceOptions>();
 
             httpClient.BaseAddress = op.BaseAddress;
             httpClient.DefaultRequestVersion = new Version(3, 0);

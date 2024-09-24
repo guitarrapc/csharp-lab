@@ -4,13 +4,23 @@ using System.Text.Json;
 
 namespace ApiHttp3.Infrastructures;
 
+public class SelfcheckServiceOptions
+{
+    /// <summary>
+    /// HTTPClient BaseAddress to request this server's htts listener address.
+    /// Visual Studio / Docker / Kubernetes or any other launch method will not guaranteed which port to be used.
+    /// This method will inject proper address for any launch style.
+    /// </summary>
+    public Uri BaseAddress { get; set; } = new Uri("https://localhost:8081");
+}
+
 /// <summary>
 /// Connect to localhost's api to check it's availability
 /// </summary>
 /// <param name="client"></param>
 /// <param name="hostApplicationLifetime"></param>
 /// <param name="server"></param>
-public class SelfcheckBackgroundService(SelfcheckHttp3Options options, SelfcheckHttp3Service client, IHostApplicationLifetime hostApplicationLifetime, IServer server): BackgroundService
+public class SelfcheckBackgroundService(SelfcheckServiceOptions options, SelfcheckHttp3Client client, IHostApplicationLifetime hostApplicationLifetime, IServer server): BackgroundService
 {
     private const int delayStart = 3;
     private const int interval = 10;
@@ -34,15 +44,15 @@ public class SelfcheckBackgroundService(SelfcheckHttp3Options options, Selfcheck
 
         while (!stoppingToken.IsCancellationRequested)
         {
-            await client.ExecuteAsync(stoppingToken);
+            await client.SendAsync(stoppingToken);
             await Task.Delay(TimeSpan.FromSeconds(interval), stoppingToken).ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
         }
     }
 }
 
-public class SelfcheckHttp3Service(IHttpClientFactory clientFactory, ILogger<SelfcheckHttp3Service> logger)
+public class SelfcheckHttp3Client(IHttpClientFactory clientFactory, ILogger<SelfcheckHttp3Client> logger)
 {
-    public async Task ExecuteAsync(CancellationToken cancellationToken)
+    public async Task SendAsync(CancellationToken cancellationToken)
     {
         var client = clientFactory.CreateClient("SelfcheckHttp3");
         try
@@ -62,14 +72,4 @@ public class SelfcheckHttp3Service(IHttpClientFactory clientFactory, ILogger<Sel
             logger.LogError(ex, $"Error happen when calling {client.BaseAddress}.");
         }
     }
-}
-
-public class SelfcheckHttp3Options
-{
-    /// <summary>
-    /// HTTPClient BaseAddress to request this server's htts listener address.
-    /// Visual Studio / Docker / Kubernetes or any other launch method will not guaranteed which port to be used.
-    /// This method will inject proper address for any launch style.
-    /// </summary>
-    public Uri BaseAddress { get; set; } = new Uri("https://localhost:8081");
 }
