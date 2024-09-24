@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using System.Text.Json;
 
-namespace ApiHttp3.Infrastructures;
+namespace ApiHttp12.Infrastructures;
 
 public class SelfcheckServiceOptions
 {
@@ -11,7 +11,7 @@ public class SelfcheckServiceOptions
     /// Visual Studio / Docker / Kubernetes or any other launch method will not guaranteed which port to be used.
     /// This method will inject proper address for any launch style.
     /// </summary>
-    public Uri BaseAddress { get; set; } = new Uri("https://localhost:5001");
+    public Uri BaseAddress { get; set; } = new Uri("http://localhost:5000");
 }
 
 /// <summary>
@@ -20,7 +20,7 @@ public class SelfcheckServiceOptions
 /// <param name="client"></param>
 /// <param name="hostApplicationLifetime"></param>
 /// <param name="server"></param>
-public class SelfcheckBackgroundService(SelfcheckServiceOptions options, SelfcheckHttp3Client client, IHostApplicationLifetime hostApplicationLifetime, IServer server): BackgroundService
+public class SelfcheckBackgroundService(SelfcheckServiceOptions options, SelfcheckClient client, IHostApplicationLifetime hostApplicationLifetime, IServer server): BackgroundService
 {
     private const int delayStart = 3;
     private const int interval = 10;
@@ -50,7 +50,7 @@ public class SelfcheckBackgroundService(SelfcheckServiceOptions options, Selfche
     }
 }
 
-public class SelfcheckHttp3Client(IHttpClientFactory clientFactory, ILogger<SelfcheckHttp3Client> logger)
+public class SelfcheckClient(IHttpClientFactory clientFactory, ILogger<SelfcheckClient> logger)
 {
     public async Task SendAsync(CancellationToken cancellationToken)
     {
