@@ -25,7 +25,12 @@ public static class SelfCheckService
             httpClient.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionExact;
 
             httpClient.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
-        });
+        })
+            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+            {
+                // allow self certificate
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+            });
     }
 
     /// <summary>

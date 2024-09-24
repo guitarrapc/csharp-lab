@@ -2,11 +2,24 @@
 
 # This stage is used when running from VS in fast mode (Default for Debug configuration)
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+# add libmsquic
+RUN set -ex \
+    && apt-get update \
+    && apt-get install -y curl gnupg apt-transport-https \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN set -ex \
+    && . /etc/os-release \
+    && curl -sSL -o /tmp/packages-microsoft-prod.deb https://packages.microsoft.com/config/$ID/$VERSION_ID/packages-microsoft-prod.deb \
+    && dpkg -i /tmp/packages-microsoft-prod.deb \
+    && rm -f /tmp/packages-microsoft-prod.deb \
+    && apt-get update
+RUN set -ex \
+    && apt-get install -y libmsquic \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
 USER app
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-
+EXPOSE 5001
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
