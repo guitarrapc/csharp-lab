@@ -16,6 +16,8 @@ builder.Services.AddGrpcHealthChecks().AddCheck("Sample", () => HealthCheckResul
 // $ grpcurl -plaintext 127.0.0.1:5000 list
 // $ grpcurl -plaintext 127.0.0.1:5000 list greet.Greeter
 // $ grpcurl -plaintext 127.0.0.1:5000 greet.Greeter.SayHello
+// $ grpcurl -plaintext -proto ./src/Api/Grpc2/Protos/greet.proto -d "{\"name\": \"foo\"}" 127.0.0.1:5000 greet.Greeter/SayHello
+// $ grpcurl -plaintext -proto ./src/Api/Grpc2/Protos/duplexer.proto -d "{\"name\": \"foo\"}{\"name\": \"bar\"}{\"name\": \"piyo\"}" 127.0.0.1:5000 duplexer.Duplexer/Echo
 builder.Services.AddGrpcReflection();
 
 // Enable HTTP/2
