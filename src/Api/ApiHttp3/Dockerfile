@@ -2,21 +2,17 @@
 
 # This stage is used when running from VS in fast mode (Default for Debug configuration)
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-# add libmsquic
-RUN set -ex \
-    && apt-get update \
-    && apt-get install -y curl gnupg apt-transport-https \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+# add libmsquic see: https://learn.microsoft.com/en-us/linux/packages & https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel/http3?view=aspnetcore-8.0
 RUN set -ex \
     && . /etc/os-release \
-    && curl -sSL -o /tmp/packages-microsoft-prod.deb https://packages.microsoft.com/config/$ID/$VERSION_ID/packages-microsoft-prod.deb \
+    && apt-get update \
+    && apt-get install -y wget --no-install-recommends \
+    && wget https://packages.microsoft.com/config/$ID/$VERSION_ID/packages-microsoft-prod.deb -O /tmp/packages-microsoft-prod.deb \
     && dpkg -i /tmp/packages-microsoft-prod.deb \
     && rm -f /tmp/packages-microsoft-prod.deb \
-    && apt-get update
-RUN set -ex \
-    && apt-get install -y libmsquic \
+    && apt-get update \
+    && apt-get install -y libmsquic --no-install-recommends \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
-
 USER app
 WORKDIR /app
 EXPOSE 5001
