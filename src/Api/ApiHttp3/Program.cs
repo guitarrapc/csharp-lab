@@ -8,8 +8,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Enable HTTP3
-builder.Services.ConfigureSelfCheckService();
-builder.ConfigureHttp3Endpoint();
+builder.ConfigureHttp3Endpoint()
+    .EnableSelfCheckService();
 
 var app = builder.Build();
 

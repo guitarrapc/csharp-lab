@@ -1,56 +1,16 @@
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
-using Microsoft.Net.Http.Headers;
 using System.Text.Json;
 
 namespace ApiHttp3.Infrastructures;
 
 /// <summary>
-/// Add Server connection selfcheck background service.
-/// </summary>
-public static class SelfCheckService
-{
-    private static Uri? baseAddress;
-
-    public static void ConfigureSelfCheckService(this IServiceCollection services)
-    {
-        services.AddHostedService<SelfcheckBackgroundService>();
-        services.AddSingleton<SelfcheckHttp3Service>();
-
-        // Set HttpClient configuratioan
-        services.AddHttpClient("SelfcheckHttp3", httpClient =>
-        {
-            httpClient.BaseAddress = baseAddress;
-            httpClient.DefaultRequestVersion = new Version(3, 0);
-            httpClient.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionExact;
-
-            httpClient.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
-        })
-            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
-            {
-                // allow self certificate
-                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
-            });
-    }
-
-    /// <summary>
-    /// Set HTTPClient BaseAddress to this server's listener address.
-    /// Visual Studio / Docker / Kubernetes or any other launch method will not guaranteed which port to be used.
-    /// This method will inject proper address for any launch style.
-    /// </summary>
-    /// <param name="port"></param>
-    public static void SetBaseAddress(int port)
-    {
-        baseAddress = new Uri($"https://localhost:{port}");
-    }
-}
-
-/// <summary>
-/// Connect to localhost's HTTP/3 and selfcheck it's availability
+/// Connect to localhost's api to check it's availability
 /// </summary>
 /// <param name="client"></param>
 /// <param name="hostApplicationLifetime"></param>
-public class SelfcheckBackgroundService(SelfcheckHttp3Service client, IHostApplicationLifetime hostApplicationLifetime, IServer server): BackgroundService
+/// <param name="server"></param>
+public class SelfcheckBackgroundService(Http3ListenerOptions options, SelfcheckHttp3Service client, IHostApplicationLifetime hostApplicationLifetime, IServer server): BackgroundService
 {
     private const int delayStart = 3;
     private const int interval = 10;
@@ -68,7 +28,7 @@ public class SelfcheckBackgroundService(SelfcheckHttp3Service client, IHostAppli
     {
         var addresses = server.Features.Get<IServerAddressesFeature>()?.Addresses ?? ["https://localhost:8081"];
         var port = addresses.Select(x => new Uri(x)).First(x => x.Scheme == "https").Port;
-        SelfCheckService.SetBaseAddress(port);
+        options.BaseAddress = new Uri($"https://localhost:{port}");
 
         await Task.Delay(TimeSpan.FromSeconds(delayStart), stoppingToken).ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
 
