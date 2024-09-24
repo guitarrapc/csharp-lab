@@ -10,7 +10,7 @@ public static class Http3SupportExtensions
     /// <param name="builder"></param>
     public static void ConfigureHttp3Endpoint(this WebApplicationBuilder builder)
     {
-        // Enable HTTP/3
+        // see: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel/http3?view=aspnetcore-8.0
         builder.WebHost.ConfigureKestrel((context, options) =>
         {
             options.ListenAnyIP(5001, listenOptions =>
