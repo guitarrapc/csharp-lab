@@ -2,7 +2,7 @@
 
 BenchmarkDotNet v0.14.0, Ubuntu 22.04.5 LTS (Jammy Jellyfish)
 AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
-.NET SDK 8.0.401
+.NET SDK 8.0.402
   [Host]   : .NET 8.0.8 (8.0.824.36612), X64 RyuJIT AVX2
   ShortRun : .NET 8.0.8 (8.0.824.36612), X64 RyuJIT AVX2
 
@@ -12,5 +12,5 @@ WarmupCount=3
 ```
 | Method                  | json                | Mean     | Error    | StdDev   | Min      | Max      | Gen0   | Allocated |
 |------------------------ |-------------------- |---------:|---------:|---------:|---------:|---------:|-------:|----------:|
-| SystemTextJson          | {&quot;A&quot;(...)e&quot;}} [891] | 18.35 μs | 0.890 μs | 0.049 μs | 18.31 μs | 18.41 μs | 0.0305 |   3.19 KB |
-| SystemTextJsonSourceGen | {&quot;A&quot;(...)e&quot;}} [891] | 17.61 μs | 1.366 μs | 0.075 μs | 17.55 μs | 17.69 μs | 0.0305 |   3.19 KB |
+| SystemTextJson          | {&quot;A&quot;(...)e&quot;}} [891] | 18.72 μs | 2.942 μs | 0.161 μs | 18.59 μs | 18.90 μs | 0.0305 |   3.19 KB |
+| SystemTextJsonSourceGen | {&quot;A&quot;(...)e&quot;}} [891] | 17.89 μs | 2.508 μs | 0.137 μs | 17.76 μs | 18.04 μs | 0.0305 |   3.19 KB |
