@@ -10,7 +10,7 @@ namespace ApiHttp3.Infrastructures;
 /// <param name="client"></param>
 /// <param name="hostApplicationLifetime"></param>
 /// <param name="server"></param>
-public class SelfcheckBackgroundService(Http3ListenerOptions options, SelfcheckHttp3Service client, IHostApplicationLifetime hostApplicationLifetime, IServer server): BackgroundService
+public class SelfcheckBackgroundService(SelfcheckHttp3Options options, SelfcheckHttp3Service client, IHostApplicationLifetime hostApplicationLifetime, IServer server): BackgroundService
 {
     private const int delayStart = 3;
     private const int interval = 10;
@@ -62,4 +62,14 @@ public class SelfcheckHttp3Service(IHttpClientFactory clientFactory, ILogger<Sel
             logger.LogError(ex, $"Error happen when calling {client.BaseAddress}.");
         }
     }
+}
+
+public class SelfcheckHttp3Options
+{
+    /// <summary>
+    /// HTTPClient BaseAddress to request this server's htts listener address.
+    /// Visual Studio / Docker / Kubernetes or any other launch method will not guaranteed which port to be used.
+    /// This method will inject proper address for any launch style.
+    /// </summary>
+    public Uri BaseAddress { get; set; } = new Uri("https://localhost:8081");
 }

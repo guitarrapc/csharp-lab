@@ -9,7 +9,7 @@ builder.Services.AddSwaggerGen();
 
 // Enable HTTP3
 builder.ConfigureHttp3Endpoint()
-    .EnableSelfCheckService();
+    .EnableSelfcheck();
 
 var app = builder.Build();
 

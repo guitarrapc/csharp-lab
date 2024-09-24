@@ -38,21 +38,20 @@ public static class Http3BuilderExtensions
     /// </summary>
     /// <param name="builder"></param>
     /// <returns></returns>
-    public static IHttp3Builder EnableSelfCheckService(this IHttp3Builder builder)
+    public static IHttp3Builder EnableSelfcheck(this IHttp3Builder builder)
     {
-        var options = new Http3ListenerOptions();
-        builder.Services.AddSingleton(options);
+        builder.Services.AddSingleton<SelfcheckHttp3Options>();
         builder.Services.AddSingleton<SelfcheckHttp3Service>();
-
         builder.Services.AddHostedService<SelfcheckBackgroundService>();
 
         // Set HttpClient configuratioan
-        builder.Services.AddHttpClient("SelfcheckHttp3", httpClient =>
+        builder.Services.AddHttpClient("SelfcheckHttp3", static (sp, httpClient) =>
         {
-            httpClient.BaseAddress = options.BaseAddress;
+            var op = sp.GetRequiredService<SelfcheckHttp3Options>();
+
+            httpClient.BaseAddress = op.BaseAddress;
             httpClient.DefaultRequestVersion = new Version(3, 0);
             httpClient.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionExact;
-
             httpClient.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
         })
             .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
@@ -63,14 +62,4 @@ public static class Http3BuilderExtensions
 
         return builder;
     }
-}
-
-public class Http3ListenerOptions
-{
-    /// <summary>
-    /// HTTPClient BaseAddress to request this server's htts listener address.
-    /// Visual Studio / Docker / Kubernetes or any other launch method will not guaranteed which port to be used.
-    /// This method will inject proper address for any launch style.
-    /// </summary>
-    public Uri BaseAddress { get; set; } = new Uri("https://localhost:8081");
 }
