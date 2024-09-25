@@ -12,6 +12,13 @@ public class GrpcChannelPool
 
     private readonly ConcurrentDictionary<Uri, GrpcChannel> _channels = new();
 
+    /// <summary>
+    /// Create GrpcChannel
+    /// </summary>
+    /// <param name="host"></param>
+    /// <param name="enableTls"></param>
+    /// <param name="useHttp3"></param>
+    /// <returns></returns>
     public GrpcChannel CreateChannel(Uri host, bool enableTls, bool useHttp3)
     {
         var channel = Create(host, enableTls, useHttp3);
@@ -62,7 +69,7 @@ public class GrpcChannelPool
     /// <summary>
     /// temporary solution for .NET8 and lower
     /// </summary>
-    public class Http3Handler(HttpMessageHandler innerHandler) : DelegatingHandler(innerHandler)
+    internal class Http3Handler(HttpMessageHandler innerHandler) : DelegatingHandler(innerHandler)
     {
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {

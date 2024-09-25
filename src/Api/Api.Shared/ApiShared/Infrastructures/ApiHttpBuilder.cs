@@ -24,6 +24,8 @@ public static class ApiHttpBuilderExtensions
     /// Enable HTTP/1 and HTTP/2 support
     /// </summary>
     /// <param name="builder"></param>
+    /// <param name="port"></param>
+    /// <returns></returns>
     public static IApiHttpBuilder ConfigureHttp12Endpoint(this WebApplicationBuilder builder, int port = 5000)
     {
         builder.Logging.ConfigureSingleLineLogger();

@@ -47,7 +47,6 @@ public static class GrpcHttpBuilderExtensions
     /// </summary>
     /// <param name="builder"></param>
     /// <param name="port"></param>
-    /// <param name="useClientAuth"></param>
     /// <returns></returns>
     public static IGrpcHttpBuilder ConfigureHttp3Endpoint(this WebApplicationBuilder builder, int port = 5001)
     {
