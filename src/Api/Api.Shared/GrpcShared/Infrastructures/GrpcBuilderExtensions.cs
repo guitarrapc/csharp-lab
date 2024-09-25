@@ -1,9 +1,11 @@
+#pragma warning disable IDE0005 // Using directive is unnecessary.
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.DependencyInjection;
+#pragma warning restore IDE0005 // Using directive is unnecessary.
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
-namespace Api.Shared.Infrastructures;
+namespace Api.Shared.GrpcShared.Infrastructures;
 
 public interface IGrpcHttp2Builder
 {
@@ -40,7 +42,7 @@ public static class GrpcBuilderExtensions
     /// </summary>
     /// <param name="builder"></param>
     /// <returns></returns>
-    public static IGrpcHttp2Builder EnableSelfcheck(this IGrpcHttp2Builder builder) => EnableSelfcheck(builder, _ => { });
+    public static IGrpcHttp2Builder EnableSelfcheck(this IGrpcHttp2Builder builder) => builder.EnableSelfcheck(_ => { });
 
     /// <summary>
     /// Add Server connection selfcheck background service.

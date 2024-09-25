@@ -4,7 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
-namespace Api.Shared.Infrastructures;
+namespace Api.Shared.ApiShared.Infrastructures;
 
 /// <summary>
 /// Connect to localhost's api to check it's availability
@@ -12,7 +12,7 @@ namespace Api.Shared.Infrastructures;
 /// <param name="client"></param>
 /// <param name="hostApplicationLifetime"></param>
 /// <param name="server"></param>
-public class ApiSelfcheckBackgroundService<T>(SelfcheckServiceOptions options, ApiSelfcheckClient<T> client, IHostApplicationLifetime hostApplicationLifetime, IServer server): BackgroundService where T: class
+public class ApiSelfcheckBackgroundService<T>(SelfcheckServiceOptions options, ApiSelfcheckClient<T> client, IHostApplicationLifetime hostApplicationLifetime, IServer server) : BackgroundService where T : class
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -39,7 +39,7 @@ public class ApiSelfcheckBackgroundService<T>(SelfcheckServiceOptions options, A
     }
 }
 
-public class ApiSelfcheckClient<T>(IHttpClientFactory clientFactory, ILogger<ApiSelfcheckClient<T>> logger) where T: class
+public class ApiSelfcheckClient<T>(IHttpClientFactory clientFactory, ILogger<ApiSelfcheckClient<T>> logger) where T : class
 {
     public async Task SendAsync(CancellationToken cancellationToken)
     {

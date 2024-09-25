@@ -1,5 +1,5 @@
-using Api.Shared.Infrastructures;
-using Api.Shared.Services;
+using Api.Shared.GrpcShared.Infrastructures;
+using Api.Shared.GrpcShared.Services;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);

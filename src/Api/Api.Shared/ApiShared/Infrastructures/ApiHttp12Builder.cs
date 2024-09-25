@@ -1,10 +1,12 @@
+#pragma warning disable IDE0005 // Using directive is unnecessary.
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.DependencyInjection;
+#pragma warning restore IDE0005 // Using directive is unnecessary.
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Net.Http.Headers;
 
-namespace Api.Shared.Infrastructures;
+namespace Api.Shared.ApiShared.Infrastructures;
 
 public interface IApiHttp12Builder
 {
@@ -40,9 +42,9 @@ public static class ApiHttp12BuilderExtensions
     /// </summary>
     /// <param name="builder"></param>
     /// <returns></returns>
-    public static IApiHttp12Builder EnableSelfcheck<T>(this IApiHttp12Builder builder) where T: class
+    public static IApiHttp12Builder EnableSelfcheck<T>(this IApiHttp12Builder builder) where T : class
     {
-        return EnableSelfcheck<T>(builder, _ => { });
+        return builder.EnableSelfcheck<T>(_ => { });
     }
 
     /// <summary>
@@ -51,11 +53,11 @@ public static class ApiHttp12BuilderExtensions
     /// <param name="builder"></param>
     /// <param name="configure"></param>
     /// <returns></returns>
-    public static IApiHttp12Builder EnableSelfcheck<T>(this IApiHttp12Builder builder, Action<SelfcheckServiceOptions> configure) where T: class
+    public static IApiHttp12Builder EnableSelfcheck<T>(this IApiHttp12Builder builder, Action<SelfcheckServiceOptions> configure) where T : class
     {
         var options = new SelfcheckServiceOptions();
         configure(options);
-        builder.Services.AddSingleton<SelfcheckServiceOptions>(options);
+        builder.Services.AddSingleton(options);
         builder.Services.AddSingleton<ApiSelfcheckClient<T>>();
         builder.Services.AddHostedService<ApiSelfcheckBackgroundService<T>>();
 

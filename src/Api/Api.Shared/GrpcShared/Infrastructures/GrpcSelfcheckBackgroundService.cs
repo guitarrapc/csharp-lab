@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Api.Shared.Infrastructures;
+namespace Api.Shared.GrpcShared.Infrastructures;
 
 /// <summary>
 /// Connect to localhost's api to check it's availability
@@ -13,7 +13,7 @@ namespace Api.Shared.Infrastructures;
 /// <param name="unaryClient"></param>
 /// <param name="hostApplicationLifetime"></param>
 /// <param name="server"></param>
-public class GrpcSelfcheckBackgroundService(SelfcheckServiceOptions options, GrpcSelfcheckUnaryClient unaryClient, GrpcSelfcheckDuplexClient duplexClient, IHostApplicationLifetime hostApplicationLifetime, IServer server): BackgroundService
+public class GrpcSelfcheckBackgroundService(SelfcheckServiceOptions options, GrpcSelfcheckUnaryClient unaryClient, GrpcSelfcheckDuplexClient duplexClient, IHostApplicationLifetime hostApplicationLifetime, IServer server) : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {

@@ -1,4 +1,4 @@
-namespace Api.Shared.Infrastructures;
+namespace Api.Shared.GrpcShared.Infrastructures;
 
 public class SelfcheckServiceOptions
 {

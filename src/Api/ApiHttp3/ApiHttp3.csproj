@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Api.Shared\Api.Shared.csproj" />
+    <Compile Include="..\Api.Shared\ApiShared\**\*.cs" Exclude="**\obj\**;**\bin\**" LinkBase="Shared" />
   </ItemGroup>
 
 </Project>

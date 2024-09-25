@@ -2,7 +2,7 @@ using Grpc.Core;
 using Microsoft.AspNetCore.Connections;
 using Microsoft.Extensions.Logging;
 
-namespace Api.Shared.Services;
+namespace Api.Shared.GrpcShared.Services;
 
 public class DuplexerService : Duplexer.DuplexerBase
 {
