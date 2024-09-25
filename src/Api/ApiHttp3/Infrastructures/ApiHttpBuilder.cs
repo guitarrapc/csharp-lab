@@ -3,22 +3,22 @@ using Microsoft.Net.Http.Headers;
 
 namespace ApiHttp3.Infrastructures;
 
-public interface IHttp3Builder
+public interface IApiHttpBuilder
 {
     IServiceCollection Services { get; }
 }
-public class Http3Builder(IServiceCollection services) : IHttp3Builder
+public class ApiHttpBuilder(IServiceCollection services) : IApiHttpBuilder
 {
     public IServiceCollection Services { get; } = services;
 }
 
-public static class Http3BuilderExtensions
+public static class ApiBuilderExtensions
 {
     /// <summary>
     /// Enable HTTP/3 support
     /// </summary>
     /// <param name="builder"></param>
-    public static IHttp3Builder ConfigureHttp3Endpoint(this WebApplicationBuilder builder, int port = 5001)
+    public static IApiHttpBuilder ConfigureHttp3Endpoint(this WebApplicationBuilder builder, int port = 5001)
     {
         // see: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel/http3?view=aspnetcore-8.0
         builder.WebHost.ConfigureKestrel((context, options) =>
@@ -30,7 +30,7 @@ public static class Http3BuilderExtensions
             });
         });
 
-        return new Http3Builder(builder.Services);
+        return new ApiHttpBuilder(builder.Services);
     }
 
     /// <summary>
@@ -38,7 +38,7 @@ public static class Http3BuilderExtensions
     /// </summary>
     /// <param name="builder"></param>
     /// <returns></returns>
-    public static IHttp3Builder EnableSelfcheck(this IHttp3Builder builder)
+    public static IApiHttpBuilder EnableSelfcheck(this IApiHttpBuilder builder)
     {
         builder.Services.AddSingleton<SelfcheckServiceOptions>();
         builder.Services.AddSingleton<SelfcheckHttp3Client>();

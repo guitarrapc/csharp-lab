@@ -1,6 +1,6 @@
 using Grpc.Core;
 
-namespace Grpc2.Services;
+namespace GrpcHttp2.Services;
 public class GreeterService : Greeter.GreeterBase
 {
     private readonly ILogger<GreeterService> _logger;

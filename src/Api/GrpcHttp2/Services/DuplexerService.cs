@@ -1,7 +1,7 @@
 using Grpc.Core;
 using Microsoft.AspNetCore.Connections;
 
-namespace Grpc2.Services;
+namespace GrpcHttp2.Services;
 
 public class DuplexerService : Duplexer.DuplexerBase
 {

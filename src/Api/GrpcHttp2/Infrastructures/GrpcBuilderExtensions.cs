@@ -1,24 +1,24 @@
-using Grpc2.Infrastructures;
+using GrpcHttp2.Infrastructures;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace ApiHttp12.Infrastructures;
 
-public interface IGrpc2Builder
+public interface IGrpcHttpBuilder
 {
     IServiceCollection Services { get; }
 }
-public class Grpc2Builder(IServiceCollection services) : IGrpc2Builder
+public class GrpcHttpBuilder(IServiceCollection services) : IGrpcHttpBuilder
 {
     public IServiceCollection Services { get; } = services;
 }
 
-public static class Http12BuilderExtensions
+public static class GrpcBuilderExtensions
 {
     /// <summary>
     /// Enable HTTP/1 and HTTP/2 support
     /// </summary>
     /// <param name="builder"></param>
-    public static IGrpc2Builder ConfigureHttp2Endpoint(this WebApplicationBuilder builder, int port = 5000)
+    public static IGrpcHttpBuilder ConfigureHttp2Endpoint(this WebApplicationBuilder builder, int port = 5000)
     {
         // see: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel/http2?view=aspnetcore-8.0
         builder.WebHost.ConfigureKestrel((context, options) =>
@@ -30,7 +30,7 @@ public static class Http12BuilderExtensions
             });
         });
 
-        return new Grpc2Builder(builder.Services);
+        return new GrpcHttpBuilder(builder.Services);
     }
 
     /// <summary>
@@ -38,7 +38,7 @@ public static class Http12BuilderExtensions
     /// </summary>
     /// <param name="builder"></param>
     /// <returns></returns>
-    public static IGrpc2Builder EnableSelfcheck(this IGrpc2Builder builder)
+    public static IGrpcHttpBuilder EnableSelfcheck(this IGrpcHttpBuilder builder)
     {
         builder.Services.AddSingleton<SelfcheckServiceOptions>();
         builder.Services.AddSingleton<SelfcheckUnaryClient>();

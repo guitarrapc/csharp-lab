@@ -1,6 +1,6 @@
 using Grpc.Core;
-using Grpc2;
-using Grpc2.Infrastructures;
+using GrpcHttp2;
+using GrpcHttp2.Infrastructures;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 
