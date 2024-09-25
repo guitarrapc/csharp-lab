@@ -2,27 +2,55 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 #pragma warning restore IDE0005 // Using directive is unnecessary.
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace Api.Shared.GrpcShared.Infrastructures;
 
-public interface IGrpcHttp3Builder
+public interface IGrpcHttpBuilder
 {
     IServiceCollection Services { get; }
 }
-public class GrpcHttp3Builder(IServiceCollection services) : IGrpcHttp3Builder
+public class GrpcHttpBuilder(IServiceCollection services) : IGrpcHttpBuilder
 {
     public IServiceCollection Services { get; } = services;
 }
 
-public static class GrpcHttp3BuilderExtensions
+public static class GrpcHttpBuilderExtensions
 {
     /// <summary>
     /// Enable HTTP/1 and HTTP/2 support
     /// </summary>
     /// <param name="builder"></param>
-    public static IGrpcHttp3Builder ConfigureHttp3Endpoint(this WebApplicationBuilder builder, int port = 5001, bool useClientAuth = false)
+    /// <param name="port"></param>
+    /// <returns></returns>
+    public static IGrpcHttpBuilder ConfigureHttp2Endpoint(this WebApplicationBuilder builder, int port = 5000)
+    {
+        builder.Logging.ClearProviders();
+        builder.Logging.AddSimpleConsole(options => options.SingleLine = true);
+
+        // see: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel/http2?view=aspnetcore-8.0
+        builder.WebHost.ConfigureKestrel((context, options) =>
+        {
+            options.ListenAnyIP(port, listenOptions =>
+            {
+                // gRPC is HTTP/2. Set Http2 to accept Insecure HTTP/2
+                listenOptions.Protocols = HttpProtocols.Http2;
+            });
+        });
+
+        return new GrpcHttpBuilder(builder.Services);
+    }
+
+    /// <summary>
+    /// Enable HTTP/3 support
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <param name="port"></param>
+    /// <param name="useClientAuth"></param>
+    /// <returns></returns>
+    public static IGrpcHttpBuilder ConfigureHttp3Endpoint(this WebApplicationBuilder builder, int port = 5001)
     {
         // see: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel/http2?view=aspnetcore-8.0
         builder.WebHost.ConfigureKestrel((context, options) =>
@@ -34,7 +62,7 @@ public static class GrpcHttp3BuilderExtensions
             });
         });
 
-        return new GrpcHttp3Builder(builder.Services);
+        return new GrpcHttpBuilder(builder.Services);
     }
 
     /// <summary>
@@ -42,7 +70,7 @@ public static class GrpcHttp3BuilderExtensions
     /// </summary>
     /// <param name="builder"></param>
     /// <returns></returns>
-    public static IGrpcHttp3Builder EnableSelfcheck(this IGrpcHttp3Builder builder) => builder.EnableSelfcheck(_ => { });
+    public static IGrpcHttpBuilder EnableSelfcheck(this IGrpcHttpBuilder builder) => builder.EnableSelfcheck(_ => { });
 
     /// <summary>
     /// Add Server connection selfcheck background service.
@@ -50,7 +78,7 @@ public static class GrpcHttp3BuilderExtensions
     /// <param name="builder"></param>
     /// <param name="configure"></param>
     /// <returns></returns>
-    public static IGrpcHttp3Builder EnableSelfcheck(this IGrpcHttp3Builder builder, Action<SelfcheckServiceOptions> configure)
+    public static IGrpcHttpBuilder EnableSelfcheck(this IGrpcHttpBuilder builder, Action<SelfcheckServiceOptions> configure)
     {
         var options = new SelfcheckServiceOptions();
         configure(options);
