@@ -18,34 +18,19 @@ public class GrpcHttp3Builder(IServiceCollection services) : IGrpcHttp3Builder
 
 public static class GrpcHttp3BuilderExtensions
 {
-    private record TlsFile(string PfxFileName, string Password)
-    {
-        public static TlsFile Default = new TlsFile("Certs/server1.pfx", "1111");
-    }
-
     /// <summary>
     /// Enable HTTP/1 and HTTP/2 support
     /// </summary>
     /// <param name="builder"></param>
     public static IGrpcHttp3Builder ConfigureHttp3Endpoint(this WebApplicationBuilder builder, int port = 5001, bool useClientAuth = false)
     {
-        var basePath = Path.GetDirectoryName(AppContext.BaseDirectory);
-        var certPath = Path.Combine(basePath!, TlsFile.Default.PfxFileName);
-
         // see: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel/http2?view=aspnetcore-8.0
         builder.WebHost.ConfigureKestrel((context, options) =>
         {
             options.ListenAnyIP(port, listenOptions =>
             {
-                listenOptions.Protocols = HttpProtocols.Http3;
-                listenOptions.UseHttps(certPath, TlsFile.Default.Password, httpsOptions =>
-                {
-                    if (useClientAuth)
-                    {
-                        httpsOptions.ClientCertificateMode = Microsoft.AspNetCore.Server.Kestrel.Https.ClientCertificateMode.RequireCertificate;
-                        httpsOptions.AllowAnyClientCertificate();
-                    }
-                });
+                listenOptions.Protocols = HttpProtocols.Http1AndHttp2AndHttp3;
+                listenOptions.UseHttps();
             });
         });
 
@@ -73,9 +58,6 @@ public static class GrpcHttp3BuilderExtensions
         builder.Services.AddSingleton<GrpcSelfcheckUnaryClient>();
         builder.Services.AddSingleton<GrpcSelfcheckDuplexClient>();
         builder.Services.AddHostedService<GrpcSelfcheckBackgroundService>();
-
-        // Set GrpcChannel Pool
-        builder.Services.AddSingleton<GrpcChannelPool>();
 
         return builder;
     }

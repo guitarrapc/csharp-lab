@@ -2,8 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>119fe516-7dab-46c9-ae11-464eba69e4b7</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,9 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\Api.Shared\Certs\*.*" LinkBase="Certs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Compile Include="..\Api.Shared\GrpcShared\**\*.cs" Exclude="**\obj\**;**\bin\**" LinkBase="Shared" />
     <Protobuf Include="..\Api.Shared\Protos\**\*.proto" Exclude="**\obj\**;**\bin\**" LinkBase="Protos" GrpcServices="Both" />
   </ItemGroup>

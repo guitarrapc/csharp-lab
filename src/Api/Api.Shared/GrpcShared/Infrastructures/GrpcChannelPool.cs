@@ -8,18 +8,13 @@ namespace Api.Shared.GrpcShared.Infrastructures;
 /// </summary>
 public class GrpcChannelPool
 {
-    private record TlsFile(string PfxFileName, string Password)
-    {
-        public static TlsFile Default = new TlsFile("Certs/client.pfx", "1111");
-    }
-
     public static GrpcChannelPool Instance { get; } = new GrpcChannelPool();
 
     private readonly ConcurrentDictionary<Uri, GrpcChannel> _channels = new();
 
-    public GrpcChannel CreateChannel(Uri host, bool enableTls, bool useHttp3, bool useClientAuth = false)
+    public GrpcChannel CreateChannel(Uri host, bool enableTls, bool useHttp3)
     {
-        var channel = Create(host, enableTls, useHttp3, useClientAuth);
+        var channel = Create(host, enableTls, useHttp3);
 
         // Pool state control
         switch (channel.State)
@@ -27,16 +22,16 @@ public class GrpcChannelPool
             case Grpc.Core.ConnectivityState.TransientFailure:
                 _channels.TryRemove(host, out _);
                 channel.Dispose();
-                return Create(host, enableTls, useHttp3, useClientAuth);
+                return Create(host, enableTls, useHttp3);
             case Grpc.Core.ConnectivityState.Shutdown:
                 _channels.TryRemove(host, out _);
                 channel.Dispose();
-                return Create(host, enableTls, useHttp3, useClientAuth);
+                return Create(host, enableTls, useHttp3);
             default:
                 return channel;
         };
 
-        GrpcChannel Create(Uri h, bool enableTls, bool useHttp3, bool clientauth)
+        GrpcChannel Create(Uri h, bool enableTls, bool useHttp3)
         {
             var handler = new SocketsHttpHandler
             {
@@ -48,16 +43,6 @@ public class GrpcChannelPool
                 // Enable connection concurrency
                 EnableMultipleHttp2Connections = true,
             };
-
-            if (clientauth)
-            {
-                var basePath = Path.GetDirectoryName(AppContext.BaseDirectory);
-                var certPath = Path.Combine(basePath!, TlsFile.Default.PfxFileName);
-                // .NET 9 API....
-                //var clientCertificates = X509CertificateLoader.LoadPkcs12CollectionFromFile(certPath, TlsFile.Default.Password);
-                var clientCertificates = new System.Security.Cryptography.X509Certificates.X509Certificate2Collection(new System.Security.Cryptography.X509Certificates.X509Certificate2(certPath, TlsFile.Default.Password));
-                handler.SslOptions.ClientCertificates = clientCertificates;
-            }
 
             if (enableTls)
             {
@@ -77,10 +62,8 @@ public class GrpcChannelPool
     /// <summary>
     /// temporary solution for .NET8 and lower
     /// </summary>
-    public class Http3Handler : DelegatingHandler
+    public class Http3Handler(HttpMessageHandler innerHandler) : DelegatingHandler(innerHandler)
     {
-        public Http3Handler(HttpMessageHandler innerHandler) : base(innerHandler) { }
-
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             // Force H3 on all requests.

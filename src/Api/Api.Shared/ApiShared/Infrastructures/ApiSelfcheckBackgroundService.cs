@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
+#pragma warning disable IDE0005 // Using directive is unnecessary.
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+#pragma warning restore IDE0005 // Using directive is unnecessary.
 using System.Text.Json;
 
 namespace Api.Shared.ApiShared.Infrastructures;
@@ -19,16 +21,13 @@ public class ApiSelfcheckBackgroundService<T>(SelfcheckServiceOptions options, A
         // Wait until app started. Because `<IServerAddressesFeature>.Addresses` will be null or empty until ApplicationStarted.
         hostApplicationLifetime.ApplicationStarted.Register(async () =>
         {
+            SetBaseAddress();
             await SelfcheckAsync(stoppingToken);
         });
     }
 
     private async Task SelfcheckAsync(CancellationToken stoppingToken)
     {
-        var addresses = server.Features.Get<IServerAddressesFeature>()?.Addresses ?? [options.BaseAddress.ToString()];
-        var port = addresses.Select(x => new Uri(x)).First(x => x.Scheme == options.BaseAddress.Scheme).Port;
-        options.BaseAddress = new Uri($"{options.BaseAddress.Scheme}://{options.BaseAddress.Host}:{port}");
-
         await Task.Delay(options.DelayStart, stoppingToken).ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
 
         using var timer = new PeriodicTimer(options.Interval);
@@ -36,6 +35,13 @@ public class ApiSelfcheckBackgroundService<T>(SelfcheckServiceOptions options, A
         {
             await client.SendAsync(stoppingToken);
         }
+    }
+
+    private void SetBaseAddress()
+    {
+        var addresses = server.Features.Get<IServerAddressesFeature>()?.Addresses ?? [options.BaseAddress.ToString()];
+        var port = addresses.Select(x => new Uri(x)).First(x => x.Scheme == options.BaseAddress.Scheme).Port;
+        options.BaseAddress = new Uri($"{options.BaseAddress.Scheme}://{options.BaseAddress.Host}:{port}");
     }
 }
 

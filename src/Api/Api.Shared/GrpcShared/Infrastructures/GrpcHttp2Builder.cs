@@ -59,9 +59,6 @@ public static class GrpcHttp2BuilderExtensions
         builder.Services.AddSingleton<GrpcSelfcheckDuplexClient>();
         builder.Services.AddHostedService<GrpcSelfcheckBackgroundService>();
 
-        // Set GrpcChannel Pool
-        builder.Services.AddSingleton<GrpcChannelPool>();
-
         return builder;
     }
 }

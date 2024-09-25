@@ -17,8 +17,4 @@
     <PackageReference Include="Grpc.AspNetCore" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Certs\" />
-  </ItemGroup>
-
 </Project>

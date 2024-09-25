@@ -22,16 +22,13 @@ public class GrpcSelfcheckBackgroundService(SelfcheckServiceOptions options, Grp
         // Wait until app started. Because `<IServerAddressesFeature>.Addresses` will be null or empty until ApplicationStarted.
         hostApplicationLifetime.ApplicationStarted.Register(async () =>
         {
+            SetBaseAddress();
             await SelfcheckAsync(stoppingToken);
         });
     }
 
     private async Task SelfcheckAsync(CancellationToken stoppingToken)
     {
-        var addresses = server.Features.Get<IServerAddressesFeature>()?.Addresses ?? [options.BaseAddress.ToString()];
-        var port = addresses.Select(x => new Uri(x)).First(x => x.Scheme == options.BaseAddress.Scheme).Port;
-        options.BaseAddress = new Uri($"{options.BaseAddress.Scheme}://{options.BaseAddress.Host}:{port}");
-
         await Task.Delay(options.DelayStart, stoppingToken).ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
 
         var duplex = duplexClient.SendAsync(options.Interval, stoppingToken);
@@ -44,9 +41,16 @@ public class GrpcSelfcheckBackgroundService(SelfcheckServiceOptions options, Grp
 
         await duplex;
     }
+
+    private void SetBaseAddress()
+    {
+        var addresses = server.Features.Get<IServerAddressesFeature>()?.Addresses ?? [options.BaseAddress.ToString()];
+        var port = addresses.Select(x => new Uri(x)).First(x => x.Scheme == options.BaseAddress.Scheme).Port;
+        options.BaseAddress = new Uri($"{options.BaseAddress.Scheme}://{options.BaseAddress.Host}:{port}");
+    }
 }
 
-public class GrpcSelfcheckUnaryClient(SelfcheckServiceOptions options, GrpcChannelPool pool, ILogger<GrpcSelfcheckUnaryClient> logger)
+public class GrpcSelfcheckUnaryClient(SelfcheckServiceOptions options, ILogger<GrpcSelfcheckUnaryClient> logger)
 {
     private readonly HelloRequest cachedRequest = new HelloRequest
     {
@@ -54,7 +58,7 @@ public class GrpcSelfcheckUnaryClient(SelfcheckServiceOptions options, GrpcChann
     };
     public async Task SendAsync(CancellationToken cancellationToken)
     {
-        var chanel = pool.CreateChannel(options.BaseAddress, options.EnableTls, options.UseHttp3);
+        var chanel = GrpcChannelPool.Instance.CreateChannel(options.BaseAddress, options.EnableTls, options.UseHttp3);
         var client = new Greeter.GreeterClient(chanel);
 
         try
@@ -77,7 +81,7 @@ public class GrpcSelfcheckUnaryClient(SelfcheckServiceOptions options, GrpcChann
     }
 }
 
-public class GrpcSelfcheckDuplexClient(SelfcheckServiceOptions options, GrpcChannelPool pool, ILogger<GrpcSelfcheckDuplexClient> logger)
+public class GrpcSelfcheckDuplexClient(SelfcheckServiceOptions options, ILogger<GrpcSelfcheckDuplexClient> logger)
 {
     private readonly BidiHelloRequest cachedRequest = new BidiHelloRequest
     {
@@ -86,7 +90,7 @@ public class GrpcSelfcheckDuplexClient(SelfcheckServiceOptions options, GrpcChan
 
     public async Task SendAsync(TimeSpan interval, CancellationToken cancellationToken)
     {
-        var chanel = pool.CreateChannel(options.BaseAddress, options.EnableTls, options.UseHttp3);
+        var chanel = GrpcChannelPool.Instance.CreateChannel(options.BaseAddress, options.EnableTls, options.UseHttp3);
         var client = new Duplexer.DuplexerClient(chanel);
         using var call = client.Echo(cancellationToken: cancellationToken);
 
