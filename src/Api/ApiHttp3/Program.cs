@@ -9,7 +9,7 @@ builder.Services.AddSwaggerGen();
 
 // Enable HTTP3
 builder.ConfigureHttp3Endpoint()
-    .EnableSelfcheck<WeatherForecast>(x => x.BaseAddress = new Uri("https://localhost:5001"));
+    .EnableSelfcheck<WeatherForecast>(options => options.BaseAddress = new Uri("https://localhost:5001"));
 
 var app = builder.Build();
 

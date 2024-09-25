@@ -8,21 +8,25 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddGrpc();
 
 // Add gRPC Health Check. Need AddCheck("Sample") to respond.
-// $ grpcurl -plaintext localhost:5000 grpc.health.v1.Health.Check
-// $ grpc_health_probe --addr=127.0.0.1:5000
+// $ grpcurl -insecure localhost:5001 grpc.health.v1.Health.Check
+// $ grpc_health_probe -tls -tls-no-verify --addr=127.0.0.1:5001
 builder.Services.AddGrpcHealthChecks().AddCheck("Sample", () => HealthCheckResult.Healthy());
 
 // Allow reflection for grpcurl
-// $ grpcurl -plaintext 127.0.0.1:5000 list
-// $ grpcurl -plaintext 127.0.0.1:5000 list greet.Greeter
-// $ grpcurl -plaintext 127.0.0.1:5000 greet.Greeter.SayHello
-// $ grpcurl -plaintext -proto ./src/Api/Api.Shared/Protos/greet.proto -d "{\"name\": \"foo\"}" 127.0.0.1:5000 greet.Greeter/SayHello
-// $ grpcurl -plaintext -proto ./src/Api/Api.Shared/Protos/duplexer.proto -d "{\"name\": \"foo\"}{\"name\": \"bar\"}{\"name\": \"piyo\"}" 127.0.0.1:5000 duplexer.Duplexer/Echo
+// $ grpcurl -insecure 127.0.0.1:5001 list
+// $ grpcurl -insecure 127.0.0.1:5001 list greet.Greeter
+// $ grpcurl -insecure 127.0.0.1:5001 greet.Greeter.SayHello
+// $ grpcurl -insecure -proto ./src/Api/Api.Shared/Protos/greet.proto -d "{\"name\": \"foo\"}" 127.0.0.1:5001 greet.Greeter/SayHello
+// $ grpcurl -insecure -proto ./src/Api/Api.Shared/Protos/duplexer.proto -d "{\"name\": \"foo\"}{\"name\": \"bar\"}{\"name\": \"piyo\"}" 127.0.0.1:5001 duplexer.Duplexer/Echo
 builder.Services.AddGrpcReflection();
 
-// Enable HTTP/2
-builder.ConfigureHttp2Endpoint()
-    .EnableSelfcheck();
+// Enable HTTP/3
+builder.ConfigureHttp3Endpoint()
+    .EnableSelfcheck(options =>
+    {
+        options.BaseAddress = new Uri("https://localhost:5001");
+        options.UseHttp3 = true;
+    });
 
 var app = builder.Build();
 
@@ -31,6 +35,8 @@ if (app.Environment.IsDevelopment())
 {
     app.MapGrpcReflectionService();
 }
+
+app.UseHttpsRedirection();
 
 app.MapGrpcService<GreeterService>();
 app.MapGrpcService<DuplexerService>();
