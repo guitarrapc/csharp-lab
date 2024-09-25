@@ -14,6 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\Api.Shared\Certs\*.*" LinkBase="Certs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Compile Include="..\Api.Shared\ApiShared\**\*.cs" Exclude="**\obj\**;**\bin\**" LinkBase="Shared" />
   </ItemGroup>
 

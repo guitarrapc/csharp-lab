@@ -21,6 +21,16 @@ public class ApiHttpBuilder(IServiceCollection services) : IApiHttpBuilder
 public static class ApiHttpBuilderExtensions
 {
     /// <summary>
+    /// TLS File for HTTPS Listener
+    /// </summary>
+    /// <param name="PfxFileName"></param>
+    /// <param name="Password"></param>
+    internal record TlsFile(string PfxFileName, string Password)
+    {
+        public static TlsFile Default = new TlsFile("Certs/server1.pfx", "1111");
+    }
+
+    /// <summary>
     /// Enable HTTP/1 and HTTP/2 support
     /// </summary>
     /// <param name="builder"></param>
@@ -52,13 +62,16 @@ public static class ApiHttpBuilderExtensions
     {
         builder.Logging.ConfigureSingleLineLogger();
 
+        var basePath = Path.GetDirectoryName(AppContext.BaseDirectory);
+        var certPath = Path.Combine(basePath!, TlsFile.Default.PfxFileName);
+
         // see: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel/http3?view=aspnetcore-8.0
         builder.WebHost.ConfigureKestrel((context, options) =>
         {
             options.ListenAnyIP(port, listenOptions =>
             {
                 listenOptions.Protocols = HttpProtocols.Http1AndHttp2AndHttp3;
-                listenOptions.UseHttps();
+                listenOptions.UseHttps(certPath, TlsFile.Default.Password);
             });
         });
 
@@ -110,7 +123,12 @@ public static class ApiHttpBuilderExtensions
 
             httpClient.BaseAddress = op.BaseAddress;
             httpClient.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
-        });
+        })
+            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler()
+            {
+                // allow self certificate
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+            });
 
         return builder;
     }
