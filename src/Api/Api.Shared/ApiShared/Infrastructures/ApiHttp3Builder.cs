@@ -1,7 +1,9 @@
+#pragma warning disable IDE0005 // Using directive is unnecessary.
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.DependencyInjection;
+#pragma warning restore IDE0005 // Using directive is unnecessary.
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Net.Http.Headers;
 
 namespace Api.Shared.ApiShared.Infrastructures;
