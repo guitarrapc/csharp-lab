@@ -26,6 +26,8 @@ public static class ApiHttpBuilderExtensions
     /// <param name="builder"></param>
     public static IApiHttpBuilder ConfigureHttp12Endpoint(this WebApplicationBuilder builder, int port = 5000)
     {
+        builder.Logging.ConfigureSingleLineLogger();
+
         // see: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel/http2?view=aspnetcore-8.0
         builder.WebHost.ConfigureKestrel((context, options) =>
         {
@@ -46,8 +48,7 @@ public static class ApiHttpBuilderExtensions
     /// <returns></returns>
     public static IApiHttpBuilder ConfigureHttp3Endpoint(this WebApplicationBuilder builder, int port = 5001)
     {
-        builder.Logging.ClearProviders();
-        builder.Logging.AddSimpleConsole(options => options.SingleLine = true);
+        builder.Logging.ConfigureSingleLineLogger();
 
         // see: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel/http3?view=aspnetcore-8.0
         builder.WebHost.ConfigureKestrel((context, options) =>
@@ -60,6 +61,20 @@ public static class ApiHttpBuilderExtensions
         });
 
         return new ApiHttpBuilder(builder.Services);
+    }
+
+    /// <summary>
+    /// Single line logger
+    /// </summary>
+    /// <param name="logger"></param>
+    private static void ConfigureSingleLineLogger(this ILoggingBuilder logger)
+    {
+        logger.ClearProviders();
+        logger.AddSimpleConsole(options =>
+        {
+            options.TimestampFormat = "yyyy-MM-ddTHH:mm:ss | ";
+            options.SingleLine = true;
+        });
     }
 
     /// <summary>
