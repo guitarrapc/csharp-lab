@@ -67,8 +67,8 @@ public class RedisConnectionContext
         _logger.LogInformation($"Connecting to redis: {Name}/{string.Join(",", configurationOptions.EndPoints)}");
         var connection = ConnectionMultiplexer.Connect(configurationOptions);
 
-        connection.ConnectionFailed += (sender, args) => OnConnectionFailed(args);
-        connection.ConnectionRestored += (sender, args) => OnConnectionRestored(args);
+        connection.ConnectionFailed += (_, args) => OnConnectionFailed(args);
+        connection.ConnectionRestored += (_, args) => OnConnectionRestored(args);
 
         _failedConnectionAttempts = 0; // Reset failed attempts after successful connection
 
