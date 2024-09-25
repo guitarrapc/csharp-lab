@@ -1,18 +1,10 @@
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
-namespace ApiHttp12.Infrastructures;
-
-public class SelfcheckServiceOptions
-{
-    /// <summary>
-    /// HTTPClient BaseAddress to request this server's htts listener address.
-    /// Visual Studio / Docker / Kubernetes or any other launch method will not guaranteed which port to be used.
-    /// This method will inject proper address for any launch style.
-    /// </summary>
-    public Uri BaseAddress { get; set; } = new Uri("http://localhost:5000");
-}
+namespace Api.Shared.Infrastructures;
 
 /// <summary>
 /// Connect to localhost's api to check it's availability
@@ -20,11 +12,8 @@ public class SelfcheckServiceOptions
 /// <param name="client"></param>
 /// <param name="hostApplicationLifetime"></param>
 /// <param name="server"></param>
-public class SelfcheckBackgroundService(SelfcheckServiceOptions options, SelfcheckClient client, IHostApplicationLifetime hostApplicationLifetime, IServer server): BackgroundService
+public class ApiSelfcheckBackgroundService<T>(SelfcheckServiceOptions options, ApiSelfcheckClient<T> client, IHostApplicationLifetime hostApplicationLifetime, IServer server): BackgroundService where T: class
 {
-    private const int delayStart = 3;
-    private const int interval = 10;
-
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         // Wait until app started. Because `<IServerAddressesFeature>.Addresses` will be null or empty until ApplicationStarted.
@@ -40,17 +29,17 @@ public class SelfcheckBackgroundService(SelfcheckServiceOptions options, Selfche
         var port = addresses.Select(x => new Uri(x)).First(x => x.Scheme == options.BaseAddress.Scheme).Port;
         options.BaseAddress = new Uri($"{options.BaseAddress.Scheme}://{options.BaseAddress.Host}:{port}");
 
-        await Task.Delay(TimeSpan.FromSeconds(delayStart), stoppingToken).ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
+        await Task.Delay(options.DelayStart, stoppingToken).ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
 
-        while (!stoppingToken.IsCancellationRequested)
+        using var timer = new PeriodicTimer(options.Interval);
+        while (await timer.WaitForNextTickAsync(stoppingToken))
         {
             await client.SendAsync(stoppingToken);
-            await Task.Delay(TimeSpan.FromSeconds(interval), stoppingToken).ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
         }
     }
 }
 
-public class SelfcheckClient(IHttpClientFactory clientFactory, ILogger<SelfcheckClient> logger)
+public class ApiSelfcheckClient<T>(IHttpClientFactory clientFactory, ILogger<ApiSelfcheckClient<T>> logger) where T: class
 {
     public async Task SendAsync(CancellationToken cancellationToken)
     {
@@ -64,7 +53,7 @@ public class SelfcheckClient(IHttpClientFactory clientFactory, ILogger<Selfcheck
             if (response.IsSuccessStatusCode)
             {
                 using var contentStream = await response.Content.ReadAsStreamAsync();
-                await JsonSerializer.DeserializeAsync<IEnumerable<WeatherForecast>>(contentStream);
+                await JsonSerializer.DeserializeAsync<IEnumerable<T>>(contentStream);
             }
         }
         catch (HttpRequestException ex)

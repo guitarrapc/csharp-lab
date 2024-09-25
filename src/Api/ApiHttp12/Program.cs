@@ -1,4 +1,4 @@
-using ApiHttp12.Infrastructures;
+using Api.Shared.Infrastructures;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +9,7 @@ builder.Services.AddSwaggerGen();
 
 // Enable HTTP/1 and 2
 builder.ConfigureHttp12Endpoint()
-    .EnableSelfcheck();
+    .EnableSelfcheck<WeatherForecast>();
 
 var app = builder.Build();
 

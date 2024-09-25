@@ -1,20 +1,10 @@
 using Grpc.Core;
-using Grpc2;
-using Grpc2.Infrastructures;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
-namespace ApiHttp12.Infrastructures;
-
-public class SelfcheckServiceOptions
-{
-    /// <summary>
-    /// HTTPClient BaseAddress to request this server's htts listener address.
-    /// Visual Studio / Docker / Kubernetes or any other launch method will not guaranteed which port to be used.
-    /// This method will inject proper address for any launch style.
-    /// </summary>
-    public Uri BaseAddress { get; set; } = new Uri("http://localhost:5000");
-}
+namespace Api.Shared.Infrastructures;
 
 /// <summary>
 /// Connect to localhost's api to check it's availability
@@ -23,11 +13,8 @@ public class SelfcheckServiceOptions
 /// <param name="unaryClient"></param>
 /// <param name="hostApplicationLifetime"></param>
 /// <param name="server"></param>
-public class SelfcheckBackgroundService(SelfcheckServiceOptions options, SelfcheckUnaryClient unaryClient, SelfcheckDuplexClient duplexClient, IHostApplicationLifetime hostApplicationLifetime, IServer server): BackgroundService
+public class GrpcSelfcheckBackgroundService(SelfcheckServiceOptions options, GrpcSelfcheckUnaryClient unaryClient, GrpcSelfcheckDuplexClient duplexClient, IHostApplicationLifetime hostApplicationLifetime, IServer server): BackgroundService
 {
-    private static readonly TimeSpan delayStart = TimeSpan.FromSeconds(3);
-    private static readonly TimeSpan interval = TimeSpan.FromSeconds(10);
-
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         // Wait until app started. Because `<IServerAddressesFeature>.Addresses` will be null or empty until ApplicationStarted.
@@ -43,11 +30,11 @@ public class SelfcheckBackgroundService(SelfcheckServiceOptions options, Selfche
         var port = addresses.Select(x => new Uri(x)).First(x => x.Scheme == options.BaseAddress.Scheme).Port;
         options.BaseAddress = new Uri($"{options.BaseAddress.Scheme}://{options.BaseAddress.Host}:{port}");
 
-        await Task.Delay(delayStart, stoppingToken).ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
+        await Task.Delay(options.DelayStart, stoppingToken).ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
 
-        var duplex = duplexClient.SendAsync(interval, stoppingToken);
+        var duplex = duplexClient.SendAsync(options.Interval, stoppingToken);
 
-        using var timer = new PeriodicTimer(interval);
+        using var timer = new PeriodicTimer(options.Interval);
         while (await timer.WaitForNextTickAsync(stoppingToken))
         {
             await unaryClient.SendAsync(stoppingToken);
@@ -57,7 +44,7 @@ public class SelfcheckBackgroundService(SelfcheckServiceOptions options, Selfche
     }
 }
 
-public class SelfcheckUnaryClient(SelfcheckServiceOptions options, GrpcChannelPool pool, ILogger<SelfcheckUnaryClient> logger)
+public class GrpcSelfcheckUnaryClient(SelfcheckServiceOptions options, GrpcChannelPool pool, ILogger<GrpcSelfcheckUnaryClient> logger)
 {
     private readonly HelloRequest cachedRequest = new HelloRequest
     {
@@ -88,7 +75,7 @@ public class SelfcheckUnaryClient(SelfcheckServiceOptions options, GrpcChannelPo
     }
 }
 
-public class SelfcheckDuplexClient(SelfcheckServiceOptions options, GrpcChannelPool pool, ILogger<SelfcheckDuplexClient> logger)
+public class GrpcSelfcheckDuplexClient(SelfcheckServiceOptions options, GrpcChannelPool pool, ILogger<GrpcSelfcheckDuplexClient> logger)
 {
     private readonly BidiHelloRequest cachedRequest = new BidiHelloRequest
     {

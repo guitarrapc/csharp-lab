@@ -11,19 +11,20 @@ EXPOSE 5159
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/Api/Grpc2/Grpc2.csproj", "src/Api/Grpc2/"]
-RUN dotnet restore "./src/Api/Grpc2/Grpc2.csproj"
+COPY ["src/Api/GrpcHttp2/GrpcHttp2.csproj", "src/Api/GrpcHttp2/"]
+COPY ["src/Api/Api.Shared/Api.Shared.csproj", "src/Api/Api.Shared/"]
+RUN dotnet restore "./src/Api/GrpcHttp2/GrpcHttp2.csproj"
 COPY . .
-WORKDIR "/src/src/Api/Grpc2"
-RUN dotnet build "./Grpc2.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/src/Api/GrpcHttp2"
+RUN dotnet build "./GrpcHttp2.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Grpc2.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./GrpcHttp2.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Grpc2.dll"]
+ENTRYPOINT ["dotnet", "GrpcHttp2.dll"]

@@ -1,4 +1,4 @@
-using ApiHttp3.Infrastructures;
+using Api.Shared.Infrastructures;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +9,7 @@ builder.Services.AddSwaggerGen();
 
 // Enable HTTP3
 builder.ConfigureHttp3Endpoint()
-    .EnableSelfcheck();
+    .EnableSelfcheck<WeatherForecast>(x => x.BaseAddress = new Uri("https://localhost:5001"));
 
 var app = builder.Build();
 
