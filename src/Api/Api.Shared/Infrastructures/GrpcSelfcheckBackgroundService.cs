@@ -15,9 +15,6 @@ namespace Api.Shared.Infrastructures;
 /// <param name="server"></param>
 public class GrpcSelfcheckBackgroundService(SelfcheckServiceOptions options, GrpcSelfcheckUnaryClient unaryClient, GrpcSelfcheckDuplexClient duplexClient, IHostApplicationLifetime hostApplicationLifetime, IServer server): BackgroundService
 {
-    private static readonly TimeSpan delayStart = TimeSpan.FromSeconds(3);
-    private static readonly TimeSpan interval = TimeSpan.FromSeconds(10);
-
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         // Wait until app started. Because `<IServerAddressesFeature>.Addresses` will be null or empty until ApplicationStarted.
@@ -33,11 +30,11 @@ public class GrpcSelfcheckBackgroundService(SelfcheckServiceOptions options, Grp
         var port = addresses.Select(x => new Uri(x)).First(x => x.Scheme == options.BaseAddress.Scheme).Port;
         options.BaseAddress = new Uri($"{options.BaseAddress.Scheme}://{options.BaseAddress.Host}:{port}");
 
-        await Task.Delay(delayStart, stoppingToken).ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
+        await Task.Delay(options.DelayStart, stoppingToken).ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
 
-        var duplex = duplexClient.SendAsync(interval, stoppingToken);
+        var duplex = duplexClient.SendAsync(options.Interval, stoppingToken);
 
-        using var timer = new PeriodicTimer(interval);
+        using var timer = new PeriodicTimer(options.Interval);
         while (await timer.WaitForNextTickAsync(stoppingToken))
         {
             await unaryClient.SendAsync(stoppingToken);

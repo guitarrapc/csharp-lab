@@ -15,9 +15,6 @@ namespace Api.Shared.Infrastructures;
 /// <param name="server"></param>
 public class ApiSelfcheckBackgroundService(SelfcheckServiceOptions options, ApiSelfcheckClient client, IHostApplicationLifetime hostApplicationLifetime, IServer server): BackgroundService
 {
-    private const int delayStart = 3;
-    private const int interval = 10;
-
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         // Wait until app started. Because `<IServerAddressesFeature>.Addresses` will be null or empty until ApplicationStarted.
@@ -33,12 +30,12 @@ public class ApiSelfcheckBackgroundService(SelfcheckServiceOptions options, ApiS
         var port = addresses.Select(x => new Uri(x)).First(x => x.Scheme == options.BaseAddress.Scheme).Port;
         options.BaseAddress = new Uri($"{options.BaseAddress.Scheme}://{options.BaseAddress.Host}:{port}");
 
-        await Task.Delay(TimeSpan.FromSeconds(delayStart), stoppingToken).ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
+        await Task.Delay(options.DelayStart, stoppingToken).ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
 
-        while (!stoppingToken.IsCancellationRequested)
+        using var timer = new PeriodicTimer(options.Interval);
+        while (!await timer.WaitForNextTickAsync(stoppingToken))
         {
             await client.SendAsync(stoppingToken);
-            await Task.Delay(TimeSpan.FromSeconds(interval), stoppingToken).ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
         }
     }
 }

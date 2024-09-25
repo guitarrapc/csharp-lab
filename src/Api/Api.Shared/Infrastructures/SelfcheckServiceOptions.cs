@@ -1,7 +1,15 @@
-﻿namespace Api.Shared.Infrastructures;
+namespace Api.Shared.Infrastructures;
 
 public class SelfcheckServiceOptions
 {
+    /// <summary>
+    /// Selfcheck delay start since ApplicationStarted
+    /// </summary>
+    public TimeSpan DelayStart { get; } = TimeSpan.FromSeconds(3);
+    /// <summary>
+    /// Selfcheck interval from previous run
+    /// </summary>
+    public TimeSpan Interval { get; } = TimeSpan.FromSeconds(10);
     /// <summary>
     /// HTTPClient BaseAddress to request this server's htts listener address.
     /// Visual Studio / Docker / Kubernetes or any other launch method will not guaranteed which port to be used.
