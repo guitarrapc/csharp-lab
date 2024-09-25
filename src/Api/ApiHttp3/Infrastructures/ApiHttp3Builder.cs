@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Net.Http.Headers;
 
-namespace ApiHttp12.Infrastructures;
+namespace ApiHttp3.Infrastructures;
 
-public interface IApiHttpBuilder
+public interface IApiHttp3Builder
 {
     IServiceCollection Services { get; }
 }
-public class ApiHttpBuilder(IServiceCollection services) : IApiHttpBuilder
+public class ApiHttp3Builder(IServiceCollection services) : IApiHttp3Builder
 {
     public IServiceCollection Services { get; } = services;
 }
@@ -15,21 +15,22 @@ public class ApiHttpBuilder(IServiceCollection services) : IApiHttpBuilder
 public static class ApiBuilderExtensions
 {
     /// <summary>
-    /// Enable HTTP/1 and HTTP/2 support
+    /// Enable HTTP/3 support
     /// </summary>
     /// <param name="builder"></param>
-    public static IApiHttpBuilder ConfigureHttp12Endpoint(this WebApplicationBuilder builder, int port = 5000)
+    public static IApiHttp3Builder ConfigureHttp3Endpoint(this WebApplicationBuilder builder, int port = 5001)
     {
-        // see: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel/http2?view=aspnetcore-8.0
+        // see: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel/http3?view=aspnetcore-8.0
         builder.WebHost.ConfigureKestrel((context, options) =>
         {
             options.ListenAnyIP(port, listenOptions =>
             {
-                listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
+                listenOptions.Protocols = HttpProtocols.Http1AndHttp2AndHttp3;
+                listenOptions.UseHttps();
             });
         });
 
-        return new ApiHttpBuilder(builder.Services);
+        return new ApiHttp3Builder(builder.Services);
     }
 
     /// <summary>
@@ -37,10 +38,10 @@ public static class ApiBuilderExtensions
     /// </summary>
     /// <param name="builder"></param>
     /// <returns></returns>
-    public static IApiHttpBuilder EnableSelfcheck(this IApiHttpBuilder builder)
+    public static IApiHttp3Builder EnableSelfcheck(this IApiHttp3Builder builder)
     {
         builder.Services.AddSingleton<SelfcheckServiceOptions>();
-        builder.Services.AddSingleton<SelfcheckClient>();
+        builder.Services.AddSingleton<SelfcheckHttp3Client>();
         builder.Services.AddHostedService<SelfcheckBackgroundService>();
 
         // Set HttpClient configuratioan
@@ -49,8 +50,15 @@ public static class ApiBuilderExtensions
             var op = sp.GetRequiredService<SelfcheckServiceOptions>();
 
             httpClient.BaseAddress = op.BaseAddress;
+            httpClient.DefaultRequestVersion = new Version(3, 0);
+            httpClient.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionExact;
             httpClient.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
-        });
+        })
+            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+            {
+                // allow self certificate
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+            });
 
         return builder;
     }
