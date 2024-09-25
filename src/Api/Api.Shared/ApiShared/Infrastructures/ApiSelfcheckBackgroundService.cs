@@ -11,18 +11,27 @@ namespace Api.Shared.ApiShared.Infrastructures;
 /// <summary>
 /// Connect to localhost's api to check it's availability
 /// </summary>
+/// <param name="options"></param>
 /// <param name="client"></param>
 /// <param name="hostApplicationLifetime"></param>
 /// <param name="server"></param>
-public class ApiSelfcheckBackgroundService<T>(SelfcheckServiceOptions options, ApiSelfcheckClient<T> client, IHostApplicationLifetime hostApplicationLifetime, IServer server) : BackgroundService where T : class
+/// <param name="logger"></param>
+public class ApiSelfcheckBackgroundService<T>(SelfcheckServiceOptions options, ApiSelfcheckClient<T> client, IHostApplicationLifetime hostApplicationLifetime, IServer server, ILogger<ApiSelfcheckBackgroundService<T>> logger) : BackgroundService where T : class
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        var cts = CancellationTokenSource.CreateLinkedTokenSource(stoppingToken);
+        hostApplicationLifetime.ApplicationStopping.Register(() =>
+        {
+            logger.LogInformation($"Server stop triggered by {nameof(hostApplicationLifetime.ApplicationStopping)}.");
+            cts.Cancel();
+        });
+
         // Wait until app started. Because `<IServerAddressesFeature>.Addresses` will be null or empty until ApplicationStarted.
         hostApplicationLifetime.ApplicationStarted.Register(async () =>
         {
             SetBaseAddress();
-            await SelfcheckAsync(stoppingToken);
+            await SelfcheckAsync(cts.Token);
         });
     }
 
@@ -31,9 +40,16 @@ public class ApiSelfcheckBackgroundService<T>(SelfcheckServiceOptions options, A
         await Task.Delay(options.DelayStart, stoppingToken).ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
 
         using var timer = new PeriodicTimer(options.Interval);
-        while (await timer.WaitForNextTickAsync(stoppingToken))
+        try
         {
-            await client.SendAsync(stoppingToken);
+            while (await timer.WaitForNextTickAsync(stoppingToken))
+            {
+                await client.SendAsync(stoppingToken);
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            logger.LogDebug($"Server stopped, {nameof(ApiSelfcheckBackgroundService<T>)} cancelled.");
         }
     }
 

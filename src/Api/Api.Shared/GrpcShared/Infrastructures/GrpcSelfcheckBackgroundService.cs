@@ -13,17 +13,26 @@ namespace Api.Shared.GrpcShared.Infrastructures;
 /// </summary>
 /// <param name="options"></param>
 /// <param name="unaryClient"></param>
+/// <param name="duplexClient"></param>
 /// <param name="hostApplicationLifetime"></param>
 /// <param name="server"></param>
-public class GrpcSelfcheckBackgroundService(SelfcheckServiceOptions options, GrpcSelfcheckUnaryClient unaryClient, GrpcSelfcheckDuplexClient duplexClient, IHostApplicationLifetime hostApplicationLifetime, IServer server) : BackgroundService
+/// <param name="logger"></param>
+public class GrpcSelfcheckBackgroundService(SelfcheckServiceOptions options, GrpcSelfcheckUnaryClient unaryClient, GrpcSelfcheckDuplexClient duplexClient, IHostApplicationLifetime hostApplicationLifetime, IServer server, ILogger<GrpcSelfcheckBackgroundService> logger) : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        var cts = CancellationTokenSource.CreateLinkedTokenSource(stoppingToken);
+        hostApplicationLifetime.ApplicationStopping.Register(() =>
+        {
+            logger.LogInformation($"Server stop triggered by {nameof(hostApplicationLifetime.ApplicationStopping)}.");
+            cts.Cancel();
+        });
+
         // Wait until app started. Because `<IServerAddressesFeature>.Addresses` will be null or empty until ApplicationStarted.
         hostApplicationLifetime.ApplicationStarted.Register(async () =>
         {
             SetBaseAddress();
-            await SelfcheckAsync(stoppingToken);
+            await SelfcheckAsync(cts.Token);
         });
     }
 
@@ -31,15 +40,20 @@ public class GrpcSelfcheckBackgroundService(SelfcheckServiceOptions options, Grp
     {
         await Task.Delay(options.DelayStart, stoppingToken).ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
 
-        var duplex = duplexClient.SendAsync(options.Interval, stoppingToken);
-
         using var timer = new PeriodicTimer(options.Interval);
-        while (await timer.WaitForNextTickAsync(stoppingToken))
+        try
         {
-            await unaryClient.SendAsync(stoppingToken);
+            var duplex = duplexClient.SendAsync(options.Interval, stoppingToken);
+            while (await timer.WaitForNextTickAsync(stoppingToken))
+            {
+                await unaryClient.SendAsync(stoppingToken);
+            }
+            await duplex;
         }
-
-        await duplex;
+        catch (OperationCanceledException)
+        {
+            logger.LogDebug($"Server stopped, {nameof(GrpcSelfcheckBackgroundService)} cancelled.");
+        }
     }
 
     private void SetBaseAddress()
