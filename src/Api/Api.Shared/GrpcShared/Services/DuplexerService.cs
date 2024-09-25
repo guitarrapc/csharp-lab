@@ -1,17 +1,13 @@
 using Grpc.Core;
 using Microsoft.AspNetCore.Connections;
+#pragma warning disable IDE0005 // Using directive is unnecessary.
 using Microsoft.Extensions.Logging;
+#pragma warning restore IDE0005 // Using directive is unnecessary.
 
 namespace Api.Shared.GrpcShared.Services;
 
-public class DuplexerService : Duplexer.DuplexerBase
+public class DuplexerService(ILogger<DuplexerService> logger) : Duplexer.DuplexerBase
 {
-    private readonly ILogger<DuplexerService> _logger;
-    public DuplexerService(ILogger<DuplexerService> logger)
-    {
-        _logger = logger;
-    }
-
     public override async Task Echo(IAsyncStreamReader<BidiHelloRequest> requestStream, IServerStreamWriter<BidiHelloReply> responseStream, ServerCallContext context)
     {
         var reader = requestStream;
@@ -24,13 +20,13 @@ public class DuplexerService : Duplexer.DuplexerBase
                 var data = reader.Current;
                 var name = data.Name;
 
-                _logger.LogInformation($"({nameof(Echo)}) Recieved request: {name}");
+                logger.LogInformation($"({nameof(Echo)}) Recieved request: {name}");
                 if (string.Equals(name, "end", StringComparison.OrdinalIgnoreCase))
                 {
                     return;
                 }
 
-                _logger.LogInformation($"({nameof(Echo)}) Writing echo to Server Streaming: {name}");
+                logger.LogInformation($"({nameof(Echo)}) Writing echo to Server Streaming: {name}");
                 await writer.WriteAsync(new BidiHelloReply
                 {
                     Message = $"Echo: {name}",
@@ -57,7 +53,7 @@ public class DuplexerService : Duplexer.DuplexerBase
         }
         finally
         {
-            _logger.LogDebug("Client Disconnected");
+            logger.LogDebug("Client Disconnected");
         }
     }
 }
