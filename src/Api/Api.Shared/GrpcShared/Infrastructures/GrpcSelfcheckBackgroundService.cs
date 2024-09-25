@@ -36,23 +36,27 @@ public class GrpcSelfcheckBackgroundService(SelfcheckServiceOptions options, Grp
         });
     }
 
-    private async Task SelfcheckAsync(CancellationToken stoppingToken)
+    private async Task SelfcheckAsync(CancellationToken cancellationToken)
     {
-        await Task.Delay(options.DelayStart, stoppingToken).ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
+        await Task.Delay(options.DelayStart, cancellationToken).ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
 
         using var timer = new PeriodicTimer(options.Interval);
         try
         {
-            var duplex = duplexClient.SendAsync(options.Interval, stoppingToken);
-            while (await timer.WaitForNextTickAsync(stoppingToken))
+            var duplex = duplexClient.SendAsync(options.Interval, cancellationToken);
+            while (await timer.WaitForNextTickAsync(cancellationToken))
             {
-                await unaryClient.SendAsync(stoppingToken);
+                await unaryClient.SendAsync(cancellationToken);
             }
             await duplex;
         }
         catch (OperationCanceledException)
         {
             logger.LogDebug($"Server stopped, {nameof(GrpcSelfcheckBackgroundService)} cancelled.");
+        }
+        finally
+        {
+            logger.LogInformation($"{nameof(GrpcSelfcheckBackgroundService)} stopped.");
         }
     }
 

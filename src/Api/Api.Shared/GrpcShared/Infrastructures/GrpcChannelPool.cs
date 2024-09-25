@@ -42,10 +42,10 @@ public class GrpcChannelPool
         {
             var handler = new SocketsHttpHandler
             {
+                PooledConnectionIdleTimeout = Constants.GrpcConstants.ClientPooledConnectionIdleTimeout,
                 // Enable Keep-alive ping
-                PooledConnectionIdleTimeout = Timeout.InfiniteTimeSpan,
-                KeepAlivePingDelay = TimeSpan.FromSeconds(60),
-                KeepAlivePingTimeout = TimeSpan.FromSeconds(30),
+                KeepAlivePingDelay = Constants.GrpcConstants.ClientKeepAlivePingTimeout,
+                KeepAlivePingTimeout = Constants.GrpcConstants.ClientKeepAlivePingTimeout,
                 KeepAlivePingPolicy = HttpKeepAlivePingPolicy.Always,
                 // Enable connection concurrency
                 EnableMultipleHttp2Connections = true,
@@ -59,7 +59,7 @@ public class GrpcChannelPool
                     RemoteCertificateValidationCallback = (_, _, _, _) => true,
                 };
             }
-            return _channels.GetValueOrDefault(h, GrpcChannel.ForAddress(host, new GrpcChannelOptions
+            return _channels.GetOrAdd(h, GrpcChannel.ForAddress(host, new GrpcChannelOptions
             {
                 HttpHandler = useHttp3 ? new Http3Handler(handler) : handler,
             }));
