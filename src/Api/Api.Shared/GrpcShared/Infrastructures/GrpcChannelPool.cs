@@ -40,29 +40,33 @@ public class GrpcChannelPool
 
         GrpcChannel Create(Uri h, bool enableTls, bool useHttp3)
         {
-            var handler = new SocketsHttpHandler
+            return _channels.GetOrAdd(h, _ =>
             {
-                // Enable Keep-alive ping
-                PooledConnectionIdleTimeout = Timeout.InfiniteTimeSpan,
-                KeepAlivePingDelay = TimeSpan.FromSeconds(60),
-                KeepAlivePingTimeout = TimeSpan.FromSeconds(30),
-                KeepAlivePingPolicy = HttpKeepAlivePingPolicy.Always,
-                // Enable connection concurrency
-                EnableMultipleHttp2Connections = true,
-            };
-
-            if (enableTls)
-            {
-                // TLS
-                handler.SslOptions = new System.Net.Security.SslClientAuthenticationOptions
+                var httpHandler = new SocketsHttpHandler
                 {
-                    RemoteCertificateValidationCallback = (_, _, _, _) => true,
+                    PooledConnectionIdleTimeout = Constants.GrpcConstants.ClientPooledConnectionIdleTimeout,
+                    // Enable Keep-alive ping
+                    KeepAlivePingDelay = Constants.GrpcConstants.ClientKeepAlivePingTimeout,
+                    KeepAlivePingTimeout = Constants.GrpcConstants.ClientKeepAlivePingTimeout,
+                    KeepAlivePingPolicy = HttpKeepAlivePingPolicy.Always,
+                    // Enable connection concurrency
+                    EnableMultipleHttp2Connections = true,
                 };
-            }
-            return _channels.GetValueOrDefault(h, GrpcChannel.ForAddress(host, new GrpcChannelOptions
-            {
-                HttpHandler = useHttp3 ? new Http3Handler(handler) : handler,
-            }));
+
+                if (enableTls)
+                {
+                    // TLS
+                    httpHandler.SslOptions = new System.Net.Security.SslClientAuthenticationOptions
+                    {
+                        RemoteCertificateValidationCallback = (_, _, _, _) => true,
+                    };
+                }
+
+                return GrpcChannel.ForAddress(host, new GrpcChannelOptions
+                {
+                    HttpHandler = enableTls ? new Http3Handler(httpHandler) : httpHandler,
+                });
+            });
         }
     }
 

@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 #pragma warning restore IDE0005 // Using directive is unnecessary.
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using static Api.Shared.GrpcShared.Infrastructures.Constants;
 
 namespace Api.Shared.GrpcShared.Infrastructures;
 
@@ -20,7 +21,17 @@ public class GrpcHttpBuilder(IServiceCollection services) : IGrpcHttpBuilder
 public static class GrpcHttpBuilderExtensions
 {
     /// <summary>
-    /// Enable HTTP/1 and HTTP/2 support
+    /// TLS File for HTTPS Listener
+    /// </summary>
+    /// <param name="PfxFileName"></param>
+    /// <param name="Password"></param>
+    internal record TlsFile(string PfxFileName, string Password)
+    {
+        public static TlsFile Default = new TlsFile("Certs/server1.pfx", "1111");
+    }
+
+    /// <summary>
+    /// Enable HTTP/2 support
     /// </summary>
     /// <param name="builder"></param>
     /// <param name="port"></param>
@@ -32,6 +43,8 @@ public static class GrpcHttpBuilderExtensions
         // see: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel/http2?view=aspnetcore-8.0
         builder.WebHost.ConfigureKestrel((context, options) =>
         {
+            options.Limits.KeepAliveTimeout = GrpcConstants.ServerKeepConnectionWait;
+
             options.ListenAnyIP(port, listenOptions =>
             {
                 // gRPC is HTTP/2. Set Http2 to accept Insecure HTTP/2
@@ -52,13 +65,19 @@ public static class GrpcHttpBuilderExtensions
     {
         builder.Logging.ConfigureSingleLineLogger();
 
+        var basePath = Path.GetDirectoryName(AppContext.BaseDirectory);
+        var certPath = Path.Combine(basePath!, TlsFile.Default.PfxFileName);
+
         // see: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel/http2?view=aspnetcore-8.0
         builder.WebHost.ConfigureKestrel((context, options) =>
         {
+            options.Limits.KeepAliveTimeout = GrpcConstants.ServerKeepConnectionWait;
+
             options.ListenAnyIP(port, listenOptions =>
             {
+                // Won't work with HttpProtocols.Http3. Require specify all HTTP/1,2 and 3
                 listenOptions.Protocols = HttpProtocols.Http1AndHttp2AndHttp3;
-                listenOptions.UseHttps();
+                listenOptions.UseHttps(certPath, TlsFile.Default.Password);
             });
         });
 
