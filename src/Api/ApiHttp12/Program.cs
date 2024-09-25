@@ -1,4 +1,5 @@
-using ApiHttp12.Infrastructures;
+using Api.Shared.Infrastructures;
+using Api.Shared.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,8 +42,3 @@ app.MapGet("/weatherforecast", () =>
 .WithOpenApi();
 
 app.Run();
-
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

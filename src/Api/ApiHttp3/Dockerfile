@@ -17,11 +17,13 @@ USER app
 WORKDIR /app
 EXPOSE 5001
 
+
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/Api/ApiHttp3/ApiHttp3.csproj", "src/Api/ApiHttp3/"]
+COPY ["src/Api/Api.Shared/Api.Shared.csproj", "src/Api/Api.Shared/"]
 RUN dotnet restore "./src/Api/ApiHttp3/ApiHttp3.csproj"
 COPY . .
 WORKDIR "/src/src/Api/ApiHttp3"

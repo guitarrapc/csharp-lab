@@ -40,8 +40,18 @@ public static class GrpcBuilderExtensions
     /// </summary>
     /// <param name="builder"></param>
     /// <returns></returns>
-    public static IGrpcHttp2Builder EnableSelfcheck(this IGrpcHttp2Builder builder)
+    public static IGrpcHttp2Builder EnableSelfcheck(this IGrpcHttp2Builder builder) => EnableSelfcheck(builder, _ => { });
+
+    /// <summary>
+    /// Add Server connection selfcheck background service.
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <param name="configure"></param>
+    /// <returns></returns>
+    public static IGrpcHttp2Builder EnableSelfcheck(this IGrpcHttp2Builder builder, Action<SelfcheckServiceOptions> configure)
     {
+        var options = new SelfcheckServiceOptions();
+        configure(options);
         builder.Services.AddSingleton<SelfcheckServiceOptions>();
         builder.Services.AddSingleton<GrpcSelfcheckUnaryClient>();
         builder.Services.AddSingleton<GrpcSelfcheckDuplexClient>();

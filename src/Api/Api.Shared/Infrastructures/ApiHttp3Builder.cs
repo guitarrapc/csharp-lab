@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
 
-namespace ApiHttp3.Infrastructures;
+namespace Api.Shared.Infrastructures;
 
 public interface IApiHttp3Builder
 {
@@ -12,7 +15,7 @@ public class ApiHttp3Builder(IServiceCollection services) : IApiHttp3Builder
     public IServiceCollection Services { get; } = services;
 }
 
-public static class ApiBuilderExtensions
+public static class ApiHttp3BuilderExtensions
 {
     /// <summary>
     /// Enable HTTP/3 support
@@ -38,11 +41,21 @@ public static class ApiBuilderExtensions
     /// </summary>
     /// <param name="builder"></param>
     /// <returns></returns>
-    public static IApiHttp3Builder EnableSelfcheck(this IApiHttp3Builder builder)
+    public static IApiHttp3Builder EnableSelfcheck(this IApiHttp3Builder builder) => EnableSelfcheck(builder, _ => { });
+
+    /// <summary>
+    /// Add Server connection selfcheck background service.
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <param name="configure"></param>
+    /// <returns></returns>
+    public static IApiHttp3Builder EnableSelfcheck(this IApiHttp3Builder builder, Action<SelfcheckServiceOptions> configure)
     {
-        builder.Services.AddSingleton<SelfcheckServiceOptions>();
-        builder.Services.AddSingleton<SelfcheckHttp3Client>();
-        builder.Services.AddHostedService<SelfcheckBackgroundService>();
+        var options = new SelfcheckServiceOptions();
+        configure(options);
+        builder.Services.AddSingleton<SelfcheckServiceOptions>(options);
+        builder.Services.AddSingleton<ApiSelfcheckClient>();
+        builder.Services.AddHostedService<ApiSelfcheckBackgroundService>();
 
         // Set HttpClient configuratioan
         builder.Services.AddHttpClient("SelfcheckHttp", static (sp, httpClient) =>

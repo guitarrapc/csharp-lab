@@ -1,18 +1,11 @@
+using Api.Shared.Services;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
-namespace ApiHttp12.Infrastructures;
-
-public class SelfcheckServiceOptions
-{
-    /// <summary>
-    /// HTTPClient BaseAddress to request this server's htts listener address.
-    /// Visual Studio / Docker / Kubernetes or any other launch method will not guaranteed which port to be used.
-    /// This method will inject proper address for any launch style.
-    /// </summary>
-    public Uri BaseAddress { get; set; } = new Uri("http://localhost:5000");
-}
+namespace Api.Shared.Infrastructures;
 
 /// <summary>
 /// Connect to localhost's api to check it's availability
@@ -20,7 +13,7 @@ public class SelfcheckServiceOptions
 /// <param name="client"></param>
 /// <param name="hostApplicationLifetime"></param>
 /// <param name="server"></param>
-public class SelfcheckBackgroundService(SelfcheckServiceOptions options, SelfcheckClient client, IHostApplicationLifetime hostApplicationLifetime, IServer server): BackgroundService
+public class ApiSelfcheckBackgroundService(SelfcheckServiceOptions options, ApiSelfcheckClient client, IHostApplicationLifetime hostApplicationLifetime, IServer server): BackgroundService
 {
     private const int delayStart = 3;
     private const int interval = 10;
@@ -50,7 +43,7 @@ public class SelfcheckBackgroundService(SelfcheckServiceOptions options, Selfche
     }
 }
 
-public class SelfcheckClient(IHttpClientFactory clientFactory, ILogger<SelfcheckClient> logger)
+public class ApiSelfcheckClient(IHttpClientFactory clientFactory, ILogger<ApiSelfcheckClient> logger)
 {
     public async Task SendAsync(CancellationToken cancellationToken)
     {

@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
 
-namespace ApiHttp12.Infrastructures;
+namespace Api.Shared.Infrastructures;
 
 public interface IApiHttp12Builder
 {
@@ -12,7 +15,7 @@ public class ApiHttp12Builder(IServiceCollection services) : IApiHttp12Builder
     public IServiceCollection Services { get; } = services;
 }
 
-public static class ApiBuilderExtensions
+public static class ApiHttp12BuilderExtensions
 {
     /// <summary>
     /// Enable HTTP/1 and HTTP/2 support
@@ -37,11 +40,21 @@ public static class ApiBuilderExtensions
     /// </summary>
     /// <param name="builder"></param>
     /// <returns></returns>
-    public static IApiHttp12Builder EnableSelfcheck(this IApiHttp12Builder builder)
+    public static IApiHttp12Builder EnableSelfcheck(this IApiHttp12Builder builder) => EnableSelfcheck(builder, _ => { });
+
+    /// <summary>
+    /// Add Server connection selfcheck background service.
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <param name="configure"></param>
+    /// <returns></returns>
+    public static IApiHttp12Builder EnableSelfcheck(this IApiHttp12Builder builder, Action<SelfcheckServiceOptions> configure)
     {
-        builder.Services.AddSingleton<SelfcheckServiceOptions>();
-        builder.Services.AddSingleton<SelfcheckClient>();
-        builder.Services.AddHostedService<SelfcheckBackgroundService>();
+        var options = new SelfcheckServiceOptions();
+        configure(options);
+        builder.Services.AddSingleton<SelfcheckServiceOptions>(options);
+        builder.Services.AddSingleton<ApiSelfcheckClient>();
+        builder.Services.AddHostedService<ApiSelfcheckBackgroundService>();
 
         // Set HttpClient configuratioan
         builder.Services.AddHttpClient("SelfcheckHttp", static (sp, httpClient) =>

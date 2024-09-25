@@ -12,4 +12,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Api.Shared\Api.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
