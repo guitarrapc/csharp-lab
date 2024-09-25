@@ -16,13 +16,13 @@ public class GrpcHttp2Builder(IServiceCollection services) : IGrpcHttp2Builder
     public IServiceCollection Services { get; } = services;
 }
 
-public static class GrpcBuilderExtensions
+public static class GrpcHttp2BuilderExtensions
 {
     /// <summary>
     /// Enable HTTP/1 and HTTP/2 support
     /// </summary>
     /// <param name="builder"></param>
-    public static IGrpcHttp2Builder ConfigureHttp2Endpoint(this WebApplicationBuilder builder, int port = 5159)
+    public static IGrpcHttp2Builder ConfigureHttp2Endpoint(this WebApplicationBuilder builder, int port = 5000)
     {
         // see: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel/http2?view=aspnetcore-8.0
         builder.WebHost.ConfigureKestrel((context, options) =>

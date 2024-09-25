@@ -6,13 +6,13 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5159"
+      "applicationUrl": "http://localhost:5000"
     },
     "Container (Dockerfile)": {
       "commandName": "Docker",
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
       "environmentVariables": {
-        "ASPNETCORE_HTTP_PORTS": "5159"
+        "ASPNETCORE_HTTP_PORTS": "5000"
       },
       "publishAllPorts": true,
       "useSSL": false
