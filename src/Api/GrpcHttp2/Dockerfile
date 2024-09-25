@@ -4,7 +4,7 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
-EXPOSE 8080
+EXPOSE 5159
 
 
 # This stage is used to build the service project
@@ -12,6 +12,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/Api/GrpcHttp2/GrpcHttp2.csproj", "src/Api/GrpcHttp2/"]
+COPY ["src/Api/Api.Shared/Api.Shared.csproj", "src/Api/Api.Shared/"]
 RUN dotnet restore "./src/Api/GrpcHttp2/GrpcHttp2.csproj"
 COPY . .
 WORKDIR "/src/src/Api/GrpcHttp2"

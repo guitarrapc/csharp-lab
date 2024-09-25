@@ -1,5 +1,5 @@
-using ApiHttp12.Infrastructures;
-using GrpcHttp2.Services;
+using Api.Shared.Infrastructures;
+using Api.Shared.Services;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);

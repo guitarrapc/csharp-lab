@@ -1,7 +1,7 @@
 using Grpc.Net.Client;
 using System.Collections.Concurrent;
 
-namespace GrpcHttp2.Infrastructures;
+namespace Api.Shared.Infrastructures;
 
 /// <summary>
 /// GrpcChannel is high cost operation and should be reusable. Let's create pool for each host and reuse a channel.

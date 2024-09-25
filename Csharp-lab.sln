@@ -142,6 +142,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiHttp12", "src\Api\ApiHtt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiHttp3", "src\Api\ApiHttp3\ApiHttp3.csproj", "{50A2CE53-0C1E-40A7-A371-F78F34F8557D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Shared", "src\Api\Api.Shared\Api.Shared.csproj", "{EE9E851C-8E09-4C04-B7AE-AE165353F5FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -348,6 +350,10 @@ Global
 		{50A2CE53-0C1E-40A7-A371-F78F34F8557D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50A2CE53-0C1E-40A7-A371-F78F34F8557D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50A2CE53-0C1E-40A7-A371-F78F34F8557D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE9E851C-8E09-4C04-B7AE-AE165353F5FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE9E851C-8E09-4C04-B7AE-AE165353F5FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE9E851C-8E09-4C04-B7AE-AE165353F5FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE9E851C-8E09-4C04-B7AE-AE165353F5FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -403,6 +409,7 @@ Global
 		{3571B579-342D-4D84-9704-A7D995AD8B5C} = {28CE7184-F1DE-44AE-922F-965FC3AA1768}
 		{992BD9EA-768B-4A51-86E6-3B661F6D18A8} = {28CE7184-F1DE-44AE-922F-965FC3AA1768}
 		{50A2CE53-0C1E-40A7-A371-F78F34F8557D} = {28CE7184-F1DE-44AE-922F-965FC3AA1768}
+		{EE9E851C-8E09-4C04-B7AE-AE165353F5FA} = {28CE7184-F1DE-44AE-922F-965FC3AA1768}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6AD43C70-ADE6-43C4-A90D-F4E7CB0BD2F9}
