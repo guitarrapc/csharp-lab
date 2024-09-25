@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
 
-namespace Api.Shared.Infrastructures;
+namespace Api.Shared.ApiShared.Infrastructures;
 
 public interface IApiHttp3Builder
 {
@@ -41,9 +41,9 @@ public static class ApiHttp3BuilderExtensions
     /// </summary>
     /// <param name="builder"></param>
     /// <returns></returns>
-    public static IApiHttp3Builder EnableSelfcheck<T>(this IApiHttp3Builder builder) where T: class
+    public static IApiHttp3Builder EnableSelfcheck<T>(this IApiHttp3Builder builder) where T : class
     {
-        return EnableSelfcheck<T>(builder, _ => { });
+        return builder.EnableSelfcheck<T>(_ => { });
     }
 
     /// <summary>
@@ -52,11 +52,11 @@ public static class ApiHttp3BuilderExtensions
     /// <param name="builder"></param>
     /// <param name="configure"></param>
     /// <returns></returns>
-    public static IApiHttp3Builder EnableSelfcheck<T>(this IApiHttp3Builder builder, Action<SelfcheckServiceOptions> configure) where T: class
+    public static IApiHttp3Builder EnableSelfcheck<T>(this IApiHttp3Builder builder, Action<SelfcheckServiceOptions> configure) where T : class
     {
         var options = new SelfcheckServiceOptions();
         configure(options);
-        builder.Services.AddSingleton<SelfcheckServiceOptions>(options);
+        builder.Services.AddSingleton(options);
         builder.Services.AddSingleton<ApiSelfcheckClient<T>>();
         builder.Services.AddHostedService<ApiSelfcheckBackgroundService<T>>();
 
