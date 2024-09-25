@@ -1,5 +1,4 @@
 using Api.Shared.Infrastructures;
-using Api.Shared.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +9,7 @@ builder.Services.AddSwaggerGen();
 
 // Enable HTTP3
 builder.ConfigureHttp3Endpoint()
-    .EnableSelfcheck(x => x.BaseAddress = new Uri("https://localhost:5001"));
+    .EnableSelfcheck<WeatherForecast>(x => x.BaseAddress = new Uri("https://localhost:5001"));
 
 var app = builder.Build();
 
@@ -45,3 +44,7 @@ app.MapGet("/weatherforecast", () =>
 
 app.Run();
 
+internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+{
+    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+}

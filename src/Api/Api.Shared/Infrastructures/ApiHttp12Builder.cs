@@ -40,7 +40,10 @@ public static class ApiHttp12BuilderExtensions
     /// </summary>
     /// <param name="builder"></param>
     /// <returns></returns>
-    public static IApiHttp12Builder EnableSelfcheck(this IApiHttp12Builder builder) => EnableSelfcheck(builder, _ => { });
+    public static IApiHttp12Builder EnableSelfcheck<T>(this IApiHttp12Builder builder) where T: class
+    {
+        return EnableSelfcheck<T>(builder, _ => { });
+    }
 
     /// <summary>
     /// Add Server connection selfcheck background service.
@@ -48,13 +51,13 @@ public static class ApiHttp12BuilderExtensions
     /// <param name="builder"></param>
     /// <param name="configure"></param>
     /// <returns></returns>
-    public static IApiHttp12Builder EnableSelfcheck(this IApiHttp12Builder builder, Action<SelfcheckServiceOptions> configure)
+    public static IApiHttp12Builder EnableSelfcheck<T>(this IApiHttp12Builder builder, Action<SelfcheckServiceOptions> configure) where T: class
     {
         var options = new SelfcheckServiceOptions();
         configure(options);
         builder.Services.AddSingleton<SelfcheckServiceOptions>(options);
-        builder.Services.AddSingleton<ApiSelfcheckClient>();
-        builder.Services.AddHostedService<ApiSelfcheckBackgroundService>();
+        builder.Services.AddSingleton<ApiSelfcheckClient<T>>();
+        builder.Services.AddHostedService<ApiSelfcheckBackgroundService<T>>();
 
         // Set HttpClient configuratioan
         builder.Services.AddHttpClient("SelfcheckHttp", static (sp, httpClient) =>

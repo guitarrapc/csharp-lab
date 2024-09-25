@@ -1,4 +1,3 @@
-using Api.Shared.Services;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.Extensions.Hosting;
@@ -13,7 +12,7 @@ namespace Api.Shared.Infrastructures;
 /// <param name="client"></param>
 /// <param name="hostApplicationLifetime"></param>
 /// <param name="server"></param>
-public class ApiSelfcheckBackgroundService(SelfcheckServiceOptions options, ApiSelfcheckClient client, IHostApplicationLifetime hostApplicationLifetime, IServer server): BackgroundService
+public class ApiSelfcheckBackgroundService<T>(SelfcheckServiceOptions options, ApiSelfcheckClient<T> client, IHostApplicationLifetime hostApplicationLifetime, IServer server): BackgroundService where T: class
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -33,14 +32,14 @@ public class ApiSelfcheckBackgroundService(SelfcheckServiceOptions options, ApiS
         await Task.Delay(options.DelayStart, stoppingToken).ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
 
         using var timer = new PeriodicTimer(options.Interval);
-        while (!await timer.WaitForNextTickAsync(stoppingToken))
+        while (await timer.WaitForNextTickAsync(stoppingToken))
         {
             await client.SendAsync(stoppingToken);
         }
     }
 }
 
-public class ApiSelfcheckClient(IHttpClientFactory clientFactory, ILogger<ApiSelfcheckClient> logger)
+public class ApiSelfcheckClient<T>(IHttpClientFactory clientFactory, ILogger<ApiSelfcheckClient<T>> logger) where T: class
 {
     public async Task SendAsync(CancellationToken cancellationToken)
     {
@@ -54,7 +53,7 @@ public class ApiSelfcheckClient(IHttpClientFactory clientFactory, ILogger<ApiSel
             if (response.IsSuccessStatusCode)
             {
                 using var contentStream = await response.Content.ReadAsStreamAsync();
-                await JsonSerializer.DeserializeAsync<IEnumerable<WeatherForecast>>(contentStream);
+                await JsonSerializer.DeserializeAsync<IEnumerable<T>>(contentStream);
             }
         }
         catch (HttpRequestException ex)
