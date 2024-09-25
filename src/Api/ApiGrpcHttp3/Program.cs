@@ -5,7 +5,11 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddGrpc();
+builder.Services.AddGrpc(options =>
+{
+    // see: https://learn.microsoft.com/ja-jp/aspnet/core/grpc/configuration?view=aspnetcore-8.0
+    options.EnableDetailedErrors = true;
+});
 
 // Add gRPC Health Check. Need AddCheck("Sample") to respond.
 // $ grpcurl -insecure localhost:5001 grpc.health.v1.Health.Check
