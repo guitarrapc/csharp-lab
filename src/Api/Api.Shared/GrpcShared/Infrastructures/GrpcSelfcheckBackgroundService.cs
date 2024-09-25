@@ -1,8 +1,10 @@
 using Grpc.Core;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
+#pragma warning disable IDE0005 // Using directive is unnecessary.
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+#pragma warning restore IDE0005 // Using directive is unnecessary.
 
 namespace Api.Shared.GrpcShared.Infrastructures;
 
@@ -52,7 +54,7 @@ public class GrpcSelfcheckUnaryClient(SelfcheckServiceOptions options, GrpcChann
     };
     public async Task SendAsync(CancellationToken cancellationToken)
     {
-        var chanel = pool.CreateChannel(options.BaseAddress);
+        var chanel = pool.CreateChannel(options.BaseAddress, options.EnableTls, options.UseHttp3);
         var client = new Greeter.GreeterClient(chanel);
 
         try
@@ -84,7 +86,7 @@ public class GrpcSelfcheckDuplexClient(SelfcheckServiceOptions options, GrpcChan
 
     public async Task SendAsync(TimeSpan interval, CancellationToken cancellationToken)
     {
-        var chanel = pool.CreateChannel(options.BaseAddress);
+        var chanel = pool.CreateChannel(options.BaseAddress, options.EnableTls, options.UseHttp3);
         var client = new Duplexer.DuplexerClient(chanel);
         using var call = client.Echo(cancellationToken: cancellationToken);
 

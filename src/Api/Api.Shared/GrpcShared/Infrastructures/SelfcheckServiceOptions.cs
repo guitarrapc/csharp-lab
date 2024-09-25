@@ -16,4 +16,12 @@ public class SelfcheckServiceOptions
     /// This method will inject proper address for any launch style.
     /// </summary>
     public Uri BaseAddress { get; set; } = new Uri("http://localhost:5000");
+    /// <summary>
+    /// Is TLS Address or not
+    /// </summary>
+    public bool EnableTls => BaseAddress.Scheme == "https";
+    /// <summary>
+    /// Use HTTP/3 or not. This help client to setup HTTP/3
+    /// </summary>
+    public bool UseHttp3 { get; set; }
 }
