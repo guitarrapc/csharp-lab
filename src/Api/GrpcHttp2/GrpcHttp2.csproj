@@ -2,16 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>28178394-a6c7-4ec8-93f1-e8a1748ded48</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Protos\duplexer.proto" />
-  </ItemGroup>
 
   <ItemGroup>
     <Protobuf Include="Protos\duplexer.proto" GrpcServices="Both" />
