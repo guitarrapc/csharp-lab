@@ -11,6 +11,14 @@ builder.Services.AddGrpc(options =>
     options.EnableDetailedErrors = true;
 });
 
+// Enable HTTP/3
+builder.ConfigureHttp3Endpoint()
+    .EnableSelfcheck(options =>
+    {
+        options.BaseAddress = new Uri("https://localhost:5001");
+        options.UseHttp3 = true;
+    });
+
 // Add gRPC Health Check. Need AddCheck("Sample") to respond.
 // $ grpcurl -insecure localhost:5001 grpc.health.v1.Health.Check
 // $ grpc_health_probe -tls -tls-no-verify --addr=127.0.0.1:5001
@@ -23,14 +31,6 @@ builder.Services.AddGrpcHealthChecks().AddCheck("Sample", () => HealthCheckResul
 // $ grpcurl -insecure -proto ./src/Api/Api.Shared/Protos/greet.proto -d "{\"name\": \"foo\"}" 127.0.0.1:5001 greet.Greeter/SayHello
 // $ grpcurl -insecure -proto ./src/Api/Api.Shared/Protos/duplexer.proto -d "{\"name\": \"foo\"}{\"name\": \"bar\"}{\"name\": \"piyo\"}" 127.0.0.1:5001 duplexer.Duplexer/Echo
 builder.Services.AddGrpcReflection();
-
-// Enable HTTP/3
-builder.ConfigureHttp3Endpoint()
-    .EnableSelfcheck(options =>
-    {
-        options.BaseAddress = new Uri("https://localhost:5001");
-        options.UseHttp3 = true;
-    });
 
 var app = builder.Build();
 

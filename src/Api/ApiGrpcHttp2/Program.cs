@@ -11,6 +11,10 @@ builder.Services.AddGrpc(options =>
     options.EnableDetailedErrors = true;
 });
 
+// Enable HTTP/2
+builder.ConfigureHttp2Endpoint()
+    .EnableSelfcheck();
+
 // Add gRPC Health Check. Need AddCheck("Sample") to respond.
 // $ grpcurl -plaintext localhost:5000 grpc.health.v1.Health.Check
 // $ grpc_health_probe --addr=127.0.0.1:5000
@@ -23,10 +27,6 @@ builder.Services.AddGrpcHealthChecks().AddCheck("Sample", () => HealthCheckResul
 // $ grpcurl -plaintext -proto ./src/Api/Api.Shared/Protos/greet.proto -d "{\"name\": \"foo\"}" 127.0.0.1:5000 greet.Greeter/SayHello
 // $ grpcurl -plaintext -proto ./src/Api/Api.Shared/Protos/duplexer.proto -d "{\"name\": \"foo\"}{\"name\": \"bar\"}{\"name\": \"piyo\"}" 127.0.0.1:5000 duplexer.Duplexer/Echo
 builder.Services.AddGrpcReflection();
-
-// Enable HTTP/2
-builder.ConfigureHttp2Endpoint()
-    .EnableSelfcheck();
 
 var app = builder.Build();
 
