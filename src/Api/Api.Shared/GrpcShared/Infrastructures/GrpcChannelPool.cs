@@ -64,7 +64,7 @@ public class GrpcChannelPool
 
                 return GrpcChannel.ForAddress(host, new GrpcChannelOptions
                 {
-                    HttpHandler = enableTls ? new Http3Handler(httpHandler) : httpHandler,
+                    HttpHandler = useHttp3 ? new Http3Handler(httpHandler) : httpHandler,
                 });
             });
         }
