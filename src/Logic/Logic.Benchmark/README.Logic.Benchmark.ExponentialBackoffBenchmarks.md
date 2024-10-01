@@ -10,7 +10,7 @@ Job=ShortRun  IterationCount=3  LaunchCount=1
 WarmupCount=3  
 
 ```
-| Method             | Number | Mean      | Error    | StdDev   | Min       | Max       | Allocated |
-|------------------- |------- |----------:|---------:|---------:|----------:|----------:|----------:|
-| **ExponentialBackoff** | **1**      |  **10.21 ms** | **0.183 ms** | **0.010 ms** |  **10.20 ms** |  **10.21 ms** |     **520 B** |
-| **ExponentialBackoff** | **10**     | **752.00 ms** | **0.868 ms** | **0.048 ms** | **751.96 ms** | **752.05 ms** |    **4120 B** |
+| Method             | Number | Mean      | Error     | StdDev   | Min       | Max       | Allocated |
+|------------------- |------- |----------:|----------:|---------:|----------:|----------:|----------:|
+| **ExponentialBackoff** | **1**      |  **10.23 ms** |  **0.326 ms** | **0.018 ms** |  **10.21 ms** |  **10.25 ms** |     **520 B** |
+| **ExponentialBackoff** | **10**     | **752.07 ms** | **11.819 ms** | **0.648 ms** | **751.64 ms** | **752.81 ms** |    **4120 B** |
