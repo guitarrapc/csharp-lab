@@ -21,7 +21,7 @@ public class GrpcChannelPool
     /// <returns></returns>
     public GrpcChannel CreateChannel(Uri host, bool enableTls, bool useHttp3)
     {
-        var channel = Create(host, enableTls, useHttp3);
+        var channel = CreateChannel(host, enableTls, useHttp3);
 
         // Pool state control
         switch (channel.State)
@@ -29,20 +29,20 @@ public class GrpcChannelPool
             case Grpc.Core.ConnectivityState.TransientFailure:
                 _channels.TryRemove(host, out _);
                 channel.Dispose();
-                return Create(host, enableTls, useHttp3);
+                return CreateChannel(host, enableTls, useHttp3);
             case Grpc.Core.ConnectivityState.Shutdown:
                 _channels.TryRemove(host, out _);
                 channel.Dispose();
-                return Create(host, enableTls, useHttp3);
+                return CreateChannel(host, enableTls, useHttp3);
             default:
                 return channel;
         };
 
-        GrpcChannel Create(Uri h, bool enableTls, bool useHttp3)
+        GrpcChannel CreateChannel(Uri h, bool enableTls, bool useHttp3)
         {
             return _channels.GetOrAdd(h, _ =>
             {
-                var httpHandler = new SocketsHttpHandler
+                var httpClientHandler = new SocketsHttpHandler
                 {
                     PooledConnectionIdleTimeout = Constants.GrpcConstants.ClientPooledConnectionIdleTimeout,
                     // Enable Keep-alive ping
@@ -56,15 +56,24 @@ public class GrpcChannelPool
                 if (enableTls)
                 {
                     // TLS
-                    httpHandler.SslOptions = new System.Net.Security.SslClientAuthenticationOptions
+                    httpClientHandler.SslOptions = new System.Net.Security.SslClientAuthenticationOptions
                     {
                         RemoteCertificateValidationCallback = (_, _, _, _) => true,
                     };
                 }
 
+                HttpMessageHandler httpMessageHandler = httpClientHandler;
+                if (useHttp3)
+                {
+                    // HTTP/3 should never call this? But this is required for channel.State handling :(
+                    //httpClientHandler.ConnectCallback = (_, _) => throw new InvalidOperationException("Should never be called for H3");
+
+                    httpMessageHandler = new Http3Handler(httpClientHandler);
+                }
+
                 return GrpcChannel.ForAddress(host, new GrpcChannelOptions
                 {
-                    HttpHandler = useHttp3 ? new Http3Handler(httpHandler) : httpHandler,
+                    HttpHandler = httpMessageHandler,
                 });
             });
         }
