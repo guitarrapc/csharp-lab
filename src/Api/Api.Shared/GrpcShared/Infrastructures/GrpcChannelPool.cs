@@ -14,13 +14,6 @@ public class GrpcChannelPool
 
     private readonly ConcurrentDictionary<Uri, GrpcChannel> _channels = new();
 
-    // Certificate Fingerprint and Public Key for MDM attack validation
-    private static readonly string _validationFingerprint = "BC0C1B5DAC867DB1B5502CA60539569C75F342C4";
-    private static readonly string _validationPublicKeyBase64 = "MIIBCgKCAQEA5xOONxJJ8b8Qauvob5/7dPYZfIcd+uhAWL2ZlTPzQvu4oF0QI4iYgP5iGgry9zEtCM+YQS8UhiAlPlqa6ANxgiBSEyMHH/xE8lo/+caYGeACqy640Jpl/JocFGo3xd1L8DCawjlaj6eu7T7T/tpAV2qq13b5710eNRbCAfFe8yALiGQemx0IYhlZXNbIGWLBNhBhvVjJh7UvOqpADk4xtl8o5j0xgMIRg6WJGK6c6ffSIg4eP1XmovNYZ9LLEJG68tF0Q/yIN43B4dt1oq4jzSdCbG4F1EiykT2TmwPVYDi8tml6DfOCDGnit8svnMEmBv/fcPd31GSbXjF8M+KGGQIDAQAB";
-    private static readonly string _validationEKU = ""; // Server Authentication should be `1.3.6.1.5.5.7.3.1`
-    private static readonly string _validateSubject = "subject=C = US, ST = Illinois, L = Chicago, O = \"Example, Co.\", CN = *.test.google.com";
-    private static readonly string _validateIssuer = "issuer=C = AU, ST = Some-State, O = Internet Widgits Pty Ltd, CN = testca";
-
     /// <summary>
     /// Create GrpcChannel
     /// </summary>
@@ -125,9 +118,9 @@ public class GrpcChannelPool
                     && ValidateSubject(certificate)
                     && ValidateIssuer(certificate);
                 // Certificate Fingerprint should be match.
-                static bool ValidateFingerprint(X509Certificate certificate) => certificate.GetCertHashString().Equals(_validationFingerprint, StringComparison.OrdinalIgnoreCase);
+                static bool ValidateFingerprint(X509Certificate certificate) => certificate.GetCertHashString().Equals(Constants.SelfsignedCertConstants.Fingerprint, StringComparison.OrdinalIgnoreCase);
                 // Certificate Public Key should be match.
-                static bool ValidatePublicKey(X509Certificate certificate) => Convert.ToBase64String(certificate.GetPublicKey()).Equals(_validationPublicKeyBase64, StringComparison.OrdinalIgnoreCase);
+                static bool ValidatePublicKey(X509Certificate certificate) => Convert.ToBase64String(certificate.GetPublicKey()).Equals(Constants.SelfsignedCertConstants.PublicKeyBase64, StringComparison.OrdinalIgnoreCase);
                 // Certificate Expiration should be valid
                 static bool ValidateExpiry(X509Certificate certificate)
                 {
@@ -147,7 +140,7 @@ public class GrpcChannelPool
                     {
                         foreach (var oid in ekuExtensions.EnhancedKeyUsages)
                         {
-                            if (string.Equals(oid.Value, _validationEKU, StringComparison.OrdinalIgnoreCase))
+                            if (string.Equals(oid.Value, Constants.SelfsignedCertConstants.EKU, StringComparison.OrdinalIgnoreCase))
                             {
                                 return true;
                             }
@@ -156,9 +149,9 @@ public class GrpcChannelPool
                     return false;
                 }
                 // Certificate Subject should be valid
-                static bool ValidateSubject(X509Certificate certificate) => certificate.Subject.Equals(_validateSubject, StringComparison.OrdinalIgnoreCase);
+                static bool ValidateSubject(X509Certificate certificate) => certificate.Subject.Equals(Constants.SelfsignedCertConstants.Subject, StringComparison.OrdinalIgnoreCase);
                 // Certificate Issuer should be valid
-                static bool ValidateIssuer(X509Certificate certificate) => certificate.Issuer.Equals(_validateIssuer, StringComparison.OrdinalIgnoreCase);
+                static bool ValidateIssuer(X509Certificate certificate) => certificate.Issuer.Equals(Constants.SelfsignedCertConstants.Issuer, StringComparison.OrdinalIgnoreCase);
             }
         }
     }

@@ -6,6 +6,8 @@ using Microsoft.Extensions.Logging;
 #pragma warning restore IDE0005 // Using directive is unnecessary.
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Net.Http.Headers;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Api.Shared.ApiShared.Infrastructures;
 
@@ -133,9 +135,75 @@ public static class ApiHttpBuilderExtensions
             .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler()
             {
                 // allow self certificate
-                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                ServerCertificateCustomValidationCallback = RemoteCertificateValidationCallback,
             });
 
         return builder;
+
+        bool RemoteCertificateValidationCallback(object _, X509Certificate? certificate, X509Chain? __, SslPolicyErrors sslPolicyErrors)
+        {
+            if (sslPolicyErrors == SslPolicyErrors.None)
+                return true;
+
+            // Is Selfsigned Certificate
+            if (sslPolicyErrors.HasFlag(SslPolicyErrors.RemoteCertificateChainErrors))
+            {
+                if (certificate is null)
+                    return false;
+
+                return options.SelfCertValidationType switch
+                {
+                    SelfSignedCertValidationType.None => true,
+                    SelfSignedCertValidationType.Normal => ValidateNormal(certificate),
+                    SelfSignedCertValidationType.Strict => ValidateStrict(certificate),
+                    _ => throw new NotImplementedException(options.SelfCertValidationType.ToString()),
+                };
+            }
+
+            return false;
+
+            static bool ValidateNormal(X509Certificate certificate) => ValidateFingerprint(certificate);
+            static bool ValidateStrict(X509Certificate certificate) => ValidateFingerprint(certificate)
+                && ValidatePublicKey(certificate)
+                && ValidateExpiry(certificate)
+                && ValidateEKU(certificate)
+                && ValidateSubject(certificate)
+                && ValidateIssuer(certificate);
+            // Certificate Fingerprint should be match.
+            static bool ValidateFingerprint(X509Certificate certificate) => certificate.GetCertHashString().Equals(Constants.SelfsignedCertConstants.Fingerprint, StringComparison.OrdinalIgnoreCase);
+            // Certificate Public Key should be match.
+            static bool ValidatePublicKey(X509Certificate certificate) => Convert.ToBase64String(certificate.GetPublicKey()).Equals(Constants.SelfsignedCertConstants.PublicKeyBase64, StringComparison.OrdinalIgnoreCase);
+            // Certificate Expiration should be valid
+            static bool ValidateExpiry(X509Certificate certificate)
+            {
+                if (certificate is X509Certificate2 cert2)
+                {
+                    var now = DateTime.UtcNow;
+                    var notBefore = cert2.NotBefore.ToUniversalTime();
+                    var notAfter = cert2.NotAfter.ToUniversalTime();
+                    return now >= notBefore && now <= notAfter;
+                }
+                return false;
+            }
+            // Certificate EKU should be valid
+            static bool ValidateEKU(X509Certificate certificate)
+            {
+                if (certificate is X509Certificate2 cert2 && cert2.Extensions["2.5.29.37"] is X509EnhancedKeyUsageExtension ekuExtensions)
+                {
+                    foreach (var oid in ekuExtensions.EnhancedKeyUsages)
+                    {
+                        if (string.Equals(oid.Value, Constants.SelfsignedCertConstants.EKU, StringComparison.OrdinalIgnoreCase))
+                        {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+            // Certificate Subject should be valid
+            static bool ValidateSubject(X509Certificate certificate) => certificate.Subject.Equals(Constants.SelfsignedCertConstants.Subject, StringComparison.OrdinalIgnoreCase);
+            // Certificate Issuer should be valid
+            static bool ValidateIssuer(X509Certificate certificate) => certificate.Issuer.Equals(Constants.SelfsignedCertConstants.Issuer, StringComparison.OrdinalIgnoreCase);
+        }
     }
 }

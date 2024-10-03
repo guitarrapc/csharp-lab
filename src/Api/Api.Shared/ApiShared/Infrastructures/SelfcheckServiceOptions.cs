@@ -16,4 +16,30 @@ public class SelfcheckServiceOptions
     /// This method will inject proper address for any launch style.
     /// </summary>
     public Uri BaseAddress { get; set; } = new Uri("http://localhost:5000");
+    /// <summary>
+    /// Control how to validate SelfSigned Certificate, won't be used if EnableTls is false and Certificate is not SelfSigned
+    /// </summary>
+    public SelfSignedCertValidationType SelfCertValidationType { get; set; } = SelfSignedCertValidationType.Normal;
 }
+
+/// <summary>
+/// Define SelfSigned Certificate validation method.
+/// Use Strict for all validation, Normal for only Thumbprint, None for no validation.
+/// </summary>
+[Flags]
+public enum SelfSignedCertValidationType
+{
+    /// <summary>
+    /// indicate no check
+    /// </summary>
+    None = 0,
+    /// <summary>
+    /// indicate Thunbprint only
+    /// </summary>
+    Normal = 1 << 0,
+    /// <summary>
+    /// indicate Thumbprint, PublicCertificate, Expiry, EKU, Subject, Issuer
+    /// </summary>
+    Strict = 1 << 1,
+}
+
