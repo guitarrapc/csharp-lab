@@ -12,15 +12,15 @@ WarmupCount=3
 ```
 | Method                                     | Number | Mean      | Error     | StdDev   | Min       | Max       | Gen0   | Allocated |
 |------------------------------------------- |------- |----------:|----------:|---------:|----------:|----------:|-------:|----------:|
-| **LogWithoutIfParams**                         | **1**      |  **60.99 ns** |  **2.513 ns** | **0.138 ns** |  **60.87 ns** |  **61.14 ns** | **0.0010** |      **88 B** |
-| LogWithIfParams                            | 1      |  60.88 ns | 22.403 ns | 1.228 ns |  59.84 ns |  62.23 ns | 0.0010 |      88 B |
-| LogAdapterWithoutIfParams                  | 1      |  65.82 ns |  0.739 ns | 0.040 ns |  65.78 ns |  65.86 ns | 0.0010 |      88 B |
-| LogDefineWithoutIfParams                   | 1      |  20.00 ns |  0.300 ns | 0.016 ns |  19.98 ns |  20.01 ns |      - |         - |
-| LogSourceGenWithoutIfParams                | 1      |  19.98 ns |  0.852 ns | 0.047 ns |  19.94 ns |  20.03 ns |      - |         - |
-| LogSourceGenSkipEnableCheckWithoutIfParams | 1      |  21.62 ns |  0.465 ns | 0.025 ns |  21.59 ns |  21.64 ns |      - |         - |
-| **LogWithoutIfParams**                         | **3**      | **183.03 ns** | **13.586 ns** | **0.745 ns** | **182.37 ns** | **183.83 ns** | **0.0031** |     **264 B** |
-| LogWithIfParams                            | 3      | 185.00 ns | 10.582 ns | 0.580 ns | 184.37 ns | 185.51 ns | 0.0031 |     264 B |
-| LogAdapterWithoutIfParams                  | 3      | 201.69 ns |  9.081 ns | 0.498 ns | 201.14 ns | 202.10 ns | 0.0031 |     264 B |
-| LogDefineWithoutIfParams                   | 3      |  59.26 ns |  0.532 ns | 0.029 ns |  59.23 ns |  59.29 ns |      - |         - |
-| LogSourceGenWithoutIfParams                | 3      |  58.51 ns |  0.190 ns | 0.010 ns |  58.50 ns |  58.52 ns |      - |         - |
-| LogSourceGenSkipEnableCheckWithoutIfParams | 3      |  57.61 ns |  4.462 ns | 0.245 ns |  57.34 ns |  57.81 ns |      - |         - |
+| **LogWithoutIfParams**                         | **1**      |  **61.59 ns** |  **4.645 ns** | **0.255 ns** |  **61.34 ns** |  **61.85 ns** | **0.0010** |      **88 B** |
+| LogWithIfParams                            | 1      |  60.20 ns |  7.931 ns | 0.435 ns |  59.92 ns |  60.70 ns | 0.0010 |      88 B |
+| LogAdapterWithoutIfParams                  | 1      |  67.38 ns |  2.820 ns | 0.155 ns |  67.21 ns |  67.51 ns | 0.0010 |      88 B |
+| LogDefineWithoutIfParams                   | 1      |  19.87 ns |  0.486 ns | 0.027 ns |  19.85 ns |  19.90 ns |      - |         - |
+| LogSourceGenWithoutIfParams                | 1      |  19.89 ns |  0.151 ns | 0.008 ns |  19.89 ns |  19.90 ns |      - |         - |
+| LogSourceGenSkipEnableCheckWithoutIfParams | 1      |  19.26 ns |  0.821 ns | 0.045 ns |  19.20 ns |  19.29 ns |      - |         - |
+| **LogWithoutIfParams**                         | **3**      | **188.59 ns** |  **4.522 ns** | **0.248 ns** | **188.30 ns** | **188.75 ns** | **0.0031** |     **264 B** |
+| LogWithIfParams                            | 3      | 186.66 ns | 18.130 ns | 0.994 ns | 185.65 ns | 187.63 ns | 0.0031 |     264 B |
+| LogAdapterWithoutIfParams                  | 3      | 197.91 ns |  4.741 ns | 0.260 ns | 197.62 ns | 198.12 ns | 0.0031 |     264 B |
+| LogDefineWithoutIfParams                   | 3      |  59.38 ns |  4.138 ns | 0.227 ns |  59.22 ns |  59.64 ns |      - |         - |
+| LogSourceGenWithoutIfParams                | 3      |  58.52 ns |  0.155 ns | 0.009 ns |  58.51 ns |  58.53 ns |      - |         - |
+| LogSourceGenSkipEnableCheckWithoutIfParams | 3      |  86.23 ns |  0.761 ns | 0.042 ns |  86.18 ns |  86.27 ns |      - |         - |
