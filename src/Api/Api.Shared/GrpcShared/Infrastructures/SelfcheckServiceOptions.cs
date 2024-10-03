@@ -1,6 +1,6 @@
 namespace Api.Shared.GrpcShared.Infrastructures;
 
-public class SelfcheckServiceOptions
+public record SelfcheckServiceOptions
 {
     /// <summary>
     /// Selfcheck delay start since ApplicationStarted
@@ -24,4 +24,29 @@ public class SelfcheckServiceOptions
     /// Use HTTP/3 or not. This help client to setup HTTP/3
     /// </summary>
     public bool UseHttp3 { get; set; }
+    /// <summary>
+    /// Control how to validate SelfSigned Certificate, won't be used if EnableTls is false and Certificate is not SelfSigned
+    /// </summary>
+    public SelfSignedCertValidationType SelfCertValidationType { get; set; } = SelfSignedCertValidationType.Normal;
+}
+
+/// <summary>
+/// Define SelfSigned Certificate validation method.
+/// Use Strict for all validation, Normal for only Thumbprint, None for no validation.
+/// </summary>
+[Flags]
+public enum SelfSignedCertValidationType
+{
+    /// <summary>
+    /// indicate no check
+    /// </summary>
+    None = 0,
+    /// <summary>
+    /// indicate Thunbprint only
+    /// </summary>
+    Normal = 1 << 0,
+    /// <summary>
+    /// indicate Thumbprint, PublicCertificate, Expiry, EKU, Subject, Issuer
+    /// </summary>
+    Strict = 1 << 1,
 }

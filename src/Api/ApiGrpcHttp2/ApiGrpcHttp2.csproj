@@ -15,6 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\Api.Shared\Certs\*.*" LinkBase="Certs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Compile Include="..\Api.Shared\GrpcShared\**\*.cs" Exclude="**\obj\**;**\bin\**" LinkBase="Shared" />
     <Protobuf Include="..\Api.Shared\Protos\**\*.proto" Exclude="**\obj\**;**\bin\**" LinkBase="Protos" GrpcServices="Both" />
   </ItemGroup>

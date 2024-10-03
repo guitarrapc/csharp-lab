@@ -63,8 +63,8 @@ public class GrpcSelfcheckBackgroundService(SelfcheckServiceOptions options, Grp
     private void SetBaseAddress()
     {
         var addresses = server.Features.Get<IServerAddressesFeature>()?.Addresses ?? [options.BaseAddress.ToString()];
-        var port = addresses.Select(x => new Uri(x)).First(x => x.Scheme == options.BaseAddress.Scheme).Port;
-        options.BaseAddress = new Uri($"{options.BaseAddress.Scheme}://{options.BaseAddress.Host}:{port}");
+        var prefferHttpsListen = addresses.Select(x => new Uri(x)).First(x => x.Scheme == options.BaseAddress.Scheme || x.Scheme == "https");
+        options.BaseAddress = new Uri($"{prefferHttpsListen.Scheme}://{options.BaseAddress.Host}:{prefferHttpsListen.Port}");
     }
 }
 
@@ -76,7 +76,7 @@ public class GrpcSelfcheckUnaryClient(SelfcheckServiceOptions options, ILogger<G
     };
     public async Task SendAsync(CancellationToken cancellationToken)
     {
-        var chanel = GrpcChannelPool.Instance.CreateChannel(options.BaseAddress, options.EnableTls, options.UseHttp3);
+        var chanel = GrpcChannelPool.Instance.CreateChannel(options.BaseAddress, options.EnableTls, options.UseHttp3, options.SelfCertValidationType);
         var client = new Greeter.GreeterClient(chanel);
 
         try

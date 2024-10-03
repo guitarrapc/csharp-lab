@@ -401,4 +401,6 @@ FodyWeavers.xsd
 *.sln.iml
 
 # custom
+*.pem
 !server1.pfx
+!server.pem

@@ -12,8 +12,10 @@ builder.Services.AddGrpc(options =>
 });
 
 // Enable HTTP/2
-builder.ConfigureHttp2Endpoint()
+builder.ConfigureHttp2Endpoint() // http
     .EnableSelfcheck();
+//builder.ConfigureHttp2Endpoint(port: 5001) // https
+//    .EnableSelfcheck();
 
 // Add gRPC Health Check. Need AddCheck("Sample") to respond.
 // $ grpcurl -plaintext localhost:5000 grpc.health.v1.Health.Check

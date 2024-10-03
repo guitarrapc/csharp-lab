@@ -49,6 +49,12 @@ public static class GrpcHttpBuilderExtensions
             {
                 // gRPC is HTTP/2. Set Http2 to accept Insecure HTTP/2
                 listenOptions.Protocols = HttpProtocols.Http2;
+                if (port == 5001)
+                {
+                    var basePath = Path.GetDirectoryName(AppContext.BaseDirectory);
+                    var certPath = Path.Combine(basePath!, TlsFile.Default.PfxFileName);
+                    listenOptions.UseHttps(certPath, TlsFile.Default.Password);
+                }
             });
         });
 

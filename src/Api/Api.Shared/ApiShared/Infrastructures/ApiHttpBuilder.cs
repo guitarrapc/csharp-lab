@@ -46,6 +46,12 @@ public static class ApiHttpBuilderExtensions
             options.ListenAnyIP(port, listenOptions =>
             {
                 listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
+                if (port == 5001)
+                {
+                    var basePath = Path.GetDirectoryName(AppContext.BaseDirectory);
+                    var certPath = Path.Combine(basePath!, TlsFile.Default.PfxFileName);
+                    listenOptions.UseHttps(certPath, TlsFile.Default.Password);
+                }
             });
         });
 

@@ -8,8 +8,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Enable HTTP/1 and 2
-builder.ConfigureHttp12Endpoint()
+builder.ConfigureHttp12Endpoint() // http
     .EnableSelfcheck<WeatherForecast>();
+//builder.ConfigureHttp12Endpoint(port: 5001) // https
+//    .EnableSelfcheck<WeatherForecast>();
 
 var app = builder.Build();
 
