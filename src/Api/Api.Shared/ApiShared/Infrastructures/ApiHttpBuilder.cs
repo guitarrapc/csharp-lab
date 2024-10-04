@@ -178,6 +178,7 @@ public static class ApiHttpBuilderExtensions
             {
                 if (certificate is X509Certificate2 cert2)
                 {
+                    // TODO: Use TimeProvider if possible
                     var now = DateTime.UtcNow;
                     var notBefore = cert2.NotBefore.ToUniversalTime();
                     var notAfter = cert2.NotAfter.ToUniversalTime();
@@ -192,7 +193,7 @@ public static class ApiHttpBuilderExtensions
                 {
                     foreach (var oid in ekuExtensions.EnhancedKeyUsages)
                     {
-                        if (string.Equals(oid.Value, Constants.SelfsignedCertConstants.EKU, StringComparison.OrdinalIgnoreCase))
+                        if (oid.Value is not null && oid.Value.Equals(Constants.SelfsignedCertConstants.EKU, StringComparison.OrdinalIgnoreCase))
                         {
                             return true;
                         }
