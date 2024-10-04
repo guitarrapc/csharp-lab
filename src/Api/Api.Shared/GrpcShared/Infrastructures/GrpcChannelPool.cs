@@ -118,7 +118,7 @@ public class GrpcChannelPool
                     && ValidateSubject(certificate)
                     && ValidateIssuer(certificate);
                 // Certificate Fingerprint should be match.
-                static bool ValidateFingerprint(X509Certificate certificate) => certificate.GetCertHashString().Equals(Constants.SelfsignedCertConstants.Fingerprint, StringComparison.OrdinalIgnoreCase);
+                static bool ValidateFingerprint(X509Certificate certificate) => certificate.GetCertHash().SequenceEqual(Constants.SelfsignedCertConstants.FingerprintHash);
                 // Certificate Public Key should be match.
                 static bool ValidatePublicKey(X509Certificate certificate) => Convert.ToBase64String(certificate.GetPublicKey()).Equals(Constants.SelfsignedCertConstants.PublicKeyBase64, StringComparison.OrdinalIgnoreCase);
                 // Certificate Expiration should be valid
