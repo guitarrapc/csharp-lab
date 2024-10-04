@@ -162,7 +162,8 @@ public static class ApiHttpBuilderExtensions
 
             return false;
 
-            static bool ValidateNormal(X509Certificate certificate) => ValidateFingerprint(certificate);
+            static bool ValidateNormal(X509Certificate certificate) => ValidateFingerprint(certificate)
+                && ValidateExpiry(certificate);
             static bool ValidateStrict(X509Certificate certificate) => ValidateFingerprint(certificate)
                 && ValidatePublicKey(certificate)
                 && ValidateExpiry(certificate)
