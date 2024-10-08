@@ -12,11 +12,11 @@ WarmupCount=3
 ```
 | Method                       | Number | Mean      | Error     | StdDev   | Min       | Max       | Gen0   | Allocated |
 |----------------------------- |------- |----------:|----------:|---------:|----------:|----------:|-------:|----------:|
-| **ToBinaryArrayInt**             | **1**      |  **18.57 ns** |  **2.683 ns** | **0.147 ns** |  **18.45 ns** |  **18.73 ns** | **0.0004** |      **32 B** |
-| ToBinaryArrayConvertToString | 1      |  67.03 ns | 22.148 ns | 1.214 ns |  65.67 ns |  68.01 ns | 0.0011 |      96 B |
-| ToBinaryArrayIntMod          | 1      |  21.12 ns |  3.424 ns | 0.188 ns |  20.94 ns |  21.31 ns | 0.0004 |      32 B |
-| ToBinaryArrayIntModNumber    | 1      |  10.95 ns |  1.686 ns | 0.092 ns |  10.88 ns |  11.06 ns | 0.0004 |      32 B |
-| **ToBinaryArrayInt**             | **3**      |  **59.49 ns** | **11.726 ns** | **0.643 ns** |  **58.75 ns** |  **59.88 ns** | **0.0011** |      **96 B** |
-| ToBinaryArrayConvertToString | 3      | 201.67 ns |  5.168 ns | 0.283 ns | 201.35 ns | 201.91 ns | 0.0033 |     296 B |
-| ToBinaryArrayIntMod          | 3      |  62.14 ns |  4.626 ns | 0.254 ns |  61.85 ns |  62.30 ns | 0.0011 |      96 B |
-| ToBinaryArrayIntModNumber    | 3      |  36.47 ns | 12.454 ns | 0.683 ns |  35.73 ns |  37.08 ns | 0.0011 |      96 B |
+| **ToBinaryArrayInt**             | **1**      |  **18.62 ns** |  **2.986 ns** | **0.164 ns** |  **18.44 ns** |  **18.75 ns** | **0.0004** |      **32 B** |
+| ToBinaryArrayConvertToString | 1      |  66.68 ns | 55.619 ns | 3.049 ns |  64.73 ns |  70.19 ns | 0.0011 |      96 B |
+| ToBinaryArrayIntMod          | 1      |  19.99 ns |  4.080 ns | 0.224 ns |  19.85 ns |  20.25 ns | 0.0004 |      32 B |
+| ToBinaryArrayIntModNumber    | 1      |  15.27 ns |  2.033 ns | 0.111 ns |  15.16 ns |  15.38 ns | 0.0004 |      32 B |
+| **ToBinaryArrayInt**             | **3**      |  **55.15 ns** |  **1.844 ns** | **0.101 ns** |  **55.05 ns** |  **55.25 ns** | **0.0011** |      **96 B** |
+| ToBinaryArrayConvertToString | 3      | 203.33 ns | 10.215 ns | 0.560 ns | 202.69 ns | 203.74 ns | 0.0033 |     296 B |
+| ToBinaryArrayIntMod          | 3      |  62.65 ns | 14.114 ns | 0.774 ns |  61.78 ns |  63.27 ns | 0.0011 |      96 B |
+| ToBinaryArrayIntModNumber    | 3      |  37.74 ns |  6.528 ns | 0.358 ns |  37.44 ns |  38.14 ns | 0.0011 |      96 B |
