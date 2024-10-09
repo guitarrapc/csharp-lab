@@ -2,27 +2,27 @@
 
 BenchmarkDotNet v0.14.0, Ubuntu 22.04.5 LTS (Jammy Jellyfish)
 AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
-.NET SDK 8.0.402
-  [Host]   : .NET 8.0.8 (8.0.824.36612), X64 RyuJIT AVX2
-  ShortRun : .NET 8.0.8 (8.0.824.36612), X64 RyuJIT AVX2
+.NET SDK 8.0.403
+  [Host]   : .NET 8.0.10 (8.0.1024.46610), X64 RyuJIT AVX2
+  ShortRun : .NET 8.0.10 (8.0.1024.46610), X64 RyuJIT AVX2
 
 Job=ShortRun  IterationCount=3  LaunchCount=1  
 WarmupCount=3  
 
 ```
-| Method              | Number | Mean      | Error     | StdDev   | Min       | Max       | Gen0   | Allocated |
-|-------------------- |------- |----------:|----------:|---------:|----------:|----------:|-------:|----------:|
-| **FromPrefix**          | **1**      |  **17.77 ns** |  **1.547 ns** | **0.085 ns** |  **17.70 ns** |  **17.87 ns** | **0.0007** |      **56 B** |
-| FromCidrAddress     | 1      | 123.30 ns | 61.218 ns | 3.356 ns | 121.11 ns | 127.17 ns | 0.0012 |     112 B |
-| FromCidrAddress2    | 1      | 117.93 ns |  6.109 ns | 0.335 ns | 117.55 ns | 118.18 ns | 0.0012 |     112 B |
-| FromIPAddressString | 1      |  89.60 ns |  5.906 ns | 0.324 ns |  89.39 ns |  89.97 ns | 0.0006 |      56 B |
-| FromIPAddressType   | 1      |  45.29 ns |  2.280 ns | 0.125 ns |  45.15 ns |  45.39 ns | 0.0010 |      88 B |
-| GetNetworkAddress   | 1      |  43.51 ns |  2.028 ns | 0.111 ns |  43.45 ns |  43.64 ns | 0.0007 |      56 B |
-| GetAddressRange     | 1      | 118.03 ns |  6.809 ns | 0.373 ns | 117.79 ns | 118.46 ns | 0.0019 |     168 B |
-| **FromPrefix**          | **3**      |  **55.47 ns** |  **2.991 ns** | **0.164 ns** |  **55.28 ns** |  **55.56 ns** | **0.0020** |     **168 B** |
-| FromCidrAddress     | 3      | 369.80 ns | 14.832 ns | 0.813 ns | 368.95 ns | 370.57 ns | 0.0038 |     336 B |
-| FromCidrAddress2    | 3      | 359.87 ns | 21.881 ns | 1.199 ns | 358.50 ns | 360.76 ns | 0.0038 |     336 B |
-| FromIPAddressString | 3      | 274.61 ns | 17.224 ns | 0.944 ns | 273.78 ns | 275.64 ns | 0.0019 |     168 B |
-| FromIPAddressType   | 3      | 139.04 ns |  0.175 ns | 0.010 ns | 139.03 ns | 139.05 ns | 0.0031 |     264 B |
-| GetNetworkAddress   | 3      | 138.59 ns | 73.149 ns | 4.010 ns | 136.19 ns | 143.22 ns | 0.0019 |     168 B |
-| GetAddressRange     | 3      | 373.95 ns | 59.589 ns | 3.266 ns | 370.67 ns | 377.20 ns | 0.0057 |     504 B |
+| Method              | Number | Mean      | Error      | StdDev   | Min       | Max       | Gen0   | Allocated |
+|-------------------- |------- |----------:|-----------:|---------:|----------:|----------:|-------:|----------:|
+| **FromPrefix**          | **1**      |  **17.76 ns** |   **1.341 ns** | **0.074 ns** |  **17.68 ns** |  **17.82 ns** | **0.0007** |      **56 B** |
+| FromCidrAddress     | 1      | 121.79 ns |  49.270 ns | 2.701 ns | 120.20 ns | 124.91 ns | 0.0012 |     112 B |
+| FromCidrAddress2    | 1      | 119.32 ns |   5.626 ns | 0.308 ns | 119.02 ns | 119.64 ns | 0.0012 |     112 B |
+| FromIPAddressString | 1      |  90.50 ns |   6.696 ns | 0.367 ns |  90.21 ns |  90.91 ns | 0.0006 |      56 B |
+| FromIPAddressType   | 1      |  45.20 ns |   1.363 ns | 0.075 ns |  45.12 ns |  45.25 ns | 0.0010 |      88 B |
+| GetNetworkAddress   | 1      |  44.72 ns |   1.286 ns | 0.070 ns |  44.64 ns |  44.77 ns | 0.0007 |      56 B |
+| GetAddressRange     | 1      | 119.31 ns |  13.471 ns | 0.738 ns | 118.75 ns | 120.14 ns | 0.0019 |     168 B |
+| **FromPrefix**          | **3**      |  **56.40 ns** |   **1.666 ns** | **0.091 ns** |  **56.34 ns** |  **56.51 ns** | **0.0020** |     **168 B** |
+| FromCidrAddress     | 3      | 375.77 ns |  13.938 ns | 0.764 ns | 375.24 ns | 376.64 ns | 0.0038 |     336 B |
+| FromCidrAddress2    | 3      | 360.23 ns | 102.236 ns | 5.604 ns | 356.98 ns | 366.71 ns | 0.0038 |     336 B |
+| FromIPAddressString | 3      | 289.11 ns |  90.563 ns | 4.964 ns | 286.06 ns | 294.84 ns | 0.0019 |     168 B |
+| FromIPAddressType   | 3      | 136.27 ns |   6.122 ns | 0.336 ns | 136.01 ns | 136.65 ns | 0.0031 |     264 B |
+| GetNetworkAddress   | 3      | 139.81 ns |  17.597 ns | 0.965 ns | 138.83 ns | 140.76 ns | 0.0019 |     168 B |
+| GetAddressRange     | 3      | 375.46 ns | 163.965 ns | 8.987 ns | 365.10 ns | 381.16 ns | 0.0057 |     504 B |
