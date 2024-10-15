@@ -370,7 +370,6 @@ public class SemanticVersionTest
     [Fact]
     public void SemanticVersionCompareToTest()
     {
-        // 1.0.0-prerelease.10 < 1.0.0 < 1.1.0
         {
             var versionString = "1.0.0";
             var actual = SemanticVersion.Parse(versionString);
@@ -402,12 +401,29 @@ public class SemanticVersionTest
             var compare = new SemanticVersion(1, 1, 0);
             actual.CompareTo(compare).Should().Be(-1);
         }
-
         {
             var versionString = "1.1.0";
             var actual = SemanticVersion.Parse(versionString);
             var compare = new SemanticVersion(1, 1, 0);
             actual.CompareTo(compare).Should().Be(0);
+        }
+
+        // 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-beta.2 < 1.0.0-beta.11 < 1.0.0-rc.1 < 1.0.0 < 1.1.0
+        IEnumerable<(string left, string right)> pairs = [
+            ("1.0.0-alpha", "1.0.0-alpha.1"),
+            ("1.0.0-alpha.1", "1.0.0-alpha.beta"),
+            ("1.0.0-alpha.beta", "1.0.0-beta"),
+            ("1.0.0-beta", "1.0.0-beta.2"),
+            ("1.0.0-beta.2", "1.0.0-beta.11"),
+            ("1.0.0-beta.11", "1.0.0-rc.1"),
+            ("1.0.0-rc.1", "1.0.0"),
+            ("1.0.0", "1.1.0")
+        ];
+        foreach (var pair in pairs)
+        {
+            var left = SemanticVersion.Parse(pair.left);
+            var right = SemanticVersion.Parse(pair.right);
+            left.CompareTo(right).Should().Be(-1);
         }
     }
 
