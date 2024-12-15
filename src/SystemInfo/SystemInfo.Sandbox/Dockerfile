@@ -10,6 +10,7 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+COPY ["Directory.Build.props", "src/Directory.Build.props"]
 COPY ["src/SystemInfo/SystemInfo.Sandbox/SystemInfo.Sandbox.csproj", "src/SystemInfo/SystemInfo.Sandbox/"]
 COPY ["src/SystemInfo/SystemInfo.Core/SystemInfo.Core.csproj", "src/SystemInfo/SystemInfo.Core/"]
 RUN dotnet restore "./src/SystemInfo/SystemInfo.Sandbox/SystemInfo.Sandbox.csproj"

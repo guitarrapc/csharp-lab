@@ -11,6 +11,7 @@ EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+COPY ["Directory.Build.props", "src/Directory.Build.props"]
 COPY ["src/Blazor/BlazorServerApp/BlazorServerApp.csproj", "src/Blazor/BlazorServerApp/"]
 RUN dotnet restore "./src/Blazor/BlazorServerApp/BlazorServerApp.csproj"
 COPY . .

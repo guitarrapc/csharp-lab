@@ -10,6 +10,7 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+COPY ["Directory.Build.props", "src/Directory.Build.props"]
 COPY ["src/MemoryLeak/MemoryLeak.Benchmark/MemoryLeak.Benchmark.csproj", "src/MemoryLeak/MemoryLeak.Benchmark/"]
 COPY ["src/MemoryLeak/MemoryLeak.Core/MemoryLeak.Core.csproj", "src/MemoryLeak/MemoryLeak.Core/"]
 RUN dotnet restore "./src/MemoryLeak/MemoryLeak.Benchmark/MemoryLeak.Benchmark.csproj"

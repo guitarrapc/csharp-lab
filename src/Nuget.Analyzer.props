@@ -1,5 +1,4 @@
 <Project>
-
   <!-- NuGet Packaging option. Exclude runtime itself. -->
   <!-- see: https://github.com/dotnet/roslyn/blob/main/docs/features/source-generators.cookbook.md#package-a-generator-as-a-nuget-package -->
   <PropertyGroup>

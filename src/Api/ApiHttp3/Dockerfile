@@ -22,6 +22,7 @@ EXPOSE 5001
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+COPY ["Directory.Build.props", "src/Directory.Build.props"]
 COPY ["src/Api/ApiHttp3/ApiHttp3.csproj", "src/Api/ApiHttp3/"]
 RUN dotnet restore "./src/Api/ApiHttp3/ApiHttp3.csproj"
 COPY . .

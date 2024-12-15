@@ -10,6 +10,7 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+COPY ["Directory.Build.props", "src/Directory.Build.props"]
 COPY ["src/Logger/Logger.Benchmark/Logger.Benchmark.csproj", "src/Logger/Logger.Benchmark/"]
 COPY ["src/Logger/LoggerDefault/LoggerDefault.csproj", "src/Logger/LoggerDefault/"]
 RUN dotnet restore "./src/Logger/Logger.Benchmark/Logger.Benchmark.csproj"

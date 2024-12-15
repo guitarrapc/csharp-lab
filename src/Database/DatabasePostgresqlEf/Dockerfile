@@ -10,6 +10,7 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+COPY ["Directory.Build.props", "src/Directory.Build.props"]
 COPY ["src/Database/DatabasePostgresqlEf/DatabasePostgresqlEf.csproj", "src/Database/DatabasePostgresqlEf/"]
 COPY ["src/Database/DatabaseCore/DatabaseCore.csproj", "src/Database/DatabaseCore/"]
 RUN dotnet restore "./src/Database/DatabasePostgresqlEf/DatabasePostgresqlEf.csproj"
