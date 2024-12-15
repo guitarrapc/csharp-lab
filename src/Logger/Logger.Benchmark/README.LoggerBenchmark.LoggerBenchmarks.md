@@ -2,9 +2,9 @@
 
 BenchmarkDotNet v0.14.0, Ubuntu 22.04.5 LTS (Jammy Jellyfish)
 AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
-.NET SDK 8.0.404
-  [Host]   : .NET 8.0.11 (8.0.1124.51707), X64 RyuJIT AVX2
-  ShortRun : .NET 8.0.11 (8.0.1124.51707), X64 RyuJIT AVX2
+.NET SDK 9.0.101
+  [Host]   : .NET 9.0.0 (9.0.24.52809), X64 RyuJIT AVX2
+  ShortRun : .NET 9.0.0 (9.0.24.52809), X64 RyuJIT AVX2
 
 Job=ShortRun  IterationCount=3  LaunchCount=1  
 WarmupCount=3  
@@ -12,15 +12,15 @@ WarmupCount=3
 ```
 | Method                                     | Number | Mean      | Error     | StdDev   | Min       | Max       | Gen0   | Allocated |
 |------------------------------------------- |------- |----------:|----------:|---------:|----------:|----------:|-------:|----------:|
-| **LogWithoutIfParams**                         | **1**      |  **61.28 ns** |  **5.960 ns** | **0.327 ns** |  **60.91 ns** |  **61.53 ns** | **0.0010** |      **88 B** |
-| LogWithIfParams                            | 1      |  61.85 ns | 15.568 ns | 0.853 ns |  61.25 ns |  62.83 ns | 0.0010 |      88 B |
-| LogAdapterWithoutIfParams                  | 1      |  66.63 ns |  5.896 ns | 0.323 ns |  66.28 ns |  66.90 ns | 0.0010 |      88 B |
-| LogDefineWithoutIfParams                   | 1      |  19.70 ns |  1.912 ns | 0.105 ns |  19.59 ns |  19.80 ns |      - |         - |
-| LogSourceGenWithoutIfParams                | 1      |  19.73 ns |  1.286 ns | 0.070 ns |  19.66 ns |  19.80 ns |      - |         - |
-| LogSourceGenSkipEnableCheckWithoutIfParams | 1      |  19.16 ns |  0.310 ns | 0.017 ns |  19.14 ns |  19.18 ns |      - |         - |
-| **LogWithoutIfParams**                         | **3**      | **177.55 ns** |  **4.213 ns** | **0.231 ns** | **177.38 ns** | **177.82 ns** | **0.0031** |     **264 B** |
-| LogWithIfParams                            | 3      | 178.50 ns | 33.325 ns | 1.827 ns | 176.62 ns | 180.26 ns | 0.0031 |     264 B |
-| LogAdapterWithoutIfParams                  | 3      | 202.45 ns | 13.261 ns | 0.727 ns | 201.69 ns | 203.14 ns | 0.0031 |     264 B |
-| LogDefineWithoutIfParams                   | 3      |  58.25 ns |  2.372 ns | 0.130 ns |  58.14 ns |  58.40 ns |      - |         - |
-| LogSourceGenWithoutIfParams                | 3      |  58.19 ns |  0.954 ns | 0.052 ns |  58.13 ns |  58.22 ns |      - |         - |
-| LogSourceGenSkipEnableCheckWithoutIfParams | 3      |  56.80 ns |  2.989 ns | 0.164 ns |  56.61 ns |  56.92 ns |      - |         - |
+| **LogWithoutIfParams**                         | **1**      |  **58.29 ns** |  **7.672 ns** | **0.421 ns** |  **57.99 ns** |  **58.77 ns** | **0.0010** |      **88 B** |
+| LogWithIfParams                            | 1      |  58.77 ns |  2.782 ns | 0.152 ns |  58.62 ns |  58.93 ns | 0.0010 |      88 B |
+| LogAdapterWithoutIfParams                  | 1      |  66.20 ns | 22.386 ns | 1.227 ns |  64.80 ns |  67.05 ns | 0.0010 |      88 B |
+| LogDefineWithoutIfParams                   | 1      |  19.91 ns |  0.893 ns | 0.049 ns |  19.85 ns |  19.95 ns |      - |         - |
+| LogSourceGenWithoutIfParams                | 1      |  19.94 ns |  0.510 ns | 0.028 ns |  19.92 ns |  19.97 ns |      - |         - |
+| LogSourceGenSkipEnableCheckWithoutIfParams | 1      |  20.09 ns |  0.894 ns | 0.049 ns |  20.05 ns |  20.14 ns |      - |         - |
+| **LogWithoutIfParams**                         | **3**      | **175.49 ns** | **10.353 ns** | **0.567 ns** | **175.01 ns** | **176.12 ns** | **0.0031** |     **264 B** |
+| LogWithIfParams                            | 3      | 176.05 ns | 35.023 ns | 1.920 ns | 173.93 ns | 177.66 ns | 0.0031 |     264 B |
+| LogAdapterWithoutIfParams                  | 3      | 192.28 ns | 23.067 ns | 1.264 ns | 191.43 ns | 193.73 ns | 0.0031 |     264 B |
+| LogDefineWithoutIfParams                   | 3      |  58.78 ns |  2.130 ns | 0.117 ns |  58.68 ns |  58.91 ns |      - |         - |
+| LogSourceGenWithoutIfParams                | 3      |  58.03 ns |  3.770 ns | 0.207 ns |  57.89 ns |  58.27 ns |      - |         - |
+| LogSourceGenSkipEnableCheckWithoutIfParams | 3      |  57.58 ns |  0.718 ns | 0.039 ns |  57.54 ns |  57.62 ns |      - |         - |
