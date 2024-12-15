@@ -10,6 +10,7 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+COPY ["Directory.Build.props", "src/Directory.Build.props"]
 COPY ["src/SourceGenerator/SourceGeneratorBasic.ConsoleApp/SourceGeneratorBasic.ConsoleApp.csproj", "src/SourceGenerator/SourceGeneratorBasic.ConsoleApp/"]
 COPY ["src/SourceGenerator/SourceGeneratorBasic/SourceGeneratorBasic.csproj", "src/SourceGenerator/SourceGeneratorBasic/"]
 RUN dotnet restore "./src/SourceGenerator/SourceGeneratorBasic.ConsoleApp/SourceGeneratorBasic.ConsoleApp.csproj"

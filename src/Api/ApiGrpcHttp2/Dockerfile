@@ -11,6 +11,7 @@ EXPOSE 5000
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+COPY ["Directory.Build.props", "src/Directory.Build.props"]
 COPY ["src/Api/ApiGrpcHttp2/ApiGrpcHttp2.csproj", "src/Api/ApiGrpcHttp2/"]
 RUN dotnet restore "./src/Api/ApiGrpcHttp2/ApiGrpcHttp2.csproj"
 COPY . .

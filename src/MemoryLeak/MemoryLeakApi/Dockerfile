@@ -6,6 +6,7 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
+COPY ["Directory.Build.props", "src/Directory.Build.props"]
 COPY ["src/MemoryLeak/MemoryLeakApi/MemoryLeakApi.csproj", "src/MemoryLeak/MemoryLeakApi/"]
 COPY ["src/MemoryLeak/MemoryLeak.Core/MemoryLeak.Core.csproj", "src/MemoryLeak/MemoryLeak.Core/"]
 RUN dotnet restore "src/MemoryLeak/MemoryLeakApi/MemoryLeakApi.csproj"

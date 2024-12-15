@@ -11,6 +11,7 @@ EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+COPY ["Directory.Build.props", "src/Directory.Build.props"]
 COPY ["src/Redis/RedisFailover/RedisFailover.csproj", "src/Redis/RedisFailover/"]
 RUN dotnet restore "./src/Redis/RedisFailover/RedisFailover.csproj"
 COPY . .
