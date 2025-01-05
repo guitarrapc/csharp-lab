@@ -1,6 +1,6 @@
 ```
 
-BenchmarkDotNet v0.14.0, Ubuntu 22.04.5 LTS (Jammy Jellyfish)
+BenchmarkDotNet v0.14.0, Ubuntu 24.04.1 LTS (Noble Numbat)
 AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
 .NET SDK 9.0.101
   [Host]   : .NET 9.0.0 (9.0.24.52809), X64 RyuJIT AVX2
@@ -10,15 +10,15 @@ Job=ShortRun  IterationCount=3  LaunchCount=1
 WarmupCount=3  
 
 ```
-| Method               | Number | Mean       | Error       | StdDev   | Min        | Max        | Gen0   | Gen1   | Allocated |
-|--------------------- |------- |-----------:|------------:|---------:|-----------:|-----------:|-------:|-------:|----------:|
-| **AllocateStringStatic** | **1**      |   **750.7 ns** |   **195.85 ns** | **10.74 ns** |   **739.0 ns** |   **760.1 ns** | **0.0124** | **0.0114** |   **1.02 KB** |
-| AllocateString       | 1      |   736.4 ns |   252.17 ns | 13.82 ns |   725.5 ns |   752.0 ns | 0.0124 | 0.0114 |   1.02 KB |
-| AllocateLoH          | 1      |   716.5 ns |   171.01 ns |  9.37 ns |   705.9 ns |   723.7 ns | 0.0124 | 0.0114 |   1.02 KB |
-| AllocateArray        | 1      |   733.9 ns |    43.47 ns |  2.38 ns |   732.0 ns |   736.6 ns | 0.0124 | 0.0114 |   1.02 KB |
-| AllocateArrayPool    | 1      |   701.5 ns |   426.29 ns | 23.37 ns |   686.4 ns |   728.4 ns | 0.0124 | 0.0114 |   1.02 KB |
-| **AllocateStringStatic** | **3**      | **2,204.2 ns** |   **755.90 ns** | **41.43 ns** | **2,158.0 ns** | **2,238.2 ns** | **0.0343** | **0.0305** |   **3.07 KB** |
-| AllocateString       | 3      | 2,112.8 ns | 1,723.70 ns | 94.48 ns | 2,056.4 ns | 2,221.8 ns | 0.0343 | 0.0305 |   3.07 KB |
-| AllocateLoH          | 3      | 2,016.8 ns | 1,144.68 ns | 62.74 ns | 1,976.0 ns | 2,089.1 ns | 0.0343 | 0.0305 |   3.07 KB |
-| AllocateArray        | 3      | 2,175.6 ns |   745.62 ns | 40.87 ns | 2,129.4 ns | 2,207.2 ns | 0.0343 | 0.0305 |   3.07 KB |
-| AllocateArrayPool    | 3      | 2,098.1 ns |   906.57 ns | 49.69 ns | 2,043.6 ns | 2,140.9 ns | 0.0343 | 0.0305 |   3.07 KB |
+| Method               | Number | Mean       | Error      | StdDev    | Min        | Max        | Gen0   | Gen1   | Allocated |
+|--------------------- |------- |-----------:|-----------:|----------:|-----------:|-----------:|-------:|-------:|----------:|
+| **AllocateStringStatic** | **1**      |   **737.8 ns** |   **832.1 ns** |  **45.61 ns** |   **687.8 ns** |   **777.0 ns** | **0.0620** | **0.0610** |   **1.02 KB** |
+| AllocateString       | 1      |   720.6 ns |   799.4 ns |  43.82 ns |   672.2 ns |   757.5 ns | 0.0620 | 0.0610 |   1.02 KB |
+| AllocateLoH          | 1      |   706.4 ns |   943.1 ns |  51.69 ns |   648.0 ns |   746.1 ns | 0.0620 | 0.0610 |   1.02 KB |
+| AllocateArray        | 1      |   728.4 ns |   722.8 ns |  39.62 ns |   686.1 ns |   764.6 ns | 0.0620 | 0.0610 |   1.02 KB |
+| AllocateArrayPool    | 1      |   714.2 ns |   943.1 ns |  51.69 ns |   656.9 ns |   757.2 ns | 0.0620 | 0.0610 |   1.02 KB |
+| **AllocateStringStatic** | **3**      | **2,212.5 ns** | **2,268.7 ns** | **124.35 ns** | **2,069.2 ns** | **2,292.3 ns** | **0.1869** | **0.1831** |   **3.07 KB** |
+| AllocateString       | 3      | 2,235.1 ns |   356.6 ns |  19.54 ns | 2,214.7 ns | 2,253.7 ns | 0.1869 | 0.1831 |   3.07 KB |
+| AllocateLoH          | 3      | 2,025.3 ns | 2,248.1 ns | 123.23 ns | 1,949.9 ns | 2,167.5 ns | 0.1869 | 0.1831 |   3.07 KB |
+| AllocateArray        | 3      | 2,238.8 ns |   492.9 ns |  27.02 ns | 2,217.3 ns | 2,269.1 ns | 0.1869 | 0.1831 |   3.07 KB |
+| AllocateArrayPool    | 3      | 2,181.7 ns |   408.8 ns |  22.41 ns | 2,162.6 ns | 2,206.3 ns | 0.1869 | 0.1831 |   3.07 KB |
