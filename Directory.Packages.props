@@ -11,7 +11,7 @@
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="9.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="9.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Logging" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="9.0.1" />
     <PackageVersion Include="Microsoft.Extensions.ObjectPool" Version="9.0.0" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="7.2.0" />
@@ -20,10 +20,10 @@
     <!-- Benchmark -->
     <PackageVersion Include="BenchmarkDotNet" Version="0.14.0" />
     <!-- Database -->
-    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.0" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Analyzers" Version="9.0.0" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Analyzers" Version="9.0.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageVersion>
