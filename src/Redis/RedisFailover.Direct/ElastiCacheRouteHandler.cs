@@ -1,13 +1,13 @@
-using RedisFailoverDirect.Infrastructures;
+using RedisFailover.Direct.Infrastructures;
 using StackExchange.Redis;
 
-namespace RedisFailoverDirect;
+namespace RedisFailover.Direct;
 
-public static class MemoryDBRouteHandler
+public static class ElastiCacheRouteHandler
 {
-    public static void AddMemoryDBRouteHandler(this WebApplication app)
+    public static void AddElastiCacheRouteHandler(this WebApplication app)
     {
-        app.MapPost("/persistent/long_operation", async (string key, TimeProvider timeProvider, MemoryDBConnectionContext context, CancellationToken ct) =>
+        app.MapPost("/cache/long_operation", async (string key, TimeProvider timeProvider, ElastiCacheConnectionContext context, CancellationToken ct) =>
         {
             var ts = timeProvider.GetTimestamp();
             DateTimeOffset value = timeProvider.GetLocalNow();
@@ -17,7 +17,7 @@ public static class MemoryDBRouteHandler
                 {
                     var cache = context.GetDatabase();
                     value = await cache.GetOrSetAsync(key, timeProvider.GetLocalNow(), RedisExpiry.Medium);
-                    app.Logger.LogInformation($"Persistent Redis operation success. {value}");
+                    app.Logger.LogInformation($"Cache Redis operation success. {value}");
                 }
                 catch (RedisConnectionException ex)
                 {
@@ -30,19 +30,19 @@ public static class MemoryDBRouteHandler
             }
             return Results.Ok(value);
         })
-        .WithName("LongPersistentOperation")
+        .WithName("LongCacheOperation")
         .WithOpenApi();
 
-        app.MapPost("/persistentX", async (string key, TimeProvider timeProvider, MemoryDBConnectionContext context) =>
+        app.MapPost("/cacheX", async (string key, TimeProvider timeProvider, ElastiCacheConnectionContext context) =>
         {
             var cache = context.GetDatabase();
             var value = await cache.GetOrSetAsync(key, timeProvider.GetLocalNow(), RedisExpiry.Medium);
             return Results.Ok(value);
         })
-        .WithName("SetPersistentX")
+        .WithName("SetCacheX")
         .WithOpenApi();
 
-        app.MapGet("/persistent/{key}", async (string key, MemoryDBConnectionContext context) =>
+        app.MapGet("/cache/{key}", async (string key, ElastiCacheConnectionContext context) =>
         {
             var cache = context.GetDatabase();
             var result = await cache.TryGetValueAsync<DateTimeOffset>(key);
@@ -50,25 +50,25 @@ public static class MemoryDBRouteHandler
                 ? Results.Ok(result.Value)
                 : Results.NotFound();
         })
-        .WithName("GetPersistent")
+        .WithName("GetCache")
         .WithOpenApi();
 
-        app.MapPost("/persistent", async (string key, TimeProvider timeProvider, MemoryDBConnectionContext context) =>
+        app.MapPost("/cache", async (string key, TimeProvider timeProvider, ElastiCacheConnectionContext context) =>
         {
             var cache = context.GetDatabase();
             await cache.SetAsync(key, timeProvider.GetLocalNow(), RedisExpiry.Short);
             return Results.Ok();
         })
-        .WithName("SetPersistent")
+        .WithName("SetCache")
         .WithOpenApi();
 
-        app.MapDelete("/persistent/{key}", async (string key, MemoryDBConnectionContext context) =>
+        app.MapDelete("/cache/{key}", async (string key, ElastiCacheConnectionContext context) =>
         {
             var cache = context.GetDatabase();
             await cache.RemoveAsync(key);
             return Results.Ok();
         })
-        .WithName("DeletePersistent")
+        .WithName("DeleteCache")
         .WithOpenApi();
     }
 }

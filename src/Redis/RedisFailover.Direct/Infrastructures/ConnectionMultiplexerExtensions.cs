@@ -3,7 +3,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace RedisFailoverDirect.Infrastructures;
+namespace RedisFailover.Direct.Infrastructures;
 
 public static class RedisExpiry
 {

@@ -1,5 +1,7 @@
-using RedisFailoverDirect;
-using RedisFailoverDirect.Infrastructures;
+using RedisFailover.Direct;
+using RedisFailover.Direct.Infrastructures;
+
+// Redis failedover handling with StackExchange.Redis ConnectionFailed.
 
 var builder = WebApplication.CreateBuilder(args);
 

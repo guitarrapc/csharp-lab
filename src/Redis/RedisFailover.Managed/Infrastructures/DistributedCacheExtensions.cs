@@ -3,7 +3,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace RedisFailover.Infrastructures;
+namespace RedisFailover.Managed.Infrastructures;
 
 public static class DistributedCacheExpiration
 {

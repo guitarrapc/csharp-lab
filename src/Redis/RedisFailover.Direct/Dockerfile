@@ -2,7 +2,7 @@
 
 # This stage is used when running from VS in fast mode (Default for Debug configuration)
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
-USER app
+USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
 
@@ -11,20 +11,21 @@ EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Directory.Build.props", "src/Directory.Build.props"]
-COPY ["src/Redis/RedisFailoverDirect/RedisFailoverDirect.csproj", "src/Redis/RedisFailoverDirect/"]
-RUN dotnet restore "./src/Redis/RedisFailoverDirect/RedisFailoverDirect.csproj"
+COPY ["Directory.Packages.props", "."]
+COPY ["Directory.Build.props", "."]
+COPY ["src/Redis/RedisFailover.Direct/RedisFailover.Direct.csproj", "src/Redis/RedisFailover.Direct/"]
+RUN dotnet restore "./src/Redis/RedisFailover.Direct/RedisFailover.Direct.csproj"
 COPY . .
-WORKDIR "/src/src/Redis/RedisFailoverDirect"
-RUN dotnet build "./RedisFailoverDirect.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/src/Redis/RedisFailover.Direct"
+RUN dotnet build "./RedisFailover.Direct.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./RedisFailoverDirect.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./RedisFailover.Direct.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "RedisFailoverDirect.dll"]
+ENTRYPOINT ["dotnet", "RedisFailover.Direct.dll"]
