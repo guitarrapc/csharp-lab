@@ -89,7 +89,7 @@ public class RedisConnectionContext
         configurationOptions.AllowAdmin = true;
         // MUST BE TRUE. Set heartbeat to detect connection failure
         configurationOptions.HeartbeatConsistencyChecks = true;
-        // MUST BE TRUE. Server shutdown delay duration this interval
+        // SHOULD ADJUST. Server shutdown delay duration this interval
         configurationOptions.HeartbeatInterval = TimeSpan.FromSeconds(3);
         _logger.LogInformation($"Connecting to redis: {Name}/{string.Join(",", configurationOptions.EndPoints)}");
         return configurationOptions;
