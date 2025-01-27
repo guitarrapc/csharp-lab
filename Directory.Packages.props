@@ -15,7 +15,7 @@
     <PackageVersion Include="Microsoft.Extensions.ObjectPool" Version="9.0.0" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="7.2.0" />
-    <PackageVersion Include="System.IO.Hashing" Version="9.0.0" />
+    <PackageVersion Include="System.IO.Hashing" Version="9.0.1" />
     <PackageVersion Include="ZLogger" Version="2.5.10" />
     <!-- Benchmark -->
     <PackageVersion Include="BenchmarkDotNet" Version="0.14.0" />
