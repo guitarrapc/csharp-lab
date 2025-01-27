@@ -1,6 +1,8 @@
 using Microsoft.Extensions.Caching.Distributed;
-using RedisFailover.Infrastructures;
+using RedisFailover.Managed.Infrastructures;
 using StackExchange.Redis;
+
+// Redis failed over handling by Microsoft.Extensions.Caching.Distributed
 
 var builder = WebApplication.CreateBuilder(args);
 
