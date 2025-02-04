@@ -169,7 +169,7 @@ public class RedisConnectionContext
     /// <param name="args"></param>
     private void OnConnectionRestored(ConnectionFailedEventArgs args)
     {
-        Console.WriteLine($"Redis connection restored {Name}: {args.EndPoint}.");
+        _logger.LogWarning($"Redis connection restored {Name}: {args.EndPoint}.");
         _failedConnectionAttempts = 0; // Reset the counter on successful reconnection
     }
 }
