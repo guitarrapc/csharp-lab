@@ -9,9 +9,9 @@ public class UsingStaticTest
     public void UsingStaticTests()
     {
         // C# 5
-        Math.Pow(2, 2).Should().Be(4);
+        Assert.Equal(4, Math.Pow(2, 2));
 
         // C# 6 can omit Math static class by `using static Math`.
-        Pow(2, 2).Should().Be(4);
+        Assert.Equal(4, Pow(2, 2));
     }
 }

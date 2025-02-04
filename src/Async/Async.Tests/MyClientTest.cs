@@ -21,7 +21,7 @@ public class MyClientTest
         using var cts = new CancellationTokenSource();
         var timeout = TimeSpan.FromMilliseconds(timeoutMs);
         var result = await _client.RequestAsync(new HttpRequestMessage(HttpMethod.Get, RequestUrl), timeout, cts.Token);
-        result.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+        Assert.Equal(System.Net.HttpStatusCode.OK, result.StatusCode);
     }
 
     [Theory]

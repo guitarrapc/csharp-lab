@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Text;
 
-namespace NonAllocs.Core;
+namespace Strings.Core;
 
 // inspire from https://code-maze.com/csharp-reverse-string/
 public class StringReverse
@@ -26,7 +26,7 @@ public class StringReverse
     /// <returns></returns>
     public static string EnumerableReverse(string text)
     {
-        return string.Concat(Enumerable.Reverse(text));
+        return string.Concat(text.Reverse());
     }
 
     /// <summary>

@@ -1,6 +1,6 @@
-using NonAllocs.Core;
+using Strings.Core;
 
-namespace NonAllocs.Tests;
+namespace Strings.Tests;
 
 public class StringReverseTest
 {
@@ -10,48 +10,48 @@ public class StringReverseTest
     public StringReverseTest()
     {
         _source = StringReverse.GenerateText();
-        _expected = string.Concat(Enumerable.Reverse(_source));
+        _expected = string.Concat(_source.Reverse());
     }
 
     [Fact]
     public async Task ArrayReverseStringTest()
     {
-        StringReverse.RecursiveReverse(_source).Should().Be(_expected);
+        Assert.Equal(_expected, StringReverse.RecursiveReverse(_source));
     }
 
     [Fact]
     public async Task EnumerableReverseTest()
     {
-        StringReverse.EnumerableReverse(_source).Should().Be(_expected);
+        Assert.Equal(_expected, StringReverse.EnumerableReverse(_source));
     }
 
     [Fact]
     public async Task RecursiveStringReverseTest()
     {
-        StringReverse.RecursiveReverse(_source).Should().Be(_expected);
+        Assert.Equal(_expected, StringReverse.RecursiveReverse(_source));
     }
 
     [Fact]
     public async Task ReverseXorTest()
     {
-        StringReverse.ReverseXor(_source).Should().Be(_expected);
+        Assert.Equal(_expected, StringReverse.ReverseXor(_source));
     }
 
     [Fact]
     public async Task StringCreateTest()
     {
-        StringReverse.StringSpan(_source).Should().Be(_expected);
+        Assert.Equal(_expected, StringReverse.StringSpan(_source));
     }
 
     [Fact]
     public async Task StringExtensionReverseTest()
     {
-        StringReverse.StringExtensionReverse(_source).Should().Be(_expected);
+        Assert.Equal(_expected, StringReverse.StringExtensionReverse(_source));
     }
 
     [Fact]
     public async Task TextElementEnumeratorTest()
     {
-        StringReverse.TextElementEnumerator(_source).Should().Be(_expected);
+        Assert.Equal(_expected, StringReverse.TextElementEnumerator(_source));
     }
 }

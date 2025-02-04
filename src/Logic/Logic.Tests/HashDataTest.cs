@@ -13,7 +13,7 @@ public class HashDataTest
     public void MD5HashDataTest(string contents, string expected)
     {
         var actual = HashData.MD5HashData(contents);
-        actual.Should().Be(expected);
+        Assert.Equal(expected, actual);
     }
 
     [Theory]
@@ -25,7 +25,7 @@ public class HashDataTest
     public void SHA1HashDataTest(string contents, string expected)
     {
         var actual = HashData.SHA1HashData(contents);
-        actual.Should().Be(expected);
+        Assert.Equal(expected, actual);
     }
 
     [Theory]
@@ -37,7 +37,7 @@ public class HashDataTest
     public void SHA256HashDataTest(string contents, string expected)
     {
         var actual = HashData.SHA256HashData(contents);
-        actual.Should().Be(expected);
+        Assert.Equal(expected, actual);
     }
 
     [Theory]
@@ -49,7 +49,7 @@ public class HashDataTest
     public void SHA512HashDataTest(string contents, string expected)
     {
         var actual = HashData.SHA512HashData(contents);
-        actual.Should().Be(expected);
+        Assert.Equal(expected, actual);
     }
 
     [Theory]
@@ -61,7 +61,7 @@ public class HashDataTest
     public void XxHash32HashDataTest(string contents, string expected)
     {
         var actual = HashData.XxHash32HashData(contents);
-        actual.Should().Be(expected);
+        Assert.Equal(expected, actual);
     }
 
     [Theory]
@@ -73,7 +73,7 @@ public class HashDataTest
     public void XxHash64HashDataTest(string contents, string expected)
     {
         var actual = HashData.XxHash64HashData(contents);
-        actual.Should().Be(expected);
+        Assert.Equal(expected, actual);
     }
 
     [Theory]
@@ -85,6 +85,6 @@ public class HashDataTest
     public void XxHash128HashDataTest(string contents, string expected)
     {
         var actual = HashData.XxHash128HashData(contents);
-        actual.Should().Be(expected);
+        Assert.Equal(expected, actual);
     }
 }

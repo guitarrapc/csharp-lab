@@ -11,7 +11,7 @@ public class CatchFilterTest
         }
         catch (ArgumentException ex) when (ex.ParamName == "x")
         {
-            ex.ParamName.Should().Be("x");
+            Assert.Equal("x", ex.ParamName);
         }
         catch (ArgumentException)
         {

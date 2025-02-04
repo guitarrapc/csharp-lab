@@ -1,6 +1,6 @@
-using NonAllocs.Core;
+using Strings.Core;
 
-namespace NonAllocs.Tests;
+namespace Strings.Tests;
 
 public class StringSplitTest
 {
@@ -16,7 +16,7 @@ public class StringSplitTest
                 actual.Add(item.Word.ToString());
             }
             var expected = value.Split('.');
-            actual.SequenceEqual(expected).Should().BeTrue();
+            Assert.True(actual.SequenceEqual(expected));
             actual.Clear();
         }
 
@@ -26,7 +26,7 @@ public class StringSplitTest
                 actual.Add(item.Word.ToString());
             }
             var expected = value.Split('.');
-            actual.SequenceEqual(expected).Should().BeTrue();
+            Assert.True(actual.SequenceEqual(expected));
             actual.Clear();
         }
     }
@@ -43,7 +43,7 @@ public class StringSplitTest
                 actual.Add(item.Word.ToString());
             }
             var expected = new[] { "foo", "bar", "piyo", "fuga" };
-            actual.SequenceEqual(expected).Should().BeTrue();
+            Assert.True(actual.SequenceEqual(expected));
             actual.Clear();
         }
 
@@ -53,7 +53,7 @@ public class StringSplitTest
                 actual.Add(item.Word.ToString());
             }
             var expected = new[] { "foo", "bar", "piyo", "fuga" };
-            actual.SequenceEqual(expected).Should().BeTrue();
+            Assert.True(actual.SequenceEqual(expected));
             actual.Clear();
         }
     }
@@ -70,7 +70,7 @@ public class StringSplitTest
                 actual.Add(int.Parse(item.Word));
             }
             var expected = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            actual.SequenceEqual(expected).Should().BeTrue();
+            Assert.True(actual.SequenceEqual(expected));
             actual.Clear();
         }
 
@@ -80,7 +80,7 @@ public class StringSplitTest
                 actual.Add(int.Parse(item.Word));
             }
             var expected = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            actual.SequenceEqual(expected).Should().BeTrue();
+            Assert.True(actual.SequenceEqual(expected));
             actual.Clear();
         }
     }

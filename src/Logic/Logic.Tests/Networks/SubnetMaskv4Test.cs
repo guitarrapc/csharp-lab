@@ -11,17 +11,17 @@ public class SubnetMaskv4Test
         // 11111111 11111111 11111111 00000000
         var actual = SubnetMaskv4.FromPrefix(24);
         var expected = SubnetExtensions.CidrToBiteArray("255.255.255.0");
-        actual.ByteArray.SequenceEqual(expected).Should().BeTrue();
+        Assert.True(actual.ByteArray.SequenceEqual(expected));
 
         // 00000000 00000000 00000000 00000000
         var min = SubnetMaskv4.FromPrefix(0);
         var expectedMin = SubnetExtensions.CidrToBiteArray("0.0.0.0");
-        min.ByteArray.SequenceEqual(expectedMin).Should().BeTrue();
+        Assert.True(min.ByteArray.SequenceEqual(expectedMin));
 
         // 11111111 11111111 11111111 11111111
         var max = SubnetMaskv4.FromPrefix(32);
         var expectedMax = SubnetExtensions.CidrToBiteArray("255.255.255.255");
-        max.ByteArray.SequenceEqual(expectedMax).Should().BeTrue();
+        Assert.True(max.ByteArray.SequenceEqual(expectedMax));
     }
 
     [Fact]
@@ -31,22 +31,22 @@ public class SubnetMaskv4Test
         var actual = SubnetMaskv4.FromCidr("10.0.0.0/24");
         var expectedAddress = SubnetExtensions.CidrToBiteArray("10.0.0.0");
         var expectedSubnet = SubnetExtensions.CidrToBiteArray("255.255.255.0");
-        actual.Address.ByteArray.SequenceEqual(expectedAddress).Should().BeTrue();
-        actual.Subnet.ByteArray.SequenceEqual(expectedSubnet).Should().BeTrue();
+        Assert.True(actual.Address.ByteArray.SequenceEqual(expectedAddress));
+        Assert.True(actual.Subnet.ByteArray.SequenceEqual(expectedSubnet));
 
         // 00000000 00000000 00000000 00000000 / 00000000
         var min = SubnetMaskv4.FromCidr("0.0.0.0/0");
         var expectedMin = SubnetExtensions.CidrToBiteArray("0.0.0.0");
         var expectedSubnetMin = SubnetExtensions.CidrToBiteArray("0.0.0.0");
-        min.Address.ByteArray.SequenceEqual(expectedMin).Should().BeTrue();
-        min.Subnet.ByteArray.SequenceEqual(expectedSubnetMin).Should().BeTrue();
+        Assert.True(min.Address.ByteArray.SequenceEqual(expectedMin));
+        Assert.True(min.Subnet.ByteArray.SequenceEqual(expectedSubnetMin));
 
         // 11111111 11111111 11111111 11111111 / 11111111
         var max = SubnetMaskv4.FromCidr("255.255.255.255/32");
         var expectedMax = SubnetExtensions.CidrToBiteArray("255.255.255.255");
         var expectedSubnetMax = SubnetExtensions.CidrToBiteArray("255.255.255.255");
-        max.Address.ByteArray.SequenceEqual(expectedMax).Should().BeTrue();
-        max.Subnet.ByteArray.SequenceEqual(expectedSubnetMax).Should().BeTrue();
+        Assert.True(max.Address.ByteArray.SequenceEqual(expectedMax));
+        Assert.True(max.Subnet.ByteArray.SequenceEqual(expectedSubnetMax));
     }
 
     [Fact]
@@ -56,22 +56,22 @@ public class SubnetMaskv4Test
         var expected = SubnetExtensions.CidrToBiteArray("10.0.0.0");
         var actual = SubnetMaskv4.FromIPAddress("10.0.0.0");
         var actual2 = SubnetMaskv4.FromIPAddress(IPAddress.Parse("10.0.0.0"));
-        actual.ByteArray.SequenceEqual(expected).Should().BeTrue();
-        actual2.ByteArray.SequenceEqual(expected).Should().BeTrue();
+        Assert.True(actual.ByteArray.SequenceEqual(expected));
+        Assert.True(actual2.ByteArray.SequenceEqual(expected));
 
         // 00000000 00000000 00000000 00000000
         var expectedMin = SubnetExtensions.CidrToBiteArray("0.0.0.0");
         var actualMin = SubnetMaskv4.FromIPAddress("0.0.0.0");
         var actualMin2 = SubnetMaskv4.FromIPAddress(IPAddress.Parse("0.0.0.0"));
-        actualMin.ByteArray.SequenceEqual(expectedMin).Should().BeTrue();
-        actualMin2.ByteArray.SequenceEqual(expectedMin).Should().BeTrue();
+        Assert.True(actualMin.ByteArray.SequenceEqual(expectedMin));
+        Assert.True(actualMin2.ByteArray.SequenceEqual(expectedMin));
 
         // 11111111 11111111 11111111 11111111
         var expectedMax = SubnetExtensions.CidrToBiteArray("255.255.255.255");
         var actualMax = SubnetMaskv4.FromIPAddress("255.255.255.255");
         var actualMax2 = SubnetMaskv4.FromIPAddress(IPAddress.Parse("255.255.255.255"));
-        actualMax.ByteArray.SequenceEqual(expectedMax).Should().BeTrue();
-        actualMax2.ByteArray.SequenceEqual(expectedMax).Should().BeTrue();
+        Assert.True(actualMax.ByteArray.SequenceEqual(expectedMax));
+        Assert.True(actualMax2.ByteArray.SequenceEqual(expectedMax));
     }
 
     [Theory]
@@ -92,7 +92,7 @@ public class SubnetMaskv4Test
         var (Address, Subnet) = SubnetMaskv4.FromCidr(cidrAddress);
         var actual = SubnetMaskv4.GetNetworkAddress(Address, Subnet);
         var expected = SubnetExtensions.CidrToBiteArray(expectedAddress);
-        actual.ByteArray.SequenceEqual(expected).Should().BeTrue();
+        Assert.True(actual.ByteArray.SequenceEqual(expected));
     }
 
     [Theory]
@@ -118,9 +118,9 @@ public class SubnetMaskv4Test
         var networkAddress = SubnetMaskv4.GetNetworkAddress(cidr.Address, cidr.Subnet);
         var addressRange = SubnetMaskv4.GetAddressRange(networkAddress, cidr.Subnet);
 
-        addressRange.BroadcastAddress.ByteArray.SequenceEqual(expectedBroadcast).Should().BeTrue();
-        addressRange.FirstAddress.ByteArray.SequenceEqual(expectedFirst).Should().BeTrue();
-        addressRange.EndAddress.ByteArray.SequenceEqual(expectedEnd).Should().BeTrue();
+        Assert.True(addressRange.BroadcastAddress.ByteArray.SequenceEqual(expectedBroadcast));
+        Assert.True(addressRange.FirstAddress.ByteArray.SequenceEqual(expectedFirst));
+        Assert.True(addressRange.EndAddress.ByteArray.SequenceEqual(expectedEnd));
     }
 
     [Fact]
@@ -129,18 +129,18 @@ public class SubnetMaskv4Test
         var a = SubnetMaskv4.FromCidr("192.168.10.10/24");
         var b = SubnetMaskv4.FromCidr("192.168.10.10/24");
         var c = SubnetMaskv4.FromCidr("192.168.10.10/25");
-        a.Equals(b).Should().BeTrue();
-        a.Equals(c).Should().BeFalse();
-        (a == b).Should().BeTrue();
-        (a == c).Should().BeFalse();
+        Assert.Equal(b, a);
+        Assert.NotEqual(c, a);
+        Assert.True(a == b);
+        Assert.False(a == c);
 
         var d = SubnetMaskv4.FromCidr("10.0.0.1/16");
         var e = SubnetMaskv4.FromCidr("10.0.0.1/16");
         var f = SubnetMaskv4.FromCidr("10.1.0.2/16");
-        d.Equals(e).Should().BeTrue();
-        d.Equals(f).Should().BeFalse();
-        (d == e).Should().BeTrue();
-        (d == f).Should().BeFalse();
+        Assert.Equal(e, d);
+        Assert.NotEqual(f, d);
+        Assert.True(d == e);
+        Assert.False(d == f);
     }
 }
 

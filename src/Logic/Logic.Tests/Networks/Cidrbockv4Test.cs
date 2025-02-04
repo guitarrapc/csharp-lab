@@ -8,25 +8,25 @@ public class Cidrbockv4Test
     public async Task CtorStringTest()
     {
         var cidr = new CidrBlockv4("10.0.0.1/24");
-        cidr.VpcCidr1.Should().Be(10);
-        cidr.VpcCidr2.Should().Be(0);
-        cidr.VpcCidr3.Should().Be(0);
-        cidr.VpcCidr4.Should().Be(1);
-        cidr.VpcCidrSubnet.Should().Be(24);
+        Assert.Equal(10, cidr.VpcCidr1);
+        Assert.Equal(0, cidr.VpcCidr2);
+        Assert.Equal(0, cidr.VpcCidr3);
+        Assert.Equal(1, cidr.VpcCidr4);
+        Assert.Equal(24, cidr.VpcCidrSubnet);
 
         var min = new CidrBlockv4("0.0.0.0/0");
-        min.VpcCidr1.Should().Be(0);
-        min.VpcCidr2.Should().Be(0);
-        min.VpcCidr3.Should().Be(0);
-        min.VpcCidr4.Should().Be(0);
-        min.VpcCidrSubnet.Should().Be(0);
+        Assert.Equal(0, min.VpcCidr1);
+        Assert.Equal(0, min.VpcCidr2);
+        Assert.Equal(0, min.VpcCidr3);
+        Assert.Equal(0, min.VpcCidr4);
+        Assert.Equal(0, min.VpcCidrSubnet);
 
         var max = new CidrBlockv4("255.255.255.255/32");
-        max.VpcCidr1.Should().Be(255);
-        max.VpcCidr2.Should().Be(255);
-        max.VpcCidr3.Should().Be(255);
-        max.VpcCidr4.Should().Be(255);
-        max.VpcCidrSubnet.Should().Be(32);
+        Assert.Equal(255, max.VpcCidr1);
+        Assert.Equal(255, max.VpcCidr2);
+        Assert.Equal(255, max.VpcCidr3);
+        Assert.Equal(255, max.VpcCidr4);
+        Assert.Equal(32, max.VpcCidrSubnet);
     }
 
     [Fact]
@@ -50,25 +50,25 @@ public class Cidrbockv4Test
     public async Task CtorBytesTest()
     {
         var cidr = new CidrBlockv4(10, 0, 0, 1, 24);
-        cidr.VpcCidr1.Should().Be(10);
-        cidr.VpcCidr2.Should().Be(0);
-        cidr.VpcCidr3.Should().Be(0);
-        cidr.VpcCidr4.Should().Be(1);
-        cidr.VpcCidrSubnet.Should().Be(24);
+        Assert.Equal(10, cidr.VpcCidr1);
+        Assert.Equal(0, cidr.VpcCidr2);
+        Assert.Equal(0, cidr.VpcCidr3);
+        Assert.Equal(1, cidr.VpcCidr4);
+        Assert.Equal(24, cidr.VpcCidrSubnet);
 
         var min = new CidrBlockv4(0, 0, 0, 0, 0);
-        min.VpcCidr1.Should().Be(0);
-        min.VpcCidr2.Should().Be(0);
-        min.VpcCidr3.Should().Be(0);
-        min.VpcCidr4.Should().Be(0);
-        min.VpcCidrSubnet.Should().Be(0);
+        Assert.Equal(0, min.VpcCidr1);
+        Assert.Equal(0, min.VpcCidr2);
+        Assert.Equal(0, min.VpcCidr3);
+        Assert.Equal(0, min.VpcCidr4);
+        Assert.Equal(0, min.VpcCidrSubnet);
 
         var max = new CidrBlockv4(255, 255, 255, 255, 32);
-        max.VpcCidr1.Should().Be(255);
-        max.VpcCidr2.Should().Be(255);
-        max.VpcCidr3.Should().Be(255);
-        max.VpcCidr4.Should().Be(255);
-        max.VpcCidrSubnet.Should().Be(32);
+        Assert.Equal(255, max.VpcCidr1);
+        Assert.Equal(255, max.VpcCidr2);
+        Assert.Equal(255, max.VpcCidr3);
+        Assert.Equal(255, max.VpcCidr4);
+        Assert.Equal(32, max.VpcCidrSubnet);
     }
 
     [Fact]
@@ -83,41 +83,41 @@ public class Cidrbockv4Test
     public async Task TryParseStringTest()
     {
         var result = CidrBlockv4.TryParse("10.0.0.1/24", out var cidr);
-        result.Should().BeTrue();
-        cidr.VpcCidr1.Should().Be(10);
-        cidr.VpcCidr2.Should().Be(0);
-        cidr.VpcCidr3.Should().Be(0);
-        cidr.VpcCidr4.Should().Be(1);
-        cidr.VpcCidrSubnet.Should().Be(24);
+        Assert.True(result);
+        Assert.Equal(10, cidr.VpcCidr1);
+        Assert.Equal(0, cidr.VpcCidr2);
+        Assert.Equal(0, cidr.VpcCidr3);
+        Assert.Equal(1, cidr.VpcCidr4);
+        Assert.Equal(24, cidr.VpcCidrSubnet);
 
         var result2 = CidrBlockv4.TryParse("0.0.0.0/0", out var min);
-        result2.Should().BeTrue();
-        min.VpcCidr1.Should().Be(0);
-        min.VpcCidr2.Should().Be(0);
-        min.VpcCidr3.Should().Be(0);
-        min.VpcCidr4.Should().Be(0);
-        min.VpcCidrSubnet.Should().Be(0);
+        Assert.True(result2);
+        Assert.Equal(0, min.VpcCidr1);
+        Assert.Equal(0, min.VpcCidr2);
+        Assert.Equal(0, min.VpcCidr3);
+        Assert.Equal(0, min.VpcCidr4);
+        Assert.Equal(0, min.VpcCidrSubnet);
 
         var result3 = CidrBlockv4.TryParse("255.255.255.255/32", out var max);
-        result3.Should().BeTrue();
-        max.VpcCidr1.Should().Be(255);
-        max.VpcCidr2.Should().Be(255);
-        max.VpcCidr3.Should().Be(255);
-        max.VpcCidr4.Should().Be(255);
-        max.VpcCidrSubnet.Should().Be(32);
+        Assert.True(result3);
+        Assert.Equal(255, max.VpcCidr1);
+        Assert.Equal(255, max.VpcCidr2);
+        Assert.Equal(255, max.VpcCidr3);
+        Assert.Equal(255, max.VpcCidr4);
+        Assert.Equal(32, max.VpcCidrSubnet);
 
-        CidrBlockv4.TryParse("0.0.0.0/-1", out _).Should().BeFalse(); // subnet negative
-        CidrBlockv4.TryParse("0.0.0.0/33", out _).Should().BeFalse(); // subnet over 32
-        CidrBlockv4.TryParse("255.255.255.255/33", out _).Should().BeFalse(); // subnet over 32
-        CidrBlockv4.TryParse("256.255.255.255/32", out _).Should().BeFalse(); // octed over 255
-        CidrBlockv4.TryParse("255.256.255.255/32", out _).Should().BeFalse(); // octed over 255
-        CidrBlockv4.TryParse("255.255.256.255/32", out _).Should().BeFalse(); // octed over 255
-        CidrBlockv4.TryParse("255.255.255.256/32", out _).Should().BeFalse(); // octed over 255
+        Assert.False(CidrBlockv4.TryParse("0.0.0.0/-1", out _)); // subnet negative
+        Assert.False(CidrBlockv4.TryParse("0.0.0.0/33", out _)); // subnet over 32
+        Assert.False(CidrBlockv4.TryParse("255.255.255.255/33", out _)); // subnet over 32
+        Assert.False(CidrBlockv4.TryParse("256.255.255.255/32", out _)); // octed over 255
+        Assert.False(CidrBlockv4.TryParse("255.256.255.255/32", out _)); // octed over 255
+        Assert.False(CidrBlockv4.TryParse("255.255.256.255/32", out _)); // octed over 255
+        Assert.False(CidrBlockv4.TryParse("255.255.255.256/32", out _)); // octed over 255
 
-        CidrBlockv4.TryParse("10.0.0.1", out _).Should().BeFalse(); // missing subnet
-        CidrBlockv4.TryParse("10.0.01/32", out _).Should().BeFalse(); // octed failure
-        CidrBlockv4.TryParse("10.001/32", out _).Should().BeFalse(); // octed failure
-        CidrBlockv4.TryParse("10001/32", out _).Should().BeFalse(); // octed failure
+        Assert.False(CidrBlockv4.TryParse("10.0.0.1", out _)); // missing subnet
+        Assert.False(CidrBlockv4.TryParse("10.0.01/32", out _)); // octed failure
+        Assert.False(CidrBlockv4.TryParse("10.001/32", out _)); // octed failure
+        Assert.False(CidrBlockv4.TryParse("10001/32", out _)); // octed failure
 
     }
 
@@ -125,29 +125,29 @@ public class Cidrbockv4Test
     public async Task TryParseBytesTest()
     {
         var result = CidrBlockv4.TryParse(10, 0, 0, 1, 24, out var cidr);
-        result.Should().BeTrue();
-        cidr.VpcCidr1.Should().Be(10);
-        cidr.VpcCidr2.Should().Be(0);
-        cidr.VpcCidr3.Should().Be(0);
-        cidr.VpcCidr4.Should().Be(1);
-        cidr.VpcCidrSubnet.Should().Be(24);
+        Assert.True(result);
+        Assert.Equal(10, cidr.VpcCidr1);
+        Assert.Equal(0, cidr.VpcCidr2);
+        Assert.Equal(0, cidr.VpcCidr3);
+        Assert.Equal(1, cidr.VpcCidr4);
+        Assert.Equal(24, cidr.VpcCidrSubnet);
 
         var result2 = CidrBlockv4.TryParse(0, 0, 0, 0, 0, out var min);
-        result2.Should().BeTrue();
-        min.VpcCidr1.Should().Be(0);
-        min.VpcCidr2.Should().Be(0);
-        min.VpcCidr3.Should().Be(0);
-        min.VpcCidr4.Should().Be(0);
-        min.VpcCidrSubnet.Should().Be(0);
+        Assert.True(result2);
+        Assert.Equal(0, min.VpcCidr1);
+        Assert.Equal(0, min.VpcCidr2);
+        Assert.Equal(0, min.VpcCidr3);
+        Assert.Equal(0, min.VpcCidr4);
+        Assert.Equal(0, min.VpcCidrSubnet);
 
         var result3 = CidrBlockv4.TryParse(255, 255, 255, 255, 32, out var max);
-        result3.Should().BeTrue();
-        max.VpcCidr1.Should().Be(255);
-        max.VpcCidr2.Should().Be(255);
-        max.VpcCidr3.Should().Be(255);
-        max.VpcCidr4.Should().Be(255);
-        max.VpcCidrSubnet.Should().Be(32);
+        Assert.True(result3);
+        Assert.Equal(255, max.VpcCidr1);
+        Assert.Equal(255, max.VpcCidr2);
+        Assert.Equal(255, max.VpcCidr3);
+        Assert.Equal(255, max.VpcCidr4);
+        Assert.Equal(32, max.VpcCidrSubnet);
 
-        CidrBlockv4.TryParse(0, 0, 0, 0, 33, out _).Should().BeFalse(); // subnet over 32
+        Assert.False(CidrBlockv4.TryParse(0, 0, 0, 0, 33, out _)); // subnet over 32
     }
 }

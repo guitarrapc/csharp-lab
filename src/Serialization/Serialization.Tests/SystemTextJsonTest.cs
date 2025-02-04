@@ -13,8 +13,8 @@ public class SystemTextJsonTest
             item.Initialize();
             var serialized = JsonSerializer.Serialize(item, SourceGenerationJsonSerializerContext.Default.HyperClass);
             var deserialized = JsonSerializer.Deserialize(serialized, SourceGenerationJsonSerializerContext.Default.HyperClass);
-            item.Should().BeEquivalentTo(deserialized);
-            item.Should().NotBe(deserialized);
+            Assert.Equivalent(deserialized, item);
+            Assert.NotEqual(deserialized, item);
         }
 
         {
@@ -22,8 +22,8 @@ public class SystemTextJsonTest
             item.Initialize();
             var serialized = JsonSerializer.Serialize(item, SourceGenerationJsonSerializerContext.Default.MyClass);
             var deserialized = JsonSerializer.Deserialize(serialized, SourceGenerationJsonSerializerContext.Default.MyClass);
-            item.Should().BeEquivalentTo(deserialized);
-            item.Should().NotBe(deserialized);
+            Assert.Equivalent(deserialized, item);
+            Assert.NotEqual(deserialized, item);
         }
 
         {
@@ -31,8 +31,8 @@ public class SystemTextJsonTest
             item.Initialize();
             var serialized = JsonSerializer.Serialize(item, SourceGenerationJsonSerializerContext.Default.NestClass);
             var deserialized = JsonSerializer.Deserialize(serialized, SourceGenerationJsonSerializerContext.Default.NestClass);
-            item.Should().BeEquivalentTo(deserialized);
-            item.Should().NotBe(deserialized);
+            Assert.Equivalent(deserialized, item);
+            Assert.NotEqual(deserialized, item);
         }
 
         {
@@ -40,8 +40,8 @@ public class SystemTextJsonTest
             item.Initialize();
             var serialized = JsonSerializer.Serialize(item, SourceGenerationJsonSerializerContext.Default.Primitives);
             var deserialized = JsonSerializer.Deserialize(serialized, SourceGenerationJsonSerializerContext.Default.Primitives);
-            item.Should().BeEquivalentTo(deserialized);
-            item.Should().NotBe(deserialized);
+            Assert.Equivalent(deserialized, item);
+            Assert.NotEqual(deserialized, item);
         }
     }
 
@@ -53,7 +53,7 @@ public class SystemTextJsonTest
             item.Initialize();
             var s1 = JsonSerializer.Serialize(item);
             var d1 = JsonSerializer.Deserialize<HyperClass>(s1);
-            d1.Should().BeEquivalentTo(item);
+            Assert.Equivalent(item, d1);
         }
 
         {
@@ -61,7 +61,7 @@ public class SystemTextJsonTest
             item.Initialize();
             var s1 = JsonSerializer.Serialize(item);
             var d1 = JsonSerializer.Deserialize<MyClass>(s1);
-            d1.Should().BeEquivalentTo(item);
+            Assert.Equivalent(item, d1);
         }
 
         {
@@ -69,7 +69,7 @@ public class SystemTextJsonTest
             item.Initialize();
             var s1 = JsonSerializer.Serialize(item);
             var d1 = JsonSerializer.Deserialize<NestClass>(s1);
-            d1.Should().BeEquivalentTo(item);
+            Assert.Equivalent(item, d1);
         }
 
         {
@@ -77,7 +77,7 @@ public class SystemTextJsonTest
             item.Initialize();
             var s1 = JsonSerializer.Serialize(item);
             var d1 = JsonSerializer.Deserialize<Primitives>(s1);
-            d1.Should().BeEquivalentTo(item);
+            Assert.Equivalent(item, d1);
         }
     }
 
@@ -91,7 +91,7 @@ public class SystemTextJsonTest
             var s2 = JsonSerializer.Serialize(item, SourceGenerationJsonSerializerContext.Default.HyperClass);
             var d1 = JsonSerializer.Deserialize<HyperClass>(s1);
             var d2 = JsonSerializer.Deserialize(s2, SourceGenerationJsonSerializerContext.Default.HyperClass);
-            d1.Should().BeEquivalentTo(d2);
+            Assert.Equivalent(d2, d1);
         }
 
         {
@@ -101,7 +101,7 @@ public class SystemTextJsonTest
             var s2 = JsonSerializer.Serialize(item, SourceGenerationJsonSerializerContext.Default.MyClass);
             var d1 = JsonSerializer.Deserialize<MyClass>(s1);
             var d2 = JsonSerializer.Deserialize(s2, SourceGenerationJsonSerializerContext.Default.MyClass);
-            d1.Should().BeEquivalentTo(d2);
+            Assert.Equivalent(d2, d1);
         }
 
         {
@@ -111,7 +111,7 @@ public class SystemTextJsonTest
             var s2 = JsonSerializer.Serialize(item, SourceGenerationJsonSerializerContext.Default.NestClass);
             var d1 = JsonSerializer.Deserialize<NestClass>(s1);
             var d2 = JsonSerializer.Deserialize(s2, SourceGenerationJsonSerializerContext.Default.NestClass);
-            d1.Should().BeEquivalentTo(d2);
+            Assert.Equivalent(d2, d1);
         }
 
         {
@@ -121,7 +121,7 @@ public class SystemTextJsonTest
             var s2 = JsonSerializer.Serialize(item, SourceGenerationJsonSerializerContext.Default.Primitives);
             var d1 = JsonSerializer.Deserialize<Primitives>(s1);
             var d2 = JsonSerializer.Deserialize(s2, SourceGenerationJsonSerializerContext.Default.Primitives);
-            d1.Should().BeEquivalentTo(d2);
+            Assert.Equivalent(d2, d1);
         }
     }
 }

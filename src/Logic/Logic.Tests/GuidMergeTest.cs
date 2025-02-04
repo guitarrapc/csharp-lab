@@ -23,12 +23,12 @@ public class GuidMergeTest
             var fair = GuidMerge.FairMerge(a, b);
             var slow = GuidMerge.SlowMerge(a, b);
 
-            fast.Should().Be(fair);
-            fast.Should().Be(slow);
-            fair.Should().Be(slow);
+            Assert.Equal(fair, fast);
+            Assert.Equal(slow, fast);
+            Assert.Equal(slow, fair);
 
-            fast.Should().NotBe(a);
-            fast.Should().NotBe(b);
+            Assert.NotEqual(a, fast);
+            Assert.NotEqual(b, fast);
         }
     }
 }

@@ -12,16 +12,16 @@ public class NameofTest
     {
         var local = 5;
         // Namespace
-        nameof(CSharp6).Should().Be("CSharp6");
+        Assert.Equal("CSharp6", nameof(CSharp6));
         // Class
-        nameof(NameofTest).Should().Be("NameofTest");
+        Assert.Equal("NameofTest", nameof(NameofTest));
         // Method
-        nameof(NameofTests).Should().Be("NameofTests");
+        Assert.Equal("NameofTests", nameof(NameofTests));
         // Field
-        nameof(_field).Should().Be("_field");
+        Assert.Equal ("_field", (nameof(_field)));
         // Property
-        nameof(Property).Should().Be("Property");
+        Assert.Equal("Property", nameof(Property));
         // Local
-        nameof(local).Should().Be("local");
+        Assert.Equal("local", nameof(local));
     }
 }

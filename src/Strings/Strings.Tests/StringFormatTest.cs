@@ -1,6 +1,6 @@
-using NonAllocs.Core;
+using Strings.Core;
 
-namespace NonAllocs.Tests;
+namespace Strings.Tests;
 
 public class StringFormatTest
 {
@@ -9,7 +9,7 @@ public class StringFormatTest
     {
         var formatter = new StringFormat();
         var datetime = DateTime.Now;
-        formatter.Composite(datetime, "foo", 100).Should().Be($"{datetime:t}: Hello, foo! I'll give you 100 apples.");
+        Assert.Equal($"{datetime:t}: Hello, foo! I'll give you 100 apples.", formatter.Composite(datetime, "foo", 100));
     }
 
     [Fact]
@@ -17,6 +17,6 @@ public class StringFormatTest
     {
         var formatter = new StringFormat();
         var datetime = DateTime.Now;
-        formatter.Format(datetime, "foo", 100).Should().Be($"{datetime:t}: Hello, foo! I'll give you 100 apples.");
+        Assert.Equal($"{datetime:t}: Hello, foo! I'll give you 100 apples.", formatter.Format(datetime, "foo", 100));
     }
 }
