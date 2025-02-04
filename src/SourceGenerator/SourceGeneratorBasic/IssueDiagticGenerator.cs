@@ -5,11 +5,11 @@ namespace SourceGeneratorBasic;
 
 // see: https://github.com/dotnet/roslyn/blob/main/docs/features/source-generators.cookbook.md#issue-diagnostics
 [Generator]
-public class IssueDiagticGenerator : ISourceGenerator
+public class IssueDiagticGenerator : IIncrementalGenerator
 {
     private static readonly DiagnosticDescriptor invalidXmlWarning = new DiagnosticDescriptor(id: Constants.ErrorId.InvalidXmlParsefailed, title: "Couldn't parse XML file", messageFormat: "Couldn't parse XML file '{0}'", category: "IssueDiagticGenerator", DiagnosticSeverity.Warning, isEnabledByDefault: true);
 
-    public void Initialize(GeneratorInitializationContext context)
+    public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         // No initialization required for this one
     }

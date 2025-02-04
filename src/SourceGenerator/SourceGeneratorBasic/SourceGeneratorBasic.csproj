@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+
+    <!-- Roslyn analyzer declaration -->
     <IsRoslynComponent>true</IsRoslynComponent>
     <LangVersion>latest</LangVersion>
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>

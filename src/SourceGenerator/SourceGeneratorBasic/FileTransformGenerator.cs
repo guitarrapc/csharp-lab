@@ -7,9 +7,9 @@ namespace SourceGeneratorBasic;
 
 // see: https://github.com/dotnet/roslyn/blob/main/docs/features/source-generators.cookbook.md#additional-file-transformation
 [Generator]
-public class FileTransformGenerator : ISourceGenerator
+public class FileTransformGenerator : IIncrementalGenerator
 {
-    public void Initialize(GeneratorInitializationContext context)
+    public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         // No initialization required for this one
     }

@@ -6,9 +6,9 @@ namespace SourceGeneratorBasic;
 
 // see: https://github.com/dotnet/roslyn/blob/main/docs/features/source-generators.cookbook.md#generated-class
 [Generator]
-public class CustomGenerator : ISourceGenerator
+public class CustomGenerator : IIncrementalGenerator
 {
-    public void Initialize(GeneratorInitializationContext context)
+    public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         // No initialization required for this one
     }

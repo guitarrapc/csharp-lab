@@ -4,9 +4,9 @@ namespace SourceGeneratorBasic;
 
 // see: https://docs.microsoft.com/ja-jp/dotnet/csharp/roslyn-sdk/source-generators-overview
 [Generator]
-public class HelloSourceGenerator : ISourceGenerator
+public class HelloSourceGenerator : IIncrementalGenerator
 {
-    public void Initialize(GeneratorInitializationContext context)
+    public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         // No initialization required for this one
     }

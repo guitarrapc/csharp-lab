@@ -56,7 +56,7 @@ public partial class UserClass : INotifyPropertyChanged
 // see: https://github.com/dotnet/roslyn/blob/main/docs/features/source-generators.cookbook.md#inotifypropertychanged
 // see detail: https://github.com/dotnet/roslyn-sdk/blob/df51b014fcb8c9e667a0b09a000f2050615f7afb/samples/CSharp/SourceGenerators/SourceGeneratorSamples/AutoNotifyGenerator.cs
 [Generator]
-public class MyAutoNotifyGenerator : ISourceGenerator
+public class MyAutoNotifyGenerator : IIncrementalGenerator
 {
     private const string namespaceString = "MyAutoNotify";
     private const string attributeName = namespaceString + "Attribute";
@@ -74,7 +74,7 @@ namespace {namespaceString}
 }}
 ";
 
-    public void Initialize(GeneratorInitializationContext context)
+    public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         // Register callback called right after Source Generator Initialization completed. Called Once only. Recomended to create Generator's attributes.
         context.RegisterForPostInitialization((i) => i.AddSource("MyAutoNotifyAttribute.g.cs", GeneratorHelper.ToLF(attributeSource)));

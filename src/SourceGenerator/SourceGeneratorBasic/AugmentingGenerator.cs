@@ -11,9 +11,9 @@ namespace SourceGeneratorBasic;
 /// Same as <see cref="AugmentingContextGenerator"/> but using ISyntaxReceiver.
 /// </summary>
 [Generator]
-public class AugmentingGenerator : ISourceGenerator
+public class AugmentingGenerator : IIncrementalGenerator
 {
-    public void Initialize(GeneratorInitializationContext context)
+    public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         // Register a factory that can create our custom syntax receiver
         context.RegisterForSyntaxNotifications(() => new MySyntaxReciever());
