@@ -12,17 +12,17 @@ WarmupCount=3
 ```
 | Method              | Number | Mean      | Error     | StdDev   | Min       | Max       | Gen0   | Allocated |
 |-------------------- |------- |----------:|----------:|---------:|----------:|----------:|-------:|----------:|
-| **FromPrefix**          | **1**      |  **26.37 ns** |  **3.511 ns** | **0.192 ns** |  **26.15 ns** |  **26.50 ns** | **0.0033** |      **56 B** |
-| FromCidrAddress     | 1      | 117.94 ns | 36.605 ns | 2.006 ns | 116.18 ns | 120.12 ns | 0.0067 |     112 B |
-| FromCidrAddress2    | 1      | 113.23 ns | 21.076 ns | 1.155 ns | 112.02 ns | 114.32 ns | 0.0067 |     112 B |
-| FromIPAddressString | 1      |  82.36 ns | 11.805 ns | 0.647 ns |  81.67 ns |  82.96 ns | 0.0033 |      56 B |
-| FromIPAddressType   | 1      |  42.29 ns |  5.611 ns | 0.308 ns |  42.08 ns |  42.64 ns | 0.0052 |      88 B |
-| GetNetworkAddress   | 1      |  40.21 ns |  5.781 ns | 0.317 ns |  39.86 ns |  40.46 ns | 0.0033 |      56 B |
-| GetAddressRange     | 1      | 117.76 ns | 29.243 ns | 1.603 ns | 115.93 ns | 118.92 ns | 0.0100 |     168 B |
-| **FromPrefix**          | **3**      |  **76.65 ns** | **12.212 ns** | **0.669 ns** |  **76.15 ns** |  **77.41 ns** | **0.0100** |     **168 B** |
-| FromCidrAddress     | 3      | 372.66 ns | 60.372 ns | 3.309 ns | 368.97 ns | 375.35 ns | 0.0200 |     336 B |
-| FromCidrAddress2    | 3      | 338.50 ns | 68.040 ns | 3.730 ns | 335.64 ns | 342.72 ns | 0.0200 |     336 B |
-| FromIPAddressString | 3      | 253.92 ns |  2.962 ns | 0.162 ns | 253.75 ns | 254.07 ns | 0.0100 |     168 B |
-| FromIPAddressType   | 3      | 128.30 ns | 48.351 ns | 2.650 ns | 125.84 ns | 131.11 ns | 0.0157 |     264 B |
-| GetNetworkAddress   | 3      | 120.15 ns | 26.793 ns | 1.469 ns | 118.87 ns | 121.75 ns | 0.0100 |     168 B |
-| GetAddressRange     | 3      | 365.25 ns | 60.642 ns | 3.324 ns | 361.72 ns | 368.32 ns | 0.0300 |     504 B |
+| **FromPrefix**          | **1**      |  **25.46 ns** |  **2.386 ns** | **0.131 ns** |  **25.37 ns** |  **25.61 ns** | **0.0033** |      **56 B** |
+| FromCidrAddress     | 1      | 114.16 ns | 11.212 ns | 0.615 ns | 113.71 ns | 114.86 ns | 0.0067 |     112 B |
+| FromCidrAddress2    | 1      | 112.25 ns | 20.029 ns | 1.098 ns | 111.22 ns | 113.41 ns | 0.0067 |     112 B |
+| FromIPAddressString | 1      |  81.89 ns |  6.693 ns | 0.367 ns |  81.65 ns |  82.31 ns | 0.0033 |      56 B |
+| FromIPAddressType   | 1      |  41.27 ns |  1.749 ns | 0.096 ns |  41.20 ns |  41.38 ns | 0.0052 |      88 B |
+| GetNetworkAddress   | 1      |  38.79 ns |  7.394 ns | 0.405 ns |  38.54 ns |  39.26 ns | 0.0033 |      56 B |
+| GetAddressRange     | 1      | 116.78 ns | 15.762 ns | 0.864 ns | 115.82 ns | 117.50 ns | 0.0100 |     168 B |
+| **FromPrefix**          | **3**      |  **75.06 ns** |  **1.097 ns** | **0.060 ns** |  **74.99 ns** |  **75.09 ns** | **0.0100** |     **168 B** |
+| FromCidrAddress     | 3      | 353.22 ns | 66.446 ns | 3.642 ns | 350.52 ns | 357.36 ns | 0.0200 |     336 B |
+| FromCidrAddress2    | 3      | 329.83 ns | 16.958 ns | 0.930 ns | 328.98 ns | 330.83 ns | 0.0200 |     336 B |
+| FromIPAddressString | 3      | 253.03 ns | 14.682 ns | 0.805 ns | 252.42 ns | 253.95 ns | 0.0100 |     168 B |
+| FromIPAddressType   | 3      | 123.29 ns |  7.946 ns | 0.436 ns | 122.92 ns | 123.77 ns | 0.0157 |     264 B |
+| GetNetworkAddress   | 3      | 115.86 ns |  3.504 ns | 0.192 ns | 115.67 ns | 116.05 ns | 0.0100 |     168 B |
+| GetAddressRange     | 3      | 335.28 ns | 68.030 ns | 3.729 ns | 331.13 ns | 338.36 ns | 0.0300 |     504 B |
