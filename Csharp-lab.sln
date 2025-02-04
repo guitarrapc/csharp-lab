@@ -146,6 +146,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisFailover.Managed", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisFailover.Direct", "src\Redis\RedisFailover.Direct\RedisFailover.Direct.csproj", "{99B26CD5-E8EF-430E-B0EA-DFDAAE9149DA}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "compose\docker-compose.dcproj", "{9CFEFF03-34D3-4F59-B6BD-213F20A96090}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -360,6 +362,10 @@ Global
 		{99B26CD5-E8EF-430E-B0EA-DFDAAE9149DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99B26CD5-E8EF-430E-B0EA-DFDAAE9149DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99B26CD5-E8EF-430E-B0EA-DFDAAE9149DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CFEFF03-34D3-4F59-B6BD-213F20A96090}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CFEFF03-34D3-4F59-B6BD-213F20A96090}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CFEFF03-34D3-4F59-B6BD-213F20A96090}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CFEFF03-34D3-4F59-B6BD-213F20A96090}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
