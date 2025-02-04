@@ -14,8 +14,8 @@ public class MemoryPackTest
             item.Initialize();
             var serialized = MemoryPackSerializer.Serialize(item);
             var deserialized = MemoryPackSerializer.Deserialize<HyperClass>(serialized);
-            item.Should().BeEquivalentTo(deserialized);
-            item.Should().NotBe(deserialized);
+            Assert.Equivalent(deserialized, item);
+            Assert.NotEqual(deserialized, item);
         }
 
         {
@@ -23,8 +23,8 @@ public class MemoryPackTest
             item.Initialize();
             var serialized = MemoryPackSerializer.Serialize(item);
             var deserialized = MemoryPackSerializer.Deserialize<MyClass>(serialized);
-            item.Should().BeEquivalentTo(deserialized);
-            item.Should().NotBe(deserialized);
+            Assert.Equivalent(deserialized, item);
+            Assert.NotEqual(deserialized, item);
         }
 
         // MemoryPack does not support Nested Class
@@ -33,8 +33,8 @@ public class MemoryPackTest
         //    item.Initialize();
         //    var serialized = MemoryPackSerializer.Serialize(item);
         //    var deserialized = MemoryPackSerializer.Deserialize<NestClass>(serialized);
-        //    item.Should().BeEquivalentTo(deserialized);
-        //    item.Should().NotBe(deserialized);
+        //    itemAssert.Equivalent(deserialized);
+        //    itemAssert.NotEqual(deserialized);
         //}
 
         {
@@ -42,8 +42,8 @@ public class MemoryPackTest
             item.Initialize();
             var serialized = MemoryPackSerializer.Serialize(item);
             var deserialized = MemoryPackSerializer.Deserialize<Primitives>(serialized);
-            item.Should().BeEquivalentTo(deserialized);
-            item.Should().NotBe(deserialized);
+            Assert.Equivalent(deserialized, item);
+            Assert.NotEqual(deserialized, item);
         }
     }
 
@@ -57,7 +57,7 @@ public class MemoryPackTest
             var s2 = JsonSerializer.Serialize(item, SourceGenerationJsonSerializerContext.Default.HyperClass);
             var d1 = MemoryPackSerializer.Deserialize<HyperClass>(s1);
             var d2 = JsonSerializer.Deserialize(s2, SourceGenerationJsonSerializerContext.Default.HyperClass);
-            d1.Should().BeEquivalentTo(d2);
+            Assert.Equivalent(d2, d1);
         }
 
         {
@@ -67,7 +67,7 @@ public class MemoryPackTest
             var s2 = JsonSerializer.Serialize(item, SourceGenerationJsonSerializerContext.Default.MyClass);
             var d1 = MemoryPackSerializer.Deserialize<MyClass>(s1);
             var d2 = JsonSerializer.Deserialize(s2, SourceGenerationJsonSerializerContext.Default.MyClass);
-            d1.Should().BeEquivalentTo(d2);
+            Assert.Equivalent(d2, d1);
         }
 
         // MemoryPack does not support Nested Class
@@ -78,7 +78,7 @@ public class MemoryPackTest
         //    var s2 = JsonSerializer.Serialize(item, SourceGenerationJsonSerializerContext.Default.NestClass);
         //    var d1 = MemoryPackSerializer.Deserialize<NestClass>(s1);
         //    var d2 = JsonSerializer.Deserialize(s2, SourceGenerationJsonSerializerContext.Default.NestClass);
-        //    d1.Should().BeEquivalentTo(d2);
+        //    Assert.Equivalent(d2, d1);
         //}
 
         {
@@ -88,7 +88,7 @@ public class MemoryPackTest
             var s2 = JsonSerializer.Serialize(item, SourceGenerationJsonSerializerContext.Default.Primitives);
             var d1 = MemoryPackSerializer.Deserialize<Primitives>(s1);
             var d2 = JsonSerializer.Deserialize(s2, SourceGenerationJsonSerializerContext.Default.Primitives);
-            d1.Should().BeEquivalentTo(d2);
+            Assert.Equivalent(d2, d1);
         }
     }
 }

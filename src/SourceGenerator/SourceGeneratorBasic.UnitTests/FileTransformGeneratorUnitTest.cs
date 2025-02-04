@@ -1,4 +1,3 @@
-using FluentAssertions;
 using Microsoft.CodeAnalysis.Text;
 using System.Text;
 using VerifyCS = SourceGeneratorBasic.UnitTests.CSharpSourceGeneratorVerifier<SourceGeneratorBasic.FileTransformGenerator>;
@@ -16,10 +15,10 @@ public class FileTransformGeneratorUnitTest
         using var workspace = new TemporaryWorkspace(TemporaryWorkspaceOptions.Default with
         {
             CleanupOnDispose = false,
-            AdditionalFilesReferences = new[]
-            {
+            AdditionalFilesReferences =
+            [
                 "Csharp.txt"
-            }
+            ]
         });
         workspace.AddFileToProject("UserClass.cs", @"
 namespace Foo
@@ -51,17 +50,17 @@ namespace FileGeneratedNamespace
         var compilation = workspace.CreateCompilation();
 
         // There are reference error before generator run
-        compilation.GetCompilationErrors().Should().NotBeEmpty();
+        Assert.NotEmpty(compilation.GetCompilationErrors());
 
         // Run Generator
         var driver = TestHelper.CreateDriver(workspace.GetAdditionalTexts(), new FileTransformGenerator());
         driver.RunGeneratorsAndUpdateCompilation(compilation, out var outputCompilation, out var diagnostics);
 
         // Generator must run without error
-        diagnostics.Should().BeEmpty();
+        Assert.Empty(diagnostics);
 
         // No Compilation error after generator
-        outputCompilation.GetCompilationErrors().Should().BeEmpty();
+        Assert.Empty(outputCompilation.GetCompilationErrors());
     }
 
     [Fact]

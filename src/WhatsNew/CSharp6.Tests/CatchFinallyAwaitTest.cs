@@ -17,13 +17,13 @@ public class CatchFinallyAwaitTest
         {
             await Task.Delay(1);
             x++;
-            x.Should().Be(1);
+            Assert.Equal(1, x);
         }
         finally
         {
             await Task.Delay(1);
             x++;
-            x.Should().Be(2);
+            Assert.Equal(2, x);
         }
     }
 }

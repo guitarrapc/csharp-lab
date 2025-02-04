@@ -11,7 +11,7 @@ public class ExpressionBodiesTest
         var result = p.Product(q);
         var result2 = p.ProductExpressionBody(q);
 
-        result.Should().Be(result2);
+        Assert.Equal(result2, result);
     }
 
     [Fact]
@@ -21,8 +21,8 @@ public class ExpressionBodiesTest
         var csharp5 = new PolygonCSharp5(points);
         var csharp6 = new PolygonCSharp6(points);
 
-        csharp5.Count.Should().Be(csharp6.Count);
-        csharp5[0].Should().BeEquivalentTo(csharp6[0]);
+        Assert.Equal(csharp6.Count, csharp5.Count);
+        Assert.Equal(csharp6[0], csharp5[0]);
     }
 
     public class Point

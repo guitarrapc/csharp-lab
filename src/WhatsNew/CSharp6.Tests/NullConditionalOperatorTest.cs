@@ -9,8 +9,8 @@ public class NullConditionalOperatorTest
         var s5 = SampleCsharp5.X(new SampleCsharp5());
         var s6 = SampleCsharp6.X(new SampleCsharp6());
 
-        s5.Should().BeNull();
-        s6.Should().BeNull();
+        Assert.Null(s5);
+        Assert.Null(s6);
     }
 
     public class SampleCsharp5

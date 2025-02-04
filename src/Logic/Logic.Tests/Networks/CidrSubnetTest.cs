@@ -24,7 +24,7 @@ public class CidrSubnetTest
     public void GetNthSubnetIPv6Test(string cidr, int newbits, int netnum, string expectedAddress)
     {
         var actual = CidrSubnet.GetNthSubnet(cidr, newbits, netnum);
-        actual.Should().Be(expectedAddress);
+        Assert.Equal(expectedAddress, actual);
     }
 
     [Theory]
@@ -43,7 +43,7 @@ public class CidrSubnetTest
     public void GetNthSubnetIPv4Test(string cidr, int newbits, int netnum, string expectedAddress)
     {
         var actual = CidrSubnet.GetNthSubnet(cidr, newbits, netnum);
-        actual.Should().Be(expectedAddress);
+        Assert.Equal(expectedAddress, actual);
     }
 
     // GetSubnetRangeSlow
@@ -181,8 +181,8 @@ public class CidrSubnetTest
     public void GetSubnetRangeIPv6Test(string cidr, string expectedStartAddress, string expectedEndAddress)
     {
         var (startAddress, endAddress) = CidrSubnet.GetSubnetRangeSlow(cidr);
-        startAddress.Should().Be(IPAddress.Parse(expectedStartAddress));
-        endAddress.Should().Be(IPAddress.Parse(expectedEndAddress));
+        Assert.Equal(IPAddress.Parse(expectedStartAddress), startAddress);
+        Assert.Equal(IPAddress.Parse(expectedEndAddress), endAddress);
     }
 
     // check with https://www.softel.co.jp/labs/tools/network/
@@ -215,8 +215,8 @@ public class CidrSubnetTest
     public void GetSubnetRangeIPv4Test(string cidr, string expectedStartAddress, string expectedEndAddress)
     {
         var (startAddress, endAddress) = CidrSubnet.GetSubnetRangeSlow(cidr);
-        startAddress.Should().Be(IPAddress.Parse(expectedStartAddress));
-        endAddress.Should().Be(IPAddress.Parse(expectedEndAddress));
+        Assert.Equal(IPAddress.Parse(expectedStartAddress), startAddress);
+        Assert.Equal(IPAddress.Parse(expectedEndAddress), endAddress);
     }
 
     [Fact]
@@ -236,13 +236,13 @@ public class CidrSubnetTest
             {
                 var (startAddress, endAddress) = CidrSubnet.GetSubnetRangeSlow(address, subnet);
                 var (startAddress2, endAddress2) = CidrSubnet.GetSubnetRangeSlow($"{address}/{subnet}");
-                startAddress.Should().Be(startAddress2);
-                endAddress.Should().Be(endAddress2);
+                Assert.Equal(startAddress2, startAddress);
+                Assert.Equal(endAddress2, endAddress);
 
                 var (startAddress3, endAddress3) = CidrSubnet.GetSubnetRange(address, subnet);
                 var (startAddress4, endAddress4) = CidrSubnet.GetSubnetRange($"{address}/{subnet}");
-                startAddress3.Should().Be(startAddress4);
-                endAddress3.Should().Be(endAddress4);
+                Assert.Equal(startAddress4, startAddress3);
+                Assert.Equal(endAddress4, endAddress3);
             }
         }
     }
@@ -263,13 +263,13 @@ public class CidrSubnetTest
             {
                 var (startAddress, endAddress) = CidrSubnet.GetSubnetRangeSlow(address, subnet);
                 var (startAddress2, endAddress2) = CidrSubnet.GetSubnetRangeSlow($"{address}/{subnet}");
-                startAddress.Should().Be(startAddress2);
-                endAddress.Should().Be(endAddress2);
+                Assert.Equal(startAddress2, startAddress);
+                Assert.Equal(endAddress2, endAddress);
 
                 var (startAddress3, endAddress3) = CidrSubnet.GetSubnetRange(address, subnet);
                 var (startAddress4, endAddress4) = CidrSubnet.GetSubnetRange($"{address}/{subnet}");
-                startAddress3.Should().Be(startAddress4);
-                endAddress3.Should().Be(endAddress4);
+                Assert.Equal(startAddress4, startAddress3);
+                Assert.Equal(endAddress4, endAddress3);
             }
         }
     }
@@ -291,8 +291,8 @@ public class CidrSubnetTest
             {
                 var (startAddress, endAddress) = CidrSubnet.GetSubnetRangeSlow(address, subnet);
                 var (startAddress2, endAddress2) = CidrSubnet.GetSubnetRange(address, subnet);
-                startAddress.Should().Be(startAddress2);
-                endAddress.Should().Be(endAddress2);
+                Assert.Equal(startAddress2, startAddress);
+                Assert.Equal(endAddress2, endAddress);
             }
         }
     }
@@ -313,8 +313,8 @@ public class CidrSubnetTest
             {
                 var (startAddress, endAddress) = CidrSubnet.GetSubnetRangeSlow(address, subnet);
                 var (startAddress2, endAddress2) = CidrSubnet.GetSubnetRange(address, subnet);
-                startAddress.Should().Be(startAddress2);
-                endAddress.Should().Be(endAddress2);
+                Assert.Equal(startAddress2, startAddress);
+                Assert.Equal(endAddress2, endAddress);
             }
         }
     }

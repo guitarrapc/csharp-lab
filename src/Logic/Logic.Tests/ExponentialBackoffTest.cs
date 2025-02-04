@@ -20,7 +20,7 @@ public class ExponentialBackoffTest
         {
             await backoff.DelayAsync(cts.Token);
             var actual = sw.Elapsed.TotalMilliseconds - prev;
-            (actual).Should().BeInRange(expected[i] - 5, expected[i] + offset);
+            Assert.InRange(actual, expected[i] - 5, expected[i] + offset);
             prev = sw.ElapsedMilliseconds;
         }
     }
@@ -39,7 +39,7 @@ public class ExponentialBackoffTest
         {
             await backoff.DelayAsync(cts.Token);
             var actual = sw.Elapsed.TotalMilliseconds - prev;
-            (actual).Should().BeInRange(expected[i] - 5, expected[i] + offset);
+            Assert.InRange(actual, expected[i] - 5, expected[i] + offset);
             prev = sw.ElapsedMilliseconds;
         }
     }

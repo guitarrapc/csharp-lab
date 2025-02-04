@@ -9,8 +9,8 @@ public class GetOnlyPropertyTest
         var p6auto = new PointCsharp6Auto();
         var p6 = new PointCsharp6(10, 20);
 
-        p5.Should().BeEquivalentTo(p6);
-        p6.Should().BeEquivalentTo(p6auto);
+        Assert.Equivalent(p6, p5);
+        Assert.Equivalent(p6auto, p6);
     }
 
     // Until C# 5, you need backing field.

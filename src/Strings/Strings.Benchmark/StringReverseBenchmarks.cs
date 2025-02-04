@@ -1,5 +1,5 @@
 using BenchmarkDotNet.Attributes;
-using NonAllocs.Core;
+using Strings.Core;
 
 namespace Strings.Benchmark;
 
