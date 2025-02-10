@@ -12,6 +12,6 @@ WarmupCount=3
 ```
 | Method                  | data                 | Mean      | Error     | StdDev   | Min       | Max       | Gen0   | Allocated |
 |------------------------ |--------------------- |----------:|----------:|---------:|----------:|----------:|-------:|----------:|
-| SystemTextJson          | Seria(...)tives [29] | 987.14 ns | 137.44 ns | 7.534 ns | 982.66 ns | 995.84 ns | 0.0267 |     464 B |
-| SystemTextJsonSourceGen | Seria(...)tives [29] | 883.87 ns |  20.07 ns | 1.100 ns | 882.75 ns | 884.94 ns | 0.0334 |     568 B |
-| MemoryPack              | Seria(...)tives [29] |  80.06 ns |  14.36 ns | 0.787 ns |  79.28 ns |  80.85 ns | 0.0072 |     120 B |
+| SystemTextJson          | Seria(...)tives [29] | 979.03 ns | 67.351 ns | 3.692 ns | 975.74 ns | 983.02 ns | 0.0267 |     464 B |
+| SystemTextJsonSourceGen | Seria(...)tives [29] | 924.18 ns | 88.523 ns | 4.852 ns | 918.65 ns | 927.70 ns | 0.0334 |     568 B |
+| MemoryPack              | Seria(...)tives [29] |  76.69 ns |  7.231 ns | 0.396 ns |  76.31 ns |  77.10 ns | 0.0072 |     120 B |
