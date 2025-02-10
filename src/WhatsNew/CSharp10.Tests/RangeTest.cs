@@ -7,7 +7,7 @@ public class RangeTest
     {
         IEnumerable<int> numbers = new int[] { 1, 2, 3, 4, 5 };
         IEnumerable<int> taken = numbers.Take(2..4);
-        Assert.Equivalent(new [] { 3, 4 }, taken);
+        Assert.Equivalent(new[] { 3, 4 }, taken);
 
         IEnumerable<int> taken2 = numbers.Take(..3);
         Assert.Equivalent(new[] { 1, 2, 3 }, taken2);
