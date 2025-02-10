@@ -18,7 +18,7 @@ public class NameofTest
         // Method
         Assert.Equal("NameofTests", nameof(NameofTests));
         // Field
-        Assert.Equal ("_field", (nameof(_field)));
+        Assert.Equal("_field", (nameof(_field)));
         // Property
         Assert.Equal("Property", nameof(Property));
         // Local
