@@ -1,9 +1,10 @@
-using BenchmarkDotNet.Attributes;
-using Logic.Core.Networks;
+﻿using Logic.Core.Networks;
 
 namespace Logic.Benchmark.Networks;
 
-[ShortRunJob]
+[HideColumns(Column.Job, Column.RatioSD, Column.AllocRatio)]
+[ShortRunJob(RuntimeMoniker.Net80)]
+[ShortRunJob(RuntimeMoniker.Net90)]
 [MemoryDiagnoser]
 [MinColumn, MaxColumn]
 public class CidrBlockv4Benchmarks

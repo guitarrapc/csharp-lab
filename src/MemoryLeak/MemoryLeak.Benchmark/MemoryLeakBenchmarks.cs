@@ -1,10 +1,10 @@
-using BenchmarkDotNet.Attributes;
-using MemoryLeak.Core;
+﻿using MemoryLeak.Core;
 using System.Buffers;
 
 namespace MemoryLeak.Benchmark;
 
-[ShortRunJob]
+[ShortRunJob(RuntimeMoniker.Net80)]
+[ShortRunJob(RuntimeMoniker.Net90)]
 [MemoryDiagnoser]
 [MinColumn, MaxColumn]
 public class MemoryLeakBenchmarks : IDisposable
@@ -92,7 +92,8 @@ public class MemoryLeakBenchmarks : IDisposable
     }
 }
 
-[ShortRunJob]
+[ShortRunJob(RuntimeMoniker.Net80)]
+[ShortRunJob(RuntimeMoniker.Net90)]
 [MemoryDiagnoser]
 [MinColumn, MaxColumn]
 public class NoAllocMemoryLeakBenchmarks

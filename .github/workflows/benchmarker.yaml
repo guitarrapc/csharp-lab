@@ -57,7 +57,7 @@ jobs:
       - name: Run benchmark
         if: ${{ steps.cpu.outputs.execute == 1 }}
         run: |
-          dotnet run --project ./${{ matrix.path }}/${{ matrix.project }}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
+          dotnet run --project ./${{ matrix.path }}/${{ matrix.project }}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }} --framework net9.0
           mkdir -p ${{ env.TEMP_UPLOAD_PATH }}/${{ matrix.path }}/${{ matrix.project }}
           while read -r file; do
             bench_name=$(echo "$file" | cut -d '/' -f 4 | cut -d '-' -f 1)

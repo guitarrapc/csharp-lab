@@ -1,11 +1,12 @@
-using BenchmarkDotNet.Attributes;
-using Serialization.Core;
+﻿using Serialization.Core;
 using System.ComponentModel;
 using System.Text.Json;
 
 namespace Serialization.Benchmark;
 
-[ShortRunJob]
+[HideColumns(Column.Job, Column.RatioSD, Column.AllocRatio)]
+[ShortRunJob(RuntimeMoniker.Net80)]
+[ShortRunJob(RuntimeMoniker.Net90)]
 [MemoryDiagnoser]
 [MinColumn, MaxColumn]
 [CategoriesColumn]

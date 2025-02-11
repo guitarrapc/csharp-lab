@@ -1,10 +1,11 @@
-using BenchmarkDotNet.Attributes;
-using LoggerDefault;
+﻿using LoggerDefault;
 using Microsoft.Extensions.Logging;
 
-namespace LoggerBenchmark;
+namespace Logger.Benchmark;
 
-[ShortRunJob]
+[HideColumns(Column.Job, Column.RatioSD, Column.AllocRatio)]
+[ShortRunJob(RuntimeMoniker.Net80)]
+[ShortRunJob(RuntimeMoniker.Net90)]
 [MemoryDiagnoser]
 [MinColumn, MaxColumn]
 public class LoggerBenchmarks
@@ -14,7 +15,7 @@ public class LoggerBenchmarks
     // Use FakeLogger instead of NullLogger to measure LogLevel difference.
     private readonly ILoggerFactory _loggerFactory = new FakeLoggerFactory(LogLevel.Information);
     private readonly ILogger<LoggerBenchmarks> _logger;
-    private readonly ILoggerAdapter<LoggerBenchmarks> _loggerAdapter;
+    private readonly LoggerAdapter<LoggerBenchmarks> _loggerAdapter;
 
     [Params(1, 3)]
     public int Number { get; set; }

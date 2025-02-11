@@ -1,8 +1,8 @@
-using BenchmarkDotNet.Attributes;
+﻿namespace Logic.Benchmark;
 
-namespace Logic.Benchmark;
-
-[ShortRunJob]
+[HideColumns(Column.Job, Column.RatioSD, Column.AllocRatio)]
+[ShortRunJob(RuntimeMoniker.Net80)]
+[ShortRunJob(RuntimeMoniker.Net90)]
 [MemoryDiagnoser]
 [MinColumn, MaxColumn]
 public class ValueStopwatchBenchmarks
