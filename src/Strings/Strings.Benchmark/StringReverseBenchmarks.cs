@@ -23,7 +23,7 @@ public class StringReverseBenchmarks
     }
 
     [Benchmark]
-    public async Task ArrayReverse()
+    public void ArrayReverse()
     {
         for (var i = 0; i < Number; i++)
         {
@@ -32,7 +32,7 @@ public class StringReverseBenchmarks
     }
 
     [Benchmark]
-    public async Task EnumerableReverse()
+    public void EnumerableReverse()
     {
         for (var i = 0; i < Number; i++)
         {
@@ -41,7 +41,7 @@ public class StringReverseBenchmarks
     }
 
     [Benchmark]
-    public async Task RecursiveReverse()
+    public void RecursiveReverse()
     {
         for (var i = 0; i < Number; i++)
         {
@@ -50,7 +50,7 @@ public class StringReverseBenchmarks
     }
 
     [Benchmark]
-    public async Task ReverseXor()
+    public void ReverseXor()
     {
         for (var i = 0; i < Number; i++)
         {
@@ -59,7 +59,7 @@ public class StringReverseBenchmarks
     }
 
     [Benchmark]
-    public async Task StackReverse()
+    public void StackReverse()
     {
         for (var i = 0; i < Number; i++)
         {
@@ -68,7 +68,7 @@ public class StringReverseBenchmarks
     }
 
     [Benchmark]
-    public async Task StringSpan()
+    public void StringSpan()
     {
         for (var i = 0; i < Number; i++)
         {
@@ -77,11 +77,21 @@ public class StringReverseBenchmarks
     }
 
     [Benchmark]
-    public async Task StringExtensionReverse()
+    public void StringExtensionReverse()
     {
         for (var i = 0; i < Number; i++)
         {
             StringReverse.StringExtensionReverse(_source!);
         }
+    }
+
+    [Benchmark]
+    public void TextElementEnumerator()
+    {
+        for (var i = 0; i < Number; i++)
+        {
+            StringReverse.TextElementEnumerator(_source!);
+        }
+
     }
 }
