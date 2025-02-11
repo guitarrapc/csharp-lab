@@ -31,5 +31,3 @@ jobs:
         run: dotnet build -c "${{ env.BUILD_CONFIG }}"
       - name: dotnet test
         run: dotnet test -c "${{ env.BUILD_CONFIG }}" --logger GitHubActions --logger "console;verbosity=normal"
-      - name: dotnet publish
-        run: dotnet publish -c "${{ env.BUILD_CONFIG }}" --framework net9.0
