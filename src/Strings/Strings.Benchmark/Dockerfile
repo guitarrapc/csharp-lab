@@ -17,12 +17,12 @@ COPY ["src/Strings/Strings.Core/Strings.Core.csproj", "src/Strings/Strings.Core/
 RUN dotnet restore "./src/Strings/Strings.Benchmark/Strings.Benchmark.csproj"
 COPY . .
 WORKDIR "/src/src/Strings/Strings.Benchmark"
-RUN dotnet build "./Strings.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./Strings.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/build -f net9.0
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Strings.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Strings.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false -f net9.0
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final

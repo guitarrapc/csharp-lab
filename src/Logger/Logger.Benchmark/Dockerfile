@@ -17,12 +17,12 @@ COPY ["src/Logger/LoggerDefault/LoggerDefault.csproj", "src/Logger/LoggerDefault
 RUN dotnet restore "./src/Logger/Logger.Benchmark/Logger.Benchmark.csproj"
 COPY . .
 WORKDIR "/src/src/Logger/Logger.Benchmark"
-RUN dotnet build "./Logger.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./Logger.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/build -f net9.0
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Logger.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Logger.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false -f net9.0
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final

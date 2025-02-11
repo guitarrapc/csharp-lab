@@ -17,12 +17,12 @@ COPY ["src/Serialization/Serialization.Core/Serialization.Core.csproj", "src/Ser
 RUN dotnet restore "./src/Serialization/Serialization.Benchmark/Serialization.Benchmark.csproj"
 COPY . .
 WORKDIR "/src/src/Serialization/Serialization.Benchmark"
-RUN dotnet build "./Serialization.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./Serialization.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/build -f net9.0
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Serialization.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Serialization.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false -f net9.0
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
