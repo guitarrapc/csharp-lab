@@ -10,6 +10,7 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+COPY --from=mcr.microsoft.com/dotnet/sdk:8.0 /usr/share/dotnet/sdk /usr/share/dotnet/sdk
 COPY ["Directory.Build.props", "src/Directory.Build.props"]
 COPY ["src/Serialization/Serialization.Benchmark/Serialization.Benchmark.csproj", "src/Serialization/Serialization.Benchmark/"]
 COPY ["src/Serialization/Serialization.Core/Serialization.Core.csproj", "src/Serialization/Serialization.Core/"]
