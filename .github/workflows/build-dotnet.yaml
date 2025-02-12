@@ -35,4 +35,4 @@ jobs:
       - name: dotnet build
         run: dotnet build -c "${{ env.BUILD_CONFIG }}"
       - name: dotnet test
-        run: dotnet test -c "${{ env.BUILD_CONFIG }}" --logger GitHubActions --logger "console;verbosity=normal"
+        run: dotnet test-rerun --deleteReports -c "${{ env.BUILD_CONFIG }}" --logger trx --logger GitHubActions --logger "console;verbosity=normal"
