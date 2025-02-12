@@ -32,7 +32,11 @@ jobs:
       - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
         with:
           restore-wasm-workload: true
+      - name: dotnet restore
+        run: |
+          dotnet restore
+          dotnet tool restore
       - name: dotnet build
         run: dotnet build -c "${{ env.BUILD_CONFIG }}"
       - name: dotnet test
-        run: dotnet test-rerun --deleteReports -c "${{ env.BUILD_CONFIG }}" --logger trx --logger GitHubActions --logger "console;verbosity=normal"
+        run: dotnet test-rerun --deleteReports --no-build -c "${{ env.BUILD_CONFIG }}" --logger trx --logger GitHubActions --logger "console;verbosity=normal"
