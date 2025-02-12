@@ -20,7 +20,16 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        runs-on:
+          - ubuntu-latest # x64
+          - windows-latest # x64
+          - ubuntu-24.04-arm # arm64
+          - macos-13 # Intel
+          - macos-latest # arm64
+    runs-on: ${{ matrix.runs-on }}
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
