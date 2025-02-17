@@ -12,27 +12,27 @@ IterationCount=3  LaunchCount=1  WarmupCount=3
 ```
 | Method                                     | Runtime  | Number | Mean      | Error     | StdDev   | Min       | Max       | Gen0   | Allocated |
 |------------------------------------------- |--------- |------- |----------:|----------:|---------:|----------:|----------:|-------:|----------:|
-| **LogWithoutIfParams**                         | **.NET 8.0** | **1**      |  **60.97 ns** |  **6.868 ns** | **0.376 ns** |  **60.74 ns** |  **61.41 ns** | **0.0052** |      **88 B** |
-| LogWithIfParams                            | .NET 8.0 | 1      |  59.87 ns |  5.737 ns | 0.314 ns |  59.52 ns |  60.13 ns | 0.0052 |      88 B |
-| LogAdapterWithoutIfParams                  | .NET 8.0 | 1      |  61.78 ns | 42.777 ns | 2.345 ns |  60.34 ns |  64.49 ns | 0.0052 |      88 B |
-| LogDefineWithoutIfParams                   | .NET 8.0 | 1      |  19.92 ns |  1.405 ns | 0.077 ns |  19.87 ns |  20.01 ns |      - |         - |
-| LogSourceGenWithoutIfParams                | .NET 8.0 | 1      |  20.03 ns |  4.144 ns | 0.227 ns |  19.90 ns |  20.29 ns |      - |         - |
-| LogSourceGenSkipEnableCheckWithoutIfParams | .NET 8.0 | 1      |  19.36 ns |  0.673 ns | 0.037 ns |  19.33 ns |  19.40 ns |      - |         - |
-| LogWithoutIfParams                         | .NET 9.0 | 1      |  58.21 ns | 19.184 ns | 1.052 ns |  57.34 ns |  59.38 ns | 0.0052 |      88 B |
-| LogWithIfParams                            | .NET 9.0 | 1      |  58.19 ns |  4.440 ns | 0.243 ns |  57.99 ns |  58.46 ns | 0.0052 |      88 B |
-| LogAdapterWithoutIfParams                  | .NET 9.0 | 1      |  58.71 ns |  2.584 ns | 0.142 ns |  58.61 ns |  58.87 ns | 0.0052 |      88 B |
-| LogDefineWithoutIfParams                   | .NET 9.0 | 1      |  20.02 ns |  1.225 ns | 0.067 ns |  19.98 ns |  20.10 ns |      - |         - |
-| LogSourceGenWithoutIfParams                | .NET 9.0 | 1      |  20.16 ns |  1.635 ns | 0.090 ns |  20.11 ns |  20.27 ns |      - |         - |
-| LogSourceGenSkipEnableCheckWithoutIfParams | .NET 9.0 | 1      |  19.32 ns |  1.774 ns | 0.097 ns |  19.26 ns |  19.43 ns |      - |         - |
-| **LogWithoutIfParams**                         | **.NET 8.0** | **3**      | **183.96 ns** | **10.536 ns** | **0.578 ns** | **183.44 ns** | **184.58 ns** | **0.0157** |     **264 B** |
-| LogWithIfParams                            | .NET 8.0 | 3      | 182.14 ns | 50.026 ns | 2.742 ns | 179.75 ns | 185.14 ns | 0.0157 |     264 B |
-| LogAdapterWithoutIfParams                  | .NET 8.0 | 3      | 175.83 ns | 17.956 ns | 0.984 ns | 175.04 ns | 176.94 ns | 0.0157 |     264 B |
-| LogDefineWithoutIfParams                   | .NET 8.0 | 3      |  59.19 ns |  0.170 ns | 0.009 ns |  59.19 ns |  59.20 ns |      - |         - |
-| LogSourceGenWithoutIfParams                | .NET 8.0 | 3      |  58.63 ns |  3.426 ns | 0.188 ns |  58.51 ns |  58.85 ns |      - |         - |
-| LogSourceGenSkipEnableCheckWithoutIfParams | .NET 8.0 | 3      |  58.07 ns |  0.442 ns | 0.024 ns |  58.05 ns |  58.09 ns |      - |         - |
-| LogWithoutIfParams                         | .NET 9.0 | 3      | 176.17 ns | 12.954 ns | 0.710 ns | 175.54 ns | 176.94 ns | 0.0157 |     264 B |
-| LogWithIfParams                            | .NET 9.0 | 3      | 174.68 ns | 20.078 ns | 1.101 ns | 173.64 ns | 175.84 ns | 0.0157 |     264 B |
-| LogAdapterWithoutIfParams                  | .NET 9.0 | 3      | 178.53 ns |  6.724 ns | 0.369 ns | 178.31 ns | 178.95 ns | 0.0157 |     264 B |
-| LogDefineWithoutIfParams                   | .NET 9.0 | 3      |  59.57 ns |  8.075 ns | 0.443 ns |  59.29 ns |  60.08 ns |      - |         - |
-| LogSourceGenWithoutIfParams                | .NET 9.0 | 3      |  58.35 ns |  3.757 ns | 0.206 ns |  58.21 ns |  58.59 ns |      - |         - |
-| LogSourceGenSkipEnableCheckWithoutIfParams | .NET 9.0 | 3      |  57.06 ns |  1.190 ns | 0.065 ns |  57.00 ns |  57.13 ns |      - |         - |
+| **LogWithoutIfParams**                         | **.NET 8.0** | **1**      |  **60.28 ns** |  **2.373 ns** | **0.130 ns** |  **60.18 ns** |  **60.43 ns** | **0.0052** |      **88 B** |
+| LogWithIfParams                            | .NET 8.0 | 1      |  59.50 ns | 11.309 ns | 0.620 ns |  58.89 ns |  60.13 ns | 0.0052 |      88 B |
+| LogAdapterWithoutIfParams                  | .NET 8.0 | 1      |  61.24 ns | 33.879 ns | 1.857 ns |  60.07 ns |  63.38 ns | 0.0052 |      88 B |
+| LogDefineWithoutIfParams                   | .NET 8.0 | 1      |  19.93 ns |  0.738 ns | 0.040 ns |  19.91 ns |  19.98 ns |      - |         - |
+| LogSourceGenWithoutIfParams                | .NET 8.0 | 1      |  20.38 ns | 13.894 ns | 0.762 ns |  19.91 ns |  21.26 ns |      - |         - |
+| LogSourceGenSkipEnableCheckWithoutIfParams | .NET 8.0 | 1      |  19.35 ns |  0.640 ns | 0.035 ns |  19.32 ns |  19.38 ns |      - |         - |
+| LogWithoutIfParams                         | .NET 9.0 | 1      |  57.09 ns |  4.786 ns | 0.262 ns |  56.79 ns |  57.28 ns | 0.0052 |      88 B |
+| LogWithIfParams                            | .NET 9.0 | 1      |  58.60 ns |  4.623 ns | 0.253 ns |  58.33 ns |  58.83 ns | 0.0052 |      88 B |
+| LogAdapterWithoutIfParams                  | .NET 9.0 | 1      |  57.99 ns |  3.562 ns | 0.195 ns |  57.78 ns |  58.16 ns | 0.0052 |      88 B |
+| LogDefineWithoutIfParams                   | .NET 9.0 | 1      |  19.95 ns |  1.869 ns | 0.102 ns |  19.85 ns |  20.05 ns |      - |         - |
+| LogSourceGenWithoutIfParams                | .NET 9.0 | 1      |  20.13 ns |  0.797 ns | 0.044 ns |  20.10 ns |  20.18 ns |      - |         - |
+| LogSourceGenSkipEnableCheckWithoutIfParams | .NET 9.0 | 1      |  19.61 ns | 10.638 ns | 0.583 ns |  19.27 ns |  20.29 ns |      - |         - |
+| **LogWithoutIfParams**                         | **.NET 8.0** | **3**      | **178.34 ns** |  **8.515 ns** | **0.467 ns** | **177.96 ns** | **178.86 ns** | **0.0157** |     **264 B** |
+| LogWithIfParams                            | .NET 8.0 | 3      | 176.83 ns |  5.650 ns | 0.310 ns | 176.60 ns | 177.18 ns | 0.0157 |     264 B |
+| LogAdapterWithoutIfParams                  | .NET 8.0 | 3      | 179.91 ns | 14.894 ns | 0.816 ns | 178.99 ns | 180.55 ns | 0.0157 |     264 B |
+| LogDefineWithoutIfParams                   | .NET 8.0 | 3      |  59.54 ns |  0.092 ns | 0.005 ns |  59.53 ns |  59.54 ns |      - |         - |
+| LogSourceGenWithoutIfParams                | .NET 8.0 | 3      |  58.78 ns |  6.834 ns | 0.375 ns |  58.56 ns |  59.21 ns |      - |         - |
+| LogSourceGenSkipEnableCheckWithoutIfParams | .NET 8.0 | 3      |  58.41 ns |  7.936 ns | 0.435 ns |  58.06 ns |  58.90 ns |      - |         - |
+| LogWithoutIfParams                         | .NET 9.0 | 3      | 171.49 ns | 26.196 ns | 1.436 ns | 169.83 ns | 172.36 ns | 0.0157 |     264 B |
+| LogWithIfParams                            | .NET 9.0 | 3      | 174.41 ns | 24.927 ns | 1.366 ns | 173.37 ns | 175.96 ns | 0.0157 |     264 B |
+| LogAdapterWithoutIfParams                  | .NET 9.0 | 3      | 176.89 ns | 32.441 ns | 1.778 ns | 174.85 ns | 178.11 ns | 0.0157 |     264 B |
+| LogDefineWithoutIfParams                   | .NET 9.0 | 3      |  59.62 ns |  2.671 ns | 0.146 ns |  59.47 ns |  59.77 ns |      - |         - |
+| LogSourceGenWithoutIfParams                | .NET 9.0 | 3      |  58.97 ns |  1.908 ns | 0.105 ns |  58.90 ns |  59.09 ns |      - |         - |
+| LogSourceGenSkipEnableCheckWithoutIfParams | .NET 9.0 | 3      |  59.48 ns |  5.721 ns | 0.314 ns |  59.25 ns |  59.84 ns |      - |         - |
