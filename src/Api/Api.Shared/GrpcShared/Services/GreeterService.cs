@@ -1,4 +1,4 @@
-using Grpc.Core;
+﻿using Grpc.Core;
 
 #pragma warning disable IDE0005 // Using directive is unnecessary.
 using Microsoft.Extensions.Logging;

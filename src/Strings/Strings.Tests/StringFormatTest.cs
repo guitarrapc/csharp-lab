@@ -1,4 +1,4 @@
-using Strings.Core;
+﻿using Strings.Core;
 
 namespace Strings.Tests;
 

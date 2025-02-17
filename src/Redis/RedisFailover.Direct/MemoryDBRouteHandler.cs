@@ -1,4 +1,4 @@
-using RedisFailover.Direct.Infrastructures;
+﻿using RedisFailover.Direct.Infrastructures;
 using StackExchange.Redis;
 
 namespace RedisFailover.Direct;

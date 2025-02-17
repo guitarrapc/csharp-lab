@@ -1,4 +1,4 @@
-namespace SourceGeneratorBasic;
+﻿namespace SourceGeneratorBasic;
 public static class Constants
 {
     public static class ErrorId

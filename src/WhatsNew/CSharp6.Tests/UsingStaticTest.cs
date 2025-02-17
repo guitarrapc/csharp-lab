@@ -1,4 +1,4 @@
-// C#6 introduce using static. Now you can call static member without class.
+﻿// C#6 introduce using static. Now you can call static member without class.
 using static System.Math;
 
 namespace CSharp6.Tests;

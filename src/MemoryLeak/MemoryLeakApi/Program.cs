@@ -1,4 +1,4 @@
-using MemoryLeak.Core;
+﻿using MemoryLeak.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 

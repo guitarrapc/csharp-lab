@@ -1,4 +1,4 @@
-namespace Api.Shared.GrpcShared.Infrastructures;
+﻿namespace Api.Shared.GrpcShared.Infrastructures;
 
 public static class Constants
 {

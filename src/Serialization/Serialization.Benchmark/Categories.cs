@@ -1,4 +1,4 @@
-namespace Serialization.Benchmark;
+﻿namespace Serialization.Benchmark;
 
 public class Categories
 {

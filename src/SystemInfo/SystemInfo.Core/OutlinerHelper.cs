@@ -1,4 +1,4 @@
-namespace SystemInfo.Core;
+﻿namespace SystemInfo.Core;
 
 public static class OutlinerHelper
 {

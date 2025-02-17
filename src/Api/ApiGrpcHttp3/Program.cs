@@ -1,4 +1,4 @@
-using Api.Shared.GrpcShared.Infrastructures;
+﻿using Api.Shared.GrpcShared.Infrastructures;
 using Api.Shared.GrpcShared.Services;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 

@@ -1,4 +1,4 @@
-namespace TutorialConsoleApp;
+﻿namespace TutorialConsoleApp;
 
 public static class AppThreadPool
 {

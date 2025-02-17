@@ -1,4 +1,4 @@
-namespace Logic.Benchmark;
+﻿namespace Logic.Benchmark;
 
 public class HashCategories
 {

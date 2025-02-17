@@ -1,4 +1,4 @@
-using StackExchange.Redis;
+﻿using StackExchange.Redis;
 using StackExchange.Redis.KeyspaceIsolation;
 using System.Reflection;
 using System.Security.Cryptography;

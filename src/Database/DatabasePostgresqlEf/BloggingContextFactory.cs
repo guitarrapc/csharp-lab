@@ -1,4 +1,4 @@
-using DatabaseCore.Models;
+﻿using DatabaseCore.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;

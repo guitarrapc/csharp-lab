@@ -1,4 +1,4 @@
-using Api.Shared.ApiShared.Infrastructures;
+﻿using Api.Shared.ApiShared.Infrastructures;
 
 var builder = WebApplication.CreateBuilder(args);
 
