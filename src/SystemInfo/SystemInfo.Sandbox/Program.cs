@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using SystemInfo.Core;
 
 var round = 3;

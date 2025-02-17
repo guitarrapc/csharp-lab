@@ -1,4 +1,4 @@
-using MemoryPack;
+﻿using MemoryPack;
 using Serialization.Core;
 using System.Text.Json;
 

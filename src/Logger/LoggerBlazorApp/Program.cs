@@ -1,4 +1,4 @@
-using LoggerBlazorApp.Data;
+﻿using LoggerBlazorApp.Data;
 using LoggerBlazorApp.Middlewares;
 using System.Net.Sockets;
 using ZLogger;

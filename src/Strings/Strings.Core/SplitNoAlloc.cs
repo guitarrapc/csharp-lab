@@ -1,4 +1,4 @@
-namespace Strings.Core;
+﻿namespace Strings.Core;
 
 public static class StringExtensions
 {

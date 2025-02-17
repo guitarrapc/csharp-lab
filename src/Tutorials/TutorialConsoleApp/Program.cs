@@ -1,4 +1,4 @@
-using TutorialConsoleApp;
+﻿using TutorialConsoleApp;
 
 // ThreadPool
 Console.WriteLine("# STEP1. ThreadPool configuration.");

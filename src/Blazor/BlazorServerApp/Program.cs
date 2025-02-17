@@ -1,4 +1,4 @@
-using BlazorServerApp.Data;
+﻿using BlazorServerApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,4 +1,4 @@
-namespace WpfLibrary;
+﻿namespace WpfLibrary;
 public class Class1
 {
 }

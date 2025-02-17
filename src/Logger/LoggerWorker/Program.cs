@@ -1,4 +1,4 @@
-using LoggerWorker;
+﻿using LoggerWorker;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>

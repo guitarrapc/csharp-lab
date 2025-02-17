@@ -1,4 +1,4 @@
-namespace Serialization.Core;
+﻿namespace Serialization.Core;
 
 // MemoryPack does not support Nest Class
 public partial class NestClass

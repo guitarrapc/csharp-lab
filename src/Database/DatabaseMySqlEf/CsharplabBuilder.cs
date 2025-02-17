@@ -1,4 +1,4 @@
-using DatabaseCore.Models;
+﻿using DatabaseCore.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,4 +1,4 @@
-using Logic.Core;
+﻿using Logic.Core;
 
 namespace Logic.Tests;
 

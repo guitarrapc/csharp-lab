@@ -1,4 +1,4 @@
-using Grpc.Core;
+﻿using Grpc.Core;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 #pragma warning disable IDE0005 // Using directive is unnecessary.

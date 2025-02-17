@@ -1,4 +1,4 @@
-namespace MemoryLeak.Core;
+﻿namespace MemoryLeak.Core;
 
 public class RequestCountHandler
 {

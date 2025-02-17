@@ -1,4 +1,4 @@
-namespace CSharp6.Tests;
+﻿namespace CSharp6.Tests;
 
 public class ExpressionBodiesTest
 {

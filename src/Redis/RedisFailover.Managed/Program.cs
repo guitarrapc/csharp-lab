@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Caching.Distributed;
+﻿using Microsoft.Extensions.Caching.Distributed;
 using RedisFailover.Managed.Infrastructures;
 using StackExchange.Redis;
 

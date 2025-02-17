@@ -1,4 +1,4 @@
-namespace RedisFailover.Direct.Infrastructures;
+﻿namespace RedisFailover.Direct.Infrastructures;
 
 public static class RedisConnectionContextExtentions
 {

@@ -1,4 +1,4 @@
-namespace CSharp10.Tests;
+﻿namespace CSharp10.Tests;
 
 public class RangeTest
 {

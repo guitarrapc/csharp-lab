@@ -1,4 +1,4 @@
-namespace BlazorServerIPBlockApp.Data;
+﻿namespace BlazorServerIPBlockApp.Data;
 
 public class WeatherForecast
 {

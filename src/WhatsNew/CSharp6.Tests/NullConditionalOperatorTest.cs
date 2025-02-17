@@ -1,4 +1,4 @@
-#nullable disable
+﻿#nullable disable
 namespace CSharp6.Tests;
 
 public class NullConditionalOperatorTest

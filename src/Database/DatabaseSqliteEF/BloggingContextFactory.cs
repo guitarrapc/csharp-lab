@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore.Design;
+﻿using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore;
 using DatabaseCore.Models;
 using System.Reflection;

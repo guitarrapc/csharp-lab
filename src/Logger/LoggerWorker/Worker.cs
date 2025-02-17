@@ -1,4 +1,4 @@
-namespace LoggerWorker;
+﻿namespace LoggerWorker;
 
 public class Worker : BackgroundService
 {

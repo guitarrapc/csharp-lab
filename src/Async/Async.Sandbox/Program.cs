@@ -1,4 +1,4 @@
-using Async.Core;
+﻿using Async.Core;
 
 const string url = "https://httpbin.org/get";
 var delay = TimeSpan.FromMilliseconds(1000);

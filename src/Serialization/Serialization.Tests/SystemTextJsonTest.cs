@@ -1,4 +1,4 @@
-using Serialization.Core;
+﻿using Serialization.Core;
 using System.Text.Json;
 
 namespace Serialization.Tests;

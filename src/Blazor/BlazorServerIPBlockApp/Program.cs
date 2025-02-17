@@ -1,4 +1,4 @@
-using BlazorServerIPBlockApp.Data;
+﻿using BlazorServerIPBlockApp.Data;
 using BlazorServerIPBlockApp.Middlewares;
 using Microsoft.AspNetCore.HttpOverrides;
 

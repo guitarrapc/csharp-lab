@@ -1,4 +1,4 @@
-using DatabaseCore.Models;
+﻿using DatabaseCore.Models;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

@@ -1,4 +1,4 @@
-using Logic.Core.Networks;
+﻿using Logic.Core.Networks;
 
 namespace Logic.Tests.Networks;
 

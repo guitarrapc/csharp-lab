@@ -1,4 +1,4 @@
-namespace Async.Core;
+﻿namespace Async.Core;
 
 public class MyClient(HttpClient httpClient)
 {

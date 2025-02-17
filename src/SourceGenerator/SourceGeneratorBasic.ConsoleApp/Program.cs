@@ -1,4 +1,4 @@
-namespace SourceGeneratorBasic.ConsoleApp;
+﻿namespace SourceGeneratorBasic.ConsoleApp;
 
 partial class Program
 {

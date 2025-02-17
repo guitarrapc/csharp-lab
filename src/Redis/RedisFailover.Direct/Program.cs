@@ -1,4 +1,4 @@
-using RedisFailover.Direct;
+﻿using RedisFailover.Direct;
 using RedisFailover.Direct.Infrastructures;
 
 // Redis failedover handling with StackExchange.Redis ConnectionFailed.

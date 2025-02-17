@@ -1,4 +1,4 @@
-using Async.Core;
+﻿using Async.Core;
 
 namespace Async.Tests;
 

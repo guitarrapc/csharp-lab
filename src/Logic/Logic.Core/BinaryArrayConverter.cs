@@ -1,4 +1,4 @@
-namespace Logic.Core;
+﻿namespace Logic.Core;
 
 public class BinaryArrayConverter
 {

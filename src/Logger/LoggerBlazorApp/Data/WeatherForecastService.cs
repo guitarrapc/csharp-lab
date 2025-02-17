@@ -1,4 +1,4 @@
-namespace LoggerBlazorApp.Data;
+﻿namespace LoggerBlazorApp.Data;
 
 public class WeatherForecastService
 {
