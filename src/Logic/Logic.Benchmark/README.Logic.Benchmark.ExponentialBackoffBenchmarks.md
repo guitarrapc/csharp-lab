@@ -12,7 +12,7 @@ IterationCount=3  LaunchCount=1  WarmupCount=3
 ```
 | Method             | Runtime  | Number | Mean      | Error     | StdDev   | Min       | Max       | Allocated |
 |------------------- |--------- |------- |----------:|----------:|---------:|----------:|----------:|----------:|
-| **ExponentialBackoff** | **.NET 8.0** | **1**      |  **10.23 ms** |  **0.495 ms** | **0.027 ms** |  **10.20 ms** |  **10.26 ms** |     **520 B** |
-| ExponentialBackoff | .NET 9.0 | 1      |  10.24 ms |  0.061 ms | 0.003 ms |  10.23 ms |  10.24 ms |     520 B |
-| **ExponentialBackoff** | **.NET 8.0** | **10**     | **752.53 ms** | **12.473 ms** | **0.684 ms** | **752.00 ms** | **753.30 ms** |    **4120 B** |
-| ExponentialBackoff | .NET 9.0 | 10     | 752.33 ms | 12.598 ms | 0.691 ms | 751.92 ms | 753.13 ms |    4120 B |
+| **ExponentialBackoff** | **.NET 8.0** | **1**      |  **10.24 ms** |  **0.408 ms** | **0.022 ms** |  **10.22 ms** |  **10.27 ms** |     **520 B** |
+| ExponentialBackoff | .NET 9.0 | 1      |  10.22 ms |  0.342 ms | 0.019 ms |  10.21 ms |  10.24 ms |     520 B |
+| **ExponentialBackoff** | **.NET 8.0** | **10**     | **751.77 ms** |  **1.956 ms** | **0.107 ms** | **751.65 ms** | **751.87 ms** |    **4120 B** |
+| ExponentialBackoff | .NET 9.0 | 10     | 752.08 ms | 12.218 ms | 0.670 ms | 751.65 ms | 752.86 ms |    4120 B |
