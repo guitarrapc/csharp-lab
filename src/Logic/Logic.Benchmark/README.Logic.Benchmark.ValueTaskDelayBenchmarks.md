@@ -12,7 +12,7 @@ IterationCount=3  LaunchCount=1  WarmupCount=3
 ```
 | Method         | Runtime  | Number | Mean     | Error    | StdDev   | Min      | Max      | Allocated |
 |--------------- |--------- |------- |---------:|---------:|---------:|---------:|---------:|----------:|
-| TaskDelay      | .NET 8.0 | 1      | 10.19 ms | 0.061 ms | 0.003 ms | 10.18 ms | 10.19 ms |     352 B |
-| ValueTaskDelay | .NET 8.0 | 1      | 10.14 ms | 0.149 ms | 0.008 ms | 10.13 ms | 10.14 ms |     128 B |
-| TaskDelay      | .NET 9.0 | 1      | 10.18 ms | 0.052 ms | 0.003 ms | 10.18 ms | 10.19 ms |     352 B |
-| ValueTaskDelay | .NET 9.0 | 1      | 10.13 ms | 0.151 ms | 0.008 ms | 10.13 ms | 10.14 ms |     128 B |
+| TaskDelay      | .NET 8.0 | 1      | 10.21 ms | 0.729 ms | 0.040 ms | 10.16 ms | 10.24 ms |     352 B |
+| ValueTaskDelay | .NET 8.0 | 1      | 10.16 ms | 0.186 ms | 0.010 ms | 10.15 ms | 10.17 ms |     128 B |
+| TaskDelay      | .NET 9.0 | 1      | 10.19 ms | 0.148 ms | 0.008 ms | 10.18 ms | 10.20 ms |     352 B |
+| ValueTaskDelay | .NET 9.0 | 1      | 10.14 ms | 0.193 ms | 0.011 ms | 10.14 ms | 10.15 ms |     128 B |

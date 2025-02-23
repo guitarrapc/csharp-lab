@@ -12,9 +12,9 @@ IterationCount=3  LaunchCount=1  WarmupCount=3
 ```
 | Method                  | Runtime  | data                 | Mean        | Error     | StdDev   | Min         | Max         | Gen0   | Allocated |
 |------------------------ |--------- |--------------------- |------------:|----------:|---------:|------------:|------------:|-------:|----------:|
-| SystemTextJson          | .NET 8.0 | Seria(...)tives [29] | 1,007.67 ns | 38.356 ns | 2.102 ns | 1,006.03 ns | 1,010.04 ns | 0.0267 |     464 B |
-| SystemTextJsonSourceGen | .NET 8.0 | Seria(...)tives [29] |   907.07 ns | 13.774 ns | 0.755 ns |   906.20 ns |   907.55 ns | 0.0334 |     568 B |
-| MemoryPack              | .NET 8.0 | Seria(...)tives [29] |    91.03 ns |  6.680 ns | 0.366 ns |    90.70 ns |    91.43 ns | 0.0072 |     120 B |
-| SystemTextJson          | .NET 9.0 | Seria(...)tives [29] |   976.67 ns | 31.841 ns | 1.745 ns |   975.46 ns |   978.67 ns | 0.0267 |     464 B |
-| SystemTextJsonSourceGen | .NET 9.0 | Seria(...)tives [29] |   870.94 ns | 48.608 ns | 2.664 ns |   868.91 ns |   873.96 ns | 0.0334 |     568 B |
-| MemoryPack              | .NET 9.0 | Seria(...)tives [29] |    76.65 ns |  7.486 ns | 0.410 ns |    76.27 ns |    77.09 ns | 0.0072 |     120 B |
+| SystemTextJson          | .NET 8.0 | Seria(...)tives [29] | 1,008.20 ns | 42.215 ns | 2.314 ns | 1,005.84 ns | 1,010.47 ns | 0.0267 |     464 B |
+| SystemTextJsonSourceGen | .NET 8.0 | Seria(...)tives [29] |   937.04 ns | 52.866 ns | 2.898 ns |   934.49 ns |   940.19 ns | 0.0334 |     568 B |
+| MemoryPack              | .NET 8.0 | Seria(...)tives [29] |    90.84 ns | 12.591 ns | 0.690 ns |    90.04 ns |    91.27 ns | 0.0072 |     120 B |
+| SystemTextJson          | .NET 9.0 | Seria(...)tives [29] |   952.27 ns | 31.684 ns | 1.737 ns |   951.19 ns |   954.28 ns | 0.0267 |     464 B |
+| SystemTextJsonSourceGen | .NET 9.0 | Seria(...)tives [29] |   863.88 ns | 22.210 ns | 1.217 ns |   862.77 ns |   865.18 ns | 0.0334 |     568 B |
+| MemoryPack              | .NET 9.0 | Seria(...)tives [29] |    76.01 ns |  5.590 ns | 0.306 ns |    75.67 ns |    76.27 ns | 0.0072 |     120 B |
