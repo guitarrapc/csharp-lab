@@ -94,7 +94,6 @@ public static class CidrMergerv4
         MemoryMarshal.Write(bytes, in ipUint);
         if (BitConverter.IsLittleEndian)
             bytes.Reverse();
-        // Use the ReadOnlySpan<byte> constructor available in .NET Core 3.0+/.NET 5+
         return new IPAddress(bytes);
     }
 
