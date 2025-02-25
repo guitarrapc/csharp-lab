@@ -5,17 +5,10 @@ namespace Logic.Core.Networks;
 
 public static class CidrMergerv4
 {
-    // Represents an IPv4 address range.
-    public struct IPRange
-    {
-        public uint Start;
-        public uint End;
-    }
-
     /// <summary>
     /// Aggregates a list of CIDR blocks into the smallest possible list of CIDR blocks.
     /// </summary>
-    /// <param name="cidrs"></param>
+    /// <param name="cidrs">IPv4 CIDRs. e.g., 192.168.0.0/24</param>
     /// <returns></returns>
     public static List<string> Aggregate(IEnumerable<string> cidrs)
     {
@@ -56,7 +49,12 @@ public static class CidrMergerv4
         return resultCIDRs;
     }
 
-    // Parses a CIDR string (e.g., "192.168.0.0/24") into an IPRange.
+    /// <summary>
+    /// Parses a CIDR string (e.g., "192.168.0.0/24") into an IPRange.
+    /// </summary>
+    /// <param name="cidr"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
     private static IPRange ParseCIDR(string cidr)
     {
         var parts = cidr.Split('/');
@@ -74,11 +72,15 @@ public static class CidrMergerv4
         return new IPRange { Start = network, End = broadcast };
     }
 
-    // Converts an IPAddress to a 32-bit unsigned integer using Span.
+    /// <summary>
+    /// Converts an IPAddress to a 32-bit unsigned integer using Span.
+    /// </summary>
+    /// <param name="ip"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException"></exception>
     private static uint IPToUint(IPAddress ip)
     {
         Span<byte> bytes = stackalloc byte[4];
-        // Write IPAddress into span
         if (!ip.TryWriteBytes(bytes, out _))
             throw new InvalidOperationException("Failed to write IP address bytes.");
         // Ensure big-endian for network order
@@ -87,7 +89,11 @@ public static class CidrMergerv4
         return MemoryMarshal.Read<uint>(bytes);
     }
 
-    // Converts a 32-bit unsigned integer to an IPAddress using Span.
+    /// <summary>
+    /// Converts a 32-bit unsigned integer to an IPAddress using Span.
+    /// </summary>
+    /// <param name="ipUint"></param>
+    /// <returns></returns>
     private static IPAddress UintToIP(uint ipUint)
     {
         Span<byte> bytes = stackalloc byte[4];
@@ -97,7 +103,12 @@ public static class CidrMergerv4
         return new IPAddress(bytes);
     }
 
-    // Converts a given IP range (from start to end) into a minimal list of CIDR blocks.
+    /// <summary>
+    /// Converts a given IP range (from start to end) into a minimal list of CIDR blocks.
+    /// </summary>
+    /// <param name="start"></param>
+    /// <param name="end"></param>
+    /// <returns></returns>
     private static List<string> RangeToCIDRs(uint start, uint end)
     {
         var result = new List<string>();
@@ -130,5 +141,12 @@ public static class CidrMergerv4
             start += blockSize;
         }
         return result;
+    }
+
+    // Represents an IPv4 address range.
+    private struct IPRange
+    {
+        public uint Start;
+        public uint End;
     }
 }
