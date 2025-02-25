@@ -10,7 +10,7 @@ public static class CidrMergerv4
     /// </summary>
     /// <param name="cidrs">IPv4 CIDRs. e.g., 192.168.0.0/24</param>
     /// <returns></returns>
-    public static IReadOnlyList<string> Aggregate(IEnumerable<string> cidrs)
+    public static IReadOnlyList<string> CollapseAddresses(IEnumerable<string> cidrs)
     {
         // Convert each CIDR to an IPRange and sort by Start address.
         var ranges = cidrs

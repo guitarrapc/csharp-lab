@@ -19,7 +19,7 @@ public class CidrMergerv4Test
     [InlineData(new[] { "10.0.0.0/17", "10.0.128.0/17", }, new[] { "10.0.0.0/16" })]
     public void SimpleMergeTest(IEnumerable<string> source, IEnumerable<string> expected)
     {
-        var merged = CidrMergerv4.Aggregate(source);
+        var merged = CidrMergerv4.CollapseAddresses(source);
         Assert.Equal(expected, merged);
     }
 
@@ -28,7 +28,7 @@ public class CidrMergerv4Test
     [InlineData(new[] { "192.168.0.0/24", "192.168.3.0/24", "192.168.4.0/24", "192.168.5.0/24" }, new[] { "192.168.0.0/24", "192.168.3.0/24", "192.168.4.0/23" })]
     public void NoneMergeTest(IEnumerable<string> source, IEnumerable<string> expected)
     {
-        var merged = CidrMergerv4.Aggregate(source);
+        var merged = CidrMergerv4.CollapseAddresses(source);
         Assert.Equal(expected, merged);
     }
 
@@ -173,7 +173,7 @@ public class CidrMergerv4Test
             "198.51.100.0/25",
             "203.0.113.0/24",
         };
-        var merged = CidrMergerv4.Aggregate(sampleSource);
+        var merged = CidrMergerv4.CollapseAddresses(sampleSource);
         Assert.Equal(expected, merged);
     }
 
