@@ -146,6 +146,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisFailover.Managed", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisFailover.Direct", "src\Redis\RedisFailover.Direct\RedisFailover.Direct.csproj", "{99B26CD5-E8EF-430E-B0EA-DFDAAE9149DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemInfo.Tests", "src\SystemInfo\SystemInfo.Tests\SystemInfo.Tests.csproj", "{7A1C8CFA-F21C-4C88-A840-656E5C17A33F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -360,6 +362,10 @@ Global
 		{99B26CD5-E8EF-430E-B0EA-DFDAAE9149DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99B26CD5-E8EF-430E-B0EA-DFDAAE9149DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99B26CD5-E8EF-430E-B0EA-DFDAAE9149DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A1C8CFA-F21C-4C88-A840-656E5C17A33F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A1C8CFA-F21C-4C88-A840-656E5C17A33F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A1C8CFA-F21C-4C88-A840-656E5C17A33F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A1C8CFA-F21C-4C88-A840-656E5C17A33F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -417,6 +423,7 @@ Global
 		{2A01FF0C-BCAE-4605-AA03-DB84AF7BA934} = {28CE7184-F1DE-44AE-922F-965FC3AA1768}
 		{9578D3E5-9E4B-4ABA-91E9-579EAE967733} = {3910F58C-6DEB-4C30-8B10-B9DA74B58225}
 		{99B26CD5-E8EF-430E-B0EA-DFDAAE9149DA} = {3910F58C-6DEB-4C30-8B10-B9DA74B58225}
+		{7A1C8CFA-F21C-4C88-A840-656E5C17A33F} = {758C0491-77D7-45B6-9E03-5EE26671D447}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6AD43C70-ADE6-43C4-A90D-F4E7CB0BD2F9}
