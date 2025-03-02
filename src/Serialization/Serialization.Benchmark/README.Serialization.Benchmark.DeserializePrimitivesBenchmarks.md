@@ -12,9 +12,9 @@ IterationCount=3  LaunchCount=1  WarmupCount=3
 ```
 | Method                  | Runtime  | data     | json                | Mean        | Error      | StdDev   | Min         | Max         | Gen0   | Allocated |
 |------------------------ |--------- |--------- |-------------------- |------------:|-----------:|---------:|------------:|------------:|-------:|----------:|
-| **MemoryPack**              | **.NET 8.0** | **Byte[91]** | **?**                   |    **78.19 ns** |   **6.254 ns** | **0.343 ns** |    **77.84 ns** |    **78.52 ns** | **0.0100** |     **168 B** |
-| MemoryPack              | .NET 9.0 | Byte[91] | ?                   |    71.45 ns |  10.967 ns | 0.601 ns |    70.77 ns |    71.89 ns | 0.0100 |     168 B |
-| **SystemTextJson**          | **.NET 8.0** | **?**        | **{&quot;Sh(...)22&quot;} [220]** | **1,167.90 ns** |  **98.945 ns** | **5.424 ns** | **1,164.72 ns** | **1,174.17 ns** | **0.0095** |     **168 B** |
-| SystemTextJsonSourceGen | .NET 8.0 | ?        | {&quot;Sh(...)22&quot;} [220] | 1,147.75 ns | 153.712 ns | 8.425 ns | 1,138.76 ns | 1,155.46 ns | 0.0095 |     168 B |
-| SystemTextJson          | .NET 9.0 | ?        | {&quot;Sh(...)22&quot;} [220] | 1,145.58 ns |  50.431 ns | 2.764 ns | 1,143.51 ns | 1,148.72 ns | 0.0095 |     168 B |
-| SystemTextJsonSourceGen | .NET 9.0 | ?        | {&quot;Sh(...)22&quot;} [220] | 1,111.29 ns |  81.634 ns | 4.475 ns | 1,106.13 ns | 1,114.07 ns | 0.0095 |     168 B |
+| **MemoryPack**              | **.NET 8.0** | **Byte[91]** | **?**                   |    **84.26 ns** |   **9.824 ns** | **0.538 ns** |    **83.72 ns** |    **84.79 ns** | **0.0100** |     **168 B** |
+| MemoryPack              | .NET 9.0 | Byte[91] | ?                   |    65.39 ns |   6.138 ns | 0.336 ns |    65.16 ns |    65.77 ns | 0.0100 |     168 B |
+| **SystemTextJson**          | **.NET 8.0** | **?**        | **{&quot;Sh(...)22&quot;} [220]** | **1,184.72 ns** |  **70.615 ns** | **3.871 ns** | **1,181.91 ns** | **1,189.14 ns** | **0.0095** |     **168 B** |
+| SystemTextJsonSourceGen | .NET 8.0 | ?        | {&quot;Sh(...)22&quot;} [220] | 1,131.27 ns | 145.145 ns | 7.956 ns | 1,126.52 ns | 1,140.46 ns | 0.0095 |     168 B |
+| SystemTextJson          | .NET 9.0 | ?        | {&quot;Sh(...)22&quot;} [220] | 1,137.78 ns |  72.459 ns | 3.972 ns | 1,134.43 ns | 1,142.17 ns | 0.0095 |     168 B |
+| SystemTextJsonSourceGen | .NET 9.0 | ?        | {&quot;Sh(...)22&quot;} [220] | 1,113.75 ns | 157.803 ns | 8.650 ns | 1,103.87 ns | 1,119.97 ns | 0.0095 |     168 B |
