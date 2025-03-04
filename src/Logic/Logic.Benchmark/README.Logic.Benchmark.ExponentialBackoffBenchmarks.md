@@ -10,9 +10,9 @@ AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
 IterationCount=3  LaunchCount=1  WarmupCount=3  
 
 ```
-| Method             | Runtime  | Number | Mean      | Error     | StdDev   | Min       | Max       | Allocated |
-|------------------- |--------- |------- |----------:|----------:|---------:|----------:|----------:|----------:|
-| **ExponentialBackoff** | **.NET 8.0** | **1**      |  **10.22 ms** |  **0.267 ms** | **0.015 ms** |  **10.20 ms** |  **10.23 ms** |     **520 B** |
-| ExponentialBackoff | .NET 9.0 | 1      |  10.19 ms |  0.096 ms | 0.005 ms |  10.18 ms |  10.19 ms |     520 B |
-| **ExponentialBackoff** | **.NET 8.0** | **10**     | **752.15 ms** | **11.318 ms** | **0.620 ms** | **751.78 ms** | **752.87 ms** |    **4120 B** |
-| ExponentialBackoff | .NET 9.0 | 10     | 751.27 ms | 11.323 ms | 0.621 ms | 750.56 ms | 751.64 ms |    4120 B |
+| Method             | Runtime  | Number | Mean      | Error    | StdDev   | Min       | Max       | Allocated |
+|------------------- |--------- |------- |----------:|---------:|---------:|----------:|----------:|----------:|
+| **ExponentialBackoff** | **.NET 8.0** | **1**      |  **10.22 ms** | **0.280 ms** | **0.015 ms** |  **10.20 ms** |  **10.23 ms** |     **520 B** |
+| ExponentialBackoff | .NET 9.0 | 1      |  10.22 ms | 0.290 ms | 0.016 ms |  10.21 ms |  10.24 ms |     520 B |
+| **ExponentialBackoff** | **.NET 8.0** | **10**     | **752.19 ms** | **2.505 ms** | **0.137 ms** | **752.05 ms** | **752.32 ms** |    **4120 B** |
+| ExponentialBackoff | .NET 9.0 | 10     | 752.14 ms | 3.325 ms | 0.182 ms | 751.93 ms | 752.27 ms |    4120 B |
