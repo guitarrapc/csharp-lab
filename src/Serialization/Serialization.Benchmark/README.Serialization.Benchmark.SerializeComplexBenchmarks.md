@@ -12,9 +12,9 @@ IterationCount=3  LaunchCount=1  WarmupCount=3
 ```
 | Method                  | Runtime  | data                 | Mean      | Error      | StdDev   | Min       | Max       | Gen0   | Allocated |
 |------------------------ |--------- |--------------------- |----------:|-----------:|---------:|----------:|----------:|-------:|----------:|
-| SystemTextJson          | .NET 8.0 | Seria(...)Class [29] | 607.69 ns |  13.796 ns | 0.756 ns | 607.08 ns | 608.53 ns | 0.0229 |     392 B |
-| SystemTextJsonSourceGen | .NET 8.0 | Seria(...)Class [29] | 682.91 ns |  27.029 ns | 1.482 ns | 681.66 ns | 684.55 ns | 0.0277 |     464 B |
-| MemoryPack              | .NET 8.0 | Seria(...)Class [29] |  60.38 ns |   5.244 ns | 0.287 ns |  60.11 ns |  60.68 ns | 0.0072 |     120 B |
-| SystemTextJson          | .NET 9.0 | Seria(...)Class [29] | 588.13 ns |  19.138 ns | 1.049 ns | 586.95 ns | 588.97 ns | 0.0229 |     392 B |
-| SystemTextJsonSourceGen | .NET 9.0 | Seria(...)Class [29] | 652.00 ns | 107.436 ns | 5.889 ns | 645.41 ns | 656.75 ns | 0.0277 |     464 B |
-| MemoryPack              | .NET 9.0 | Seria(...)Class [29] |  45.31 ns |   3.640 ns | 0.200 ns |  45.08 ns |  45.43 ns | 0.0072 |     120 B |
+| SystemTextJson          | .NET 8.0 | Seria(...)Class [29] | 640.69 ns |  78.501 ns | 4.303 ns | 637.34 ns | 645.54 ns | 0.0229 |     392 B |
+| SystemTextJsonSourceGen | .NET 8.0 | Seria(...)Class [29] | 720.72 ns | 135.808 ns | 7.444 ns | 715.24 ns | 729.20 ns | 0.0277 |     464 B |
+| MemoryPack              | .NET 8.0 | Seria(...)Class [29] |  59.50 ns |   5.796 ns | 0.318 ns |  59.28 ns |  59.87 ns | 0.0072 |     120 B |
+| SystemTextJson          | .NET 9.0 | Seria(...)Class [29] | 603.45 ns |  20.956 ns | 1.149 ns | 602.31 ns | 604.61 ns | 0.0229 |     392 B |
+| SystemTextJsonSourceGen | .NET 9.0 | Seria(...)Class [29] | 655.33 ns | 117.916 ns | 6.463 ns | 650.20 ns | 662.59 ns | 0.0277 |     464 B |
+| MemoryPack              | .NET 9.0 | Seria(...)Class [29] |  48.10 ns |  10.782 ns | 0.591 ns |  47.43 ns |  48.51 ns | 0.0072 |     120 B |
