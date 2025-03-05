@@ -7,14 +7,15 @@ WORKDIR /app
 
 
 # This stage is used to build the service project
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+ARG TARGETARCH
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY --from=mcr.microsoft.com/dotnet/sdk:8.0 /usr/share/dotnet/sdk /usr/share/dotnet/sdk
 COPY ["Directory.Build.props", "src/Directory.Build.props"]
 COPY ["src/Serialization/Serialization.Benchmark/Serialization.Benchmark.csproj", "src/Serialization/Serialization.Benchmark/"]
 COPY ["src/Serialization/Serialization.Core/Serialization.Core.csproj", "src/Serialization/Serialization.Core/"]
-RUN dotnet restore "./src/Serialization/Serialization.Benchmark/Serialization.Benchmark.csproj"
+RUN dotnet restore "./src/Serialization/Serialization.Benchmark/Serialization.Benchmark.csproj" -a $TARGETARCH
 COPY . .
 WORKDIR "/src/src/Serialization/Serialization.Benchmark"
 RUN dotnet build "./Serialization.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/build -f net9.0
@@ -22,7 +23,7 @@ RUN dotnet build "./Serialization.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Serialization.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false -f net9.0
+RUN dotnet publish "./Serialization.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false -f net9.0 -a $TARGETARCH
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final

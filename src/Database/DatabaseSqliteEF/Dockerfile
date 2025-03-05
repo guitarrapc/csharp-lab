@@ -7,13 +7,14 @@ WORKDIR /app
 
 
 # This stage is used to build the service project
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+ARG TARGETARCH
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Directory.Build.props", "src/Directory.Build.props"]
 COPY ["src/Database/DatabaseSqliteEF/DatabaseSqliteEf.csproj", "src/Database/DatabaseSqliteEF/"]
 COPY ["src/Database/DatabaseCore/DatabaseCore.csproj", "src/Database/DatabaseCore/"]
-RUN dotnet restore "./src/Database/DatabaseSqliteEF/DatabaseSqliteEf.csproj"
+RUN dotnet restore "./src/Database/DatabaseSqliteEF/DatabaseSqliteEf.csproj" -a $TARGETARCH
 COPY . .
 WORKDIR "/src/src/Database/DatabaseSqliteEF"
 RUN dotnet build "./DatabaseSqliteEf.csproj" -c $BUILD_CONFIGURATION -o /app/build
@@ -21,7 +22,7 @@ RUN dotnet build "./DatabaseSqliteEf.csproj" -c $BUILD_CONFIGURATION -o /app/bui
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./DatabaseSqliteEf.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./DatabaseSqliteEf.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false -a $TARGETARCH
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
