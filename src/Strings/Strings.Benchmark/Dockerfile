@@ -7,14 +7,15 @@ WORKDIR /app
 
 
 # This stage is used to build the service project
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+ARG TARGETARCH
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY --from=mcr.microsoft.com/dotnet/sdk:8.0 /usr/share/dotnet/sdk /usr/share/dotnet/sdk
 COPY ["Directory.Build.props", "src/Directory.Build.props"]
 COPY ["src/Strings/Strings.Benchmark/Strings.Benchmark.csproj", "src/Strings/Strings.Benchmark/"]
 COPY ["src/Strings/Strings.Core/Strings.Core.csproj", "src/Strings/Strings.Core/"]
-RUN dotnet restore "./src/Strings/Strings.Benchmark/Strings.Benchmark.csproj"
+RUN dotnet restore "./src/Strings/Strings.Benchmark/Strings.Benchmark.csproj" -a $TARGETARCH
 COPY . .
 WORKDIR "/src/src/Strings/Strings.Benchmark"
 RUN dotnet build "./Strings.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/build -f net9.0
@@ -22,7 +23,7 @@ RUN dotnet build "./Strings.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/bu
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Strings.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false -f net9.0
+RUN dotnet publish "./Strings.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false -f net9.0 -a $TARGETARCH
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final

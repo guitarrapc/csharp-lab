@@ -4,18 +4,19 @@ FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+ARG TARGETARCH
 WORKDIR /src
 COPY ["Directory.Build.props", "src/Directory.Build.props"]
 COPY ["src/MemoryLeak/MemoryLeakApi/MemoryLeakApi.csproj", "src/MemoryLeak/MemoryLeakApi/"]
 COPY ["src/MemoryLeak/MemoryLeak.Core/MemoryLeak.Core.csproj", "src/MemoryLeak/MemoryLeak.Core/"]
-RUN dotnet restore "src/MemoryLeak/MemoryLeakApi/MemoryLeakApi.csproj"
+RUN dotnet restore "src/MemoryLeak/MemoryLeakApi/MemoryLeakApi.csproj" -a $TARGETARCH
 COPY . .
 WORKDIR "/src/src/MemoryLeak/MemoryLeakApi"
 RUN dotnet build "MemoryLeakApi.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "MemoryLeakApi.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "MemoryLeakApi.csproj" -c Release -o /app/publish /p:UseAppHost=false -a $TARGETARCH
 
 FROM base AS final
 WORKDIR /app
