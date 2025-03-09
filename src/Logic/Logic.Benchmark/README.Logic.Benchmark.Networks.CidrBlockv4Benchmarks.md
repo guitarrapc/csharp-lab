@@ -10,21 +10,21 @@ AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
 IterationCount=3  LaunchCount=1  WarmupCount=3  
 
 ```
-| Method             | Runtime  | Number | Mean        | Error      | StdDev    | Min         | Max         | Allocated |
-|------------------- |--------- |------- |------------:|-----------:|----------:|------------:|------------:|----------:|
-| **NewFromCidrString**  | **.NET 8.0** | **1**      |  **65.8294 ns** |  **2.3755 ns** | **0.1302 ns** |  **65.7429 ns** |  **65.9792 ns** |         **-** |
-| NewFromCirBytes    | .NET 8.0 | 1      |   0.0388 ns |  0.2444 ns | 0.0134 ns |   0.0266 ns |   0.0531 ns |         - |
-| TryParseCidrString | .NET 8.0 | 1      |  72.4399 ns |  1.4572 ns | 0.0799 ns |  72.3600 ns |  72.5198 ns |         - |
-| TryParseCidrBytes  | .NET 8.0 | 1      |   2.7689 ns |  0.3091 ns | 0.0169 ns |   2.7533 ns |   2.7869 ns |         - |
-| NewFromCidrString  | .NET 9.0 | 1      |  50.3922 ns |  0.7074 ns | 0.0388 ns |  50.3522 ns |  50.4296 ns |         - |
-| NewFromCirBytes    | .NET 9.0 | 1      |   0.6284 ns |  0.1485 ns | 0.0081 ns |   0.6218 ns |   0.6375 ns |         - |
-| TryParseCidrString | .NET 9.0 | 1      |  51.9120 ns |  2.4192 ns | 0.1326 ns |  51.7623 ns |  52.0146 ns |         - |
-| TryParseCidrBytes  | .NET 9.0 | 1      |   3.0944 ns |  0.1970 ns | 0.0108 ns |   3.0847 ns |   3.1061 ns |         - |
-| **NewFromCidrString**  | **.NET 8.0** | **3**      | **198.8834 ns** | **61.2828 ns** | **3.3591 ns** | **195.0140 ns** | **201.0505 ns** |         **-** |
-| NewFromCirBytes    | .NET 8.0 | 3      |   0.6411 ns |  0.0254 ns | 0.0014 ns |   0.6400 ns |   0.6427 ns |         - |
-| TryParseCidrString | .NET 8.0 | 3      | 214.5259 ns |  8.4848 ns | 0.4651 ns | 214.0527 ns | 214.9824 ns |         - |
-| TryParseCidrBytes  | .NET 8.0 | 3      |   9.5296 ns |  0.5741 ns | 0.0315 ns |   9.5018 ns |   9.5638 ns |         - |
-| NewFromCidrString  | .NET 9.0 | 3      | 149.1300 ns | 15.8387 ns | 0.8682 ns | 148.4366 ns | 150.1037 ns |         - |
-| NewFromCirBytes    | .NET 9.0 | 3      |   0.6197 ns |  0.0188 ns | 0.0010 ns |   0.6186 ns |   0.6207 ns |         - |
-| TryParseCidrString | .NET 9.0 | 3      | 155.7850 ns |  5.2518 ns | 0.2879 ns | 155.5804 ns | 156.1142 ns |         - |
-| TryParseCidrBytes  | .NET 9.0 | 3      |   9.3123 ns |  1.5433 ns | 0.0846 ns |   9.2438 ns |   9.4068 ns |         - |
+| Method             | Runtime  | Number | Mean        | Error       | StdDev     | Min         | Max         | Allocated |
+|------------------- |--------- |------- |------------:|------------:|-----------:|------------:|------------:|----------:|
+| **NewFromCidrString**  | **.NET 8.0** | **1**      |  **66.4366 ns** |   **3.1183 ns** |  **0.1709 ns** |  **66.3313 ns** |  **66.6338 ns** |         **-** |
+| NewFromCirBytes    | .NET 8.0 | 1      |   0.0284 ns |   0.0162 ns |  0.0009 ns |   0.0274 ns |   0.0291 ns |         - |
+| TryParseCidrString | .NET 8.0 | 1      |  72.6742 ns |   0.7717 ns |  0.0423 ns |  72.6422 ns |  72.7221 ns |         - |
+| TryParseCidrBytes  | .NET 8.0 | 1      |   2.7574 ns |   0.0579 ns |  0.0032 ns |   2.7546 ns |   2.7609 ns |         - |
+| NewFromCidrString  | .NET 9.0 | 1      |  50.2017 ns |   0.3385 ns |  0.0186 ns |  50.1812 ns |  50.2175 ns |         - |
+| NewFromCirBytes    | .NET 9.0 | 1      |   0.6490 ns |   0.8349 ns |  0.0458 ns |   0.6221 ns |   0.7018 ns |         - |
+| TryParseCidrString | .NET 9.0 | 1      |  52.7932 ns |   1.9957 ns |  0.1094 ns |  52.6670 ns |  52.8596 ns |         - |
+| TryParseCidrBytes  | .NET 9.0 | 1      |   3.0944 ns |   0.0367 ns |  0.0020 ns |   3.0921 ns |   3.0957 ns |         - |
+| **NewFromCidrString**  | **.NET 8.0** | **3**      | **196.9077 ns** |   **6.3714 ns** |  **0.3492 ns** | **196.5047 ns** | **197.1219 ns** |         **-** |
+| NewFromCirBytes    | .NET 8.0 | 3      |   0.6437 ns |   0.0526 ns |  0.0029 ns |   0.6412 ns |   0.6469 ns |         - |
+| TryParseCidrString | .NET 8.0 | 3      | 238.8858 ns | 384.8139 ns | 21.0929 ns | 214.5309 ns | 251.2649 ns |         - |
+| TryParseCidrBytes  | .NET 8.0 | 3      |   9.2417 ns |   1.3183 ns |  0.0723 ns |   9.1827 ns |   9.3223 ns |         - |
+| NewFromCidrString  | .NET 9.0 | 3      | 152.7613 ns |  22.0852 ns |  1.2106 ns | 151.5737 ns | 153.9936 ns |         - |
+| NewFromCirBytes    | .NET 9.0 | 3      |   0.6238 ns |   0.0334 ns |  0.0018 ns |   0.6221 ns |   0.6258 ns |         - |
+| TryParseCidrString | .NET 9.0 | 3      | 154.9411 ns |   4.8061 ns |  0.2634 ns | 154.6967 ns | 155.2202 ns |         - |
+| TryParseCidrBytes  | .NET 9.0 | 3      |   9.4336 ns |   0.6445 ns |  0.0353 ns |   9.3992 ns |   9.4698 ns |         - |
