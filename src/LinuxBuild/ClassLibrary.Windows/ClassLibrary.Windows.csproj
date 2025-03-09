@@ -1,8 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>$(TargetFrameworkVersion)-windows</TargetFramework>
-    <RootNamespace>ClassLibrary.Windows</RootNamespace>
-  </PropertyGroup>
-
-</Project>
