@@ -92,3 +92,29 @@ jobs:
           push: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
           file: "${{ matrix.dockerfile }}"
           tags: "${{ steps.lower.outputs.repository }}:${{ steps.sha.outputs.sha-short }}-${{ matrix.tag }}-${{ steps.lower.outputs.value }}"
+
+  dotnet:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: guitarrapc/actions/.github/actions/git-shortsha@main
+        id: sha
+      # docker push
+      - if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
+        name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.SYNCED_DOCKER_USER }}
+          password: ${{ secrets.SYNCED_DOCKER_PASS }}
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
+        with:
+          restore-wasm-workload: false
+      - name: dotnet publish
+        if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
+        run: dotnet publish -c Release /t:PublishContainer -p:ContainerImageTags="guitarrapc/latest-container-containerconsolesdk;guitarrapc/${{ steps.sha.outputs.sha-short }}-container-containerconsolesdk" -p:ContainerRegistry=docker.io
+        working-directory: src/Container/ContainerConsoleSdk
