@@ -10,7 +10,7 @@
 
   <PropertyGroup>
     <EnableSdkContainerSupport>true</EnableSdkContainerSupport>
-    <ContainerRepository>conatiner-console-sdk</ContainerRepository>
+    <ContainerRepository>guitarrapc/conatiner-console-sdk</ContainerRepository>
     <ContainerRuntimeIdentifiers>linux-x64;linux-arm64</ContainerRuntimeIdentifiers>
     <!--<ContainerBaseImage>mcr.microsoft.com/dotnet/runtime:$(TargetFrameworkVersion)</ContainerBaseImage>-->
   </PropertyGroup>
