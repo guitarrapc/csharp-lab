@@ -10,11 +10,11 @@ AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
 IterationCount=3  LaunchCount=1  WarmupCount=3  
 
 ```
-| Method                  | Runtime  | data     | json                | Mean        | Error      | StdDev    | Min         | Max         | Gen0   | Allocated |
-|------------------------ |--------- |--------- |-------------------- |------------:|-----------:|----------:|------------:|------------:|-------:|----------:|
-| **MemoryPack**              | **.NET 8.0** | **Byte[91]** | **?**                   |    **70.11 ns** |   **8.866 ns** |  **0.486 ns** |    **69.81 ns** |    **70.67 ns** | **0.0100** |     **168 B** |
-| MemoryPack              | .NET 9.0 | Byte[91] | ?                   |    66.30 ns |   9.785 ns |  0.536 ns |    65.87 ns |    66.90 ns | 0.0100 |     168 B |
-| **SystemTextJson**          | **.NET 8.0** | **?**        | **{&quot;Sh(...)22&quot;} [220]** | **1,198.12 ns** |  **39.825 ns** |  **2.183 ns** | **1,195.65 ns** | **1,199.78 ns** | **0.0095** |     **168 B** |
-| SystemTextJsonSourceGen | .NET 8.0 | ?        | {&quot;Sh(...)22&quot;} [220] | 1,134.31 ns |  38.669 ns |  2.120 ns | 1,131.86 ns | 1,135.64 ns | 0.0095 |     168 B |
-| SystemTextJson          | .NET 9.0 | ?        | {&quot;Sh(...)22&quot;} [220] | 1,164.69 ns | 519.774 ns | 28.491 ns | 1,147.80 ns | 1,197.59 ns | 0.0095 |     168 B |
-| SystemTextJsonSourceGen | .NET 9.0 | ?        | {&quot;Sh(...)22&quot;} [220] | 1,107.21 ns |  60.773 ns |  3.331 ns | 1,103.89 ns | 1,110.56 ns | 0.0095 |     168 B |
+| Method                  | Runtime  | data     | json                | Mean        | Error     | StdDev   | Min         | Max         | Gen0   | Allocated |
+|------------------------ |--------- |--------- |-------------------- |------------:|----------:|---------:|------------:|------------:|-------:|----------:|
+| **MemoryPack**              | **.NET 8.0** | **Byte[91]** | **?**                   |    **73.37 ns** | **16.251 ns** | **0.891 ns** |    **72.70 ns** |    **74.38 ns** | **0.0100** |     **168 B** |
+| MemoryPack              | .NET 9.0 | Byte[91] | ?                   |    65.30 ns |  6.983 ns | 0.383 ns |    64.87 ns |    65.61 ns | 0.0100 |     168 B |
+| **SystemTextJson**          | **.NET 8.0** | **?**        | **{&quot;Sh(...)22&quot;} [220]** | **1,202.24 ns** | **19.332 ns** | **1.060 ns** | **1,201.29 ns** | **1,203.39 ns** | **0.0095** |     **168 B** |
+| SystemTextJsonSourceGen | .NET 8.0 | ?        | {&quot;Sh(...)22&quot;} [220] | 1,126.66 ns | 72.936 ns | 3.998 ns | 1,122.50 ns | 1,130.48 ns | 0.0095 |     168 B |
+| SystemTextJson          | .NET 9.0 | ?        | {&quot;Sh(...)22&quot;} [220] | 1,161.94 ns | 40.141 ns | 2.200 ns | 1,160.38 ns | 1,164.46 ns | 0.0095 |     168 B |
+| SystemTextJsonSourceGen | .NET 9.0 | ?        | {&quot;Sh(...)22&quot;} [220] | 1,109.96 ns | 56.367 ns | 3.090 ns | 1,106.51 ns | 1,112.47 ns | 0.0095 |     168 B |
