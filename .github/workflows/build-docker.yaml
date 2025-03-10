@@ -114,7 +114,11 @@ jobs:
       - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
         with:
           restore-wasm-workload: false
-      - name: dotnet publish
+      - name: dotnet publish (latest)
         if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
-        run: dotnet publish -c Release -p:ContainerImageTags="guitarrapc/latest-container-containerconsolesdk;guitarrapc/${{ steps.sha.outputs.sha-short }}-container-containerconsolesdk" -p:ContainerRegistry=docker.io /t:PublishContainer
+        run: dotnet publish -c Release -p:ContainerImageTag="guitarrapc/latest-container-containerconsolesdk" -p:ContainerRegistry=docker.io /t:PublishContainer
+        working-directory: src/Container/ContainerConsoleSdk
+      - name: dotnet publish (tag)
+        if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
+        run: dotnet publish -c Release -p:ContainerImageTag="guitarrapc/${{ steps.sha.outputs.sha-short }}-container-containerconsolesdk" -p:ContainerRegistry=docker.io /t:PublishContainer
         working-directory: src/Container/ContainerConsoleSdk
