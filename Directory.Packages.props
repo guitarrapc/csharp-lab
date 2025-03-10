@@ -4,7 +4,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="ConsoleAppFramework" Version="5.2.4" />
-    <PackageVersion Include="IPNetwork2" Version="3.0.667" />
+    <PackageVersion Include="IPNetwork2" Version="3.0.712" />
     <PackageVersion Include="MemoryPack" Version="1.21.4" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.2" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.1" PrivateAssets="all" />
