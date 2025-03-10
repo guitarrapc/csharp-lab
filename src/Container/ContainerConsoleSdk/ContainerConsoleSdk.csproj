@@ -11,6 +11,7 @@
   <PropertyGroup>
     <EnableSdkContainerSupport>true</EnableSdkContainerSupport>
     <ContainerRepository>guitarrapc/conatiner-console-sdk</ContainerRepository>
+    <ContainerFamily></ContainerFamily>
     <!--<ContainerBaseImage>mcr.microsoft.com/dotnet/runtime:$(TargetFrameworkVersion)</ContainerBaseImage>-->
   </PropertyGroup>
 
