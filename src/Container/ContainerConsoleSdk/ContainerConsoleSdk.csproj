@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -10,8 +10,7 @@
 
   <PropertyGroup>
     <EnableSdkContainerSupport>true</EnableSdkContainerSupport>
-    <ContainerRepository>guitarrapc/conatiner-console-sdk</ContainerRepository>
-    <ContainerFamily></ContainerFamily>
+    <ContainerRepository>guitarrapc/csharp-lab</ContainerRepository>
     <!--<ContainerBaseImage>mcr.microsoft.com/dotnet/runtime:$(TargetFrameworkVersion)</ContainerBaseImage>-->
   </PropertyGroup>
 
