@@ -116,9 +116,9 @@ jobs:
           restore-wasm-workload: false
       - name: dotnet publish (latest)
         if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
-        run: dotnet publish -c Release -p:ContainerRepository=guitarrapc -p:RuntimeIdentifiers="linux-x64;linux-arm64" -p:ContainerImageTag="latest-container-containerconsolesdk" -p:ContainerRegistry=docker.io /t:PublishContainer
+        run: dotnet publish -c Release -p:ContainerRepository=guitarrapc -p:ContainerImageTag="latest-container-containerconsolesdk" -p:ContainerRegistry=docker.io /t:PublishContainer
         working-directory: src/Container/ContainerConsoleSdk
       - name: dotnet publish (tag)
         if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
-        run: dotnet publish -c Release -p:ContainerRepository=guitarrapc -p:RuntimeIdentifiers="linux-x64;linux-arm64" -p:ContainerImageTag="${{ steps.sha.outputs.sha-short }}-container-containerconsolesdk" -p:ContainerRegistry=docker.io /t:PublishContainer
+        run: dotnet publish -c Release -p:ContainerRepository=guitarrapc -p:ContainerImageTag="${{ steps.sha.outputs.sha-short }}-container-containerconsolesdk" -p:ContainerRegistry=docker.io /t:PublishContainer
         working-directory: src/Container/ContainerConsoleSdk
