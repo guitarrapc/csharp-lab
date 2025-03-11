@@ -12,9 +12,9 @@ IterationCount=3  LaunchCount=1  WarmupCount=3
 ```
 | Method                  | Runtime  | data                 | Mean      | Error     | StdDev   | Min       | Max       | Gen0   | Allocated |
 |------------------------ |--------- |--------------------- |----------:|----------:|---------:|----------:|----------:|-------:|----------:|
-| SystemTextJson          | .NET 8.0 | Seria(...)Class [26] | 440.78 ns | 57.424 ns | 3.148 ns | 437.22 ns | 443.19 ns | 0.0196 |     328 B |
-| SystemTextJsonSourceGen | .NET 8.0 | Seria(...)Class [26] | 338.92 ns | 19.502 ns | 1.069 ns | 337.69 ns | 339.59 ns | 0.0219 |     368 B |
-| MemoryPack              | .NET 8.0 | Seria(...)Class [26] | 106.36 ns | 10.701 ns | 0.587 ns | 105.73 ns | 106.88 ns | 0.0076 |     128 B |
-| SystemTextJson          | .NET 9.0 | Seria(...)Class [26] | 396.18 ns | 42.775 ns | 2.345 ns | 393.92 ns | 398.60 ns | 0.0196 |     328 B |
-| SystemTextJsonSourceGen | .NET 9.0 | Seria(...)Class [26] | 314.19 ns | 18.974 ns | 1.040 ns | 313.17 ns | 315.25 ns | 0.0219 |     368 B |
-| MemoryPack              | .NET 9.0 | Seria(...)Class [26] |  88.22 ns |  9.802 ns | 0.537 ns |  87.61 ns |  88.62 ns | 0.0076 |     128 B |
+| SystemTextJson          | .NET 8.0 | Seria(...)Class [26] | 454.21 ns | 77.188 ns | 4.231 ns | 451.56 ns | 459.09 ns | 0.0196 |     328 B |
+| SystemTextJsonSourceGen | .NET 8.0 | Seria(...)Class [26] | 335.07 ns | 20.735 ns | 1.137 ns | 334.11 ns | 336.32 ns | 0.0219 |     368 B |
+| MemoryPack              | .NET 8.0 | Seria(...)Class [26] |  99.48 ns |  6.061 ns | 0.332 ns |  99.29 ns |  99.87 ns | 0.0076 |     128 B |
+| SystemTextJson          | .NET 9.0 | Seria(...)Class [26] | 390.91 ns | 78.877 ns | 4.324 ns | 387.67 ns | 395.82 ns | 0.0196 |     328 B |
+| SystemTextJsonSourceGen | .NET 9.0 | Seria(...)Class [26] | 321.62 ns | 41.499 ns | 2.275 ns | 319.23 ns | 323.76 ns | 0.0219 |     368 B |
+| MemoryPack              | .NET 9.0 | Seria(...)Class [26] |  84.91 ns |  2.594 ns | 0.142 ns |  84.75 ns |  85.03 ns | 0.0076 |     128 B |
