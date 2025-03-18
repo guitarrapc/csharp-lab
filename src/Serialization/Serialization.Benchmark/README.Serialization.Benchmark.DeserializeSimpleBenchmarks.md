@@ -12,9 +12,9 @@ IterationCount=3  LaunchCount=1  WarmupCount=3
 ```
 | Method                  | Runtime  | data      | json                 | Mean      | Error     | StdDev   | Min       | Max       | Gen0   | Allocated |
 |------------------------ |--------- |---------- |--------------------- |----------:|----------:|---------:|----------:|----------:|-------:|----------:|
-| **MemoryPack**              | **.NET 8.0** | **Byte[103]** | **?**                    |  **95.58 ns** |  **15.55 ns** | **0.852 ns** |  **94.66 ns** |  **96.34 ns** | **0.0148** |     **248 B** |
-| MemoryPack              | .NET 9.0 | Byte[103] | ?                    |  88.59 ns |  14.26 ns | 0.782 ns |  87.71 ns |  89.20 ns | 0.0148 |     248 B |
-| **SystemTextJson**          | **.NET 8.0** | **?**         | **{&quot;X&quot;(...)\\n&quot;} [150]** | **627.91 ns** | **104.74 ns** | **5.741 ns** | **622.31 ns** | **633.78 ns** | **0.0143** |     **248 B** |
-| SystemTextJsonSourceGen | .NET 8.0 | ?         | {&quot;X&quot;(...)\\n&quot;} [150] | 589.89 ns |  11.18 ns | 0.613 ns | 589.18 ns | 590.28 ns | 0.0143 |     248 B |
-| SystemTextJson          | .NET 9.0 | ?         | {&quot;X&quot;(...)\\n&quot;} [150] | 591.03 ns |  24.73 ns | 1.355 ns | 590.05 ns | 592.58 ns | 0.0143 |     248 B |
-| SystemTextJsonSourceGen | .NET 9.0 | ?         | {&quot;X&quot;(...)\\n&quot;} [150] | 577.65 ns |  37.68 ns | 2.065 ns | 576.02 ns | 579.97 ns | 0.0143 |     248 B |
+| **MemoryPack**              | **.NET 8.0** | **Byte[103]** | **?**                    |  **87.72 ns** |  **1.419 ns** | **0.078 ns** |  **87.64 ns** |  **87.80 ns** | **0.0148** |     **248 B** |
+| MemoryPack              | .NET 9.0 | Byte[103] | ?                    |  82.72 ns |  1.080 ns | 0.059 ns |  82.65 ns |  82.76 ns | 0.0148 |     248 B |
+| **SystemTextJson**          | **.NET 8.0** | **?**         | **{&quot;X&quot;(...)\\n&quot;} [150]** | **599.43 ns** | **49.774 ns** | **2.728 ns** | **597.24 ns** | **602.48 ns** | **0.0143** |     **248 B** |
+| SystemTextJsonSourceGen | .NET 8.0 | ?         | {&quot;X&quot;(...)\\n&quot;} [150] | 607.93 ns | 40.493 ns | 2.220 ns | 606.13 ns | 610.41 ns | 0.0143 |     248 B |
+| SystemTextJson          | .NET 9.0 | ?         | {&quot;X&quot;(...)\\n&quot;} [150] | 578.91 ns | 18.946 ns | 1.038 ns | 577.87 ns | 579.94 ns | 0.0143 |     248 B |
+| SystemTextJsonSourceGen | .NET 9.0 | ?         | {&quot;X&quot;(...)\\n&quot;} [150] | 565.75 ns | 22.429 ns | 1.229 ns | 564.46 ns | 566.91 ns | 0.0143 |     248 B |
