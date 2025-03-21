@@ -47,7 +47,8 @@ public class GrpcChannelPool
                 return CreateChannel(host, enableTls, useHttp3);
             default:
                 return channel;
-        };
+        }
+        ;
 
         GrpcChannel CreateChannel(Uri h, bool enableTls, bool useHttp3)
         {

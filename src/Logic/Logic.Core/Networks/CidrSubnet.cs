@@ -232,11 +232,13 @@ public static class CidrSubnet
         if (ipaddress.AddressFamily == AddressFamily.InterNetwork && (prefixLength < 1 || prefixLength > 32))
         {
             throw new ArgumentOutOfRangeException(nameof(prefixLength), "Subnet does not fit in IPv4 space.");
-        };
+        }
+        ;
         if (ipaddress.AddressFamily == AddressFamily.InterNetworkV6 && (prefixLength < 1 || prefixLength > 128))
         {
             throw new ArgumentOutOfRangeException(nameof(prefixLength), "Subnet does not fit in IPv6 space.");
-        };
+        }
+        ;
 
         // BigInteger can handle IPv6 range.
         var bytes = ipaddress.GetAddressBytes();
@@ -311,7 +313,8 @@ public static class CidrSubnet
         if (prefixLength < 1 || prefixLength > 32)
         {
             throw new ArgumentOutOfRangeException(nameof(prefixLength), "Subnet does not fit in IPv4 space.");
-        };
+        }
+        ;
 
         var bytes = ipaddress.GetAddressBytes();
 
@@ -349,7 +352,8 @@ public static class CidrSubnet
         if (prefixLength < 1 || prefixLength > 128)
         {
             throw new ArgumentOutOfRangeException(nameof(prefixLength), "Subnet does not fit in IPv6 space.");
-        };
+        }
+        ;
 
         var fullPrefixBytes = prefixLength / 8;
         var remainingBitsInByte = prefixLength % 8; // could be 0
