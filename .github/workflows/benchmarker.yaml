@@ -48,7 +48,7 @@ jobs:
           echo "cores=$(( 1 * $cores ))"
           echo "threads=$(grep -c processor /proc/cpuinfo)"
           echo "execute=$([[ "${cpu:1}" != "${{ env.SKIP_CPU }}" ]] && echo 1 || echo 0)" | tee -a "${GITHUB_OUTPUT}"
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
         with:
           restore-wasm-workload: true
@@ -76,7 +76,7 @@ jobs:
         if: ${{ steps.cpu.outputs.execute == 0 }}
         run: mkdir -p ${{ env.TEMP_UPLOAD_PATH }} && echo "" >> ${{ env.TEMP_UPLOAD_PATH }}/dummy.md # dummy file to upload
       - name: Upload summary
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: "benchmarks-${{ matrix.project }}"
           path: ${{ env.TEMP_UPLOAD_PATH }}/
@@ -91,12 +91,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Remove existing README.md
         run: rm -f src/**/*Benchmark*md
 
       - name: Download Logger.Benchmark
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
         with:
           path: ${{ env.TEMP_UPLOAD_PATH }}/
           merge-multiple: true # merge all artifacts into one folder
