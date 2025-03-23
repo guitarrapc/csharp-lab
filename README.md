@@ -7,9 +7,9 @@
 
 # csharp-lab
 
-To execute Csharp-lab.sln, you need to install following tools.
+To execute Csharp-lab.slnx, you need to install following tools.
 
-* Install .NET8 SDK.
+* Install .NET SDK 9.0.200+
 * Install wasm-tools-net
 
 # Container Debugging
