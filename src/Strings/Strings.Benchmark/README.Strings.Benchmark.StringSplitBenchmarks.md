@@ -12,7 +12,7 @@ IterationCount=3  LaunchCount=1  WarmupCount=3
 ```
 | Method             | Runtime  | Number | Mean       | Error     | StdDev   | Min        | Max        | Gen0   | Gen1   | Allocated |
 |------------------- |--------- |------- |-----------:|----------:|---------:|-----------:|-----------:|-------:|-------:|----------:|
-| StringSplitNoAlloc | .NET 8.0 | 1      |   839.9 ns |  13.44 ns |  0.74 ns |   839.3 ns |   840.7 ns |      - |      - |         - |
-| StringSplit        | .NET 8.0 | 1      | 1,474.4 ns | 474.98 ns | 26.04 ns | 1,451.4 ns | 1,502.7 ns | 0.1907 | 0.0019 |    3208 B |
-| StringSplitNoAlloc | .NET 9.0 | 1      |   851.2 ns |   0.73 ns |  0.04 ns |   851.1 ns |   851.2 ns |      - |      - |         - |
-| StringSplit        | .NET 9.0 | 1      | 1,375.7 ns | 292.60 ns | 16.04 ns | 1,366.1 ns | 1,394.2 ns | 0.1907 | 0.0019 |    3208 B |
+| StringSplitNoAlloc | .NET 8.0 | 1      |   840.6 ns |  33.31 ns |  1.83 ns |   838.6 ns |   842.3 ns |      - |      - |         - |
+| StringSplit        | .NET 8.0 | 1      | 1,469.1 ns | 207.70 ns | 11.38 ns | 1,461.3 ns | 1,482.2 ns | 0.1907 | 0.0019 |    3208 B |
+| StringSplitNoAlloc | .NET 9.0 | 1      |   850.7 ns |  15.80 ns |  0.87 ns |   849.7 ns |   851.4 ns |      - |      - |         - |
+| StringSplit        | .NET 9.0 | 1      | 1,334.9 ns |  74.33 ns |  4.07 ns | 1,331.3 ns | 1,339.3 ns | 0.1907 | 0.0019 |    3208 B |
