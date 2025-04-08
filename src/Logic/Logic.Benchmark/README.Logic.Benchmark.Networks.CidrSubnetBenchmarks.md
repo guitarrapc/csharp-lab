@@ -10,29 +10,29 @@ AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
 IterationCount=3  LaunchCount=1  WarmupCount=3  
 
 ```
-| Method                       | Runtime  | Number | Mean        | Error     | StdDev   | Min         | Max         | Gen0   | Allocated |
-|----------------------------- |--------- |------- |------------:|----------:|---------:|------------:|------------:|-------:|----------:|
-| **GetNthSubnetIPv6**             | **.NET 8.0** | **1**      |   **489.33 ns** | **25.466 ns** | **1.396 ns** |   **487.74 ns** |   **490.35 ns** | **0.0410** |     **696 B** |
-| GetNthSubnetIPv4             | .NET 8.0 | 1      |   108.85 ns |  6.783 ns | 0.372 ns |   108.42 ns |   109.11 ns | 0.0095 |     160 B |
-| GetSubnetRangeIPv6BigInteger | .NET 8.0 | 1      |   232.05 ns |  8.167 ns | 0.448 ns |   231.69 ns |   232.55 ns | 0.0257 |     432 B |
-| GetSubnetRangeIPv6Shift      | .NET 8.0 | 1      |    38.55 ns |  5.221 ns | 0.286 ns |    38.22 ns |    38.74 ns | 0.0095 |     160 B |
-| GetSubnetRangeIPv4BigInteger | .NET 8.0 | 1      |   136.31 ns |  3.842 ns | 0.211 ns |   136.09 ns |   136.51 ns | 0.0124 |     208 B |
-| GetSubnetRangeIPv4Shift      | .NET 8.0 | 1      |    34.65 ns |  4.057 ns | 0.222 ns |    34.40 ns |    34.82 ns | 0.0105 |     176 B |
-| GetNthSubnetIPv6             | .NET 9.0 | 1      |   422.82 ns | 13.557 ns | 0.743 ns |   422.06 ns |   423.54 ns | 0.0381 |     640 B |
-| GetNthSubnetIPv4             | .NET 9.0 | 1      |    94.65 ns | 11.829 ns | 0.648 ns |    94.10 ns |    95.37 ns | 0.0095 |     160 B |
-| GetSubnetRangeIPv6BigInteger | .NET 9.0 | 1      |   238.05 ns |  7.195 ns | 0.394 ns |   237.63 ns |   238.41 ns | 0.0257 |     432 B |
-| GetSubnetRangeIPv6Shift      | .NET 9.0 | 1      |    40.09 ns |  3.464 ns | 0.190 ns |    39.88 ns |    40.25 ns | 0.0095 |     160 B |
-| GetSubnetRangeIPv4BigInteger | .NET 9.0 | 1      |   138.33 ns |  8.338 ns | 0.457 ns |   137.80 ns |   138.65 ns | 0.0124 |     208 B |
-| GetSubnetRangeIPv4Shift      | .NET 9.0 | 1      |    30.27 ns |  3.456 ns | 0.189 ns |    30.08 ns |    30.46 ns | 0.0105 |     176 B |
-| **GetNthSubnetIPv6**             | **.NET 8.0** | **3**      | **1,524.79 ns** | **70.753 ns** | **3.878 ns** | **1,520.63 ns** | **1,528.30 ns** | **0.1278** |    **2168 B** |
-| GetNthSubnetIPv4             | .NET 8.0 | 3      |   333.22 ns | 29.945 ns | 1.641 ns |   332.23 ns |   335.12 ns | 0.0286 |     480 B |
-| GetSubnetRangeIPv6BigInteger | .NET 8.0 | 3      |   683.27 ns | 50.657 ns | 2.777 ns |   681.45 ns |   686.47 ns | 0.0772 |    1296 B |
-| GetSubnetRangeIPv6Shift      | .NET 8.0 | 3      |   117.13 ns |  0.906 ns | 0.050 ns |   117.09 ns |   117.19 ns | 0.0286 |     480 B |
-| GetSubnetRangeIPv4BigInteger | .NET 8.0 | 3      |   430.86 ns | 71.191 ns | 3.902 ns |   428.29 ns |   435.35 ns | 0.0372 |     624 B |
-| GetSubnetRangeIPv4Shift      | .NET 8.0 | 3      |   101.69 ns |  3.883 ns | 0.213 ns |   101.46 ns |   101.89 ns | 0.0315 |     528 B |
-| GetNthSubnetIPv6             | .NET 9.0 | 3      | 1,396.12 ns | 24.808 ns | 1.360 ns | 1,394.57 ns | 1,397.09 ns | 0.1183 |    2000 B |
-| GetNthSubnetIPv4             | .NET 9.0 | 3      |   286.84 ns | 83.562 ns | 4.580 ns |   283.63 ns |   292.09 ns | 0.0286 |     480 B |
-| GetSubnetRangeIPv6BigInteger | .NET 9.0 | 3      |   713.48 ns |  5.643 ns | 0.309 ns |   713.24 ns |   713.83 ns | 0.0772 |    1296 B |
-| GetSubnetRangeIPv6Shift      | .NET 9.0 | 3      |   118.08 ns | 14.047 ns | 0.770 ns |   117.26 ns |   118.78 ns | 0.0286 |     480 B |
-| GetSubnetRangeIPv4BigInteger | .NET 9.0 | 3      |   430.45 ns | 30.102 ns | 1.650 ns |   428.98 ns |   432.23 ns | 0.0372 |     624 B |
-| GetSubnetRangeIPv4Shift      | .NET 9.0 | 3      |    89.41 ns |  6.447 ns | 0.353 ns |    89.13 ns |    89.81 ns | 0.0315 |     528 B |
+| Method                       | Runtime  | Number | Mean        | Error      | StdDev    | Min         | Max         | Gen0   | Allocated |
+|----------------------------- |--------- |------- |------------:|-----------:|----------:|------------:|------------:|-------:|----------:|
+| **GetNthSubnetIPv6**             | **.NET 8.0** | **1**      |   **510.15 ns** |  **27.471 ns** |  **1.506 ns** |   **508.46 ns** |   **511.33 ns** | **0.0410** |     **696 B** |
+| GetNthSubnetIPv4             | .NET 8.0 | 1      |   113.79 ns |   2.690 ns |  0.147 ns |   113.65 ns |   113.94 ns | 0.0095 |     160 B |
+| GetSubnetRangeIPv6BigInteger | .NET 8.0 | 1      |   239.48 ns |  47.773 ns |  2.619 ns |   237.18 ns |   242.33 ns | 0.0257 |     432 B |
+| GetSubnetRangeIPv6Shift      | .NET 8.0 | 1      |    41.56 ns |  15.126 ns |  0.829 ns |    40.70 ns |    42.35 ns | 0.0095 |     160 B |
+| GetSubnetRangeIPv4BigInteger | .NET 8.0 | 1      |   146.01 ns |  12.853 ns |  0.705 ns |   145.22 ns |   146.58 ns | 0.0124 |     208 B |
+| GetSubnetRangeIPv4Shift      | .NET 8.0 | 1      |    35.10 ns |   2.189 ns |  0.120 ns |    34.97 ns |    35.19 ns | 0.0105 |     176 B |
+| GetNthSubnetIPv6             | .NET 9.0 | 1      |   466.39 ns |  60.706 ns |  3.327 ns |   462.81 ns |   469.38 ns | 0.0381 |     640 B |
+| GetNthSubnetIPv4             | .NET 9.0 | 1      |    97.65 ns |   3.525 ns |  0.193 ns |    97.43 ns |    97.76 ns | 0.0095 |     160 B |
+| GetSubnetRangeIPv6BigInteger | .NET 9.0 | 1      |   241.54 ns |  10.048 ns |  0.551 ns |   241.08 ns |   242.15 ns | 0.0257 |     432 B |
+| GetSubnetRangeIPv6Shift      | .NET 9.0 | 1      |    41.24 ns |  13.649 ns |  0.748 ns |    40.38 ns |    41.75 ns | 0.0095 |     160 B |
+| GetSubnetRangeIPv4BigInteger | .NET 9.0 | 1      |   141.37 ns |  28.737 ns |  1.575 ns |   139.84 ns |   142.99 ns | 0.0124 |     208 B |
+| GetSubnetRangeIPv4Shift      | .NET 9.0 | 1      |    31.00 ns |   3.797 ns |  0.208 ns |    30.82 ns |    31.23 ns | 0.0105 |     176 B |
+| **GetNthSubnetIPv6**             | **.NET 8.0** | **3**      | **1,543.42 ns** | **212.885 ns** | **11.669 ns** | **1,535.99 ns** | **1,556.87 ns** | **0.1278** |    **2168 B** |
+| GetNthSubnetIPv4             | .NET 8.0 | 3      |   338.92 ns | 125.188 ns |  6.862 ns |   334.72 ns |   346.84 ns | 0.0286 |     480 B |
+| GetSubnetRangeIPv6BigInteger | .NET 8.0 | 3      |   712.44 ns |  44.504 ns |  2.439 ns |   709.63 ns |   713.91 ns | 0.0772 |    1296 B |
+| GetSubnetRangeIPv6Shift      | .NET 8.0 | 3      |   118.36 ns |  21.569 ns |  1.182 ns |   117.10 ns |   119.45 ns | 0.0286 |     480 B |
+| GetSubnetRangeIPv4BigInteger | .NET 8.0 | 3      |   425.39 ns |   5.860 ns |  0.321 ns |   425.05 ns |   425.68 ns | 0.0372 |     624 B |
+| GetSubnetRangeIPv4Shift      | .NET 8.0 | 3      |   111.47 ns |  48.318 ns |  2.648 ns |   108.43 ns |   113.28 ns | 0.0315 |     528 B |
+| GetNthSubnetIPv6             | .NET 9.0 | 3      | 1,381.54 ns | 132.167 ns |  7.245 ns | 1,373.53 ns | 1,387.62 ns | 0.1183 |    2000 B |
+| GetNthSubnetIPv4             | .NET 9.0 | 3      |   286.63 ns |  17.514 ns |  0.960 ns |   286.03 ns |   287.74 ns | 0.0286 |     480 B |
+| GetSubnetRangeIPv6BigInteger | .NET 9.0 | 3      |   720.17 ns | 141.849 ns |  7.775 ns |   714.90 ns |   729.10 ns | 0.0772 |    1296 B |
+| GetSubnetRangeIPv6Shift      | .NET 9.0 | 3      |   121.26 ns |  29.535 ns |  1.619 ns |   119.55 ns |   122.77 ns | 0.0286 |     480 B |
+| GetSubnetRangeIPv4BigInteger | .NET 9.0 | 3      |   441.87 ns |  25.014 ns |  1.371 ns |   440.34 ns |   442.99 ns | 0.0372 |     624 B |
+| GetSubnetRangeIPv4Shift      | .NET 9.0 | 3      |    92.62 ns |  56.990 ns |  3.124 ns |    89.50 ns |    95.74 ns | 0.0315 |     528 B |

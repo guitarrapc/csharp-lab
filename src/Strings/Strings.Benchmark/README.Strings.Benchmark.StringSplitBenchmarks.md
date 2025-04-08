@@ -10,9 +10,9 @@ AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
 IterationCount=3  LaunchCount=1  WarmupCount=3  
 
 ```
-| Method             | Runtime  | Number | Mean       | Error       | StdDev   | Min        | Max        | Gen0   | Gen1   | Allocated |
-|------------------- |--------- |------- |-----------:|------------:|---------:|-----------:|-----------:|-------:|-------:|----------:|
-| StringSplitNoAlloc | .NET 8.0 | 1      |   825.7 ns |    40.83 ns |  2.24 ns |   824.3 ns |   828.3 ns |      - |      - |         - |
-| StringSplit        | .NET 8.0 | 1      | 1,315.4 ns |   189.99 ns | 10.41 ns | 1,303.9 ns | 1,324.2 ns | 0.1907 | 0.0019 |    3208 B |
-| StringSplitNoAlloc | .NET 9.0 | 1      |   817.1 ns |   153.10 ns |  8.39 ns |   808.6 ns |   825.4 ns |      - |      - |         - |
-| StringSplit        | .NET 9.0 | 1      | 1,288.5 ns | 1,710.32 ns | 93.75 ns | 1,200.7 ns | 1,387.2 ns | 0.1907 | 0.0019 |    3208 B |
+| Method             | Runtime  | Number | Mean       | Error     | StdDev   | Min        | Max        | Gen0   | Gen1   | Allocated |
+|------------------- |--------- |------- |-----------:|----------:|---------:|-----------:|-----------:|-------:|-------:|----------:|
+| StringSplitNoAlloc | .NET 8.0 | 1      |   841.3 ns |  38.36 ns |  2.10 ns |   839.3 ns |   843.5 ns |      - |      - |         - |
+| StringSplit        | .NET 8.0 | 1      | 1,478.2 ns | 324.71 ns | 17.80 ns | 1,460.6 ns | 1,496.2 ns | 0.1907 | 0.0019 |    3208 B |
+| StringSplitNoAlloc | .NET 9.0 | 1      |   850.7 ns |   5.34 ns |  0.29 ns |   850.4 ns |   851.0 ns |      - |      - |         - |
+| StringSplit        | .NET 9.0 | 1      | 1,438.0 ns | 290.27 ns | 15.91 ns | 1,426.0 ns | 1,456.1 ns | 0.1907 | 0.0019 |    3208 B |
