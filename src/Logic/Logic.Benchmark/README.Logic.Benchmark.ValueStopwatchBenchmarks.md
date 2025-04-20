@@ -10,13 +10,13 @@ AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
 IterationCount=3  LaunchCount=1  WarmupCount=3  
 
 ```
-| Method         | Runtime  | Number | Mean      | Error     | StdDev   | Min       | Max       | Gen0   | Allocated |
-|--------------- |--------- |------- |----------:|----------:|---------:|----------:|----------:|-------:|----------:|
-| **Stopwatch**      | **.NET 8.0** | **1**      |  **62.02 ns** |  **7.507 ns** | **0.411 ns** |  **61.56 ns** |  **62.36 ns** | **0.0024** |      **40 B** |
-| ValueStopwatch | .NET 8.0 | 1      |  57.37 ns |  9.213 ns | 0.505 ns |  57.01 ns |  57.94 ns |      - |         - |
-| Stopwatch      | .NET 9.0 | 1      |  58.21 ns | 11.596 ns | 0.636 ns |  57.73 ns |  58.93 ns |      - |         - |
-| ValueStopwatch | .NET 9.0 | 1      |  57.27 ns |  2.479 ns | 0.136 ns |  57.18 ns |  57.43 ns |      - |         - |
-| **Stopwatch**      | **.NET 8.0** | **3**      | **118.28 ns** | **33.464 ns** | **1.834 ns** | **116.40 ns** | **120.06 ns** | **0.0024** |      **40 B** |
-| ValueStopwatch | .NET 8.0 | 3      | 113.83 ns | 25.621 ns | 1.404 ns | 112.22 ns | 114.82 ns |      - |         - |
-| Stopwatch      | .NET 9.0 | 3      | 116.93 ns | 14.414 ns | 0.790 ns | 116.11 ns | 117.68 ns |      - |         - |
-| ValueStopwatch | .NET 9.0 | 3      | 113.68 ns | 13.331 ns | 0.731 ns | 113.22 ns | 114.52 ns |      - |         - |
+| Method         | Runtime  | Number | Mean      | Error    | StdDev   | Min       | Max       | Gen0   | Allocated |
+|--------------- |--------- |------- |----------:|---------:|---------:|----------:|----------:|-------:|----------:|
+| **Stopwatch**      | **.NET 8.0** | **1**      |  **62.44 ns** | **2.622 ns** | **0.144 ns** |  **62.35 ns** |  **62.61 ns** | **0.0024** |      **40 B** |
+| ValueStopwatch | .NET 8.0 | 1      |  58.37 ns | 0.995 ns | 0.055 ns |  58.33 ns |  58.43 ns |      - |         - |
+| Stopwatch      | .NET 9.0 | 1      |  58.05 ns | 0.345 ns | 0.019 ns |  58.03 ns |  58.07 ns |      - |         - |
+| ValueStopwatch | .NET 9.0 | 1      |  58.00 ns | 0.165 ns | 0.009 ns |  57.99 ns |  58.01 ns |      - |         - |
+| **Stopwatch**      | **.NET 8.0** | **3**      | **121.16 ns** | **2.021 ns** | **0.111 ns** | **121.06 ns** | **121.28 ns** | **0.0024** |      **40 B** |
+| ValueStopwatch | .NET 8.0 | 3      | 115.82 ns | 0.442 ns | 0.024 ns | 115.79 ns | 115.83 ns |      - |         - |
+| Stopwatch      | .NET 9.0 | 3      | 117.59 ns | 2.428 ns | 0.133 ns | 117.48 ns | 117.74 ns |      - |         - |
+| ValueStopwatch | .NET 9.0 | 3      | 115.86 ns | 0.855 ns | 0.047 ns | 115.83 ns | 115.91 ns |      - |         - |
