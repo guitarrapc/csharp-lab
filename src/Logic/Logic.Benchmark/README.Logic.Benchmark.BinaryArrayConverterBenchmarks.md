@@ -10,21 +10,21 @@ AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
 IterationCount=3  LaunchCount=1  WarmupCount=3  
 
 ```
-| Method                       | Runtime  | Number | Mean      | Error     | StdDev   | Min       | Max       | Gen0   | Allocated |
-|----------------------------- |--------- |------- |----------:|----------:|---------:|----------:|----------:|-------:|----------:|
-| **ToBinaryArrayInt**             | **.NET 8.0** | **1**      |  **18.44 ns** |  **8.225 ns** | **0.451 ns** |  **18.00 ns** |  **18.90 ns** | **0.0019** |      **32 B** |
-| ToBinaryArrayConvertToString | .NET 8.0 | 1      |  63.77 ns | 16.325 ns | 0.895 ns |  63.10 ns |  64.79 ns | 0.0057 |      96 B |
-| ToBinaryArrayIntMod          | .NET 8.0 | 1      |  18.70 ns |  0.562 ns | 0.031 ns |  18.67 ns |  18.73 ns | 0.0019 |      32 B |
-| ToBinaryArrayIntModNumber    | .NET 8.0 | 1      |  10.15 ns |  1.633 ns | 0.090 ns |  10.08 ns |  10.25 ns | 0.0019 |      32 B |
-| ToBinaryArrayInt             | .NET 9.0 | 1      |  17.47 ns |  9.856 ns | 0.540 ns |  16.85 ns |  17.85 ns | 0.0019 |      32 B |
-| ToBinaryArrayConvertToString | .NET 9.0 | 1      |  68.56 ns |  2.994 ns | 0.164 ns |  68.46 ns |  68.75 ns | 0.0057 |      96 B |
-| ToBinaryArrayIntMod          | .NET 9.0 | 1      |  18.67 ns |  2.523 ns | 0.138 ns |  18.52 ns |  18.77 ns | 0.0019 |      32 B |
-| ToBinaryArrayIntModNumber    | .NET 9.0 | 1      |  10.34 ns |  1.139 ns | 0.062 ns |  10.28 ns |  10.41 ns | 0.0019 |      32 B |
-| **ToBinaryArrayInt**             | **.NET 8.0** | **3**      |  **56.59 ns** |  **9.787 ns** | **0.536 ns** |  **56.15 ns** |  **57.19 ns** | **0.0057** |      **96 B** |
-| ToBinaryArrayConvertToString | .NET 8.0 | 3      | 194.50 ns | 25.002 ns | 1.370 ns | 193.33 ns | 196.01 ns | 0.0176 |     296 B |
-| ToBinaryArrayIntMod          | .NET 8.0 | 3      |  60.00 ns |  2.768 ns | 0.152 ns |  59.87 ns |  60.16 ns | 0.0057 |      96 B |
-| ToBinaryArrayIntModNumber    | .NET 8.0 | 3      |  32.84 ns |  1.568 ns | 0.086 ns |  32.74 ns |  32.91 ns | 0.0057 |      96 B |
-| ToBinaryArrayInt             | .NET 9.0 | 3      |  57.10 ns | 17.131 ns | 0.939 ns |  56.48 ns |  58.18 ns | 0.0057 |      96 B |
-| ToBinaryArrayConvertToString | .NET 9.0 | 3      | 209.87 ns | 87.994 ns | 4.823 ns | 206.95 ns | 215.44 ns | 0.0176 |     296 B |
-| ToBinaryArrayIntMod          | .NET 9.0 | 3      |  59.91 ns |  0.477 ns | 0.026 ns |  59.89 ns |  59.94 ns | 0.0057 |      96 B |
-| ToBinaryArrayIntModNumber    | .NET 9.0 | 3      |  33.91 ns |  3.533 ns | 0.194 ns |  33.79 ns |  34.13 ns | 0.0057 |      96 B |
+| Method                       | Runtime  | Number | Mean      | Error     | StdDev   | Min        | Max       | Gen0   | Allocated |
+|----------------------------- |--------- |------- |----------:|----------:|---------:|-----------:|----------:|-------:|----------:|
+| **ToBinaryArrayInt**             | **.NET 8.0** | **1**      |  **18.13 ns** |  **2.345 ns** | **0.129 ns** |  **18.011 ns** |  **18.27 ns** | **0.0019** |      **32 B** |
+| ToBinaryArrayConvertToString | .NET 8.0 | 1      |  63.75 ns | 11.893 ns | 0.652 ns |  63.002 ns |  64.15 ns | 0.0057 |      96 B |
+| ToBinaryArrayIntMod          | .NET 8.0 | 1      |  20.49 ns |  1.615 ns | 0.089 ns |  20.416 ns |  20.59 ns | 0.0019 |      32 B |
+| ToBinaryArrayIntModNumber    | .NET 8.0 | 1      |  10.01 ns |  1.571 ns | 0.086 ns |   9.957 ns |  10.11 ns | 0.0019 |      32 B |
+| ToBinaryArrayInt             | .NET 9.0 | 1      |  17.17 ns |  2.667 ns | 0.146 ns |  17.005 ns |  17.29 ns | 0.0019 |      32 B |
+| ToBinaryArrayConvertToString | .NET 9.0 | 1      |  68.90 ns |  6.924 ns | 0.380 ns |  68.527 ns |  69.29 ns | 0.0057 |      96 B |
+| ToBinaryArrayIntMod          | .NET 9.0 | 1      |  19.99 ns |  1.148 ns | 0.063 ns |  19.940 ns |  20.06 ns | 0.0019 |      32 B |
+| ToBinaryArrayIntModNumber    | .NET 9.0 | 1      |  10.46 ns |  0.272 ns | 0.015 ns |  10.444 ns |  10.47 ns | 0.0019 |      32 B |
+| **ToBinaryArrayInt**             | **.NET 8.0** | **3**      |  **54.94 ns** |  **7.102 ns** | **0.389 ns** |  **54.496 ns** |  **55.23 ns** | **0.0057** |      **96 B** |
+| ToBinaryArrayConvertToString | .NET 8.0 | 3      | 199.50 ns |  6.966 ns | 0.382 ns | 199.067 ns | 199.80 ns | 0.0176 |     296 B |
+| ToBinaryArrayIntMod          | .NET 8.0 | 3      |  57.95 ns |  3.999 ns | 0.219 ns |  57.699 ns |  58.11 ns | 0.0057 |      96 B |
+| ToBinaryArrayIntModNumber    | .NET 8.0 | 3      |  34.07 ns |  3.684 ns | 0.202 ns |  33.837 ns |  34.22 ns | 0.0057 |      96 B |
+| ToBinaryArrayInt             | .NET 9.0 | 3      |  54.16 ns |  3.612 ns | 0.198 ns |  53.931 ns |  54.29 ns | 0.0057 |      96 B |
+| ToBinaryArrayConvertToString | .NET 9.0 | 3      | 210.61 ns | 32.768 ns | 1.796 ns | 208.692 ns | 212.25 ns | 0.0176 |     296 B |
+| ToBinaryArrayIntMod          | .NET 9.0 | 3      |  60.79 ns | 11.113 ns | 0.609 ns |  60.123 ns |  61.32 ns | 0.0057 |      96 B |
+| ToBinaryArrayIntModNumber    | .NET 9.0 | 3      |  33.90 ns | 11.030 ns | 0.605 ns |  33.500 ns |  34.59 ns | 0.0057 |      96 B |

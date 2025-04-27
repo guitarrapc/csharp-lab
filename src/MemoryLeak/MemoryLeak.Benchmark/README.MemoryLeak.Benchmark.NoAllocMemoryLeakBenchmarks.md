@@ -13,12 +13,12 @@ IterationCount=3  LaunchCount=1  WarmupCount=3
 |------------------ |------------------ |--------- |------- |----------:|----------:|---------:|----------:|----------:|----------:|
 | **RentReturn**        | **ShortRun-.NET 8.0** | **.NET 8.0** | **1**      |        **NA** |        **NA** |       **NA** |        **NA** |        **NA** |        **NA** |
 | AllocateArrayPool | ShortRun-.NET 8.0 | .NET 8.0 | 1      |        NA |        NA |       NA |        NA |        NA |        NA |
-| RentReturn        | ShortRun-.NET 9.0 | .NET 9.0 | 1      |  19.44 ns |  1.104 ns | 0.061 ns |  19.37 ns |  19.49 ns |         - |
-| AllocateArrayPool | ShortRun-.NET 9.0 | .NET 9.0 | 1      |  88.72 ns |  2.397 ns | 0.131 ns |  88.60 ns |  88.86 ns |         - |
+| RentReturn        | ShortRun-.NET 9.0 | .NET 9.0 | 1      |  19.55 ns |  0.849 ns | 0.047 ns |  19.52 ns |  19.60 ns |         - |
+| AllocateArrayPool | ShortRun-.NET 9.0 | .NET 9.0 | 1      |  83.35 ns |  6.609 ns | 0.362 ns |  83.08 ns |  83.76 ns |         - |
 | **RentReturn**        | **ShortRun-.NET 8.0** | **.NET 8.0** | **10**     |        **NA** |        **NA** |       **NA** |        **NA** |        **NA** |        **NA** |
 | AllocateArrayPool | ShortRun-.NET 8.0 | .NET 8.0 | 10     |        NA |        NA |       NA |        NA |        NA |        NA |
-| RentReturn        | ShortRun-.NET 9.0 | .NET 9.0 | 10     | 410.72 ns |  5.452 ns | 0.299 ns | 410.50 ns | 411.06 ns |         - |
-| AllocateArrayPool | ShortRun-.NET 9.0 | .NET 9.0 | 10     | 580.14 ns | 58.498 ns | 3.206 ns | 577.17 ns | 583.54 ns |         - |
+| RentReturn        | ShortRun-.NET 9.0 | .NET 9.0 | 10     | 412.93 ns |  3.091 ns | 0.169 ns | 412.74 ns | 413.06 ns |         - |
+| AllocateArrayPool | ShortRun-.NET 9.0 | .NET 9.0 | 10     | 582.81 ns | 19.931 ns | 1.092 ns | 582.17 ns | 584.07 ns |         - |
 
 Benchmarks with issues:
   NoAllocMemoryLeakBenchmarks.RentReturn: ShortRun-.NET 8.0(Runtime=.NET 8.0, IterationCount=3, LaunchCount=1, WarmupCount=3) [Number=1]
