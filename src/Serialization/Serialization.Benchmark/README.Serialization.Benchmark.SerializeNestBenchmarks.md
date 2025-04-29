@@ -12,7 +12,7 @@ IterationCount=3  LaunchCount=1  WarmupCount=3
 ```
 | Method                  | Runtime  | data                 | Mean     | Error     | StdDev    | Min      | Max      | Gen0   | Allocated |
 |------------------------ |--------- |--------------------- |---------:|----------:|----------:|---------:|---------:|-------:|----------:|
-| SystemTextJson          | .NET 8.0 | Seria(...)Class [28] | 3.778 μs | 0.3102 μs | 0.0170 μs | 3.763 μs | 3.797 μs | 0.1259 |   2.07 KB |
-| SystemTextJsonSourceGen | .NET 8.0 | Seria(...)Class [28] | 3.054 μs | 0.4286 μs | 0.0235 μs | 3.037 μs | 3.081 μs | 0.1335 |    2.2 KB |
-| SystemTextJson          | .NET 9.0 | Seria(...)Class [28] | 3.270 μs | 0.3708 μs | 0.0203 μs | 3.253 μs | 3.293 μs | 0.1259 |   2.07 KB |
-| SystemTextJsonSourceGen | .NET 9.0 | Seria(...)Class [28] | 2.909 μs | 0.0605 μs | 0.0033 μs | 2.906 μs | 2.912 μs | 0.1335 |    2.2 KB |
+| SystemTextJson          | .NET 8.0 | Seria(...)Class [28] | 3.572 μs | 0.2416 μs | 0.0132 μs | 3.559 μs | 3.585 μs | 0.1259 |   2.07 KB |
+| SystemTextJsonSourceGen | .NET 8.0 | Seria(...)Class [28] | 3.006 μs | 0.3268 μs | 0.0179 μs | 2.986 μs | 3.020 μs | 0.1335 |    2.2 KB |
+| SystemTextJson          | .NET 9.0 | Seria(...)Class [28] | 3.528 μs | 0.2425 μs | 0.0133 μs | 3.519 μs | 3.543 μs | 0.1259 |   2.07 KB |
+| SystemTextJsonSourceGen | .NET 9.0 | Seria(...)Class [28] | 2.813 μs | 0.1295 μs | 0.0071 μs | 2.806 μs | 2.820 μs | 0.1335 |    2.2 KB |
