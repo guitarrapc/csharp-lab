@@ -96,7 +96,7 @@ jobs:
         run: rm -f src/**/*Benchmark*md
 
       - name: Download Logger.Benchmark
-        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           path: ${{ env.TEMP_UPLOAD_PATH }}/
           merge-multiple: true # merge all artifacts into one folder
