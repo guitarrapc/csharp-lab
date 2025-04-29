@@ -12,9 +12,9 @@ IterationCount=3  LaunchCount=1  WarmupCount=3
 ```
 | Method                  | Runtime  | data                 | Mean        | Error      | StdDev   | Min         | Max         | Gen0   | Allocated |
 |------------------------ |--------- |--------------------- |------------:|-----------:|---------:|------------:|------------:|-------:|----------:|
-| SystemTextJson          | .NET 8.0 | Seria(...)tives [29] | 1,010.71 ns | 113.727 ns | 6.234 ns | 1,004.31 ns | 1,016.76 ns | 0.0267 |     464 B |
-| SystemTextJsonSourceGen | .NET 8.0 | Seria(...)tives [29] |   927.96 ns |  42.673 ns | 2.339 ns |   925.82 ns |   930.46 ns | 0.0334 |     568 B |
-| MemoryPack              | .NET 8.0 | Seria(...)tives [29] |    90.57 ns |   6.134 ns | 0.336 ns |    90.20 ns |    90.85 ns | 0.0072 |     120 B |
-| SystemTextJson          | .NET 9.0 | Seria(...)tives [29] |   969.62 ns |  33.335 ns | 1.827 ns |   968.05 ns |   971.62 ns | 0.0267 |     464 B |
-| SystemTextJsonSourceGen | .NET 9.0 | Seria(...)tives [29] |   877.20 ns |  36.362 ns | 1.993 ns |   874.95 ns |   878.73 ns | 0.0334 |     568 B |
-| MemoryPack              | .NET 9.0 | Seria(...)tives [29] |    77.52 ns |   1.469 ns | 0.081 ns |    77.44 ns |    77.60 ns | 0.0072 |     120 B |
+| SystemTextJson          | .NET 8.0 | Seria(...)tives [29] | 1,021.99 ns |  46.191 ns | 2.532 ns | 1,020.35 ns | 1,024.90 ns | 0.0267 |     464 B |
+| SystemTextJsonSourceGen | .NET 8.0 | Seria(...)tives [29] |   916.02 ns | 166.700 ns | 9.137 ns |   905.47 ns |   921.30 ns | 0.0334 |     568 B |
+| MemoryPack              | .NET 8.0 | Seria(...)tives [29] |    94.30 ns |  21.099 ns | 1.157 ns |    92.97 ns |    95.05 ns | 0.0072 |     120 B |
+| SystemTextJson          | .NET 9.0 | Seria(...)tives [29] |   972.20 ns |  93.609 ns | 5.131 ns |   966.91 ns |   977.15 ns | 0.0267 |     464 B |
+| SystemTextJsonSourceGen | .NET 9.0 | Seria(...)tives [29] |   879.93 ns |  25.289 ns | 1.386 ns |   878.33 ns |   880.75 ns | 0.0334 |     568 B |
+| MemoryPack              | .NET 9.0 | Seria(...)tives [29] |    80.41 ns |   9.424 ns | 0.517 ns |    79.91 ns |    80.94 ns | 0.0072 |     120 B |
