@@ -9,16 +9,16 @@ AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
 IterationCount=3  LaunchCount=1  WarmupCount=3  
 
 ```
-| Method            | Job               | Runtime  | Number | Mean      | Error     | StdDev   | Min       | Max       | Allocated |
-|------------------ |------------------ |--------- |------- |----------:|----------:|---------:|----------:|----------:|----------:|
-| **RentReturn**        | **ShortRun-.NET 8.0** | **.NET 8.0** | **1**      |        **NA** |        **NA** |       **NA** |        **NA** |        **NA** |        **NA** |
-| AllocateArrayPool | ShortRun-.NET 8.0 | .NET 8.0 | 1      |        NA |        NA |       NA |        NA |        NA |        NA |
-| RentReturn        | ShortRun-.NET 9.0 | .NET 9.0 | 1      |  19.60 ns |  5.230 ns | 0.287 ns |  19.39 ns |  19.92 ns |         - |
-| AllocateArrayPool | ShortRun-.NET 9.0 | .NET 9.0 | 1      |  83.43 ns |  5.049 ns | 0.277 ns |  83.18 ns |  83.72 ns |         - |
-| **RentReturn**        | **ShortRun-.NET 8.0** | **.NET 8.0** | **10**     |        **NA** |        **NA** |       **NA** |        **NA** |        **NA** |        **NA** |
-| AllocateArrayPool | ShortRun-.NET 8.0 | .NET 8.0 | 10     |        NA |        NA |       NA |        NA |        NA |        NA |
-| RentReturn        | ShortRun-.NET 9.0 | .NET 9.0 | 10     | 405.21 ns | 13.167 ns | 0.722 ns | 404.74 ns | 406.04 ns |         - |
-| AllocateArrayPool | ShortRun-.NET 9.0 | .NET 9.0 | 10     | 583.82 ns | 79.066 ns | 4.334 ns | 581.16 ns | 588.82 ns |         - |
+| Method            | Job               | Runtime  | Number | Mean      | Error      | StdDev   | Min       | Max       | Allocated |
+|------------------ |------------------ |--------- |------- |----------:|-----------:|---------:|----------:|----------:|----------:|
+| **RentReturn**        | **ShortRun-.NET 8.0** | **.NET 8.0** | **1**      |        **NA** |         **NA** |       **NA** |        **NA** |        **NA** |        **NA** |
+| AllocateArrayPool | ShortRun-.NET 8.0 | .NET 8.0 | 1      |        NA |         NA |       NA |        NA |        NA |        NA |
+| RentReturn        | ShortRun-.NET 9.0 | .NET 9.0 | 1      |  19.43 ns |   2.290 ns | 0.126 ns |  19.33 ns |  19.57 ns |         - |
+| AllocateArrayPool | ShortRun-.NET 9.0 | .NET 9.0 | 1      |  82.82 ns |   6.344 ns | 0.348 ns |  82.51 ns |  83.20 ns |         - |
+| **RentReturn**        | **ShortRun-.NET 8.0** | **.NET 8.0** | **10**     |        **NA** |         **NA** |       **NA** |        **NA** |        **NA** |        **NA** |
+| AllocateArrayPool | ShortRun-.NET 8.0 | .NET 8.0 | 10     |        NA |         NA |       NA |        NA |        NA |        NA |
+| RentReturn        | ShortRun-.NET 9.0 | .NET 9.0 | 10     | 412.90 ns | 106.255 ns | 5.824 ns | 407.88 ns | 419.28 ns |         - |
+| AllocateArrayPool | ShortRun-.NET 9.0 | .NET 9.0 | 10     | 577.15 ns |  54.265 ns | 2.974 ns | 573.73 ns | 579.14 ns |         - |
 
 Benchmarks with issues:
   NoAllocMemoryLeakBenchmarks.RentReturn: ShortRun-.NET 8.0(Runtime=.NET 8.0, IterationCount=3, LaunchCount=1, WarmupCount=3) [Number=1]

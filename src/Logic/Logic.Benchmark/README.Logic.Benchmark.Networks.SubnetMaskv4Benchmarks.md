@@ -10,33 +10,33 @@ AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
 IterationCount=3  LaunchCount=1  WarmupCount=3  
 
 ```
-| Method              | Runtime  | Number | Mean      | Error      | StdDev    | Min       | Max       | Gen0   | Allocated |
-|-------------------- |--------- |------- |----------:|-----------:|----------:|----------:|----------:|-------:|----------:|
-| **FromPrefix**          | **.NET 8.0** | **1**      |  **16.32 ns** |   **4.498 ns** |  **0.247 ns** |  **16.04 ns** |  **16.49 ns** | **0.0033** |      **56 B** |
-| FromCidrAddress     | .NET 8.0 | 1      | 123.47 ns |  10.917 ns |  0.598 ns | 122.83 ns | 124.01 ns | 0.0067 |     112 B |
-| FromCidrAddress2    | .NET 8.0 | 1      | 117.33 ns |   9.025 ns |  0.495 ns | 116.77 ns | 117.73 ns | 0.0067 |     112 B |
-| FromIPAddressString | .NET 8.0 | 1      |  91.10 ns |   1.946 ns |  0.107 ns |  91.03 ns |  91.22 ns | 0.0033 |      56 B |
-| FromIPAddressType   | .NET 8.0 | 1      |  42.79 ns |   2.228 ns |  0.122 ns |  42.72 ns |  42.93 ns | 0.0052 |      88 B |
-| GetNetworkAddress   | .NET 8.0 | 1      |  44.21 ns |  13.336 ns |  0.731 ns |  43.59 ns |  45.01 ns | 0.0033 |      56 B |
-| GetAddressRange     | .NET 8.0 | 1      | 116.12 ns |  39.988 ns |  2.192 ns | 114.81 ns | 118.65 ns | 0.0100 |     168 B |
-| FromPrefix          | .NET 9.0 | 1      |  26.13 ns |   2.250 ns |  0.123 ns |  26.02 ns |  26.26 ns | 0.0033 |      56 B |
-| FromCidrAddress     | .NET 9.0 | 1      | 116.65 ns |  13.911 ns |  0.763 ns | 116.11 ns | 117.53 ns | 0.0067 |     112 B |
-| FromCidrAddress2    | .NET 9.0 | 1      | 112.01 ns |   3.136 ns |  0.172 ns | 111.81 ns | 112.12 ns | 0.0067 |     112 B |
-| FromIPAddressString | .NET 9.0 | 1      |  84.64 ns |   6.580 ns |  0.361 ns |  84.42 ns |  85.06 ns | 0.0033 |      56 B |
-| FromIPAddressType   | .NET 9.0 | 1      |  42.19 ns |   6.972 ns |  0.382 ns |  41.86 ns |  42.61 ns | 0.0052 |      88 B |
-| GetNetworkAddress   | .NET 9.0 | 1      |  39.20 ns |   7.517 ns |  0.412 ns |  38.89 ns |  39.67 ns | 0.0033 |      56 B |
-| GetAddressRange     | .NET 9.0 | 1      | 112.67 ns |  75.028 ns |  4.113 ns | 108.96 ns | 117.09 ns | 0.0100 |     168 B |
-| **FromPrefix**          | **.NET 8.0** | **3**      |  **51.69 ns** |   **9.137 ns** |  **0.501 ns** |  **51.16 ns** |  **52.16 ns** | **0.0100** |     **168 B** |
-| FromCidrAddress     | .NET 8.0 | 3      | 368.77 ns |  21.075 ns |  1.155 ns | 367.44 ns | 369.47 ns | 0.0200 |     336 B |
-| FromCidrAddress2    | .NET 8.0 | 3      | 348.13 ns | 199.092 ns | 10.913 ns | 339.82 ns | 360.49 ns | 0.0200 |     336 B |
-| FromIPAddressString | .NET 8.0 | 3      | 279.71 ns |  13.800 ns |  0.756 ns | 278.84 ns | 280.23 ns | 0.0100 |     168 B |
-| FromIPAddressType   | .NET 8.0 | 3      | 129.64 ns |  17.980 ns |  0.986 ns | 128.73 ns | 130.68 ns | 0.0157 |     264 B |
-| GetNetworkAddress   | .NET 8.0 | 3      | 137.55 ns |  84.944 ns |  4.656 ns | 133.98 ns | 142.82 ns | 0.0100 |     168 B |
-| GetAddressRange     | .NET 8.0 | 3      | 368.58 ns |  23.769 ns |  1.303 ns | 367.72 ns | 370.08 ns | 0.0300 |     504 B |
-| FromPrefix          | .NET 9.0 | 3      |  75.60 ns |   1.496 ns |  0.082 ns |  75.51 ns |  75.67 ns | 0.0100 |     168 B |
-| FromCidrAddress     | .NET 9.0 | 3      | 365.57 ns |  19.538 ns |  1.071 ns | 364.93 ns | 366.81 ns | 0.0200 |     336 B |
-| FromCidrAddress2    | .NET 9.0 | 3      | 335.38 ns |   6.275 ns |  0.344 ns | 335.10 ns | 335.76 ns | 0.0200 |     336 B |
-| FromIPAddressString | .NET 9.0 | 3      | 252.94 ns |   5.816 ns |  0.319 ns | 252.64 ns | 253.28 ns | 0.0100 |     168 B |
-| FromIPAddressType   | .NET 9.0 | 3      | 125.88 ns |   6.455 ns |  0.354 ns | 125.50 ns | 126.20 ns | 0.0157 |     264 B |
-| GetNetworkAddress   | .NET 9.0 | 3      | 119.29 ns |  48.813 ns |  2.676 ns | 117.59 ns | 122.38 ns | 0.0100 |     168 B |
-| GetAddressRange     | .NET 9.0 | 3      | 342.16 ns | 148.024 ns |  8.114 ns | 337.12 ns | 351.52 ns | 0.0300 |     504 B |
+| Method              | Runtime  | Number | Mean      | Error      | StdDev   | Min       | Max       | Gen0   | Allocated |
+|-------------------- |--------- |------- |----------:|-----------:|---------:|----------:|----------:|-------:|----------:|
+| **FromPrefix**          | **.NET 8.0** | **1**      |  **17.39 ns** |   **6.652 ns** | **0.365 ns** |  **17.00 ns** |  **17.72 ns** | **0.0033** |      **56 B** |
+| FromCidrAddress     | .NET 8.0 | 1      | 124.02 ns |   9.806 ns | 0.537 ns | 123.40 ns | 124.35 ns | 0.0067 |     112 B |
+| FromCidrAddress2    | .NET 8.0 | 1      | 119.59 ns |  18.661 ns | 1.023 ns | 118.68 ns | 120.70 ns | 0.0067 |     112 B |
+| FromIPAddressString | .NET 8.0 | 1      |  92.60 ns |   3.081 ns | 0.169 ns |  92.42 ns |  92.76 ns | 0.0033 |      56 B |
+| FromIPAddressType   | .NET 8.0 | 1      |  46.34 ns |   3.679 ns | 0.202 ns |  46.16 ns |  46.56 ns | 0.0052 |      88 B |
+| GetNetworkAddress   | .NET 8.0 | 1      |  44.60 ns |   4.387 ns | 0.240 ns |  44.44 ns |  44.88 ns | 0.0033 |      56 B |
+| GetAddressRange     | .NET 8.0 | 1      | 118.06 ns |  16.409 ns | 0.899 ns | 117.05 ns | 118.76 ns | 0.0100 |     168 B |
+| FromPrefix          | .NET 9.0 | 1      |  26.05 ns |   5.101 ns | 0.280 ns |  25.83 ns |  26.37 ns | 0.0033 |      56 B |
+| FromCidrAddress     | .NET 9.0 | 1      | 121.54 ns |   8.961 ns | 0.491 ns | 121.07 ns | 122.05 ns | 0.0067 |     112 B |
+| FromCidrAddress2    | .NET 9.0 | 1      | 114.53 ns |   7.661 ns | 0.420 ns | 114.15 ns | 114.98 ns | 0.0067 |     112 B |
+| FromIPAddressString | .NET 9.0 | 1      |  83.12 ns |   5.290 ns | 0.290 ns |  82.84 ns |  83.42 ns | 0.0033 |      56 B |
+| FromIPAddressType   | .NET 9.0 | 1      |  44.60 ns |   5.776 ns | 0.317 ns |  44.32 ns |  44.94 ns | 0.0052 |      88 B |
+| GetNetworkAddress   | .NET 9.0 | 1      |  40.72 ns |   1.298 ns | 0.071 ns |  40.65 ns |  40.79 ns | 0.0033 |      56 B |
+| GetAddressRange     | .NET 9.0 | 1      | 119.80 ns |  24.351 ns | 1.335 ns | 118.62 ns | 121.25 ns | 0.0100 |     168 B |
+| **FromPrefix**          | **.NET 8.0** | **3**      |  **56.09 ns** |   **8.807 ns** | **0.483 ns** |  **55.61 ns** |  **56.58 ns** | **0.0100** |     **168 B** |
+| FromCidrAddress     | .NET 8.0 | 3      | 385.66 ns |  11.455 ns | 0.628 ns | 385.14 ns | 386.35 ns | 0.0200 |     336 B |
+| FromCidrAddress2    | .NET 8.0 | 3      | 359.78 ns |  61.178 ns | 3.353 ns | 357.33 ns | 363.61 ns | 0.0200 |     336 B |
+| FromIPAddressString | .NET 8.0 | 3      | 277.64 ns |  10.094 ns | 0.553 ns | 277.23 ns | 278.27 ns | 0.0100 |     168 B |
+| FromIPAddressType   | .NET 8.0 | 3      | 140.14 ns |   2.763 ns | 0.151 ns | 139.99 ns | 140.29 ns | 0.0157 |     264 B |
+| GetNetworkAddress   | .NET 8.0 | 3      | 142.02 ns |  47.884 ns | 2.625 ns | 139.14 ns | 144.27 ns | 0.0100 |     168 B |
+| GetAddressRange     | .NET 8.0 | 3      | 381.71 ns | 110.479 ns | 6.056 ns | 374.77 ns | 385.90 ns | 0.0300 |     504 B |
+| FromPrefix          | .NET 9.0 | 3      |  79.11 ns |  10.617 ns | 0.582 ns |  78.44 ns |  79.50 ns | 0.0100 |     168 B |
+| FromCidrAddress     | .NET 9.0 | 3      | 362.92 ns |  15.167 ns | 0.831 ns | 362.20 ns | 363.83 ns | 0.0200 |     336 B |
+| FromCidrAddress2    | .NET 9.0 | 3      | 336.01 ns |  44.973 ns | 2.465 ns | 334.47 ns | 338.86 ns | 0.0200 |     336 B |
+| FromIPAddressString | .NET 9.0 | 3      | 254.13 ns |  14.693 ns | 0.805 ns | 253.21 ns | 254.65 ns | 0.0100 |     168 B |
+| FromIPAddressType   | .NET 9.0 | 3      | 126.68 ns |  12.904 ns | 0.707 ns | 126.01 ns | 127.42 ns | 0.0157 |     264 B |
+| GetNetworkAddress   | .NET 9.0 | 3      | 119.68 ns |  17.181 ns | 0.942 ns | 119.07 ns | 120.77 ns | 0.0100 |     168 B |
+| GetAddressRange     | .NET 9.0 | 3      | 343.66 ns | 106.593 ns | 5.843 ns | 339.75 ns | 350.38 ns | 0.0300 |     504 B |
