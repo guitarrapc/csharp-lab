@@ -12,7 +12,7 @@ IterationCount=3  LaunchCount=1  WarmupCount=3
 ```
 | Method                  | Runtime  | json                | Mean     | Error    | StdDev   | Min      | Max      | Gen0   | Allocated |
 |------------------------ |--------- |-------------------- |---------:|---------:|---------:|---------:|---------:|-------:|----------:|
-| SystemTextJson          | .NET 8.0 | {&quot;A&quot;(...)e&quot;}} [891] | 18.46 μs | 0.839 μs | 0.046 μs | 18.43 μs | 18.51 μs | 0.1831 |   3.22 KB |
-| SystemTextJsonSourceGen | .NET 8.0 | {&quot;A&quot;(...)e&quot;}} [891] | 17.95 μs | 0.926 μs | 0.051 μs | 17.90 μs | 18.00 μs | 0.1831 |   3.22 KB |
-| SystemTextJson          | .NET 9.0 | {&quot;A&quot;(...)e&quot;}} [891] | 18.65 μs | 0.120 μs | 0.007 μs | 18.64 μs | 18.65 μs | 0.1831 |   3.22 KB |
-| SystemTextJsonSourceGen | .NET 9.0 | {&quot;A&quot;(...)e&quot;}} [891] | 17.86 μs | 1.762 μs | 0.097 μs | 17.77 μs | 17.96 μs | 0.1831 |   3.22 KB |
+| SystemTextJson          | .NET 8.0 | {&quot;A&quot;(...)e&quot;}} [891] | 18.59 μs | 0.622 μs | 0.034 μs | 18.57 μs | 18.63 μs | 0.1831 |   3.22 KB |
+| SystemTextJsonSourceGen | .NET 8.0 | {&quot;A&quot;(...)e&quot;}} [891] | 17.97 μs | 1.409 μs | 0.077 μs | 17.90 μs | 18.06 μs | 0.1831 |   3.22 KB |
+| SystemTextJson          | .NET 9.0 | {&quot;A&quot;(...)e&quot;}} [891] | 18.36 μs | 1.229 μs | 0.067 μs | 18.31 μs | 18.44 μs | 0.1831 |   3.22 KB |
+| SystemTextJsonSourceGen | .NET 9.0 | {&quot;A&quot;(...)e&quot;}} [891] | 17.94 μs | 3.381 μs | 0.185 μs | 17.83 μs | 18.15 μs | 0.1831 |   3.22 KB |

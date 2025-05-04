@@ -16,21 +16,21 @@ IterationCount=3  LaunchCount=1  WarmupCount=3
 | AllocateLoH          | ShortRun-.NET 8.0 | .NET 8.0 | 1      |         NA |         NA |        NA |         NA |         NA |     NA |     NA |        NA |
 | AllocateArray        | ShortRun-.NET 8.0 | .NET 8.0 | 1      |         NA |         NA |        NA |         NA |         NA |     NA |     NA |        NA |
 | AllocateArrayPool    | ShortRun-.NET 8.0 | .NET 8.0 | 1      |         NA |         NA |        NA |         NA |         NA |     NA |     NA |        NA |
-| AllocateStringStatic | ShortRun-.NET 9.0 | .NET 9.0 | 1      |   753.7 ns |   975.8 ns |  53.49 ns |   692.8 ns |   793.1 ns | 0.0620 | 0.0610 |   1.02 KB |
-| AllocateString       | ShortRun-.NET 9.0 | .NET 9.0 | 1      |   744.6 ns |   327.2 ns |  17.94 ns |   731.2 ns |   764.9 ns | 0.0620 | 0.0610 |   1.02 KB |
-| AllocateLoH          | ShortRun-.NET 9.0 | .NET 9.0 | 1      |   701.4 ns |   786.6 ns |  43.12 ns |   654.6 ns |   739.4 ns | 0.0620 | 0.0610 |   1.02 KB |
-| AllocateArray        | ShortRun-.NET 9.0 | .NET 9.0 | 1      |   749.3 ns |   735.4 ns |  40.31 ns |   703.4 ns |   779.0 ns | 0.0620 | 0.0610 |   1.02 KB |
-| AllocateArrayPool    | ShortRun-.NET 9.0 | .NET 9.0 | 1      |   738.4 ns |   307.3 ns |  16.84 ns |   725.4 ns |   757.4 ns | 0.0620 | 0.0610 |   1.02 KB |
+| AllocateStringStatic | ShortRun-.NET 9.0 | .NET 9.0 | 1      |   746.1 ns |   946.9 ns |  51.91 ns |   688.5 ns |   789.2 ns | 0.0620 | 0.0610 |   1.02 KB |
+| AllocateString       | ShortRun-.NET 9.0 | .NET 9.0 | 1      |   749.6 ns |   345.7 ns |  18.95 ns |   731.3 ns |   769.2 ns | 0.0620 | 0.0610 |   1.02 KB |
+| AllocateLoH          | ShortRun-.NET 9.0 | .NET 9.0 | 1      |   727.2 ns | 1,049.5 ns |  57.53 ns |   664.3 ns |   777.2 ns | 0.0620 | 0.0610 |   1.02 KB |
+| AllocateArray        | ShortRun-.NET 9.0 | .NET 9.0 | 1      |   738.0 ns |   843.5 ns |  46.24 ns |   686.5 ns |   776.1 ns | 0.0620 | 0.0610 |   1.02 KB |
+| AllocateArrayPool    | ShortRun-.NET 9.0 | .NET 9.0 | 1      |   721.8 ns |   832.4 ns |  45.63 ns |   671.4 ns |   760.2 ns | 0.0620 | 0.0610 |   1.02 KB |
 | **AllocateStringStatic** | **ShortRun-.NET 8.0** | **.NET 8.0** | **3**      |         **NA** |         **NA** |        **NA** |         **NA** |         **NA** |     **NA** |     **NA** |        **NA** |
 | AllocateString       | ShortRun-.NET 8.0 | .NET 8.0 | 3      |         NA |         NA |        NA |         NA |         NA |     NA |     NA |        NA |
 | AllocateLoH          | ShortRun-.NET 8.0 | .NET 8.0 | 3      |         NA |         NA |        NA |         NA |         NA |     NA |     NA |        NA |
 | AllocateArray        | ShortRun-.NET 8.0 | .NET 8.0 | 3      |         NA |         NA |        NA |         NA |         NA |     NA |     NA |        NA |
 | AllocateArrayPool    | ShortRun-.NET 8.0 | .NET 8.0 | 3      |         NA |         NA |        NA |         NA |         NA |     NA |     NA |        NA |
-| AllocateStringStatic | ShortRun-.NET 9.0 | .NET 9.0 | 3      | 2,162.2 ns | 2,483.4 ns | 136.12 ns | 2,081.6 ns | 2,319.4 ns | 0.1869 | 0.1831 |   3.07 KB |
-| AllocateString       | ShortRun-.NET 9.0 | .NET 9.0 | 3      | 2,128.2 ns | 1,500.8 ns |  82.26 ns | 2,055.7 ns | 2,217.6 ns | 0.1869 | 0.1831 |   3.07 KB |
-| AllocateLoH          | ShortRun-.NET 9.0 | .NET 9.0 | 3      | 2,022.9 ns |   794.4 ns |  43.55 ns | 1,975.6 ns | 2,061.4 ns | 0.1869 | 0.1831 |   3.07 KB |
-| AllocateArray        | ShortRun-.NET 9.0 | .NET 9.0 | 3      | 2,080.3 ns |   613.2 ns |  33.61 ns | 2,056.0 ns | 2,118.6 ns | 0.1869 | 0.1831 |   3.07 KB |
-| AllocateArrayPool    | ShortRun-.NET 9.0 | .NET 9.0 | 3      | 2,057.2 ns | 2,069.8 ns | 113.45 ns | 1,978.5 ns | 2,187.2 ns | 0.1869 | 0.1831 |   3.07 KB |
+| AllocateStringStatic | ShortRun-.NET 9.0 | .NET 9.0 | 3      | 2,304.7 ns |   303.3 ns |  16.62 ns | 2,285.6 ns | 2,315.5 ns | 0.1869 | 0.1831 |   3.07 KB |
+| AllocateString       | ShortRun-.NET 9.0 | .NET 9.0 | 3      | 2,240.2 ns |   294.9 ns |  16.17 ns | 2,223.9 ns | 2,256.2 ns | 0.1869 | 0.1831 |   3.07 KB |
+| AllocateLoH          | ShortRun-.NET 9.0 | .NET 9.0 | 3      | 1,979.7 ns |   769.5 ns |  42.18 ns | 1,946.4 ns | 2,027.1 ns | 0.1869 | 0.1831 |   3.07 KB |
+| AllocateArray        | ShortRun-.NET 9.0 | .NET 9.0 | 3      | 2,211.8 ns | 2,855.4 ns | 156.51 ns | 2,031.2 ns | 2,307.7 ns | 0.1869 | 0.1831 |   3.07 KB |
+| AllocateArrayPool    | ShortRun-.NET 9.0 | .NET 9.0 | 3      | 2,208.0 ns |   403.0 ns |  22.09 ns | 2,189.5 ns | 2,232.5 ns | 0.1869 | 0.1831 |   3.07 KB |
 
 Benchmarks with issues:
   MemoryLeakBenchmarks.AllocateStringStatic: ShortRun-.NET 8.0(Runtime=.NET 8.0, IterationCount=3, LaunchCount=1, WarmupCount=3) [Number=1]
