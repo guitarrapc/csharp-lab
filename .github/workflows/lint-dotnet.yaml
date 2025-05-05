@@ -8,3 +8,6 @@ on:
 jobs:
   lint:
     uses: guitarrapc/actions/.github/workflows/reusable-dotnet-lint.yaml@main
+    permissions:
+      contents: read
+      pull-requests: write
