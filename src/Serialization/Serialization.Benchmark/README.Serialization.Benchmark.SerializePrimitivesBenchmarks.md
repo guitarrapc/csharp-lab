@@ -10,11 +10,11 @@ AMD EPYC 7763, 1 CPU, 4 logical and 2 physical cores
 IterationCount=3  LaunchCount=1  WarmupCount=3  
 
 ```
-| Method                  | Runtime  | data                 | Mean        | Error     | StdDev   | Min         | Max         | Gen0   | Allocated |
-|------------------------ |--------- |--------------------- |------------:|----------:|---------:|------------:|------------:|-------:|----------:|
-| SystemTextJson          | .NET 8.0 | Seria(...)tives [29] | 1,060.06 ns | 99.936 ns | 5.478 ns | 1,054.58 ns | 1,065.54 ns | 0.0267 |     464 B |
-| SystemTextJsonSourceGen | .NET 8.0 | Seria(...)tives [29] |   948.50 ns | 55.662 ns | 3.051 ns |   945.73 ns |   951.77 ns | 0.0334 |     568 B |
-| MemoryPack              | .NET 8.0 | Seria(...)tives [29] |    93.39 ns | 10.760 ns | 0.590 ns |    92.73 ns |    93.86 ns | 0.0072 |     120 B |
-| SystemTextJson          | .NET 9.0 | Seria(...)tives [29] |   951.92 ns | 58.711 ns | 3.218 ns |   949.34 ns |   955.52 ns | 0.0277 |     464 B |
-| SystemTextJsonSourceGen | .NET 9.0 | Seria(...)tives [29] |   886.64 ns |  4.847 ns | 0.266 ns |   886.48 ns |   886.95 ns | 0.0334 |     568 B |
-| MemoryPack              | .NET 9.0 | Seria(...)tives [29] |    80.50 ns |  5.422 ns | 0.297 ns |    80.16 ns |    80.72 ns | 0.0072 |     120 B |
+| Method                  | Runtime  | data                 | Mean        | Error      | StdDev   | Min         | Max         | Gen0   | Allocated |
+|------------------------ |--------- |--------------------- |------------:|-----------:|---------:|------------:|------------:|-------:|----------:|
+| SystemTextJson          | .NET 8.0 | Seria(...)tives [29] | 1,024.08 ns |  83.732 ns | 4.590 ns | 1,019.72 ns | 1,028.87 ns | 0.0267 |     464 B |
+| SystemTextJsonSourceGen | .NET 8.0 | Seria(...)tives [29] |   923.10 ns |  71.993 ns | 3.946 ns |   918.80 ns |   926.55 ns | 0.0334 |     568 B |
+| MemoryPack              | .NET 8.0 | Seria(...)tives [29] |    93.19 ns |  32.117 ns | 1.760 ns |    92.02 ns |    95.22 ns | 0.0072 |     120 B |
+| SystemTextJson          | .NET 9.0 | Seria(...)tives [29] |   944.06 ns |  26.797 ns | 1.469 ns |   942.65 ns |   945.58 ns | 0.0277 |     464 B |
+| SystemTextJsonSourceGen | .NET 9.0 | Seria(...)tives [29] |   866.71 ns | 115.241 ns | 6.317 ns |   862.41 ns |   873.96 ns | 0.0334 |     568 B |
+| MemoryPack              | .NET 9.0 | Seria(...)tives [29] |    76.29 ns |   2.066 ns | 0.113 ns |    76.16 ns |    76.38 ns | 0.0072 |     120 B |

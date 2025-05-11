@@ -12,9 +12,9 @@ IterationCount=3  LaunchCount=1  WarmupCount=3
 ```
 | Method                  | Runtime  | data                 | Mean      | Error     | StdDev   | Min       | Max       | Gen0   | Allocated |
 |------------------------ |--------- |--------------------- |----------:|----------:|---------:|----------:|----------:|-------:|----------:|
-| SystemTextJson          | .NET 8.0 | Seria(...)Class [29] | 647.58 ns | 59.689 ns | 3.272 ns | 644.87 ns | 651.21 ns | 0.0229 |     392 B |
-| SystemTextJsonSourceGen | .NET 8.0 | Seria(...)Class [29] | 703.63 ns | 17.578 ns | 0.963 ns | 702.58 ns | 704.48 ns | 0.0277 |     464 B |
-| MemoryPack              | .NET 8.0 | Seria(...)Class [29] |  63.99 ns |  2.782 ns | 0.153 ns |  63.89 ns |  64.17 ns | 0.0072 |     120 B |
-| SystemTextJson          | .NET 9.0 | Seria(...)Class [29] | 626.81 ns | 34.680 ns | 1.901 ns | 625.61 ns | 629.00 ns | 0.0229 |     392 B |
-| SystemTextJsonSourceGen | .NET 9.0 | Seria(...)Class [29] | 651.02 ns | 43.974 ns | 2.410 ns | 648.43 ns | 653.19 ns | 0.0277 |     464 B |
-| MemoryPack              | .NET 9.0 | Seria(...)Class [29] |  48.44 ns |  6.126 ns | 0.336 ns |  48.07 ns |  48.73 ns | 0.0072 |     120 B |
+| SystemTextJson          | .NET 8.0 | Seria(...)Class [29] | 632.05 ns | 90.049 ns | 4.936 ns | 627.70 ns | 637.42 ns | 0.0229 |     392 B |
+| SystemTextJsonSourceGen | .NET 8.0 | Seria(...)Class [29] | 701.40 ns | 26.628 ns | 1.460 ns | 699.81 ns | 702.69 ns | 0.0277 |     464 B |
+| MemoryPack              | .NET 8.0 | Seria(...)Class [29] |  56.56 ns |  8.060 ns | 0.442 ns |  56.17 ns |  57.04 ns | 0.0072 |     120 B |
+| SystemTextJson          | .NET 9.0 | Seria(...)Class [29] | 580.74 ns | 37.695 ns | 2.066 ns | 579.09 ns | 583.06 ns | 0.0229 |     392 B |
+| SystemTextJsonSourceGen | .NET 9.0 | Seria(...)Class [29] | 621.01 ns | 48.568 ns | 2.662 ns | 618.40 ns | 623.72 ns | 0.0277 |     464 B |
+| MemoryPack              | .NET 9.0 | Seria(...)Class [29] |  44.16 ns |  5.955 ns | 0.326 ns |  43.92 ns |  44.53 ns | 0.0072 |     120 B |
