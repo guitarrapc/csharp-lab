@@ -36,6 +36,8 @@ jobs:
             path: src/Serialization
           - project: Strings.Benchmark
             path: src/Strings
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -49,6 +51,8 @@ jobs:
           echo "threads=$(grep -c processor /proc/cpuinfo)"
           echo "execute=$([[ "${cpu:1}" != "${{ env.SKIP_CPU }}" ]] && echo 1 || echo 0)" | tee -a "${GITHUB_OUTPUT}"
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
       - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
         with:
           restore-wasm-workload: true
@@ -92,6 +96,8 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
       - name: Remove existing README.md
         run: rm -f src/**/*Benchmark*md
 
