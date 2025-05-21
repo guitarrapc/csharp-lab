@@ -45,7 +45,7 @@ jobs:
           cpu=$(less /proc/cpuinfo | grep -m 1 'model name' | cut -f 2 -d ":")
           cores=$(grep 'cpu cores' /proc/cpuinfo | uniq | cut -d':' -f2)
           echo "name=${cpu:1}" | tee -a "${GITHUB_OUTPUT}"
-          echo "cores=$(( 1 * $cores ))"
+          echo "cores=$(( 1 * cores ))"
           echo "threads=$(grep -c processor /proc/cpuinfo)"
           echo "execute=$([[ "${cpu:1}" != "${{ env.SKIP_CPU }}" ]] && echo 1 || echo 0)" | tee -a "${GITHUB_OUTPUT}"
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -107,8 +107,8 @@ jobs:
           while read -r file; do
             echo "Processing ${file}."
             md_path=$(head -n 1 "${file}.path")
-            cat "$file" > $md_path
-          done <<< $(find "${{ env.TEMP_UPLOAD_PATH }}/" ! -name "dummy.md" -name "*.md" -type f)
+            cat "$file" > "$md_path"
+          done <<< "$(find "${{ env.TEMP_UPLOAD_PATH }}/" ! -name "dummy.md" -name "*.md" -type f)"
       - name: commit & push
         id: commit-and-push
         run: |
