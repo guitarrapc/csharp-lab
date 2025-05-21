@@ -109,12 +109,19 @@ jobs:
             md_path=$(head -n 1 "${file}.path")
             cat "$file" > $md_path
           done <<< $(find "${{ env.TEMP_UPLOAD_PATH }}/" ! -name "dummy.md" -name "*.md" -type f)
+      - name: commit & push
+        id: commit-and-push
+        run: |
+          git remote set-url origin "https://github-actions:${GITHUB_TOKEN}@github.com/${{ github.repository }}"
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [[ $(git diff) -eq 0 ]]; then
+            exit 0
+          fi
 
-      - name: Commit & Push changes
-        if: ${{ github.event_name != 'pull_request' }}
-        uses: actions-js/push@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.ref || github.ref }}
-          author_email: 41898282+github-actions[bot]@users.noreply.github.com
-          message: "[auto commit] Benchmark result updated."
+          git add .
+          git commit -m "[auto commit] Benchmark result updated."
+          git push
+
+          revision=$(git rev-parse HEAD)
+          echo "REVISION=$revision" >> $GITHUB_OUTPUT
