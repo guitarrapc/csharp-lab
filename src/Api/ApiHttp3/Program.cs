@@ -3,9 +3,8 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddOpenApi();
 
 // Enable HTTP3
 builder.ConfigureHttp3Endpoint()
@@ -16,8 +15,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();
@@ -39,13 +37,7 @@ app.MapGet("/weatherforecast", () =>
         .ToArray();
     return forecast;
 })
-.WithName("GetWeatherForecast")
-.AddOpenApiOperationTransformer((operation, context, ct) =>
-{
-    operation.Summary = "Gets the weather forecast for the next 5 days.";
-    operation.Description = "Returns an array of weather forecast objects.";
-    return Task.FromResult(operation);
-});
+.WithName("GetWeatherForecast");
 
 app.Run();
 
