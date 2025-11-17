@@ -30,8 +30,7 @@ public static class ElastiCacheRouteHandler
             }
             return Results.Ok(value);
         })
-        .WithName("LongCacheOperation")
-        .WithOpenApi();
+        .WithName("LongCacheOperation");
 
         app.MapPost("/cacheX", async (string key, TimeProvider timeProvider, ElastiCacheConnectionContext context) =>
         {
@@ -39,8 +38,7 @@ public static class ElastiCacheRouteHandler
             var value = await cache.GetOrSetAsync(key, timeProvider.GetLocalNow(), RedisExpiry.Medium);
             return Results.Ok(value);
         })
-        .WithName("SetCacheX")
-        .WithOpenApi();
+        .WithName("SetCacheX");
 
         app.MapGet("/cache/{key}", async (string key, ElastiCacheConnectionContext context) =>
         {
@@ -50,8 +48,7 @@ public static class ElastiCacheRouteHandler
                 ? Results.Ok(result.Value)
                 : Results.NotFound();
         })
-        .WithName("GetCache")
-        .WithOpenApi();
+        .WithName("GetCache");
 
         app.MapPost("/cache", async (string key, TimeProvider timeProvider, ElastiCacheConnectionContext context) =>
         {
@@ -59,8 +56,7 @@ public static class ElastiCacheRouteHandler
             await cache.SetAsync(key, timeProvider.GetLocalNow(), RedisExpiry.Short);
             return Results.Ok();
         })
-        .WithName("SetCache")
-        .WithOpenApi();
+        .WithName("SetCache");
 
         app.MapDelete("/cache/{key}", async (string key, ElastiCacheConnectionContext context) =>
         {
@@ -68,7 +64,6 @@ public static class ElastiCacheRouteHandler
             await cache.RemoveAsync(key);
             return Results.Ok();
         })
-        .WithName("DeleteCache")
-        .WithOpenApi();
+        .WithName("DeleteCache");
     }
 }

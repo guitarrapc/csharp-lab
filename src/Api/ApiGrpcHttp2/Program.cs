@@ -38,6 +38,7 @@ if (app.Environment.IsDevelopment())
     app.MapGrpcReflectionService();
 }
 
+// Configure the HTTP request pipeline.
 app.MapGrpcService<GreeterService>();
 app.MapGrpcService<DuplexerService>();
 app.MapGrpcHealthChecksService();

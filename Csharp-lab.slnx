@@ -53,11 +53,6 @@
     <Project Path="src/Serialization/Serialization.Core/Serialization.Core.csproj" />
     <Project Path="src/Serialization/Serialization.Tests/Serialization.Tests.csproj" />
   </Folder>
-  <Folder Name="/SourceGenerator/">
-    <Project Path="src/SourceGenerator/SourceGeneratorBasic.ConsoleApp/SourceGeneratorBasic.ConsoleApp.csproj" />
-    <Project Path="src/SourceGenerator/SourceGeneratorBasic.UnitTests/SourceGeneratorBasic.UnitTests.csproj" />
-    <Project Path="src/SourceGenerator/SourceGeneratorBasic/SourceGeneratorBasic.csproj" />
-  </Folder>
   <Folder Name="/Strings/">
     <Project Path="src/Strings/Strings.Benchmark/Strings.Benchmark.csproj" />
     <Project Path="src/Strings/Strings.Core/Strings.Core.csproj" />

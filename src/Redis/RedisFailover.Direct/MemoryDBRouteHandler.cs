@@ -30,8 +30,7 @@ public static class MemoryDBRouteHandler
             }
             return Results.Ok(value);
         })
-        .WithName("LongPersistentOperation")
-        .WithOpenApi();
+        .WithName("LongPersistentOperation");
 
         app.MapPost("/persistentX", async (string key, TimeProvider timeProvider, MemoryDBConnectionContext context) =>
         {
@@ -39,8 +38,7 @@ public static class MemoryDBRouteHandler
             var value = await cache.GetOrSetAsync(key, timeProvider.GetLocalNow(), RedisExpiry.Medium);
             return Results.Ok(value);
         })
-        .WithName("SetPersistentX")
-        .WithOpenApi();
+        .WithName("SetPersistentX");
 
         app.MapGet("/persistent/{key}", async (string key, MemoryDBConnectionContext context) =>
         {
@@ -50,8 +48,7 @@ public static class MemoryDBRouteHandler
                 ? Results.Ok(result.Value)
                 : Results.NotFound();
         })
-        .WithName("GetPersistent")
-        .WithOpenApi();
+        .WithName("GetPersistent");
 
         app.MapPost("/persistent", async (string key, TimeProvider timeProvider, MemoryDBConnectionContext context) =>
         {
@@ -59,8 +56,7 @@ public static class MemoryDBRouteHandler
             await cache.SetAsync(key, timeProvider.GetLocalNow(), RedisExpiry.Short);
             return Results.Ok();
         })
-        .WithName("SetPersistent")
-        .WithOpenApi();
+        .WithName("SetPersistent");
 
         app.MapDelete("/persistent/{key}", async (string key, MemoryDBConnectionContext context) =>
         {
@@ -68,7 +64,6 @@ public static class MemoryDBRouteHandler
             await cache.RemoveAsync(key);
             return Results.Ok();
         })
-        .WithName("DeletePersistent")
-        .WithOpenApi();
+        .WithName("DeletePersistent");
     }
 }

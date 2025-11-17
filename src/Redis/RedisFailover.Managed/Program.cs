@@ -10,9 +10,9 @@ builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddOpenApi();
+
 builder.Services.AddSingleton(TimeProvider.System);
 builder.Services.AddStackExchangeRedisCache(options =>
 {
@@ -30,8 +30,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.MapOpenApi();
 }
 
 var summaries = new[]
@@ -51,8 +50,7 @@ app.MapGet("/weatherforecast", () =>
         .ToArray();
     return forecast;
 })
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+.WithName("GetWeatherForecast");
 
 app.MapPost("/cache/long_operation", async (string key, TimeProvider timeProvider, IDistributedCache cache, CancellationToken ct) =>
 {
@@ -76,16 +74,15 @@ app.MapPost("/cache/long_operation", async (string key, TimeProvider timeProvide
     }
     return Results.Ok(value);
 })
-.WithName("LongCacheOperation")
-.WithOpenApi();
+.WithName("LongCacheOperation");
 
 app.MapPost("/cacheX", async (string key, TimeProvider timeProvider, IDistributedCache cache) =>
 {
     var value = await cache.GetOrSetAsync(key, timeProvider.GetLocalNow(), DistributedCacheExpiration.Medium);
     return Results.Ok(value);
 })
-.WithName("SetCacheX")
-.WithOpenApi();
+.WithName("SetCacheX");
+
 
 app.MapGet("/cache/{key}", async (string key, IDistributedCache cache, CancellationToken ct) =>
 {
@@ -94,24 +91,21 @@ app.MapGet("/cache/{key}", async (string key, IDistributedCache cache, Cancellat
         ? Results.Ok(result.Value)
         : Results.NotFound();
 })
-.WithName("GetCache")
-.WithOpenApi();
+.WithName("GetCache");
 
 app.MapPost("/cache", async (string key, TimeProvider timeProvider, IDistributedCache cache) =>
 {
     await cache.SetAsync(key, timeProvider.GetLocalNow(), DistributedCacheExpiration.Short);
     return Results.Ok();
 })
-.WithName("SetCache")
-.WithOpenApi();
+.WithName("SetCache");
 
 app.MapDelete("/cache/{key}", async (string key, IDistributedCache cache) =>
 {
     await cache.RemoveAsync(key);
     return Results.Ok();
 })
-.WithName("DeleteCache")
-.WithOpenApi();
+.WithName("DeleteCache");
 
 app.Run();
 
