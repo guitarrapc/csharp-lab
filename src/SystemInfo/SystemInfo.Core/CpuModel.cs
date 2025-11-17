@@ -36,7 +36,7 @@ public class CpuModel
             }
             else
             {
-                // Windows Arm64 is not supported... Don't like WMI or kernel32.dll SystemInfo
+                // Unsupported platform (not Windows, Linux, or macOS)
                 (ModelName, UnknownReason) = (UnknownPhrase, $"Platform not supported for... OS: {RuntimeInformation.OSDescription}, Architecture: {RuntimeInformation.OSArchitecture}");
             }
         }
@@ -100,22 +100,29 @@ public class CpuModel
 
     private static (string modelName, string unknownReason) GetLinuxModelName()
     {
-        var cpuInfo = File.ReadAllText("/proc/cpuinfo");
-        var lines = cpuInfo.Split('\n');
-        foreach (var line in lines)
+        try
         {
-            if (!line.StartsWith("model name"))
+            var cpuInfo = File.ReadAllText("/proc/cpuinfo");
+            var lines = cpuInfo.Split('\n');
+            foreach (var line in lines)
             {
-                continue;
+                if (!line.StartsWith("model name"))
+                {
+                    continue;
+                }
+                var parts = line.Split(':');
+                if (parts.Length > 1)
+                {
+                    var modelName = parts[1].Trim();
+                    return (modelName, "");
+                }
             }
-            var parts = line.Split(':');
-            if (parts.Length > 1)
-            {
-                var modelName = parts[1].Trim();
-                return (modelName, "");
-            }
+            return (UnknownPhrase, "'model name' section not found.");
         }
-        return (UnknownPhrase, "'model name' section not found.");
+        catch (Exception ex)
+        {
+            return (UnknownPhrase, $"Exception occurred: {ex.Message}");
+        }
     }
 
     private static (string modelName, string unknownReason) GetOSXModelname()
