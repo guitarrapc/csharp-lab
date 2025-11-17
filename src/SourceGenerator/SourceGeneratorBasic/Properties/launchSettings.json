@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "SourceGeneratorBasic (SourceGeneratorBasic.ConsoleApp)": {
-      "commandName": "DebugRoslynComponent",
-      "targetProject": "..\\SourceGeneratorBasic.ConsoleApp\\SourceGeneratorBasic.ConsoleApp.csproj"
-    }
-  }
-}
