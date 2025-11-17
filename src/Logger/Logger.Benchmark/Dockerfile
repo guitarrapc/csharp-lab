@@ -10,7 +10,6 @@ FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG TARGETARCH
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY --from=mcr.microsoft.com/dotnet/sdk:10.0 /usr/share/dotnet/sdk /usr/share/dotnet/sdk
 COPY ["Directory.Packages.props", "."]
 COPY ["Directory.Build.props", "."]
 COPY ["src/Logger/Logger.Benchmark/Logger.Benchmark.csproj", "src/Logger/Logger.Benchmark/"]
