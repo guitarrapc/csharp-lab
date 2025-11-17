@@ -11,7 +11,8 @@ FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG TARGETARCH
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Directory.Build.props", "src/Directory.Build.props"]
+COPY ["Directory.Packages.props", "."]
+COPY ["Directory.Build.props", "."]
 COPY ["src/Database/DatabaseSqliteInmemoryEF/DatabaseSqliteInmemoryEF.csproj", "src/Database/DatabaseSqliteInmemoryEF/"]
 COPY ["src/Database/DatabaseCore/DatabaseCore.csproj", "src/Database/DatabaseCore/"]
 RUN dotnet restore "./src/Database/DatabaseSqliteInmemoryEF/DatabaseSqliteInmemoryEF.csproj" -a $TARGETARCH

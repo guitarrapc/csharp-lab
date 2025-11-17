@@ -12,7 +12,8 @@ FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG TARGETARCH
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Directory.Build.props", "src/Directory.Build.props"]
+COPY ["Directory.Packages.props", "."]
+COPY ["Directory.Build.props", "."]
 COPY ["src/Blazor/BlazorServerApp/BlazorServerApp.csproj", "src/Blazor/BlazorServerApp/"]
 RUN dotnet restore "./src/Blazor/BlazorServerApp/BlazorServerApp.csproj" -a $TARGETARCH
 COPY . .

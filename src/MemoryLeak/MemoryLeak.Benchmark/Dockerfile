@@ -11,7 +11,8 @@ FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG TARGETARCH
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Directory.Build.props", "src/Directory.Build.props"]
+COPY ["Directory.Packages.props", "."]
+COPY ["Directory.Build.props", "."]
 COPY ["src/MemoryLeak/MemoryLeak.Benchmark/MemoryLeak.Benchmark.csproj", "src/MemoryLeak/MemoryLeak.Benchmark/"]
 COPY ["src/MemoryLeak/MemoryLeak.Core/MemoryLeak.Core.csproj", "src/MemoryLeak/MemoryLeak.Core/"]
 RUN dotnet restore "./src/MemoryLeak/MemoryLeak.Benchmark/MemoryLeak.Benchmark.csproj" -a $TARGETARCH

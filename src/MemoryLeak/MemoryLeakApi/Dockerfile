@@ -7,7 +7,8 @@ EXPOSE 80
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG TARGETARCH
 WORKDIR /src
-COPY ["Directory.Build.props", "src/Directory.Build.props"]
+COPY ["Directory.Packages.props", "."]
+COPY ["Directory.Build.props", "."]
 COPY ["src/MemoryLeak/MemoryLeakApi/MemoryLeakApi.csproj", "src/MemoryLeak/MemoryLeakApi/"]
 COPY ["src/MemoryLeak/MemoryLeak.Core/MemoryLeak.Core.csproj", "src/MemoryLeak/MemoryLeak.Core/"]
 RUN dotnet restore "src/MemoryLeak/MemoryLeakApi/MemoryLeakApi.csproj" -a $TARGETARCH

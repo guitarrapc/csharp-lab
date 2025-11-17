@@ -11,7 +11,8 @@ FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG TARGETARCH
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Directory.Build.props", "src/Directory.Build.props"]
+COPY ["Directory.Packages.props", "."]
+COPY ["Directory.Build.props", "."]
 COPY ["src/SystemInfo/SystemInfo.Sandbox/SystemInfo.Sandbox.csproj", "src/SystemInfo/SystemInfo.Sandbox/"]
 COPY ["src/SystemInfo/SystemInfo.Core/SystemInfo.Core.csproj", "src/SystemInfo/SystemInfo.Core/"]
 RUN dotnet restore "./src/SystemInfo/SystemInfo.Sandbox/SystemInfo.Sandbox.csproj" -a $TARGETARCH

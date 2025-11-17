@@ -11,7 +11,8 @@ FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG TARGETARCH
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Directory.Build.props", "src/Directory.Build.props"]
+COPY ["Directory.Packages.props", "."]
+COPY ["Directory.Build.props", "."]
 COPY ["src/Logger/LoggerWorker/LoggerWorker.csproj", "src/Logger/LoggerWorker/"]
 RUN dotnet restore "./src/Logger/LoggerWorker/LoggerWorker.csproj" -a $TARGETARCH
 COPY . .
