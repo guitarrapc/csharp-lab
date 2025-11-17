@@ -39,7 +39,7 @@ for (var i = 0; i < round; i++)
 
 public static class StartupInfo
 {
-    private static string cpuModel = !string.IsNullOrWhiteSpace(CpuModel.Current.ModelName) ? CpuModel.Current.ModelName : CpuModel.Current.UnkownReason;
+    private static string cpuModel = !string.IsNullOrWhiteSpace(CpuModel.Current.ModelName) ? CpuModel.Current.ModelName : CpuModel.Current.UnknownReason;
 
     /// <summary>
     /// Get and print startup information about the operating system and CPU.

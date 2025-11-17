@@ -4,45 +4,45 @@ namespace SystemInfo.Core;
 
 public class CpuModel
 {
-    const string UnkownFrase = "Unkown";
+    const string UnknownPhrase = "Unkown";
 
     public static CpuModel Current { get; } = new CpuModel();
     public string ModelName { get; } = "";
-    public string UnkownReason { get; } = "";
+    public string UnknownReason { get; } = "";
 
     private CpuModel()
     {
         if (System.Runtime.Intrinsics.X86.X86Base.IsSupported)
         {
             // x86_64 OS (Linux, Windows, macOS) ...
-            (ModelName, UnkownReason) = GetX86CpuModelName();
+            (ModelName, UnknownReason) = GetX86CpuModelName();
         }
         else
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 // Windows Arm64 will be here...
-                (ModelName, UnkownReason) = GetWindowsModelName();
+                (ModelName, UnknownReason) = GetWindowsModelName();
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 // Linux Arm64 will be here...
-                (ModelName, UnkownReason) = GetLinuxModelName();
+                (ModelName, UnknownReason) = GetLinuxModelName();
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 // macOS will be here...
-                (ModelName, UnkownReason) = GetOSXModelname();
+                (ModelName, UnknownReason) = GetOSXModelname();
             }
             else
             {
                 // Windows Arm64 is not supported... Don't like WMI or kernel32.dll SystemInfo
-                (ModelName, UnkownReason) = (UnkownFrase, $"Platform not supported for... OS: {RuntimeInformation.OSDescription}, Architecture: {RuntimeInformation.OSArchitecture}");
+                (ModelName, UnknownReason) = (UnknownPhrase, $"Platform not supported for... OS: {RuntimeInformation.OSDescription}, Architecture: {RuntimeInformation.OSArchitecture}");
             }
         }
     }
 
-    private static (string modelName, string unkownReason) GetX86CpuModelName()
+    private static (string modelName, string unknownReason) GetX86CpuModelName()
     {
         Span<int> regs = stackalloc int[12]; // call 3 times (0x80000002, 0x80000003, 0x80000004) for 4 registers
 
@@ -65,7 +65,7 @@ public class CpuModel
             return (ConvertToString(regs), "");
         }
 
-        return (UnkownFrase, $"CPU Architecture not supported... extendedId: {extendedId}");
+        return (UnknownPhrase, $"CPU Architecture not supported... extendedId: {extendedId}");
 
         static string ConvertToString(ReadOnlySpan<int> regs)
         {
@@ -78,7 +78,7 @@ public class CpuModel
         }
     }
 
-    private static (string modelName, string unkownReason) GetWindowsModelName()
+    private static (string modelName, string unknownReason) GetWindowsModelName()
     {
         const string registryKey = @"HARDWARE\DESCRIPTION\System\CentralProcessor\0";
         const string valueName = "ProcessorNameString";
@@ -95,10 +95,10 @@ public class CpuModel
                 return (model, "");
             }
         }
-        return (UnkownFrase, "Windows Registry Key not found.");
+        return (UnknownPhrase, "Windows Registry Key not found.");
     }
 
-    private static (string modelName, string unkownReason) GetLinuxModelName()
+    private static (string modelName, string unknownReason) GetLinuxModelName()
     {
         var cpuInfo = File.ReadAllText("/proc/cpuinfo");
         var lines = cpuInfo.Split('\n');
@@ -115,10 +115,10 @@ public class CpuModel
                 return (modelName, "");
             }
         }
-        return (UnkownFrase, "'model name' section not found.");
+        return (UnknownPhrase, "'model name' section not found.");
     }
 
-    private static (string modelName, string unkownReason) GetOSXModelname()
+    private static (string modelName, string unknownReason) GetOSXModelname()
     {
         try
         {
@@ -128,12 +128,12 @@ public class CpuModel
             int result = sysctlbyname("machdep.cpu.brand_string", IntPtr.Zero, ref size, IntPtr.Zero, 0);
             if (result != 0)
             {
-                return (UnkownFrase, $"sysctlbyname failed to get size. Return code: {result}, errno: {Marshal.GetLastPInvokeError()}");
+                return (UnknownPhrase, $"sysctlbyname failed to get size. Return code: {result}, errno: {Marshal.GetLastPInvokeError()}");
             }
 
             if (size == 0)
             {
-                return (UnkownFrase, "sysctlbyname returned size 0");
+                return (UnknownPhrase, "sysctlbyname returned size 0");
             }
 
             IntPtr buffer = Marshal.AllocHGlobal((int)size);
@@ -143,13 +143,13 @@ public class CpuModel
                 result = sysctlbyname("machdep.cpu.brand_string", buffer, ref size, IntPtr.Zero, 0);
                 if (result != 0)
                 {
-                    return (UnkownFrase, $"sysctlbyname failed to get value. Return code: {result}, errno: {Marshal.GetLastPInvokeError()}");
+                    return (UnknownPhrase, $"sysctlbyname failed to get value. Return code: {result}, errno: {Marshal.GetLastPInvokeError()}");
                 }
 
                 var cpuBrand = Marshal.PtrToStringAnsi(buffer);
                 if (string.IsNullOrEmpty(cpuBrand))
                 {
-                    return (UnkownFrase, "machdep.cpu.brand_string returned empty string.");
+                    return (UnknownPhrase, "machdep.cpu.brand_string returned empty string.");
                 }
 
                 return (cpuBrand.Trim(), "");
@@ -161,7 +161,7 @@ public class CpuModel
         }
         catch (Exception ex)
         {
-            return (UnkownFrase, $"Exception occurred: {ex.Message}");
+            return (UnknownPhrase, $"Exception occurred: {ex.Message}");
         }
     }
 

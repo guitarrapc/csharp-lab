@@ -12,7 +12,7 @@ public class CpuModelTest
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && RuntimeInformation.ProcessArchitecture == Architecture.X64)
         {
             Assert.NotEqual("Unkown", cpuModel.ModelName);
-            Assert.Empty(cpuModel.UnkownReason);
+            Assert.Empty(cpuModel.UnknownReason);
         }
     }
 
@@ -22,7 +22,7 @@ public class CpuModelTest
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
         {
             Assert.NotEqual("Unkown", cpuModel.ModelName);
-            Assert.Empty(cpuModel.UnkownReason);
+            Assert.Empty(cpuModel.UnknownReason);
         }
     }
 
@@ -32,7 +32,7 @@ public class CpuModelTest
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && RuntimeInformation.ProcessArchitecture == Architecture.X64)
         {
             Assert.NotEqual("Unkown", cpuModel.ModelName);
-            Assert.Empty(cpuModel.UnkownReason);
+            Assert.Empty(cpuModel.UnknownReason);
         }
     }
 
@@ -42,7 +42,7 @@ public class CpuModelTest
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
         {
             Assert.NotEqual("Unkown", cpuModel.ModelName);
-            Assert.Empty(cpuModel.UnkownReason);
+            Assert.Empty(cpuModel.UnknownReason);
         }
     }
 
@@ -52,7 +52,7 @@ public class CpuModelTest
         if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) && RuntimeInformation.ProcessArchitecture == Architecture.X64)
         {
             Assert.NotEqual("Unkown", cpuModel.ModelName);
-            Assert.Empty(cpuModel.UnkownReason);
+            Assert.Empty(cpuModel.UnknownReason);
         }
     }
 
@@ -62,7 +62,7 @@ public class CpuModelTest
         if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) && RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
         {
             Assert.NotEqual("Unkown", cpuModel.ModelName);
-            Assert.Empty(cpuModel.UnkownReason);
+            Assert.Empty(cpuModel.UnknownReason);
         }
     }
 }
