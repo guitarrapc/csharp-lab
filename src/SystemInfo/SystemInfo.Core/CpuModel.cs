@@ -7,8 +7,8 @@ public class CpuModel
     const string UnkownFrase = "Unkown";
 
     public static CpuModel Current { get; } = new CpuModel();
-    public string ModelName { get; private set; } = "";
-    public string UnkownReason { get; private set; } = "";
+    public string ModelName { get; } = "";
+    public string UnkownReason { get; } = "";
 
     private CpuModel()
     {
@@ -19,7 +19,12 @@ public class CpuModel
         }
         else
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                // Windows Arm64 will be here...
+                (ModelName, UnkownReason) = GetWindowsModelName();
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 // Linux Arm64 will be here...
                 (ModelName, UnkownReason) = GetLinuxModelName();
@@ -71,6 +76,26 @@ public class CpuModel
             }
             return System.Text.Encoding.ASCII.GetString(bytes).Trim();
         }
+    }
+
+    private static (string modelName, string unkownReason) GetWindowsModelName()
+    {
+        const string registryKey = @"HARDWARE\DESCRIPTION\System\CentralProcessor\0";
+        const string valueName = "ProcessorNameString";
+
+        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            throw new PlatformNotSupportedException("Not Windows OS.");
+
+        using var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(registryKey);
+        if (key != null)
+        {
+            var value = key.GetValue(valueName);
+            if (value is string model)
+            {
+                return (model, "");
+            }
+        }
+        return (UnkownFrase, "Windows Registry Key not found.");
     }
 
     private static (string modelName, string unkownReason) GetLinuxModelName()
