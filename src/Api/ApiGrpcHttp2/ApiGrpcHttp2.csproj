@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>$(TargetFrameworkVersion)</TargetFramework>
-    <UserSecretsId>28178394-a6c7-4ec8-93f1-e8a1748ded48</UserSecretsId>
+    <UserSecretsId>9328943f-cd3a-4408-bc10-20e9e9f8450b</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
   </PropertyGroup>
