@@ -2,7 +2,7 @@
 
 # This stage is used when running from VS in fast mode (Default for Debug configuration)
 FROM mcr.microsoft.com/dotnet/runtime:10.0 AS base
-USER app
+USER $APP_UID
 WORKDIR /app
 
 
@@ -19,12 +19,12 @@ COPY ["src/Logic/Logic.Core/Logic.Core.csproj", "src/Logic/Logic.Core/"]
 RUN dotnet restore "./src/Logic/Logic.Benchmark/Logic.Benchmark.csproj" -a $TARGETARCH
 COPY . .
 WORKDIR "/src/src/Logic/Logic.Benchmark"
-RUN dotnet build "./Logic.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/build -f net10.0 -a $TARGETARCH
+RUN dotnet build "./Logic.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/build -a $TARGETARCH
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Logic.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false -f net10.0 -a $TARGETARCH
+RUN dotnet publish "./Logic.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false -a $TARGETARCH
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final

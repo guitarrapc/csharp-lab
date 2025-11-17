@@ -13,7 +13,8 @@ EXPOSE 8080
 
 
 # This stage is used to build the service project
-FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+ARG TARGETARCH
 # Install clang/zlib1g-dev dependencies for publishing to native
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \

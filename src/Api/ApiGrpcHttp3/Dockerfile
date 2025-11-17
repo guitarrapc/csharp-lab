@@ -13,7 +13,7 @@ RUN set -ex \
     && apt-get update \
     && apt-get install -y libmsquic --no-install-recommends \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
-USER app
+USER $APP_UID
 WORKDIR /app
 EXPOSE 5001
 
