@@ -1,17 +1,17 @@
 # See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
 # This stage is used when running from VS in fast mode (Default for Debug configuration)
-FROM mcr.microsoft.com/dotnet/runtime:9.0 AS base
+FROM mcr.microsoft.com/dotnet/runtime:10.0 AS base
 USER app
 WORKDIR /app
 
 
 # This stage is used to build the service project
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG TARGETARCH
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY --from=mcr.microsoft.com/dotnet/sdk:8.0 /usr/share/dotnet/sdk /usr/share/dotnet/sdk
+COPY --from=mcr.microsoft.com/dotnet/sdk:10.0 /usr/share/dotnet/sdk /usr/share/dotnet/sdk
 COPY ["Directory.Build.props", "src/Directory.Build.props"]
 COPY ["src/Serialization/Serialization.Benchmark/Serialization.Benchmark.csproj", "src/Serialization/Serialization.Benchmark/"]
 COPY ["src/Serialization/Serialization.Core/Serialization.Core.csproj", "src/Serialization/Serialization.Core/"]
