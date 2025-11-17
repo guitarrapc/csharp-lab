@@ -207,7 +207,7 @@ public class CpuModel
     }
 
     [DllImport("libSystem.dylib")]
-    private static extern int sysctlbyname(string name, IntPtr oldp, ref IntPtr oldlenp, IntPtr newp, IntPtr newlen);
+    private static extern int sysctlbyname(string name, IntPtr oldp, ref nint oldlenp, IntPtr newp, nint newlen);
 
     // ARM CPU detection helpers
     // see: https://github.com/util-linux/util-linux/blob/v2.41.2/sys-utils/lscpu-arm.c
