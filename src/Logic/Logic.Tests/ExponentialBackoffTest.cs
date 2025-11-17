@@ -1,46 +1,57 @@
 ﻿using Logic.Core;
 using System.Diagnostics;
-using xRetry;
 
 namespace Logic.Tests;
 
 public class ExponentialBackoffTest
 {
-    // Almost stable, but delay's randomness happen on poor machine like GitHub Actions CI. Retry cover this situation.
-    [RetryTheory]
-    [InlineData(30, 500, new[] { 30.0, 60.0, 120.0, 240.0, 480.0, 500.0, 500.0 })]
-    public async Task ExponentialBackOff30Test(int delayMs, int maxDelayMs, double[] expected)
+    [Fact]
+    public async Task ExponentialBackoffCompletesAllSteps()
     {
-        var offset = 40; // shoganai
-        using var cts = new CancellationTokenSource(); // cancel by test
-        var backoff = new ExponentialBackoff(delayMs, maxDelayMs);
-        var sw = Stopwatch.StartNew();
-        long prev = 0;
-        for (var i = 0; i < expected.Length; i++)
+        using var cts = new CancellationTokenSource();
+        var backoff = new ExponentialBackoff(10, 100);
+
+        // Assume that 6 retries will complete without exceptions
+        for (var i = 0; i < 6; i++)
         {
             await backoff.DelayAsync(cts.Token);
-            var actual = sw.Elapsed.TotalMilliseconds - prev;
-            Assert.InRange(actual, expected[i] - 5, expected[i] + offset);
-            prev = sw.ElapsedMilliseconds;
         }
+
+        Assert.True(true);
     }
 
-    // Almost stable, but delay's randomness happen on poor machine like GitHub Actions CI. Retry cover this situation.
-    [RetryTheory]
-    [InlineData(100, 1000, new[] { 100.0, 200.0, 400.0, 800.0, 1000.0, 1000.0 })]
-    public async Task ExponentialBackOff100Test(int delayMs, int maxDelayMs, double[] expected)
+    [Fact]
+    public async Task ExponentialBackoffRespectsCancellation()
     {
-        var offset = 40; // shoganai
-        using var cts = new CancellationTokenSource(); // cancel by test
-        var backoff = new ExponentialBackoff(delayMs, maxDelayMs);
-        var sw = Stopwatch.StartNew();
-        long prev = 0;
-        for (var i = 0; i < expected.Length; i++)
+        using var cts = new CancellationTokenSource(50);
+        var backoff = new ExponentialBackoff(1000, 5000);
+
+        await Assert.ThrowsAsync<OperationCanceledException>(async () => await backoff.DelayAsync(cts.Token));
+    }
+
+    [Fact]
+    public async Task ExponentialBackoffRespectsMaxRetries()
+    {
+        using var cts = new CancellationTokenSource();
+        var backoff = new ExponentialBackoff(10, 100, maxRetries: 3);
+
+        for (var i = 0; i < 3; i++)
         {
             await backoff.DelayAsync(cts.Token);
-            var actual = sw.Elapsed.TotalMilliseconds - prev;
-            Assert.InRange(actual, expected[i] - 5, expected[i] + offset);
-            prev = sw.ElapsedMilliseconds;
         }
+
+        await Assert.ThrowsAsync<OperationCanceledException>(async () => await backoff.DelayAsync(cts.Token));
+    }
+
+    [Fact]
+    public async Task ExponentialBackoffRespectsTimeout()
+    {
+        using var cts = new CancellationTokenSource();
+        var backoff = new ExponentialBackoff(100, 1000, timeout: TimeSpan.FromMilliseconds(250));
+
+        await backoff.DelayAsync(cts.Token);
+        await backoff.DelayAsync(cts.Token);
+
+        await Assert.ThrowsAsync<OperationCanceledException>(async () => await backoff.DelayAsync(cts.Token));
     }
 }

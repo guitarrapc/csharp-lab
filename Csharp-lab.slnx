@@ -61,6 +61,7 @@
   <Folder Name="/SystemInfo/">
     <Project Path="src/SystemInfo/SystemInfo.Core/SystemInfo.Core.csproj" />
     <Project Path="src/SystemInfo/SystemInfo.Sandbox/SystemInfo.Sandbox.csproj" />
+    <Project Path="src/SystemInfo/SystemInfo.Tests/SystemInfo.Tests.csproj" />
   </Folder>
   <Folder Name="/Tutorials/">
     <Project Path="src/Tutorials/TutorialConsoleApp/TutorialConsoleApp.csproj" />

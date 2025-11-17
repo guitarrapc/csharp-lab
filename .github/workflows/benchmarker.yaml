@@ -55,7 +55,7 @@ jobs:
           persist-credentials: false
       - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
         with:
-          restore-wasm-workload: true
+          restore-wasm-workload: false
       - name: dotnet build
         run: dotnet build ./${{ matrix.path }}/${{ matrix.project }}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
       - name: Run benchmark

@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "dotnet-test-rerun": {
+      "version": "3.2.0",
+      "commands": [
+        "test-rerun"
+      ],
+      "rollForward": false
+    }
+  }
+}
