@@ -146,14 +146,9 @@ public class CpuModel
                     return (UnknownPhrase, "CPU part not found for ARM CPU.");
 
                 var armModelName = GetArmCpuName(vendorId, cpuPart);
-                if (armModelName != "Undefined")
-                {
-                    return (armModelName, "");
-                }
-                else
-                {
-                    return (armModelName, $"CPU part '{cpuPart}' (vendor '{vendorId}' ({GetArmImplementerName(vendorId)})) is not mapped.");
-                }
+                return armModelName != "Undefined"
+                    ? (armModelName, "")
+                    : (armModelName, $"CPU part '{cpuPart}' (vendor '{vendorId}' ({GetArmImplementerName(vendorId)})) is not mapped.");
             }
 
             return (UnknownPhrase, "'model name' section not found.");
@@ -215,8 +210,8 @@ public class CpuModel
     private static extern int sysctlbyname(string name, IntPtr oldp, ref IntPtr oldlenp, IntPtr newp, IntPtr newlen);
 
     // ARM CPU detection helpers
-    // see: https://github.com/util-linux/util-linux/blob/master/sys-utils/lscpu-arm.c
-    // also https://github.com/fastfetch-cli/fastfetch/blob/2.55.1/src/detection/cpu/cpu_linux.c
+    // see: https://github.com/util-linux/util-linux/blob/v2.41.2/sys-utils/lscpu-arm.c
+    // also https://github.com/fastfetch-cli/fastfetch/blob/2.55.1/src/detection/cpu/cpu_arm.h
     private enum ArmImplementers
     {
         Ampere,
@@ -295,7 +290,7 @@ public class CpuModel
                 "0xc07" => "Cortex-A7",
                 "0xc08" => "Cortex-A8",
                 "0xc09" => "Cortex-A9",
-                "0xc0d" => "Cortex-A17",
+                "0xc0d" => "Cortex-A17", // Originally A12
                 "0xc0f" => "Cortex-A15",
                 "0xc0e" => "Cortex-A17",
                 "0xc14" => "Cortex-R4",
@@ -371,45 +366,45 @@ public class CpuModel
             },
             ArmImplementers.Apple => cpuPart switch
             {
-                "0x000"=> "Swift",
-                "0x001"=> "Cyclone",
-                "0x002"=> "Typhoon",
-                "0x003"=> "Typhoon/Capri",
-                "0x004"=> "Twister",
-                "0x005"=> "Twister/Elba/Malta",
-                "0x006"=> "Hurricane",
-                "0x007"=> "Hurricane/Myst",
-                "0x008"=> "Monsoon",
-                "0x009"=> "Mistral",
-                "0x00b"=> "Vortex",
-                "0x00c"=> "Tempest",
-                "0x00f"=> "Tempest-M9",
-                "0x010"=> "Vortex/Aruba",
-                "0x011"=> "Tempest/Aruba",
-                "0x012"=> "Lightning",
-                "0x013"=> "Thunder",
-                "0x020"=> "Icestorm-A14",
-                "0x021"=> "Firestorm-A14",
-                "0x022"=> "Icestorm-M1",
-                "0x023"=> "Firestorm-M1",
-                "0x024"=> "Icestorm-M1-Pro",
-                "0x025"=> "Firestorm-M1-Pro",
-                "0x026"=> "Thunder-M10",
-                "0x028"=> "Icestorm-M1-Max",
-                "0x029"=> "Firestorm-M1-Max",
-                "0x030"=> "Blizzard-A15",
-                "0x031"=> "Avalanche-A15",
-                "0x032"=> "Blizzard-M2",
-                "0x033"=> "Avalanche-M2",
-                "0x034"=> "Blizzard-M2-Pro",
-                "0x035"=> "Avalanche-M2-Pro",
-                "0x036"=> "Sawtooth-A16",
-                "0x037"=> "Everest-A16",
-                "0x038"=> "Blizzard-M2-Max",
-                "0x039"=> "Avalanche-M2-Max",
-                "0x046"=> "Sawtooth-M11",
-                "0x048"=> "Sawtooth-M3-Max",
-                "0x049"=> "Everest-M3-Max",
+                "0x000" => "Swift",
+                "0x001" => "Cyclone",
+                "0x002" => "Typhoon",
+                "0x003" => "Typhoon/Capri",
+                "0x004" => "Twister",
+                "0x005" => "Twister/Elba/Malta",
+                "0x006" => "Hurricane",
+                "0x007" => "Hurricane/Myst",
+                "0x008" => "Monsoon",
+                "0x009" => "Mistral",
+                "0x00b" => "Vortex",
+                "0x00c" => "Tempest",
+                "0x00f" => "Tempest-M9",
+                "0x010" => "Vortex/Aruba",
+                "0x011" => "Tempest/Aruba",
+                "0x012" => "Lightning",
+                "0x013" => "Thunder",
+                "0x020" => "Icestorm-A14",
+                "0x021" => "Firestorm-A14",
+                "0x022" => "Icestorm-M1",
+                "0x023" => "Firestorm-M1",
+                "0x024" => "Icestorm-M1-Pro",
+                "0x025" => "Firestorm-M1-Pro",
+                "0x026" => "Thunder-M10",
+                "0x028" => "Icestorm-M1-Max",
+                "0x029" => "Firestorm-M1-Max",
+                "0x030" => "Blizzard-A15",
+                "0x031" => "Avalanche-A15",
+                "0x032" => "Blizzard-M2",
+                "0x033" => "Avalanche-M2",
+                "0x034" => "Blizzard-M2-Pro",
+                "0x035" => "Avalanche-M2-Pro",
+                "0x036" => "Sawtooth-A16",
+                "0x037" => "Everest-A16",
+                "0x038" => "Blizzard-M2-Max",
+                "0x039" => "Avalanche-M2-Max",
+                "0x046" => "Sawtooth-M11",
+                "0x048" => "Sawtooth-M3-Max",
+                "0x049" => "Everest-M3-Max",
                 _ => "Undefined",
             },
             ArmImplementers.Broadcom => cpuPart switch
