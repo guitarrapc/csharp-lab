@@ -10,9 +10,9 @@ builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddOpenApi();
+
 builder.Services.AddSingleton(TimeProvider.System);
 builder.Services.AddStackExchangeRedisCache(options =>
 {
@@ -30,8 +30,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.MapOpenApi();
 }
 
 var summaries = new[]
@@ -51,13 +50,7 @@ app.MapGet("/weatherforecast", () =>
         .ToArray();
     return forecast;
 })
-.WithName("GetWeatherForecast")
-.AddOpenApiOperationTransformer((operation, context, ct) =>
-{
-    operation.Summary = "Gets the weather forecast for the next 5 days.";
-    operation.Description = "Returns an array of weather forecast objects.";
-    return Task.FromResult(operation);
-});
+.WithName("GetWeatherForecast");
 
 app.MapPost("/cache/long_operation", async (string key, TimeProvider timeProvider, IDistributedCache cache, CancellationToken ct) =>
 {
@@ -81,27 +74,14 @@ app.MapPost("/cache/long_operation", async (string key, TimeProvider timeProvide
     }
     return Results.Ok(value);
 })
-.WithName("LongCacheOperation")
-.AddOpenApiOperationTransformer((operation, context, ct) =>
-{
-    operation.Summary = "Performs a long-running cache operation that retries on connection failures.";
-    operation.Description = "Attempts to get or set a cache value repeatedly for up to 10 minutes, handling Redis connection exceptions gracefully.";
-    return Task.FromResult(operation);
-});
-
+.WithName("LongCacheOperation");
 
 app.MapPost("/cacheX", async (string key, TimeProvider timeProvider, IDistributedCache cache) =>
 {
     var value = await cache.GetOrSetAsync(key, timeProvider.GetLocalNow(), DistributedCacheExpiration.Medium);
     return Results.Ok(value);
 })
-.WithName("SetCacheX")
-.AddOpenApiOperationTransformer((operation, context, ct) =>
-{
-    operation.Summary = "Sets a cache value if it does not already exist.";
-    operation.Description = "Retrieves the value associated with the specified key from the cache. If the key does not exist, it sets the key with the current local time and returns that value.";
-    return Task.FromResult(operation);
-});
+.WithName("SetCacheX");
 
 
 app.MapGet("/cache/{key}", async (string key, IDistributedCache cache, CancellationToken ct) =>
@@ -111,39 +91,21 @@ app.MapGet("/cache/{key}", async (string key, IDistributedCache cache, Cancellat
         ? Results.Ok(result.Value)
         : Results.NotFound();
 })
-.WithName("GetCache")
-.AddOpenApiOperationTransformer((operation, context, ct) =>
-{
-    operation.Summary = "Retrieves a cache value by key.";
-    operation.Description = "Fetches the value associated with the specified key from the cache. Returns 404 if the key does not exist.";
-    return Task.FromResult(operation);
-});
+.WithName("GetCache");
 
 app.MapPost("/cache", async (string key, TimeProvider timeProvider, IDistributedCache cache) =>
 {
     await cache.SetAsync(key, timeProvider.GetLocalNow(), DistributedCacheExpiration.Short);
     return Results.Ok();
 })
-.WithName("SetCache")
-.AddOpenApiOperationTransformer((operation, context, ct) =>
-{
-    operation.Summary = "Sets a cache value with a short expiration time.";
-    operation.Description = "Sets the specified key in the cache with the current local time as its value, expiring after a short duration.";
-    return Task.FromResult(operation);
-});
+.WithName("SetCache");
 
 app.MapDelete("/cache/{key}", async (string key, IDistributedCache cache) =>
 {
     await cache.RemoveAsync(key);
     return Results.Ok();
 })
-.WithName("DeleteCache")
-.AddOpenApiOperationTransformer((operation, context, ct) =>
-{
-    operation.Summary = "Deletes a cache value by key.";
-    operation.Description = "Removes the specified key and its associated value from the cache.";
-    return Task.FromResult(operation);
-});
+.WithName("DeleteCache");
 
 app.Run();
 

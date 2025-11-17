@@ -30,13 +30,7 @@ public static class ElastiCacheRouteHandler
             }
             return Results.Ok(value);
         })
-        .WithName("LongCacheOperation")
-        .AddOpenApiOperationTransformer((operation, context, ct) =>
-        {
-            operation.Summary = "Performs a long-running cache operation that retries on connection failures.";
-            operation.Description = "Attempts to get or set a cache value repeatedly for up to 10 minutes, handling Redis connection exceptions gracefully.";
-            return Task.FromResult(operation);
-        });
+        .WithName("LongCacheOperation");
 
         app.MapPost("/cacheX", async (string key, TimeProvider timeProvider, ElastiCacheConnectionContext context) =>
         {
@@ -44,13 +38,7 @@ public static class ElastiCacheRouteHandler
             var value = await cache.GetOrSetAsync(key, timeProvider.GetLocalNow(), RedisExpiry.Medium);
             return Results.Ok(value);
         })
-        .WithName("SetCacheX")
-        .AddOpenApiOperationTransformer((operation, context, ct) =>
-        {
-            operation.Summary = "Sets a cache value if it does not already exist.";
-            operation.Description = "Retrieves the value associated with the specified key from the cache. If the key does not exist, it sets the key with the current local time and returns that value.";
-            return Task.FromResult(operation);
-        });
+        .WithName("SetCacheX");
 
         app.MapGet("/cache/{key}", async (string key, ElastiCacheConnectionContext context) =>
         {
@@ -60,13 +48,7 @@ public static class ElastiCacheRouteHandler
                 ? Results.Ok(result.Value)
                 : Results.NotFound();
         })
-        .WithName("GetCache")
-        .AddOpenApiOperationTransformer((operation, context, ct) =>
-        {
-            operation.Summary = "Retrieves a cache value by key.";
-            operation.Description = "Fetches the value associated with the specified key from the cache. Returns 404 if the key does not exist.";
-            return Task.FromResult(operation);
-        });
+        .WithName("GetCache");
 
         app.MapPost("/cache", async (string key, TimeProvider timeProvider, ElastiCacheConnectionContext context) =>
         {
@@ -74,13 +56,7 @@ public static class ElastiCacheRouteHandler
             await cache.SetAsync(key, timeProvider.GetLocalNow(), RedisExpiry.Short);
             return Results.Ok();
         })
-        .WithName("SetCache")
-        .AddOpenApiOperationTransformer((operation, context, ct) =>
-        {
-            operation.Summary = "Sets a cache value with a short expiration time.";
-            operation.Description = "Sets the specified key in the cache with the current local time as its value, expiring after a short duration.";
-            return Task.FromResult(operation);
-        });
+        .WithName("SetCache");
 
         app.MapDelete("/cache/{key}", async (string key, ElastiCacheConnectionContext context) =>
         {
@@ -88,12 +64,6 @@ public static class ElastiCacheRouteHandler
             await cache.RemoveAsync(key);
             return Results.Ok();
         })
-        .WithName("DeleteCache")
-        .AddOpenApiOperationTransformer((operation, context, ct) =>
-        {
-            operation.Summary = "Deletes a cache value by key.";
-            operation.Description = "Removes the specified key and its associated value from the cache.";
-            return Task.FromResult(operation);
-        });
+        .WithName("DeleteCache");
     }
 }

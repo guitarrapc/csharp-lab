@@ -12,19 +12,11 @@ builder.ConfigureServices((hostContext, services) =>
 });
 
 // Swap logger with ZLogger
-builder.ConfigureZLoggerLogging();
+builder.ConfigureLogging((hostContext, logging) =>
+{
+    logging.ClearProviders();
+    logging.AddZLoggerConsole();
+});
 
 var app = builder.Build();
 app.Run();
-
-public static class StartupExtensions
-{
-    public static void ConfigureZLoggerLogging(this IHostBuilder builder)
-    {
-        builder.ConfigureLogging((hostContext, logging) =>
-        {
-            logging.ClearProviders();
-            logging.AddZLoggerConsole();
-        });
-    }
-}
