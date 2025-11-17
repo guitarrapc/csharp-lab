@@ -95,24 +95,51 @@ public class CpuModel
 
     private static (string modelName, string unkownReason) GetOSXModelname()
     {
-        IntPtr size = IntPtr.Zero;
-        sysctlbyname("machdep.cpu.brand_string", IntPtr.Zero, ref size, IntPtr.Zero, IntPtr.Zero);
-
-        IntPtr buffer = Marshal.AllocHGlobal(size.ToInt32());
-        sysctlbyname("machdep.cpu.brand_string", buffer, ref size, IntPtr.Zero, IntPtr.Zero);
-
-        var result = Marshal.PtrToStringAnsi(buffer);
-        Marshal.FreeHGlobal(buffer);
-        if (string.IsNullOrEmpty(result))
+        try
         {
-            return (UnkownFrase, "machdep.cpu.brand_string not found.");
+            nint size = 0;
+
+            // First call to get the size
+            int result = sysctlbyname("machdep.cpu.brand_string", IntPtr.Zero, ref size, IntPtr.Zero, 0);
+            if (result != 0)
+            {
+                return (UnkownFrase, $"sysctlbyname failed to get size. Return code: {result}, errno: {Marshal.GetLastPInvokeError()}");
+            }
+
+            if (size == 0)
+            {
+                return (UnkownFrase, "sysctlbyname returned size 0");
+            }
+
+            IntPtr buffer = Marshal.AllocHGlobal((int)size);
+            try
+            {
+                // Second call to get the actual value
+                result = sysctlbyname("machdep.cpu.brand_string", buffer, ref size, IntPtr.Zero, 0);
+                if (result != 0)
+                {
+                    return (UnkownFrase, $"sysctlbyname failed to get value. Return code: {result}, errno: {Marshal.GetLastPInvokeError()}");
+                }
+
+                var cpuBrand = Marshal.PtrToStringAnsi(buffer);
+                if (string.IsNullOrEmpty(cpuBrand))
+                {
+                    return (UnkownFrase, "machdep.cpu.brand_string returned empty string.");
+                }
+
+                return (cpuBrand.Trim(), "");
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(buffer);
+            }
         }
-        else
+        catch (Exception ex)
         {
-            return (result, "");
+            return (UnkownFrase, $"Exception occurred: {ex.Message}");
         }
     }
 
-    [DllImport("libc")]
+    [DllImport("libSystem.dylib")]
     private static extern int sysctlbyname(string name, IntPtr oldp, ref IntPtr oldlenp, IntPtr newp, IntPtr newlen);
 }
