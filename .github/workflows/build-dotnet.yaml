@@ -27,11 +27,12 @@ jobs:
       fail-fast: false
       matrix:
         runs-on:
-          - ubuntu-latest # x64
-          - windows-latest # x64
+          - ubuntu-24.04 # x64
           - ubuntu-24.04-arm # arm64
-          - macos-13 # Intel
-          - macos-latest # arm64
+          - windows-2025 # x64
+          - windows-11-arm # arm64
+          - macos-15-intel # x64
+          - macos-26 # arm64
     runs-on: ${{ matrix.runs-on }}
     timeout-minutes: 10
     steps:
@@ -41,6 +42,7 @@ jobs:
       - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
         with:
           restore-wasm-workload: true
+          dotnet-version: "10.0.x"
       - name: dotnet restore
         run: |
           dotnet restore
