@@ -18,7 +18,7 @@ COPY ["src/Logger/LoggerBlazorApp/LoggerBlazorApp.csproj", "src/Logger/LoggerBla
 RUN dotnet restore "./src/Logger/LoggerBlazorApp/LoggerBlazorApp.csproj" -a $TARGETARCH
 COPY . .
 WORKDIR "/src/src/Logger/LoggerBlazorApp"
-RUN dotnet build "./LoggerBlazorApp.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./LoggerBlazorApp.csproj" -c $BUILD_CONFIGURATION -o /app/build -a $TARGETARCH
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish

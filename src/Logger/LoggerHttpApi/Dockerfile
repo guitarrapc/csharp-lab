@@ -18,7 +18,7 @@ COPY ["src/Logger/LoggerHttpApi/LoggerHttpApi.csproj", "src/Logger/LoggerHttpApi
 RUN dotnet restore "./src/Logger/LoggerHttpApi/LoggerHttpApi.csproj" -a $TARGETARCH
 COPY . .
 WORKDIR "/src/src/Logger/LoggerHttpApi"
-RUN dotnet build "./LoggerHttpApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./LoggerHttpApi.csproj" -c $BUILD_CONFIGURATION -o /app/build -a $TARGETARCH
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish

@@ -19,7 +19,7 @@ COPY ["src/Logger/LoggerDefault/LoggerDefault.csproj", "src/Logger/LoggerDefault
 RUN dotnet restore "./src/Logger/Logger.Benchmark/Logger.Benchmark.csproj" -a $TARGETARCH
 COPY . .
 WORKDIR "/src/src/Logger/Logger.Benchmark"
-RUN dotnet build "./Logger.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/build -f net10.0
+RUN dotnet build "./Logger.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/build -f net10.0 -a $TARGETARCH
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish

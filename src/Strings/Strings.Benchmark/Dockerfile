@@ -19,7 +19,7 @@ COPY ["src/Strings/Strings.Core/Strings.Core.csproj", "src/Strings/Strings.Core/
 RUN dotnet restore "./src/Strings/Strings.Benchmark/Strings.Benchmark.csproj" -a $TARGETARCH
 COPY . .
 WORKDIR "/src/src/Strings/Strings.Benchmark"
-RUN dotnet build "./Strings.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/build -f net10.0
+RUN dotnet build "./Strings.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/build -f net10.0 -a $TARGETARCH
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish

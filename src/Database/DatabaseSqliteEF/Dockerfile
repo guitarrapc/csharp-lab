@@ -18,7 +18,7 @@ COPY ["src/Database/DatabaseCore/DatabaseCore.csproj", "src/Database/DatabaseCor
 RUN dotnet restore "./src/Database/DatabaseSqliteEF/DatabaseSqliteEf.csproj" -a $TARGETARCH
 COPY . .
 WORKDIR "/src/src/Database/DatabaseSqliteEF"
-RUN dotnet build "./DatabaseSqliteEf.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./DatabaseSqliteEf.csproj" -c $BUILD_CONFIGURATION -o /app/build -a $TARGETARCH
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish

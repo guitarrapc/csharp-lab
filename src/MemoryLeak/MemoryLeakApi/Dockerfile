@@ -14,7 +14,7 @@ COPY ["src/MemoryLeak/MemoryLeak.Core/MemoryLeak.Core.csproj", "src/MemoryLeak/M
 RUN dotnet restore "src/MemoryLeak/MemoryLeakApi/MemoryLeakApi.csproj" -a $TARGETARCH
 COPY . .
 WORKDIR "/src/src/MemoryLeak/MemoryLeakApi"
-RUN dotnet build "MemoryLeakApi.csproj" -c Release -o /app/build
+RUN dotnet build "MemoryLeakApi.csproj" -c Release -o /app/build -a $TARGETARCH
 
 FROM build AS publish
 RUN dotnet publish "MemoryLeakApi.csproj" -c Release -o /app/publish /p:UseAppHost=false -a $TARGETARCH

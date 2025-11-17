@@ -19,7 +19,7 @@ COPY ["src/Serialization/Serialization.Core/Serialization.Core.csproj", "src/Ser
 RUN dotnet restore "./src/Serialization/Serialization.Benchmark/Serialization.Benchmark.csproj" -a $TARGETARCH
 COPY . .
 WORKDIR "/src/src/Serialization/Serialization.Benchmark"
-RUN dotnet build "./Serialization.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/build -f net10.0
+RUN dotnet build "./Serialization.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/build -f net10.0 -a $TARGETARCH
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish

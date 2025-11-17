@@ -19,7 +19,7 @@ COPY ["src/Logic/Logic.Core/Logic.Core.csproj", "src/Logic/Logic.Core/"]
 RUN dotnet restore "./src/Logic/Logic.Benchmark/Logic.Benchmark.csproj" -a $TARGETARCH
 COPY . .
 WORKDIR "/src/src/Logic/Logic.Benchmark"
-RUN dotnet build "./Logic.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/build -f net10.0
+RUN dotnet build "./Logic.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/build -f net10.0 -a $TARGETARCH
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish

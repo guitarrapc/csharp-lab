@@ -17,7 +17,7 @@ COPY ["src/Redis/RedisConnectTester/RedisConnectTester.csproj", "src/Redis/Redis
 RUN dotnet restore "./src/Redis/RedisConnectTester/RedisConnectTester.csproj" -a $TARGETARCH
 COPY . .
 WORKDIR "/src/src/Redis/RedisConnectTester"
-RUN dotnet build "./RedisConnectTester.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./RedisConnectTester.csproj" -c $BUILD_CONFIGURATION -o /app/build -a $TARGETARCH
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish

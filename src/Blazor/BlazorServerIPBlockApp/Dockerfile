@@ -18,7 +18,7 @@ COPY ["src/Blazor/BlazorServerIPBlockApp/BlazorServerIPBlockApp.csproj", "src/Bl
 RUN dotnet restore "./src/Blazor/BlazorServerIPBlockApp/BlazorServerIPBlockApp.csproj" -a $TARGETARCH
 COPY . .
 WORKDIR "/src/src/Blazor/BlazorServerIPBlockApp"
-RUN dotnet build "./BlazorServerIPBlockApp.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./BlazorServerIPBlockApp.csproj" -c $BUILD_CONFIGURATION -o /app/build -a $TARGETARCH
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish

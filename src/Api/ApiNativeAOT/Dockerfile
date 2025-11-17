@@ -23,15 +23,15 @@ WORKDIR /src
 COPY ["Directory.Packages.props", "."]
 COPY ["Directory.Build.props", "."]
 COPY ["src/Api/ApiNativeAOT/ApiNativeAOT.csproj", "src/Api/ApiNativeAOT/"]
-RUN dotnet restore "./src/Api/ApiNativeAOT/ApiNativeAOT.csproj"
+RUN dotnet restore "./src/Api/ApiNativeAOT/ApiNativeAOT.csproj" -a $TARGETARCH
 COPY . .
 WORKDIR "/src/src/Api/ApiNativeAOT"
-RUN dotnet build "./ApiNativeAOT.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./ApiNativeAOT.csproj" -c $BUILD_CONFIGURATION -o /app/build -a $TARGETARCH
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./ApiNativeAOT.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=true
+RUN dotnet publish "./ApiNativeAOT.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=true -a $TARGETARCH
 
 # This stage is used as the base for the final stage when launching from VS to support debugging in regular mode (Default when not using the Debug configuration)
 FROM base AS aotdebug

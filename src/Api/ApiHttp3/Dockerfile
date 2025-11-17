@@ -29,7 +29,7 @@ COPY ["src/Api/ApiHttp3/ApiHttp3.csproj", "src/Api/ApiHttp3/"]
 RUN dotnet restore "./src/Api/ApiHttp3/ApiHttp3.csproj" -a $TARGETARCH
 COPY . .
 WORKDIR "/src/src/Api/ApiHttp3"
-RUN dotnet build "./ApiHttp3.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./ApiHttp3.csproj" -c $BUILD_CONFIGURATION -o /app/build -a $TARGETARCH
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish

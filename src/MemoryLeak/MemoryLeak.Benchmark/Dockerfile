@@ -18,7 +18,7 @@ COPY ["src/MemoryLeak/MemoryLeak.Core/MemoryLeak.Core.csproj", "src/MemoryLeak/M
 RUN dotnet restore "./src/MemoryLeak/MemoryLeak.Benchmark/MemoryLeak.Benchmark.csproj" -a $TARGETARCH
 COPY . .
 WORKDIR "/src/src/MemoryLeak/MemoryLeak.Benchmark"
-RUN dotnet build "./MemoryLeak.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./MemoryLeak.Benchmark.csproj" -c $BUILD_CONFIGURATION -o /app/build -a $TARGETARCH
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish

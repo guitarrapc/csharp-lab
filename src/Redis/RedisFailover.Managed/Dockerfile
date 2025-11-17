@@ -18,7 +18,7 @@ COPY ["src/Redis/RedisFailover.Managed/RedisFailover.Managed.csproj", "src/Redis
 RUN dotnet restore "./src/Redis/RedisFailover.Managed/RedisFailover.Managed.csproj" -a $TARGETARCH
 COPY . .
 WORKDIR "/src/src/Redis/RedisFailover.Managed"
-RUN dotnet build "./RedisFailover.Managed.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./RedisFailover.Managed.csproj" -c $BUILD_CONFIGURATION -o /app/build -a $TARGETARCH
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish

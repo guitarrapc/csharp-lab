@@ -18,7 +18,7 @@ COPY ["src/Database/DatabaseCore/DatabaseCore.csproj", "src/Database/DatabaseCor
 RUN dotnet restore "./src/Database/DatabaseMySqlEf/DatabaseMySqlEf.csproj" -a $TARGETARCH
 COPY . .
 WORKDIR "/src/src/Database/DatabaseMySqlEf"
-RUN dotnet build "./DatabaseMySqlEf.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./DatabaseMySqlEf.csproj" -c $BUILD_CONFIGURATION -o /app/build -a $TARGETARCH
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish

@@ -18,7 +18,7 @@ COPY ["src/SystemInfo/SystemInfo.Core/SystemInfo.Core.csproj", "src/SystemInfo/S
 RUN dotnet restore "./src/SystemInfo/SystemInfo.Sandbox/SystemInfo.Sandbox.csproj" -a $TARGETARCH
 COPY . .
 WORKDIR "/src/src/SystemInfo/SystemInfo.Sandbox"
-RUN dotnet build "./SystemInfo.Sandbox.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./SystemInfo.Sandbox.csproj" -c $BUILD_CONFIGURATION -o /app/build -a $TARGETARCH
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
