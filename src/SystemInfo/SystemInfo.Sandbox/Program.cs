@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 using SystemInfo.Core;
 
 var round = 3;
@@ -33,6 +34,53 @@ for (var i = 0; i < round; i++)
     }
     catch (OperationCanceledException)
     {
+    }
+}
+
+public static class StartupInfo
+{
+    private static string cpuModel = !string.IsNullOrWhiteSpace(CpuModel.Current.ModelName) ? CpuModel.Current.ModelName : CpuModel.Current.UnkownReason;
+
+    /// <summary>
+    /// Get and print startup information about the operating system and CPU.
+    /// </summary>
+    public static void Print()
+    {
+        // Example output:
+        // ---------------------
+        // Windows
+        // ---------------------
+        // Startup info:
+        // * OS       : Microsoft Windows 10.0.26100
+        // * CPU Arch : X64
+        // * CPU Model: AMD Ryzen 9 7950X3D 16-Core Processor
+        // * CPU Cores: 32
+        //
+        // ---------------------
+        // Linux Ubuntu 24.04
+        // ---------------------
+        // Startup info:
+        // * OS       : Ubuntu 24.04.3 LTS
+        // * CPU Arch : X64
+        // * CPU Model: AMD Ryzen 9 7950X3D 16 - Core Processor
+        // * CPU Cores: 8
+        //
+        // ---------------------
+        // macOS Sequoia 15.6.1
+        // ---------------------
+        // Startup info:
+        // * OS       : macOS Sequoia 15.6.1
+        // * CPU Arch : Arm64
+        // * CPU Model: Apple M2
+        // * CPU Cores: 8
+
+        Console.WriteLine($$"""
+        Startup info:
+          * OS       : {{RuntimeInformation.OSDescription}}
+          * CPU Arch : {{RuntimeInformation.ProcessArchitecture}}
+          * CPU Model: {{cpuModel}}
+          * CPU Cores: {{Environment.ProcessorCount}}
+        """);
     }
 }
 
