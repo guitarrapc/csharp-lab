@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace DatabasePostgresqlEf;
+
 public class BackgroundHostedService : BackgroundService
 {
     private readonly ILogger<BackgroundHostedService> _logger;

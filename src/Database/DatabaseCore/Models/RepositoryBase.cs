@@ -1,4 +1,5 @@
 ﻿namespace DatabaseCore.Models;
+
 public abstract class RepositoryBase
 {
     protected readonly BloggingDbContext Context;

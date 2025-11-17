@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 
 namespace DatabaseCore.Models;
+
 public class BlogModel
 {
     private readonly ILogger<BlogModel> _logger;

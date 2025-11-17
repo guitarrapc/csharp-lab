@@ -1,5 +1,4 @@
 ﻿using Logic.Core;
-using System.Diagnostics;
 
 namespace Logic.Tests;
 

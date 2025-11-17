@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 
 namespace DatabaseCore.Models;
+
 public class Post
 {
     [Key]

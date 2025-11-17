@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 
 namespace LoggerDefault;
+
 public class FakeLoggerFactory : ILoggerFactory
 {
     private readonly LogLevel _logLevel;

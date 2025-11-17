@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseCore.Models;
+
 public class BloggingDbContext : DbContext
 {
     public DbSet<Blog> Blogs { get; init; } = default!;
