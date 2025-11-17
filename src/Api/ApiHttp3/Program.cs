@@ -40,7 +40,12 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast")
-.WithOpenApi();
+.AddOpenApiOperationTransformer((operation, context, ct) =>
+{
+    operation.Summary = "Gets the weather forecast for the next 5 days.";
+    operation.Description = "Returns an array of weather forecast objects.";
+    return Task.FromResult(operation);
+});
 
 app.Run();
 

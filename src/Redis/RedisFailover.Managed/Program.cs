@@ -52,7 +52,12 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast")
-.WithOpenApi();
+.AddOpenApiOperationTransformer((operation, context, ct) =>
+{
+    operation.Summary = "Gets the weather forecast for the next 5 days.";
+    operation.Description = "Returns an array of weather forecast objects.";
+    return Task.FromResult(operation);
+});
 
 app.MapPost("/cache/long_operation", async (string key, TimeProvider timeProvider, IDistributedCache cache, CancellationToken ct) =>
 {
@@ -77,7 +82,13 @@ app.MapPost("/cache/long_operation", async (string key, TimeProvider timeProvide
     return Results.Ok(value);
 })
 .WithName("LongCacheOperation")
-.WithOpenApi();
+.AddOpenApiOperationTransformer((operation, context, ct) =>
+{
+    operation.Summary = "Performs a long-running cache operation that retries on connection failures.";
+    operation.Description = "Attempts to get or set a cache value repeatedly for up to 10 minutes, handling Redis connection exceptions gracefully.";
+    return Task.FromResult(operation);
+});
+
 
 app.MapPost("/cacheX", async (string key, TimeProvider timeProvider, IDistributedCache cache) =>
 {
@@ -85,7 +96,13 @@ app.MapPost("/cacheX", async (string key, TimeProvider timeProvider, IDistribute
     return Results.Ok(value);
 })
 .WithName("SetCacheX")
-.WithOpenApi();
+.AddOpenApiOperationTransformer((operation, context, ct) =>
+{
+    operation.Summary = "Sets a cache value if it does not already exist.";
+    operation.Description = "Retrieves the value associated with the specified key from the cache. If the key does not exist, it sets the key with the current local time and returns that value.";
+    return Task.FromResult(operation);
+});
+
 
 app.MapGet("/cache/{key}", async (string key, IDistributedCache cache, CancellationToken ct) =>
 {
@@ -95,7 +112,12 @@ app.MapGet("/cache/{key}", async (string key, IDistributedCache cache, Cancellat
         : Results.NotFound();
 })
 .WithName("GetCache")
-.WithOpenApi();
+.AddOpenApiOperationTransformer((operation, context, ct) =>
+{
+    operation.Summary = "Retrieves a cache value by key.";
+    operation.Description = "Fetches the value associated with the specified key from the cache. Returns 404 if the key does not exist.";
+    return Task.FromResult(operation);
+});
 
 app.MapPost("/cache", async (string key, TimeProvider timeProvider, IDistributedCache cache) =>
 {
@@ -103,7 +125,12 @@ app.MapPost("/cache", async (string key, TimeProvider timeProvider, IDistributed
     return Results.Ok();
 })
 .WithName("SetCache")
-.WithOpenApi();
+.AddOpenApiOperationTransformer((operation, context, ct) =>
+{
+    operation.Summary = "Sets a cache value with a short expiration time.";
+    operation.Description = "Sets the specified key in the cache with the current local time as its value, expiring after a short duration.";
+    return Task.FromResult(operation);
+});
 
 app.MapDelete("/cache/{key}", async (string key, IDistributedCache cache) =>
 {
@@ -111,7 +138,12 @@ app.MapDelete("/cache/{key}", async (string key, IDistributedCache cache) =>
     return Results.Ok();
 })
 .WithName("DeleteCache")
-.WithOpenApi();
+.AddOpenApiOperationTransformer((operation, context, ct) =>
+{
+    operation.Summary = "Deletes a cache value by key.";
+    operation.Description = "Removes the specified key and its associated value from the cache.";
+    return Task.FromResult(operation);
+});
 
 app.Run();
 
