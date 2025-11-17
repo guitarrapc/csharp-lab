@@ -28,7 +28,8 @@ jobs:
       matrix:
         runs-on:
           - ubuntu-24.04 # x64
-          - ubuntu-24.04-arm # arm64
+          # Fail on dotnet build due to Grpc.Tools
+          # - ubuntu-24.04-arm # arm64
           - windows-2025 # x64
           - windows-11-arm # arm64
           - macos-15-intel # x64

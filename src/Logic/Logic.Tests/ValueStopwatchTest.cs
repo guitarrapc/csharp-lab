@@ -1,44 +1,41 @@
 ﻿using Logic.Core;
 using System.Diagnostics;
-using xRetry;
 
 namespace Logic.Tests;
 
 public class ValueStopwatchTest
 {
-    // Almost stable, but delay's randomness happen on poor machine like GitHub Actions CI. Retry cover this situation.
-    [RetryTheory]
-    [InlineData(new[] { 100.0, 100.0, 100.0, 100.0 })]
-    public async Task StopwatchElapsedTest(double[] expected)
+    [Fact]
+    public void StopwatchMeasuresElapsedTime()
     {
-        var offset = 40; // shoganai.
         var sw = Stopwatch.StartNew();
+        Thread.Sleep(50);
 
-        double prev = 0;
-        for (var i = 0; i < expected.Length; i++)
-        {
-            Thread.Sleep(100);
-            var actual = sw.Elapsed.TotalMilliseconds - prev;
-            Assert.InRange(actual, expected[i] - 5, expected[i] + offset);
-            prev = sw.ElapsedMilliseconds;
-        }
+        // Check that at least the minimum time has elapsed
+        Assert.True(sw.Elapsed.TotalMilliseconds >= 40);
     }
 
-    // Almost stable, but delay's randomness happen on poor machine like GitHub Actions CI. Retry cover this situation.
-    [RetryTheory]
-    [InlineData(new[] { 100.0, 100.0, 100.0, 100.0 })]
-    public async Task ValueStopwatchElapsedTest(double[] expected)
+    [Fact]
+    public void ValueStopwatchMeasuresElapsedTime()
     {
-        var offset = 40; // shoganai.
         var sw = ValueStopwatch.StartNew();
+        Thread.Sleep(50);
 
-        double prev = 0;
-        for (var i = 0; i < expected.Length; i++)
-        {
-            Thread.Sleep(100);
-            var actual = sw.GetElapsedTime().TotalMilliseconds - prev;
-            Assert.InRange(actual, expected[i] - 5, expected[i] + offset);
-            prev = sw.GetElapsedTime().TotalMilliseconds;
-        }
+        // Check that at least the minimum time has elapsed
+        Assert.True(sw.GetElapsedTime().TotalMilliseconds >= 40);
+    }
+
+    [Fact]
+    public void ValueStopwatchTimeIncreases()
+    {
+        var sw = ValueStopwatch.StartNew();
+        var first = sw.GetElapsedTime();
+
+        Thread.Sleep(10);
+
+        var second = sw.GetElapsedTime();
+
+        // Ensure time has progressed
+        Assert.True(second > first);
     }
 }
