@@ -214,7 +214,9 @@ public class CpuModel
     [DllImport("libSystem.dylib")]
     private static extern int sysctlbyname(string name, IntPtr oldp, ref IntPtr oldlenp, IntPtr newp, IntPtr newlen);
 
-    // ARM CPU detection helpers (see: https://github.com/util-linux/util-linux/blob/master/sys-utils/lscpu-arm.c)
+    // ARM CPU detection helpers
+    // see: https://github.com/util-linux/util-linux/blob/master/sys-utils/lscpu-arm.c
+    // also https://github.com/fastfetch-cli/fastfetch/blob/2.55.1/src/detection/cpu/cpu_linux.c
     private enum ArmImplementers
     {
         Ampere,
