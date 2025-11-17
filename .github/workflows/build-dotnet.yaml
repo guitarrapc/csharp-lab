@@ -51,3 +51,29 @@ jobs:
         run: dotnet build -c "${{ env.BUILD_CONFIG }}"
       - name: dotnet test
         run: dotnet test-rerun --deleteReports --no-build -c "${{ env.BUILD_CONFIG }}" --logger trx --logger GitHubActions --logger "console;verbosity=normal"
+
+  run:
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        runs-on:
+          - ubuntu-24.04 # x64
+          - ubuntu-24.04-arm # arm64
+          - windows-2025 # x64
+          - windows-11-arm # arm64
+          - macos-15-intel # x64
+          - macos-26 # arm64
+    runs-on: ${{ matrix.runs-on }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          persist-credentials: false
+      - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
+        with:
+          restore-wasm-workload: true
+          dotnet-version: "10.0.x"
+      - name: dotnet run
+        run: dotnet run --project ./src/SystemInfo/SystemInfo.Sandbox/CSystemInfo.Sandbox.csproj -c "${{ env.BUILD_CONFIG }}"
