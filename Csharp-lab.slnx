@@ -5,6 +5,7 @@
     <Project Path="src/Api/ApiGrpcHttp3/ApiGrpcHttp3.csproj" />
     <Project Path="src/Api/ApiHttp12/ApiHttp12.csproj" />
     <Project Path="src/Api/ApiHttp3/ApiHttp3.csproj" />
+    <Project Path="src/Api/ApiNativeAot/ApiNativeAot.csproj" Id="23fc74af-6068-48d2-8a1c-6f3a61d9f96d" />
   </Folder>
   <Folder Name="/Async/">
     <Project Path="src/Async/Async.Core/Async.Core.csproj" />
