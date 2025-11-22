@@ -1,0 +1,11 @@
+@ApiNativeAot_HostAddress = http://localhost:5164
+
+GET {{ApiNativeAot_HostAddress}}/todos/
+Accept: application/json
+
+###
+
+GET {{ApiNativeAot_HostAddress}}/todos/1
+Accept: application/json
+
+###
