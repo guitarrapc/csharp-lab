@@ -15,7 +15,7 @@ public class CatchFinallyAwaitTest
         }
         catch (OperationCanceledException)
         {
-            await Task.Delay(1);
+            await Task.Delay(100);
             x++;
             Assert.Equal(1, x);
         }
