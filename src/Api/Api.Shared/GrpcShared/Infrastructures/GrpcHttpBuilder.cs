@@ -143,9 +143,6 @@ public static class GrpcHttpBuilderExtensions
     /// <returns></returns>
     public static IGrpcHttpBuilder EnableSelfcheck(this IGrpcHttpBuilder builder, Action<SelfcheckServiceOptions> configure)
     {
-        // Suppress HttpClient logging for selfcheck
-        builder.Logging.AddFilter("Api.Shared.GrpcShared.Infrastructures.GrpcSelfcheckUnaryClient", LogLevel.Warning);
-
         var options = new SelfcheckServiceOptions();
         configure(options);
         builder.Services.AddSingleton(options);
