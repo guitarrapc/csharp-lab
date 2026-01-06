@@ -8,7 +8,7 @@ builder.Services.AddOpenApi();
 
 // Enable HTTP3
 builder.ConfigureHttp3Endpoint()
-    .EnableSelfcheck(options => options.BaseAddress = new Uri("https://localhost:5001"));
+    .EnableSelfcheck();
 
 builder.Services.AddHealthChecks();
 

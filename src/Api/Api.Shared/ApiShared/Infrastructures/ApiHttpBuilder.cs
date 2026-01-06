@@ -36,6 +36,17 @@ public static class ApiHttpBuilderExtensions
     /// Enable HTTP/1 and HTTP/2 support
     /// </summary>
     /// <param name="builder"></param>
+    /// <returns></returns>
+    public static IApiHttpBuilder ConfigureHttp12Endpoint(this WebApplicationBuilder builder)
+    {
+        var port = GetPort();
+        return ConfigureHttp12Endpoint(builder, port);
+    }
+
+    /// <summary>
+    /// Enable HTTP/1 and HTTP/2 support
+    /// </summary>
+    /// <param name="builder"></param>
     /// <param name="port"></param>
     /// <returns></returns>
     public static IApiHttpBuilder ConfigureHttp12Endpoint(this WebApplicationBuilder builder, int port = 5000)
@@ -48,7 +59,8 @@ public static class ApiHttpBuilderExtensions
             options.ListenAnyIP(port, listenOptions =>
             {
                 listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
-                if (port == 5001)
+                var url = Environment.GetEnvironmentVariable("ASPNETCORE_URLS");
+                if (url?.StartsWith("https") ?? false)
                 {
                     var basePath = Path.GetDirectoryName(AppContext.BaseDirectory);
                     var certPath = Path.Combine(basePath!, TlsFile.Default.PfxFileName);
@@ -58,6 +70,17 @@ public static class ApiHttpBuilderExtensions
         });
 
         return new ApiHttpBuilder(builder.Services);
+    }
+
+    /// <summary>
+    /// Enable HTTP/3 support
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <returns></returns>
+    public static IApiHttpBuilder ConfigureHttp3Endpoint(this WebApplicationBuilder builder)
+    {
+        var port = GetPort();
+        return ConfigureHttp3Endpoint(builder, port);
     }
 
     /// <summary>
@@ -207,5 +230,26 @@ public static class ApiHttpBuilderExtensions
             // Certificate Issuer should be valid
             static bool ValidateIssuer(X509Certificate certificate) => certificate.Issuer.Equals(Constants.SelfsignedCertConstants.Issuer, StringComparison.OrdinalIgnoreCase);
         }
+    }
+
+    /// <summary>
+    /// Get Listen Port from Environment Variables
+    /// </summary>
+    /// <returns></returns>
+    private static int GetPort()
+    {
+        var httpsPort = Environment.GetEnvironmentVariable("ASPNETCORE_HTTPS_PORTS");
+        if (int.TryParse(httpsPort, out var p1))
+        {
+            return p1;
+        }
+
+        var httpPort = Environment.GetEnvironmentVariable("ASPNETCORE_HTTP_PORTS");
+        if (int.TryParse(httpPort, out var p2))
+        {
+            return p2;
+        }
+
+        return 5000;
     }
 }

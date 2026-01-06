@@ -7,10 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 // Enable HTTP/1 and 2
-builder.ConfigureHttp12Endpoint() // http
+builder.ConfigureHttp12Endpoint()
     .EnableSelfcheck();
-//builder.ConfigureHttp12Endpoint(port: 5001) // https
-//    .EnableSelfcheck();
 
 builder.Services.AddHealthChecks();
 
@@ -21,6 +19,8 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+app.UseHttpsRedirection();
 
 var summaries = new[]
 {
