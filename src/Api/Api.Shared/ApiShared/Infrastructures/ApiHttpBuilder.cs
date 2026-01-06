@@ -49,7 +49,7 @@ public static class ApiHttpBuilderExtensions
     /// <param name="builder"></param>
     /// <param name="port"></param>
     /// <returns></returns>
-    public static IApiHttpBuilder ConfigureHttp12Endpoint(this WebApplicationBuilder builder, int port = 5000)
+    public static IApiHttpBuilder ConfigureHttp12Endpoint(this WebApplicationBuilder builder, int port)
     {
         builder.Logging.ConfigureSingleLineLogger();
 
@@ -89,7 +89,7 @@ public static class ApiHttpBuilderExtensions
     /// <param name="builder"></param>
     /// <param name="port"></param>
     /// <returns></returns>
-    public static IApiHttpBuilder ConfigureHttp3Endpoint(this WebApplicationBuilder builder, int port = 5001)
+    public static IApiHttpBuilder ConfigureHttp3Endpoint(this WebApplicationBuilder builder, int port)
     {
         builder.Logging.ConfigureSingleLineLogger();
 
