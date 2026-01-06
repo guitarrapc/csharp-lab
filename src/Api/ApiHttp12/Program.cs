@@ -8,9 +8,11 @@ builder.Services.AddOpenApi();
 
 // Enable HTTP/1 and 2
 builder.ConfigureHttp12Endpoint() // http
-    .EnableSelfcheck<WeatherForecast>();
+    .EnableSelfcheck();
 //builder.ConfigureHttp12Endpoint(port: 5001) // https
-//    .EnableSelfcheck<WeatherForecast>();
+//    .EnableSelfcheck();
+
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
@@ -39,6 +41,7 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast");
 
+app.MapHealthChecks("/healthz");
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)

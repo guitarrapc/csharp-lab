@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 #pragma warning disable IDE0005 // Using directive is unnecessary.
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 #pragma warning restore IDE0005 // Using directive is unnecessary.
-using System.Text.Json;
 
 namespace Api.Shared.ApiShared.Infrastructures;
 
@@ -16,7 +15,7 @@ namespace Api.Shared.ApiShared.Infrastructures;
 /// <param name="hostApplicationLifetime"></param>
 /// <param name="server"></param>
 /// <param name="logger"></param>
-public class ApiSelfcheckBackgroundService<T>(SelfcheckServiceOptions options, ApiSelfcheckClient<T> client, IHostApplicationLifetime hostApplicationLifetime, IServer server, ILogger<ApiSelfcheckBackgroundService<T>> logger) : BackgroundService where T : class
+public class ApiSelfcheckBackgroundService(SelfcheckServiceOptions options, ApiSelfcheckClient client, IHostApplicationLifetime hostApplicationLifetime, IServer server, ILogger<ApiSelfcheckBackgroundService> logger) : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -49,7 +48,7 @@ public class ApiSelfcheckBackgroundService<T>(SelfcheckServiceOptions options, A
         }
         catch (OperationCanceledException)
         {
-            logger.LogDebug($"Server stopped, {nameof(ApiSelfcheckBackgroundService<T>)} cancelled.");
+            logger.LogDebug($"Server stopped, {nameof(ApiSelfcheckBackgroundService)} cancelled.");
         }
     }
 
@@ -61,30 +60,24 @@ public class ApiSelfcheckBackgroundService<T>(SelfcheckServiceOptions options, A
     }
 }
 
-public class ApiSelfcheckClient<T>(IHttpClientFactory clientFactory, ILogger<ApiSelfcheckClient<T>> logger) where T : class
+public class ApiSelfcheckClient(IHttpClientFactory clientFactory, SelfcheckServiceOptions options, ILogger<ApiSelfcheckClient> logger)
 {
     public async Task SendAsync(CancellationToken cancellationToken)
     {
         var client = clientFactory.CreateClient("SelfcheckHttp");
         try
         {
-            var response = await client.GetAsync("weatherforecast", cancellationToken);
+            var response = await client.GetAsync(options.EndpointPath, cancellationToken);
             var responseHeaders = response.Headers.Select(x => $"{{{x.Key}:{string.Join(",", x.Value)}}}");
             logger.LogInformation($"StatusCode={response.StatusCode}, Headers={string.Join(", ", responseHeaders)}");
-
-            if (response.IsSuccessStatusCode)
-            {
-                using var contentStream = await response.Content.ReadAsStreamAsync();
-                await JsonSerializer.DeserializeAsync<IEnumerable<T>>(contentStream);
-            }
         }
         catch (HttpRequestException ex)
         {
-            logger.LogError(ex, $"Error happen when calling {client.BaseAddress}. StatusCode={ex.StatusCode},");
+            logger.LogError(ex, $"Error happen when calling {client.BaseAddress}{options.EndpointPath}. StatusCode={ex.StatusCode},");
         }
         catch (Exception e)
         {
-            logger.LogError(e, $"Error happen when calling {client.BaseAddress}.");
+            logger.LogError(e, $"Error happen when calling {client.BaseAddress}{options.EndpointPath}.");
         }
     }
 }

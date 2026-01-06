@@ -105,9 +105,9 @@ public static class ApiHttpBuilderExtensions
     /// </summary>
     /// <param name="builder"></param>
     /// <returns></returns>
-    public static IApiHttpBuilder EnableSelfcheck<T>(this IApiHttpBuilder builder) where T : class
+    public static IApiHttpBuilder EnableSelfcheck(this IApiHttpBuilder builder)
     {
-        return builder.EnableSelfcheck<T>(_ => { });
+        return builder.EnableSelfcheck(_ => { });
     }
 
     /// <summary>
@@ -116,13 +116,13 @@ public static class ApiHttpBuilderExtensions
     /// <param name="builder"></param>
     /// <param name="configure"></param>
     /// <returns></returns>
-    public static IApiHttpBuilder EnableSelfcheck<T>(this IApiHttpBuilder builder, Action<SelfcheckServiceOptions> configure) where T : class
+    public static IApiHttpBuilder EnableSelfcheck(this IApiHttpBuilder builder, Action<SelfcheckServiceOptions> configure)
     {
         var options = new SelfcheckServiceOptions();
         configure(options);
         builder.Services.AddSingleton(options);
-        builder.Services.AddSingleton<ApiSelfcheckClient<T>>();
-        builder.Services.AddHostedService<ApiSelfcheckBackgroundService<T>>();
+        builder.Services.AddSingleton<ApiSelfcheckClient>();
+        builder.Services.AddHostedService<ApiSelfcheckBackgroundService>();
 
         // Set HttpClient configuratioan
         builder.Services.AddHttpClient("SelfcheckHttp", static (sp, httpClient) =>

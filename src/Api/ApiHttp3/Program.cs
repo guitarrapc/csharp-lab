@@ -8,7 +8,9 @@ builder.Services.AddOpenApi();
 
 // Enable HTTP3
 builder.ConfigureHttp3Endpoint()
-    .EnableSelfcheck<WeatherForecast>(options => options.BaseAddress = new Uri("https://localhost:5001"));
+    .EnableSelfcheck(options => options.BaseAddress = new Uri("https://localhost:5001"));
+
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
@@ -39,6 +41,7 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast");
 
+app.MapHealthChecks("/healthz");
 app.Run();
 
 internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
