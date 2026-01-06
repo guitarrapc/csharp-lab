@@ -11,10 +11,12 @@ namespace Api.Shared.GrpcShared.Infrastructures;
 public interface IGrpcHttpBuilder
 {
     IServiceCollection Services { get; }
+    ILoggingBuilder Logging { get; }
 }
-public class GrpcHttpBuilder(IServiceCollection services) : IGrpcHttpBuilder
+public class GrpcHttpBuilder(IServiceCollection services, ILoggingBuilder logging) : IGrpcHttpBuilder
 {
     public IServiceCollection Services { get; } = services;
+    public ILoggingBuilder Logging { get; } = logging;
 }
 
 public static class GrpcHttpBuilderExtensions
@@ -69,7 +71,7 @@ public static class GrpcHttpBuilderExtensions
             });
         });
 
-        return new GrpcHttpBuilder(builder.Services);
+        return new GrpcHttpBuilder(builder.Services, builder.Logging);
     }
 
     /// <summary>
@@ -109,7 +111,7 @@ public static class GrpcHttpBuilderExtensions
             });
         });
 
-        return new GrpcHttpBuilder(builder.Services);
+        return new GrpcHttpBuilder(builder.Services, builder.Logging);
     }
 
     /// <summary>
@@ -141,11 +143,13 @@ public static class GrpcHttpBuilderExtensions
     /// <returns></returns>
     public static IGrpcHttpBuilder EnableSelfcheck(this IGrpcHttpBuilder builder, Action<SelfcheckServiceOptions> configure)
     {
+        // Suppress HttpClient logging for selfcheck
+        builder.Logging.AddFilter("Api.Shared.GrpcShared.Infrastructures.GrpcSelfcheckUnaryClient", LogLevel.Warning);
+
         var options = new SelfcheckServiceOptions();
         configure(options);
         builder.Services.AddSingleton(options);
         builder.Services.AddSingleton<GrpcSelfcheckUnaryClient>();
-        builder.Services.AddSingleton<GrpcSelfcheckDuplexClient>();
         builder.Services.AddHostedService<GrpcSelfcheckBackgroundService>();
 
         return builder;
