@@ -1,4 +1,4 @@
-﻿using System.Buffers.Binary;
+using System.Buffers.Binary;
 using System.Net;
 using System.Net.Sockets;
 using System.Numerics;
@@ -31,7 +31,8 @@ public static class CidrAggregatorv4
             if (current.End + 1 >= ranges[i].Start)
             {
                 // Merge if adjacent or overlapping.
-                current.End = Math.Max(current.End, ranges[i].End);
+                var newEnd = Math.Max(current.End, ranges[i].End);
+                current = new IPRange { Start = current.Start, End = newEnd };
             }
             else
             {
@@ -59,17 +60,23 @@ public static class CidrAggregatorv4
     /// <exception cref="ArgumentException"></exception>
     private static IPRange ParseCIDR(string cidr)
     {
-        var parts = cidr.Split('/');
-        if (parts.Length != 2)
+        var cidrSpan = cidr.AsSpan();
+        var slashIndex = cidrSpan.IndexOf('/');
+        
+        if (slashIndex == -1)
             throw new ArgumentException("Invalid CIDR format: " + cidr);
 
-        var ip = IPAddress.Parse(parts[0]);
+        var ipPart = cidrSpan[..slashIndex];
+        var prefixPart = cidrSpan[(slashIndex + 1)..];
+        
+        if (!IPAddress.TryParse(ipPart, out var ip))
+            throw new ArgumentException("Invalid IP address format: " + cidr);
         
         // Validate IPv4
         if (ip.AddressFamily != AddressFamily.InterNetwork)
             throw new ArgumentException("Only IPv4 addresses are supported: " + cidr);
         
-        if (!int.TryParse(parts[1], out var prefix) || prefix < 0 || prefix > 32)
+        if (!int.TryParse(prefixPart, out var prefix) || prefix < 0 || prefix > 32)
             throw new ArgumentException("Invalid prefix length (must be 0-32): " + cidr);
 
         uint ipUint = IPToUint(ip);
@@ -151,8 +158,7 @@ public static class CidrAggregatorv4
             byte prefix = Math.Max(maxPrefixFromAlignment, maxPrefixFromRange);
 
             // Generate the CIDR block.
-            var cidr = $"{UintToIP(start)}/{prefix}";
-            result.Add(cidr);
+            result.Add($"{UintToIP(start)}/{prefix}");
 
             // Move to the next block's start address.
             // Handle overflow: if prefix is 0, we're done (covers entire IPv4 space).
@@ -171,9 +177,9 @@ public static class CidrAggregatorv4
     }
 
     // Represents an IPv4 address range.
-    private struct IPRange
+    private readonly struct IPRange
     {
-        public uint Start;
-        public uint End;
+        public uint Start { get; init; }
+        public uint End { get; init; }
     }
 }
