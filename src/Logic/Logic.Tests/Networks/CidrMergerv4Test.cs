@@ -177,5 +177,137 @@ public class CidrMergerv4Test
         Assert.Equal(expected, merged);
     }
 
+    [Fact]
+    public void EdgeCase_EmptyInput()
+    {
+        var merged = CidrMergerv4.CollapseAddresses([]);
+        Assert.Empty(merged);
+    }
 
+    [Fact]
+    public void EdgeCase_SingleCidr()
+    {
+        var merged = CidrMergerv4.CollapseAddresses(["192.168.1.0/24"]);
+        Assert.Equal(["192.168.1.0/24"], merged);
+    }
+
+    [Fact]
+    public void EdgeCase_DuplicateCidrs()
+    {
+        var merged = CidrMergerv4.CollapseAddresses(["192.168.1.0/24", "192.168.1.0/24", "192.168.1.0/24"]);
+        Assert.Equal(["192.168.1.0/24"], merged);
+    }
+
+    [Fact]
+    public void EdgeCase_FullIPv4Space()
+    {
+        var merged = CidrMergerv4.CollapseAddresses(["0.0.0.0/0"]);
+        Assert.Equal(["0.0.0.0/0"], merged);
+    }
+
+    [Fact]
+    public void EdgeCase_EntireIPv4SpaceFromHalves()
+    {
+        var merged = CidrMergerv4.CollapseAddresses(["0.0.0.0/1", "128.0.0.0/1"]);
+        Assert.Equal(["0.0.0.0/0"], merged);
+    }
+
+    [Fact]
+    public void EdgeCase_OverlappingRanges()
+    {
+        // 192.168.0.0/24 contains 192.168.0.0/25
+        var merged = CidrMergerv4.CollapseAddresses(["192.168.0.0/24", "192.168.0.0/25"]);
+        Assert.Equal(["192.168.0.0/24"], merged);
+    }
+
+    [Fact]
+    public void EdgeCase_NonContiguousBlocks()
+    {
+        var merged = CidrMergerv4.CollapseAddresses(["192.168.0.0/24", "192.168.2.0/24", "192.168.4.0/24"]);
+        Assert.Equal(["192.168.0.0/24", "192.168.2.0/24", "192.168.4.0/24"], merged);
+    }
+
+    [Fact]
+    public void EdgeCase_UnalignedMerge()
+    {
+        // These should merge into optimal CIDR blocks
+        var merged = CidrMergerv4.CollapseAddresses(["192.168.1.0/25", "192.168.1.128/25"]);
+        Assert.Equal(["192.168.1.0/24"], merged);
+    }
+
+    [Fact]
+    public void EdgeCase_HighestAddressRange()
+    {
+        var merged = CidrMergerv4.CollapseAddresses(["255.255.255.0/24"]);
+        Assert.Equal(["255.255.255.0/24"], merged);
+    }
+
+    [Fact]
+    public void EdgeCase_MaximumPrefixLength()
+    {
+        var merged = CidrMergerv4.CollapseAddresses(["192.168.1.1/32", "192.168.1.2/32"]);
+        Assert.Equal(["192.168.1.1/32", "192.168.1.2/32"], merged);
+    }
+
+    [Fact]
+    public void EdgeCase_AdjacentSingleHosts()
+    {
+        var merged = CidrMergerv4.CollapseAddresses(["192.168.1.0/32", "192.168.1.1/32"]);
+        Assert.Equal(["192.168.1.0/31"], merged);
+    }
+
+    [Theory]
+    [InlineData("192.168.1.0/33")]
+    [InlineData("192.168.1.0/-1")]
+    [InlineData("192.168.1.0/abc")]
+    public void Validation_InvalidPrefixLength(string invalidCidr)
+    {
+        Assert.Throws<ArgumentException>(() => CidrMergerv4.CollapseAddresses([invalidCidr]));
+    }
+
+    [Fact]
+    public void Validation_InvalidCidrFormat()
+    {
+        Assert.Throws<ArgumentException>(() => CidrMergerv4.CollapseAddresses(["192.168.1.0"]));
+        Assert.Throws<ArgumentException>(() => CidrMergerv4.CollapseAddresses(["192.168.1.0/24/32"]));
+    }
+
+    [Fact]
+    public void Validation_IPv6ShouldFail()
+    {
+        Assert.Throws<ArgumentException>(() => CidrMergerv4.CollapseAddresses(["2001:db8::/32"]));
+    }
+
+    [Fact]
+    public void Performance_LargeNumberOfSmallBlocks()
+    {
+        // Generate 256 /32 blocks that should merge into /24
+        var cidrs = Enumerable.Range(0, 256).Select(i => $"192.168.1.{i}/32").ToList();
+        var merged = CidrMergerv4.CollapseAddresses(cidrs);
+        Assert.Equal(["192.168.1.0/24"], merged);
+    }
+
+    [Fact]
+    public void RangeToCIDRs_UnalignedRange()
+    {
+        // Test a range that doesn't start on a power-of-2 boundary
+        // 192.168.1.5 to 192.168.1.10 should split into optimal blocks
+        var merged = CidrMergerv4.CollapseAddresses([
+            "192.168.1.5/32",
+            "192.168.1.6/32",
+            "192.168.1.7/32",
+            "192.168.1.8/32",
+            "192.168.1.9/32",
+            "192.168.1.10/32"
+        ]);
+        
+        // Expected: optimal split considering alignment
+        // 192.168.1.5/32, 192.168.1.6/31, 192.168.1.8/31, 192.168.1.10/32
+        Assert.Equal([
+            "192.168.1.5/32",
+            "192.168.1.6/31",
+            "192.168.1.8/31",
+            "192.168.1.10/32"
+        ], merged);
+    }
 }
