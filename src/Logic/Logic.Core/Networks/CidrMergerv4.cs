@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Buffers.Binary;
+using System.Net;
 using System.Net.Sockets;
 using System.Numerics;
 using System.Runtime.InteropServices;
@@ -81,33 +82,35 @@ public static class CidrMergerv4
     }
 
     /// <summary>
-    /// Converts an IPAddress to a 32-bit unsigned integer using Span.
+    /// Converts an IPAddress to a 32-bit unsigned integer in network byte order (big-endian).
+    /// The returned value can be used for bitwise operations and comparisons.
     /// </summary>
-    /// <param name="ip"></param>
-    /// <returns></returns>
-    /// <exception cref="InvalidOperationException"></exception>
+    /// <param name="ip">IPv4 address to convert</param>
+    /// <returns>32-bit unsigned integer representation in network byte order</returns>
+    /// <exception cref="InvalidOperationException">Failed to write IP address bytes</exception>
     private static uint IPToUint(IPAddress ip)
     {
         Span<byte> bytes = stackalloc byte[4];
         if (!ip.TryWriteBytes(bytes, out _))
             throw new InvalidOperationException("Failed to write IP address bytes.");
-        // Ensure big-endian for network order
-        if (BitConverter.IsLittleEndian)
-            bytes.Reverse();
-        return MemoryMarshal.Read<uint>(bytes);
+
+        // IPAddress.TryWriteBytes writes in network byte order (big-endian).
+        // Read as big-endian uint for consistent bitwise operations.
+        return BinaryPrimitives.ReadUInt32BigEndian(bytes);
     }
 
     /// <summary>
-    /// Converts a 32-bit unsigned integer to an IPAddress using Span.
+    /// Converts a 32-bit unsigned integer in network byte order (big-endian) to an IPAddress.
     /// </summary>
-    /// <param name="ipUint"></param>
-    /// <returns></returns>
+    /// <param name="ipUint">32-bit unsigned integer in network byte order</param>
+    /// <returns>IPAddress object</returns>
     private static IPAddress UintToIP(uint ipUint)
     {
         Span<byte> bytes = stackalloc byte[4];
-        MemoryMarshal.Write(bytes, in ipUint);
-        if (BitConverter.IsLittleEndian)
-            bytes.Reverse();
+
+        // Write uint as big-endian to match network byte order expected by IPAddress.
+        BinaryPrimitives.WriteUInt32BigEndian(bytes, ipUint);
+
         return new IPAddress(bytes);
     }
 
