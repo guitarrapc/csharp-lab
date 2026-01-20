@@ -2,18 +2,17 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Numerics;
-using System.Runtime.InteropServices;
 
 namespace Logic.Core.Networks;
 
-public static class CidrMergerv4
+public static class CidrAggregatorv4
 {
     /// <summary>
     /// Aggregates a list of CIDR blocks into the smallest possible list of CIDR blocks. Return snapshot of the aggregated list.
     /// </summary>
     /// <param name="cidrs">IPv4 CIDRs. e.g., 192.168.0.0/24</param>
     /// <returns></returns>
-    public static IReadOnlyList<string> CollapseAddresses(IEnumerable<string> cidrs)
+    public static IReadOnlyList<string> Aggregate(IEnumerable<string> cidrs)
     {
         // Convert each CIDR to an IPRange and sort by Start address.
         var ranges = cidrs
