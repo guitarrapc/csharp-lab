@@ -1,4 +1,4 @@
-using System.Buffers.Binary;
+﻿using System.Buffers.Binary;
 using System.Net;
 using System.Net.Sockets;
 using System.Numerics;
@@ -62,20 +62,20 @@ public static class CidrAggregatorv4
     {
         var cidrSpan = cidr.AsSpan();
         var slashIndex = cidrSpan.IndexOf('/');
-        
+
         if (slashIndex == -1)
             throw new ArgumentException("Invalid CIDR format: " + cidr);
 
         var ipPart = cidrSpan[..slashIndex];
         var prefixPart = cidrSpan[(slashIndex + 1)..];
-        
+
         if (!IPAddress.TryParse(ipPart, out var ip))
             throw new ArgumentException("Invalid IP address format: " + cidr);
-        
+
         // Validate IPv4
         if (ip.AddressFamily != AddressFamily.InterNetwork)
             throw new ArgumentException("Only IPv4 addresses are supported: " + cidr);
-        
+
         if (!int.TryParse(prefixPart, out var prefix) || prefix < 0 || prefix > 32)
             throw new ArgumentException("Invalid prefix length (must be 0-32): " + cidr);
 
@@ -133,8 +133,8 @@ public static class CidrAggregatorv4
         {
             // Determine the maximum prefix length based on start address alignment.
             // Count trailing zeros to find the largest power-of-2 block that starts at 'start'.
-            byte maxPrefixFromAlignment = start == 0 
-                ? (byte)0 
+            byte maxPrefixFromAlignment = start == 0
+                ? (byte)0
                 : (byte)(32 - BitOperations.TrailingZeroCount(start));
 
             // Calculate the maximum prefix based on the remaining address count.
@@ -164,13 +164,13 @@ public static class CidrAggregatorv4
             // Handle overflow: if prefix is 0, we're done (covers entire IPv4 space).
             if (prefix == 0)
                 break;
-                
+
             uint blockSize = 1u << (32 - prefix);
-            
+
             // Check for overflow before adding
             if (start > uint.MaxValue - blockSize)
                 break;
-                
+
             start += blockSize;
         }
         return result;
