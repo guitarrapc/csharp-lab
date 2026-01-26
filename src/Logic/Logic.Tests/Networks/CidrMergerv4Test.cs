@@ -300,7 +300,7 @@ public class CidrMergerv4Test
             "192.168.1.9/32",
             "192.168.1.10/32"
         ]);
-        
+
         // Expected: optimal split considering alignment
         // 192.168.1.5/32, 192.168.1.6/31, 192.168.1.8/31, 192.168.1.10/32
         Assert.Equal([
