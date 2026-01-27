@@ -1,0 +1,83 @@
+name: Update GitHub IP
+on:
+  schedule:
+    - cron: "0 0 * * 1" # 週一回更新で十分だろう
+  workflow_dispatch:
+    inputs:
+      dryrun:
+        type: boolean
+        description: "dry-run: false で apply実行。true で diff のみ"
+        required: true
+
+jobs:
+  run:
+    strategy:
+      matrix:
+        include:
+          - path: example/GitHubConstants.cs
+            namespace: Examples
+            class: GitHubConstants
+            dryrun-args: ${{ inputs.dryrun && '--dryrun' || '' }}
+            dryrun: ${{ inputs.dryrun || false }}
+            branch-name: auto/update_github_ip
+    permissions:
+      contents: write
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: false
+      - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
+        with:
+          restore-wasm-workload: true
+          dotnet-version: "10.0.x"
+      - name: Update GitHub Public IP Class File
+        run: dotnet run --no-launch-profile --project ./Sandbox/GitHubPublicIPClassGenerator/GitHubPublicIPClassGenerator.csproj -- --path "${{github.workspace}}/${{ matrix.path }}" --ns ${{ matrix.namespace }} --class-name ${{ matrix.class }} --is-static --is-partial ${{ matrix.dryrun-args }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check update on git
+        id: check_update
+        run: git diff --exit-code || echo "changed=1" | tee -a "$GITHUB_OUTPUT"
+      - name: Commit files (updated? = ${{ steps.check_update.outputs.changed == '1' }})
+        id: commit
+        run: |
+          if [[ "${{ steps.check_update.outputs.changed }}" == "1" ]]; then
+            git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git config --local user.name "github-actions[bot]"
+            git commit -m "feat: Update ${{ matrix.path }}" -a
+          fi
+
+      - name: commit
+        if: ${{ !matrix.dryrun && steps.check_update.outputs.changed == '1' }}
+        run: |
+          git remote set-url origin "https://github-actions:${GITHUB_TOKEN}@github.com/${{ github.repository }}"
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+
+          git switch -c "${{ matrix.branch-name }}" || git switch "${{ matrix.branch-name }}"
+          git add .
+          git commit -m "[automated] GitHub IP automated update by $GITHUB_WORKFLOW" || true
+          git push -u origin "${{ matrix.branch-name }}" --force
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_WORKFLOW: ${{ github.workflow }}
+
+      # pr if change happen (force push when branch/pr already exists)
+      - name: Create PullRequest
+        if: ${{ !matrix.dryrun && steps.check_update.outputs.changed == '1' }}
+        run: |
+          pr_exists=$(gh pr list --head "${{ matrix.branch-name }}" --base "${GITHUB_DEFAULT_BRANCH}")
+          if [ -n "$pr_exists" ]; then
+            echo "PR already exists for ${{ matrix.branch-name }} -> ${GITHUB_DEFAULT_BRANCH}. Skipping creation."
+          else
+            title="[automated] GitHub IP automated update"
+            body="GitHub Actions [${GITHUB_WORKFLOW}](${GITHUB_ACTIONS_RUN_URL}) generated changes :rocket:"
+            gh pr create --title "$title" --body "$body" --label "automated pr"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          GITHUB_ACTIONS_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          GITHUB_ACTIONS_JOB_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/job/${{ job.check_run_id }}
