@@ -1,5 +1,14 @@
 <Solution>
-  <Folder Name="/Api/">
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/sandbox/">
+    <Project Path="sandbox/GitHubPublicIPClassGenerator/GitHubPublicIPClassGenerator.csproj" Id="d76ebe71-6b98-45a3-ba12-eda85d5c5322" />
+  </Folder>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Api/">
     <Project Path="src/Api/Api.Shared/Api.Shared.csproj" />
     <Project Path="src/Api/ApiGrpcHttp2/ApiGrpcHttp2.csproj" />
     <Project Path="src/Api/ApiGrpcHttp3/ApiGrpcHttp3.csproj" />
@@ -7,67 +16,67 @@
     <Project Path="src/Api/ApiHttp3/ApiHttp3.csproj" />
     <Project Path="src/Api/ApiNativeAot/ApiNativeAot.csproj" Id="23fc74af-6068-48d2-8a1c-6f3a61d9f96d" />
   </Folder>
-  <Folder Name="/Async/">
+  <Folder Name="/src/Async/">
     <Project Path="src/Async/Async.Core/Async.Core.csproj" />
     <Project Path="src/Async/Async.Sandbox/Async.Sandbox.csproj" />
     <Project Path="src/Async/Async.Tests/Async.Tests.csproj" />
   </Folder>
-  <Folder Name="/Blazor/">
+  <Folder Name="/src/Blazor/">
     <Project Path="src/Blazor/BlazorServerApp/BlazorServerApp.csproj" />
     <Project Path="src/Blazor/BlazorServerIPBlockApp/BlazorServerIPBlockApp.csproj" />
     <Project Path="src/Blazor/BlazorWasmAotApp/BlazorWasmAotApp.csproj" />
   </Folder>
-  <Folder Name="/Container/">
+  <Folder Name="/src/Container/">
     <Project Path="src/Container/ContainerConsoleSdk/ContainerConsoleSdk.csproj" />
   </Folder>
-  <Folder Name="/Database/">
+  <Folder Name="/src/Database/">
     <Project Path="src/Database/DatabaseCore/DatabaseCore.csproj" />
     <Project Path="src/Database/DatabaseMySqlEf/DatabaseMySqlEf.csproj" />
     <Project Path="src/Database/DatabasePostgresqlEf/DatabasePostgresqlEf.csproj" />
     <Project Path="src/Database/DatabaseSqliteEF/DatabaseSqliteEf.csproj" />
     <Project Path="src/Database/DatabaseSqliteInmemoryEF/DatabaseSqliteInmemoryEF.csproj" />
   </Folder>
-  <Folder Name="/Logger/">
+  <Folder Name="/src/Logger/">
     <Project Path="src/Logger/Logger.Benchmark/Logger.Benchmark.csproj" />
     <Project Path="src/Logger/LoggerBlazorApp/LoggerBlazorApp.csproj" />
     <Project Path="src/Logger/LoggerDefault/LoggerDefault.csproj" />
     <Project Path="src/Logger/LoggerHttpApi/LoggerHttpApi.csproj" />
     <Project Path="src/Logger/LoggerWorker/LoggerWorker.csproj" />
   </Folder>
-  <Folder Name="/Logic/">
+  <Folder Name="/src/Logic/">
     <Project Path="src/Logic/Logic.Benchmark/Logic.Benchmark.csproj" />
     <Project Path="src/Logic/Logic.Core/Logic.Core.csproj" />
     <Project Path="src/Logic/Logic.Tests/Logic.Tests.csproj" />
   </Folder>
-  <Folder Name="/MemoryLeak/">
+  <Folder Name="/src/MemoryLeak/">
     <Project Path="src/MemoryLeak/MemoryLeak.Benchmark/MemoryLeak.Benchmark.csproj" />
     <Project Path="src/MemoryLeak/MemoryLeak.Core/MemoryLeak.Core.csproj" />
     <Project Path="src/MemoryLeak/MemoryLeakApi/MemoryLeakApi.csproj" />
   </Folder>
-  <Folder Name="/Redis/">
+  <Folder Name="/src/Redis/">
     <Project Path="src/Redis/RedisConnectTester/RedisConnectTester.csproj" />
     <Project Path="src/Redis/RedisFailover.Direct/RedisFailover.Direct.csproj" />
     <Project Path="src/Redis/RedisFailover.Managed/RedisFailover.Managed.csproj" />
   </Folder>
-  <Folder Name="/Serialization/">
+  <Folder Name="/src/Serialization/">
     <Project Path="src/Serialization/Serialization.Benchmark/Serialization.Benchmark.csproj" />
     <Project Path="src/Serialization/Serialization.Core/Serialization.Core.csproj" />
     <Project Path="src/Serialization/Serialization.Tests/Serialization.Tests.csproj" />
   </Folder>
-  <Folder Name="/Strings/">
+  <Folder Name="/src/Strings/">
     <Project Path="src/Strings/Strings.Benchmark/Strings.Benchmark.csproj" />
     <Project Path="src/Strings/Strings.Core/Strings.Core.csproj" />
     <Project Path="src/Strings/Strings.Tests/Strings.Tests.csproj" />
   </Folder>
-  <Folder Name="/SystemInfo/">
+  <Folder Name="/src/SystemInfo/">
     <Project Path="src/SystemInfo/SystemInfo.Core/SystemInfo.Core.csproj" />
     <Project Path="src/SystemInfo/SystemInfo.Sandbox/SystemInfo.Sandbox.csproj" />
     <Project Path="src/SystemInfo/SystemInfo.Tests/SystemInfo.Tests.csproj" />
   </Folder>
-  <Folder Name="/Tutorials/">
+  <Folder Name="/src/Tutorials/">
     <Project Path="src/Tutorials/TutorialConsoleApp/TutorialConsoleApp.csproj" />
   </Folder>
-  <Folder Name="/WhatsNew/">
+  <Folder Name="/src/WhatsNew/">
     <Project Path="src/WhatsNew/CSharp10.Tests/CSharp10.Tests.csproj" />
     <Project Path="src/WhatsNew/CSharp6.Tests/CSharp6.Tests.csproj" />
   </Folder>
