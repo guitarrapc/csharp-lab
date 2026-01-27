@@ -37,20 +37,20 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Check update on git
-        id: check_update
-        run: git diff --exit-code || echo "changed=1" | tee -a "$GITHUB_OUTPUT"
-      - name: Commit files (updated? = ${{ steps.check_update.outputs.changed == '1' }})
+      - name: Check for modified files
+        id: git-check
+        run: echo "modified=$(if [[ "$(git status --porcelain=v1 2>/dev/null | wc -l)" == "0" ]]; then echo "false"; else echo "true"; fi)" | tee -a "$GITHUB_OUTPUT"
+      - name: Commit files (updated? = ${{ steps.git-check.outputs.modified == 'true' }})
         id: commit
         run: |
-          if [[ "${{ steps.check_update.outputs.changed }}" == "1" ]]; then
+          if [[ "${{ steps.git-check.outputs.modified }}" == "true" ]]; then
             git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git config --local user.name "github-actions[bot]"
             git commit -m "feat: Update ${{ matrix.path }}" -a
           fi
 
       - name: commit
-        if: ${{ !matrix.dryrun && steps.check_update.outputs.changed == '1' }}
+        if: ${{ !matrix.dryrun && steps.git-check.outputs.modified == 'true' }}
         run: |
           git remote set-url origin "https://github-actions:${GITHUB_TOKEN}@github.com/${{ github.repository }}"
           git config user.name github-actions[bot]
@@ -66,7 +66,7 @@ jobs:
 
       # pr if change happen (force push when branch/pr already exists)
       - name: Create PullRequest
-        if: ${{ !matrix.dryrun && steps.check_update.outputs.changed == '1' }}
+        if: ${{ !matrix.dryrun && steps.git-check.outputs.modified == 'true' }}
         run: |
           pr_exists=$(gh pr list --head "${{ matrix.branch-name }}" --base "${GITHUB_DEFAULT_BRANCH}")
           if [ -n "$pr_exists" ]; then
