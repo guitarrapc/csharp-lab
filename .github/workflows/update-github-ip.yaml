@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - path: example/GitHubConstants.cs
+          - path: sandbox/GitHubPublicIPClassGenerator/GitHubConstants.cs
             namespace: Examples
             class: GitHubConstants
             dryrun-args: ${{ inputs.dryrun && '--dryrun' || '' }}
@@ -33,7 +33,7 @@ jobs:
           restore-wasm-workload: true
           dotnet-version: "10.0.x"
       - name: Update GitHub Public IP Class File
-        run: dotnet run --no-launch-profile --project ./Sandbox/GitHubPublicIPClassGenerator/GitHubPublicIPClassGenerator.csproj -- --path "${{github.workspace}}/${{ matrix.path }}" --ns ${{ matrix.namespace }} --class-name ${{ matrix.class }} --is-static --is-partial ${{ matrix.dryrun-args }}
+        run: dotnet run --no-launch-profile --project ./sandbox/GitHubPublicIPClassGenerator/GitHubPublicIPClassGenerator.csproj -- --path "${{github.workspace}}/${{ matrix.path }}" --ns ${{ matrix.namespace }} --class-name ${{ matrix.class }} --is-static --is-partial ${{ matrix.dryrun-args }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
