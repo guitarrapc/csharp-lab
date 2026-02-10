@@ -12,7 +12,7 @@ public class OutlierIQRTest
         Span<double> expected = [70.0, 80.0, 80.0, 90.0, 91.0, 92.0, 92.0, 93.0, 94.0, 100.0];
 
         // Act
-        var range = OutlierIQR.RemoveOutlier(inputs, 100.0);
+        var range = OutlierIQR.FindInlierRange(inputs, 100.0);
         var filtered = inputs[range];
 
         // Assert
@@ -20,26 +20,26 @@ public class OutlierIQRTest
     }
 
     [Fact]
-    public void RemoveOutlier_EmptyData_ReturnsEmptyRange()
+    public void FindInlierRange_EmptyData_ReturnsEmptyRange()
     {
         // Arrange
         Span<double> inputs = [];
 
         // Act
-        var range = OutlierIQR.RemoveOutlier(inputs, 100.0);
+        var range = OutlierIQR.FindInlierRange(inputs, 100.0);
 
         // Assert
         Assert.Equal(0..0, range);
     }
 
     [Fact]
-    public void RemoveOutlier_SingleValue_ReturnsSingleValue()
+    public void FindInlierRange_SingleValue_ReturnsSingleValue()
     {
         // Arrange
         Span<double> inputs = [50.0];
 
         // Act
-        var range = OutlierIQR.RemoveOutlier(inputs, 100.0);
+        var range = OutlierIQR.FindInlierRange(inputs, 100.0);
         var filtered = inputs[range];
 
         // Assert
@@ -48,14 +48,14 @@ public class OutlierIQRTest
     }
 
     [Fact]
-    public void RemoveOutlier_NoOutliers_ReturnsAllData()
+    public void FindInlierRange_NoOutliers_ReturnsAllData()
     {
         // Arrange
         Span<double> inputs = [10.0, 20.0, 30.0, 40.0, 50.0];
         var originalLength = inputs.Length;
 
         // Act
-        var range = OutlierIQR.RemoveOutlier(inputs, 100.0);
+        var range = OutlierIQR.FindInlierRange(inputs, 100.0);
         var filtered = inputs[range];
 
         // Assert
@@ -63,13 +63,13 @@ public class OutlierIQRTest
     }
 
     [Fact]
-    public void RemoveOutlier_WithUpperLimit_RespectsLimit()
+    public void FindInlierRange_WithUpperLimit_RespectsLimit()
     {
         // Arrange
         Span<double> inputs = [10.0, 20.0, 30.0, 40.0, 50.0, 200.0];
 
         // Act
-        var range = OutlierIQR.RemoveOutlier(inputs, 50.0);
+        var range = OutlierIQR.FindInlierRange(inputs, 50.0);
         var filtered = inputs[range];
 
         // Assert
@@ -77,13 +77,13 @@ public class OutlierIQRTest
     }
 
     [Fact]
-    public void RemoveOutlier_ExtremeOutliers_RemovedCorrectly()
+    public void FindInlierRange_ExtremeOutliers_RemovedCorrectly()
     {
         // Arrange
         Span<double> inputs = [-1000.0, 50.0, 55.0, 60.0, 65.0, 70.0, 75.0, 80.0, 1000.0];
 
         // Act
-        var range = OutlierIQR.RemoveOutlier(inputs, 200.0);
+        var range = OutlierIQR.FindInlierRange(inputs, 200.0);
         var filtered = inputs[range];
 
         // Assert - extreme outliers should be removed
@@ -94,13 +94,13 @@ public class OutlierIQRTest
     }
 
     [Fact]
-    public void RemoveOutlier_SortsDataInPlace()
+    public void FindInlierRange_SortsDataInPlace()
     {
         // Arrange
         Span<double> inputs = [50.0, 10.0, 30.0, 20.0, 40.0];
 
         // Act
-        OutlierIQR.RemoveOutlier(inputs, 100.0);
+        OutlierIQR.FindInlierRange(inputs, 100.0);
 
         // Assert - data should be sorted after processing
         for (int i = 0; i < inputs.Length - 1; i++)
@@ -110,13 +110,13 @@ public class OutlierIQRTest
     }
 
     [Fact]
-    public void RemoveOutlier_WithExtremeValues_HandledCorrectly()
+    public void FindInlierRange_WithExtremeValues_HandledCorrectly()
     {
         // Arrange
         Span<double> inputs = [-100.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 200.0];
 
         // Act
-        var range = OutlierIQR.RemoveOutlier(inputs, 100.0);
+        var range = OutlierIQR.FindInlierRange(inputs, 100.0);
         var filtered = inputs[range];
 
         // Assert - extreme values outside IQR bounds should be removed
@@ -126,13 +126,13 @@ public class OutlierIQRTest
 
     // Tests for small datasets: n=2,3,4
     [Fact]
-    public void RemoveOutlier_TwoValues_ReturnsAllValues()
+    public void FindInlierRange_TwoValues_ReturnsAllValues()
     {
         // Arrange
         Span<double> inputs = [10.0, 20.0];
 
         // Act
-        var range = OutlierIQR.RemoveOutlier(inputs, 100.0);
+        var range = OutlierIQR.FindInlierRange(inputs, 100.0);
         var filtered = inputs[range];
 
         // Assert - IQR = 10, lower = 10 - 15 = -5, upper = 20 + 15 = 35
@@ -142,13 +142,13 @@ public class OutlierIQRTest
     }
 
     [Fact]
-    public void RemoveOutlier_ThreeValues_ReturnsAllValues()
+    public void FindInlierRange_ThreeValues_ReturnsAllValues()
     {
         // Arrange
         Span<double> inputs = [10.0, 20.0, 30.0];
 
         // Act
-        var range = OutlierIQR.RemoveOutlier(inputs, 100.0);
+        var range = OutlierIQR.FindInlierRange(inputs, 100.0);
         var filtered = inputs[range];
 
         // Assert - small dataset should typically retain all values
@@ -159,13 +159,13 @@ public class OutlierIQRTest
     }
 
     [Fact]
-    public void RemoveOutlier_FourValues_WithOutlier_RemovesOutlier()
+    public void FindInlierRange_FourValues_WithOutlier_RemovesOutlier()
     {
         // Arrange
         Span<double> inputs = [1.0, 10.0, 11.0, 100.0];
 
         // Act
-        var range = OutlierIQR.RemoveOutlier(inputs, 200.0);
+        var range = OutlierIQR.FindInlierRange(inputs, 200.0);
         var filtered = inputs[range];
 
         // Assert - Q1 = 7.25, Q3 = 28.75, IQR = 21.5, lower = -25.0, upper = 61.0
@@ -176,13 +176,13 @@ public class OutlierIQRTest
     }
 
     [Fact]
-    public void RemoveOutlier_FourIdenticalValues_ReturnsAllValues()
+    public void FindInlierRange_FourIdenticalValues_ReturnsAllValues()
     {
         // Arrange
         Span<double> inputs = [42.0, 42.0, 42.0, 42.0];
 
         // Act
-        var range = OutlierIQR.RemoveOutlier(inputs, 100.0);
+        var range = OutlierIQR.FindInlierRange(inputs, 100.0);
         var filtered = inputs[range];
 
         // Assert - IQR = 0, should return all values
@@ -192,13 +192,13 @@ public class OutlierIQRTest
 
     // Tests for identical values (IQR=0)
     [Fact]
-    public void RemoveOutlier_AllIdenticalValues_ReturnsAllValues()
+    public void FindInlierRange_AllIdenticalValues_ReturnsAllValues()
     {
         // Arrange
         Span<double> inputs = [50.0, 50.0, 50.0, 50.0, 50.0, 50.0, 50.0];
 
         // Act
-        var range = OutlierIQR.RemoveOutlier(inputs, 100.0);
+        var range = OutlierIQR.FindInlierRange(inputs, 100.0);
         var filtered = inputs[range];
 
         // Assert - IQR = 0, should return all values
@@ -207,13 +207,13 @@ public class OutlierIQRTest
     }
 
     [Fact]
-    public void RemoveOutlier_AllZeros_ReturnsAllValues()
+    public void FindInlierRange_AllZeros_ReturnsAllValues()
     {
         // Arrange
         Span<double> inputs = [0.0, 0.0, 0.0, 0.0, 0.0];
 
         // Act
-        var range = OutlierIQR.RemoveOutlier(inputs, 100.0);
+        var range = OutlierIQR.FindInlierRange(inputs, 100.0);
         var filtered = inputs[range];
 
         // Assert - IQR = 0, should return all values
@@ -223,13 +223,13 @@ public class OutlierIQRTest
 
     // Tests for boundary values
     [Fact]
-    public void RemoveOutlier_ValueAtLowerBound_IsIncluded()
+    public void FindInlierRange_ValueAtLowerBound_IsIncluded()
     {
         // Arrange - Q1 = 30, Q3 = 70, IQR = 40, lower = -30, upper = 130
         Span<double> inputs = [0.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 100.0];
 
         // Act
-        var range = OutlierIQR.RemoveOutlier(inputs, 200.0);
+        var range = OutlierIQR.FindInlierRange(inputs, 200.0);
         var filtered = inputs[range];
 
         // Assert - value 0.0 is above lower bound (-30), should be included
@@ -237,13 +237,13 @@ public class OutlierIQRTest
     }
 
     [Fact]
-    public void RemoveOutlier_ValueAtUpperBound_IsIncluded()
+    public void FindInlierRange_ValueAtUpperBound_IsIncluded()
     {
         // Arrange - Q1 = 30, Q3 = 70, IQR = 40, lower = -30, upper = 130
         Span<double> inputs = [0.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 100.0];
 
         // Act
-        var range = OutlierIQR.RemoveOutlier(inputs, 200.0);
+        var range = OutlierIQR.FindInlierRange(inputs, 200.0);
         var filtered = inputs[range];
 
         // Assert - value 100.0 is below upper bound (130), should be included
@@ -251,13 +251,13 @@ public class OutlierIQRTest
     }
 
     [Fact]
-    public void RemoveOutlier_ValueBelowLowerBound_IsExcluded()
+    public void FindInlierRange_ValueBelowLowerBound_IsExcluded()
     {
         // Arrange - Q1 = 30, Q3 = 70, IQR = 40, lower = -30, upper = 130
         Span<double> inputs = [-50.0, 0.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 100.0];
 
         // Act
-        var range = OutlierIQR.RemoveOutlier(inputs, 200.0);
+        var range = OutlierIQR.FindInlierRange(inputs, 200.0);
         var filtered = inputs[range];
 
         // Assert - value -50.0 is far below lower bound, should be excluded
@@ -265,13 +265,13 @@ public class OutlierIQRTest
     }
 
     [Fact]
-    public void RemoveOutlier_ValueAboveUpperBound_IsExcluded()
+    public void FindInlierRange_ValueAboveUpperBound_IsExcluded()
     {
         // Arrange - Q1 = 30, Q3 = 70, IQR = 40, lower = -30, upper = 130
         Span<double> inputs = [0.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 100.0, 200.0];
 
         // Act
-        var range = OutlierIQR.RemoveOutlier(inputs, 300.0);
+        var range = OutlierIQR.FindInlierRange(inputs, 300.0);
         var filtered = inputs[range];
 
         // Assert - value 200.0 is far above upper bound, should be excluded

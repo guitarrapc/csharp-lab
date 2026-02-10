@@ -11,7 +11,7 @@ public static class OutlierIQR
     /// <param name="data">The input data. This span will be sorted in-place.</param>
     /// <param name="upperLimit">The upper limit for outlier removal.</param>
     /// <returns>A range representing the valid data slice after outlier removal.</returns>
-    public static Range RemoveOutlier(Span<double> data, double upperLimit)
+    public static Range FindInlierRange(Span<double> data, double upperLimit)
     {
         if (data.Length == 0)
             return 0..0;
@@ -71,7 +71,7 @@ public static class OutlierIQR
         q3 = GetPercentile(sortedData, 75.0);
     }
 
-    static double GetPercentile(ReadOnlySpan<double> sortedData, double p)
+    private static double GetPercentile(ReadOnlySpan<double> sortedData, double p)
     {
         int n = sortedData.Length;
         if (n == 1) return sortedData[0];
