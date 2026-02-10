@@ -1,25 +1,32 @@
 ﻿namespace Logic.Core;
 
 /// <summary>
-/// Outliner removal by IQR (Interquartile Range) method.
+/// Outlier removal by IQR (Interquartile Range) method.
 /// </summary>
-public static class OutlinerIQR
+public static class OutlierIQR
 {
     /// <summary>
-    /// Remove outliners from data using IQR method.
+    /// Remove outliers from data using IQR method.
     /// </summary>
     /// <param name="data">The input data. This span will be sorted in-place.</param>
     /// <param name="upperLimit">The upper limit for outlier removal.</param>
     /// <returns>A range representing the valid data slice after outlier removal.</returns>
-    public static Range RemoveOutliner(Span<double> data, double upperLimit)
+    public static Range RemoveOutlier(Span<double> data, double upperLimit)
     {
         if (data.Length == 0)
             return 0..0;
 
         data.Sort();
 
-        var lowerBound = GetLowerBound(data);
-        var upperBound = GetUpperBound(data);
+        GetQuartiles(data, out var q1, out var q3);
+        var iqr = q3 - q1;
+
+        // If IQR is zero, all data points are identical; return the full range.
+        if (iqr == 0)
+            return 0..data.Length;
+
+        var lowerBound = q1 - 1.5 * iqr;
+        var upperBound = q3 + 1.5 * iqr;
         var effectiveUpperBound = Math.Min(upperBound, upperLimit);
 
         int startIndex = BinarySearchLowerBound(data, lowerBound);
@@ -58,30 +65,22 @@ public static class OutlinerIQR
         return left;
     }
 
-    internal static double GetLowerBound(ReadOnlySpan<double> sortedData)
+    internal static void GetQuartiles(ReadOnlySpan<double> sortedData, out double q1, out double q3)
     {
-        var q1 = GetPercentile(sortedData, 25);
-        var q3 = GetPercentile(sortedData, 75);
-        var iqr = q3 - q1;
-        return q1 - 1.5 * iqr;
+        q1 = GetPercentile(sortedData, 25.0);
+        q3 = GetPercentile(sortedData, 75.0);
     }
 
-    internal static double GetUpperBound(ReadOnlySpan<double> sortedData)
+    static double GetPercentile(ReadOnlySpan<double> sortedData, double p)
     {
-        var q1 = GetPercentile(sortedData, 25);
-        var q3 = GetPercentile(sortedData, 75);
-        var iqr = q3 - q1;
-        return q3 + 1.5 * iqr;
-    }
+        int n = sortedData.Length;
+        if (n == 1) return sortedData[0];
 
-    private static double GetPercentile(ReadOnlySpan<double> sortedData, double percentile)
-    {
-        var n = sortedData.Length;
-        var position = (n - 1) * percentile / 100.0 + 1;
-        if (position == 1) return sortedData[0];
-        if (position == n) return sortedData[n - 1];
-        var k = (int)Math.Floor(position) - 1;
-        var d = position - Math.Floor(position);
-        return sortedData[k] + d * (sortedData[k + 1] - sortedData[k]);
+        double pos = (n - 1) * (p / 100.0);
+        int k = (int)pos;
+        double frac = pos - k;
+
+        if (k >= n - 1) return sortedData[n - 1];
+        return sortedData[k] + (sortedData[k + 1] - sortedData[k]) * frac;
     }
 }
