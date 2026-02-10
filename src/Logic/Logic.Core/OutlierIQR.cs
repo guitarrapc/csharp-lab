@@ -1,9 +1,11 @@
-﻿namespace Logic.Core;
+﻿using System.Buffers;
+
+namespace Logic.Core;
 
 /// <summary>
-/// Outlier removal by IQR (Interquartile Range) method.
+/// Outlier removal by IQR (Interquartile Range) method. Falls back to MAD (Median Absolute Deviation) if IQR is zero.
 /// </summary>
-public static class OutlierIQR
+public static class OutlierIqr
 {
     /// <summary>
     /// Remove outliers from data using IQR method.
@@ -26,18 +28,86 @@ public static class OutlierIQR
         GetQuartiles(data, out var q1, out var q3);
         var iqr = q3 - q1;
 
-        // If IQR is zero, all data points are identical; return the full range.
-        if (iqr == 0)
-            return 0..data.Length;
+        double lowerBound, upperBound;
 
-        var lowerBound = q1 - 1.5 * iqr;
-        var upperBound = q3 + 1.5 * iqr;
+        // If IQR is almost zero, fall back to MAD method.
+        double scale = Math.Max(Math.Max(Math.Abs(q1), Math.Abs(q3)), 1.0);
+        double tolerance = 1e-12 * scale;
+        if (iqr <= tolerance)
+        {
+            // IQR can be zero if all data points are identical or very close to each other.
+            // This weakness of IQR method can be mitigated by using MAD.
+            double mad = CalculateMAD(data, out var median);
+
+            // All data points are identical; return the full range.
+            double medianScale = Math.Max(Math.Abs(median), 1.0);
+            double madTolerance = 1e-12 * medianScale;
+            if (mad <= madTolerance)
+                return 0..data.Length;
+
+            // Use MAD to determine bounds (median ± 2.5 * MAD is approximately equivalent to IQR 1.5)
+            const double madScale = 1.4826; // 1 / 0.6745, consistency with Normal
+            const double k = 3.0; // ~3σ rule
+            var scaledMAD = mad * madScale;
+            lowerBound = median - k *scaledMAD;
+            upperBound = median + k * scaledMAD;
+        }
+        else
+        {
+            // Standard IQR method
+            lowerBound = q1 - 1.5 * iqr;
+            upperBound = q3 + 1.5 * iqr;
+        }
+
         var effectiveUpperBound = Math.Min(upperBound, upperLimit);
 
         int startIndex = BinarySearchLowerBound(data, lowerBound);
         int endIndex = BinarySearchUpperBound(data, effectiveUpperBound);
 
         return startIndex..endIndex;
+    }
+
+    /// <summary>
+    /// Calculate Median Absolute Deviation (MAD) from sorted data.
+    /// </summary>
+    /// <remarks>
+    /// MAD = median(|x_i - median(x)|)
+    /// <para>
+    /// MAD has a breakdown point of 50%, meaning it can tolerate up to 50% of the data being outliers.
+    /// However, when more than 50% of data points are identical or very close to the median, MAD ≈ 0,
+    /// making outlier detection impossible.
+    /// </para>
+    /// </remarks>
+    private static double CalculateMAD(ReadOnlySpan<double> sortedData, out double median)
+    {
+        // Calculate median
+        median = GetPercentile(sortedData, 50.0);
+
+        if (sortedData.Length == 1)
+            return 0.0;
+
+        // Calculate |x_i - median|
+        double[]? tmpDeviations = null;
+        try
+        {
+            Span<double> deviations = sortedData.Length <= 1024
+                ? stackalloc double[sortedData.Length]
+                : (tmpDeviations = ArrayPool<double>.Shared.Rent(sortedData.Length)).AsSpan(0, sortedData.Length);
+
+            for (int i = 0; i < sortedData.Length; i++)
+            {
+                deviations[i] = Math.Abs(sortedData[i] - median);
+            }
+
+            // Sort the deviations to find the median
+            deviations.Sort();
+            return GetPercentile(deviations, 50.0);
+        }
+        finally
+        {
+            if (tmpDeviations is not null)
+                ArrayPool<double>.Shared.Return(tmpDeviations);
+        }
     }
 
     private static int BinarySearchLowerBound(ReadOnlySpan<double> sortedData, double value)
