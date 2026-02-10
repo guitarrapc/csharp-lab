@@ -9,7 +9,12 @@ public static class OutlierIQR
     /// Remove outliers from data using IQR method.
     /// </summary>
     /// <param name="data">The input data. This span will be sorted in-place.</param>
-    /// <param name="upperLimit">The upper limit for outlier removal.</param>
+    /// <param name="upperLimit">
+    /// The maximum allowed value for inliers. This value acts as an additional constraint 
+    /// on the upper bound calculated by the IQR method (Q3 + 1.5 × IQR). 
+    /// The effective upper bound will be the minimum of the IQR-calculated bound and this limit.
+    /// Use <see cref="double.PositiveInfinity"/> if no additional upper constraint is needed.
+    /// </param>
     /// <returns>A range representing the valid data slice after outlier removal.</returns>
     public static Range FindInlierRange(Span<double> data, double upperLimit)
     {
