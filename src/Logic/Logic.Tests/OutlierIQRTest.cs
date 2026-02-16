@@ -322,7 +322,7 @@ public class OutlierIqrTest
         // Arrange - Large dataset that triggers ArrayPool usage (>1024 elements)
         // This test verifies ArrayPool path works correctly
         var inputs = new double[1500];
-        
+
         // Create a dataset where 75% are at 50.0, ensuring Q1=Q3=50 (IQR=0)
         for (int i = 0; i < 1125; i++)
         {
@@ -351,7 +351,7 @@ public class OutlierIqrTest
     {
         // This test demonstrates MAD's breakdown point:
         // When >50% of data is identical, MAD ≈ 0, making outlier detection impossible
-        
+
         // Arrange - 80% of values are identical (exceeds MAD's 50% breakdown point)
         var inputs = new double[100];
         for (int i = 0; i < 80; i++)
@@ -385,7 +385,7 @@ public class OutlierIqrTest
     public void FindInlierRange_MADEffectiveDetection_BelowBreakdownPoint()
     {
         // This test shows MAD working correctly when <50% of data is identical
-        
+
         // Arrange - 40% at median, rest distributed
         var inputs = new double[100];
         for (int i = 0; i < 40; i++)
