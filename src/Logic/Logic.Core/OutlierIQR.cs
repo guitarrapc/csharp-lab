@@ -49,7 +49,7 @@ public static class OutlierIqr
             const double madScale = 1.4826; // 1 / 0.6745, consistency with Normal
             const double k = 3.0; // ~3σ rule
             var scaledMAD = mad * madScale;
-            lowerBound = median - k *scaledMAD;
+            lowerBound = median - k * scaledMAD;
             upperBound = median + k * scaledMAD;
         }
         else
