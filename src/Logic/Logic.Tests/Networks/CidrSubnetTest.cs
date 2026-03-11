@@ -342,4 +342,136 @@ public class CidrSubnetTest
         Assert.Throws<ArgumentOutOfRangeException>(() => CidrSubnet.GetSubnetRangeSlow("2001:db8::1/129"));
         Assert.Throws<ArgumentOutOfRangeException>(() => CidrSubnet.GetSubnetRange("2001:db8::1/129"));
     }
+
+    // IsIpInRange
+
+    [Theory]
+    [InlineData("192.168.1.100", "192.168.0.0/16", true)]
+    [InlineData("192.168.255.255", "192.168.0.0/16", true)]
+    [InlineData("192.168.0.0", "192.168.0.0/16", true)]
+    [InlineData("192.169.0.0", "192.168.0.0/16", false)]
+    [InlineData("192.167.255.255", "192.168.0.0/16", false)]
+    [InlineData("10.0.0.1", "192.168.0.0/16", false)]
+    [InlineData("192.168.1.1", "192.168.1.0/24", true)]
+    [InlineData("192.168.1.255", "192.168.1.0/24", true)]
+    [InlineData("192.168.2.0", "192.168.1.0/24", false)]
+    [InlineData("172.16.0.1", "172.16.0.0/12", true)]
+    [InlineData("172.31.255.255", "172.16.0.0/12", true)]
+    [InlineData("172.32.0.0", "172.16.0.0/12", false)]
+    [InlineData("10.1.2.240", "10.1.2.0/24", true)]
+    [InlineData("10.1.2.255", "10.1.2.0/24", true)]
+    [InlineData("10.1.3.0", "10.1.2.0/24", false)]
+    public void IsIpInRangeIPv4Test(string ipAddress, string cidr, bool expected)
+    {
+        var actual = CidrSubnet.IsIpInRange(ipAddress, cidr);
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData("2001:db8::1", "2001:db8::/32", true)]
+    [InlineData("2001:db8:ffff:ffff:ffff:ffff:ffff:ffff", "2001:db8::/32", true)]
+    [InlineData("2001:db8::", "2001:db8::/32", true)]
+    [InlineData("2001:db9::", "2001:db8::/32", false)]
+    [InlineData("2001:db7:ffff:ffff:ffff:ffff:ffff:ffff", "2001:db8::/32", false)]
+    [InlineData("2001:db8:85a3::8a2e:370:7334", "2001:db8:85a3::/48", true)]
+    [InlineData("2001:db8:85a3:ffff:ffff:ffff:ffff:ffff", "2001:db8:85a3::/48", true)]
+    [InlineData("2001:db8:85a4::", "2001:db8:85a3::/48", false)]
+    [InlineData("2001:db8:0:1::", "2001:db8::/56", true)]
+    [InlineData("2001:db8:0:ff:ffff:ffff:ffff:ffff", "2001:db8::/56", true)]
+    [InlineData("2001:db8:0:100::", "2001:db8::/56", false)]
+    public void IsIpInRangeIPv6Test(string ipAddress, string cidr, bool expected)
+    {
+        var actual = CidrSubnet.IsIpInRange(ipAddress, cidr);
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void IsIpInRangeDifferentAddressFamilyTest()
+    {
+        Assert.False(CidrSubnet.IsIpInRange("192.168.1.1", "2001:db8::/32"));
+        Assert.False(CidrSubnet.IsIpInRange("2001:db8::1", "192.168.0.0/16"));
+    }
+
+    [Fact]
+    public void IsIpInRangeOverloadTest()
+    {
+        var ipAddress = IPAddress.Parse("192.168.1.100");
+        var cidr = "192.168.0.0/16";
+
+        var result1 = CidrSubnet.IsIpInRange("192.168.1.100", cidr);
+        var result2 = CidrSubnet.IsIpInRange(ipAddress, cidr);
+        var result3 = CidrSubnet.IsIpInRange(ipAddress, cidr.AsSpan());
+        var result4 = CidrSubnet.IsIpInRange(ipAddress, IPAddress.Parse("192.168.0.0"), 16);
+
+        Assert.True(result1);
+        Assert.True(result2);
+        Assert.True(result3);
+        Assert.True(result4);
+    }
+
+    // IsSubnetInRange
+
+    [Theory]
+    [InlineData("192.168.1.0/24", "192.168.0.0/16", true)]
+    [InlineData("192.168.255.0/24", "192.168.0.0/16", true)]
+    [InlineData("192.168.0.0/24", "192.168.0.0/16", true)]
+    [InlineData("192.168.0.0/16", "192.168.0.0/16", true)]
+    [InlineData("192.169.0.0/24", "192.168.0.0/16", false)]
+    [InlineData("192.167.0.0/24", "192.168.0.0/16", false)]
+    [InlineData("192.168.0.0/15", "192.168.0.0/16", false)]
+    [InlineData("10.0.0.0/24", "192.168.0.0/16", false)]
+    [InlineData("192.168.1.0/28", "192.168.1.0/24", true)]
+    [InlineData("192.168.1.240/28", "192.168.1.0/24", true)]
+    [InlineData("192.168.2.0/28", "192.168.1.0/24", false)]
+    [InlineData("172.16.0.0/16", "172.16.0.0/12", true)]
+    [InlineData("172.31.0.0/16", "172.16.0.0/12", true)]
+    [InlineData("172.32.0.0/16", "172.16.0.0/12", false)]
+    [InlineData("172.16.0.0/11", "172.16.0.0/12", false)]
+    public void IsSubnetInRangeIPv4Test(string subnet, string cidr, bool expected)
+    {
+        var actual = CidrSubnet.IsSubnetInRange(subnet, cidr);
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData("2001:db8::/64", "2001:db8::/32", true)]
+    [InlineData("2001:db8:ffff::/64", "2001:db8::/32", true)]
+    [InlineData("2001:db8::/32", "2001:db8::/32", true)]
+    [InlineData("2001:db9::/64", "2001:db8::/32", false)]
+    [InlineData("2001:db8::/31", "2001:db8::/32", false)]
+    [InlineData("2001:db8:85a3::/64", "2001:db8:85a3::/48", true)]
+    [InlineData("2001:db8:85a3:ffff::/64", "2001:db8:85a3::/48", true)]
+    [InlineData("2001:db8:85a4::/64", "2001:db8:85a3::/48", false)]
+    [InlineData("2001:db8:0:1::/64", "2001:db8::/56", true)]
+    [InlineData("2001:db8:0:ff::/64", "2001:db8::/56", true)]
+    [InlineData("2001:db8:0:100::/64", "2001:db8::/56", false)]
+    [InlineData("2001:db8::/72", "2001:db8::/56", true)]
+    [InlineData("2001:db8::/55", "2001:db8::/56", false)]
+    public void IsSubnetInRangeIPv6Test(string subnet, string cidr, bool expected)
+    {
+        var actual = CidrSubnet.IsSubnetInRange(subnet, cidr);
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void IsSubnetInRangeDifferentAddressFamilyTest()
+    {
+        Assert.False(CidrSubnet.IsSubnetInRange("192.168.1.0/24", "2001:db8::/32"));
+        Assert.False(CidrSubnet.IsSubnetInRange("2001:db8::/64", "192.168.0.0/16"));
+    }
+
+    [Fact]
+    public void IsSubnetInRangeOverloadTest()
+    {
+        var subnet = "192.168.1.0/24";
+        var cidr = "192.168.0.0/16";
+
+        var result1 = CidrSubnet.IsSubnetInRange(subnet, cidr);
+        var result2 = CidrSubnet.IsSubnetInRange(subnet.AsSpan(), cidr.AsSpan());
+        var result3 = CidrSubnet.IsSubnetInRange(IPAddress.Parse("192.168.1.0"), 24, IPAddress.Parse("192.168.0.0"), 16);
+
+        Assert.True(result1);
+        Assert.True(result2);
+        Assert.True(result3);
+    }
 }
