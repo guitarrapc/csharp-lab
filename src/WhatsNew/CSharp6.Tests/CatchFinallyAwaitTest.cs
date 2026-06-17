@@ -10,18 +10,18 @@ public class CatchFinallyAwaitTest
         cts.CancelAfter(TimeSpan.FromMilliseconds(10));
         try
         {
-            await Task.Delay(100);
+            await Task.Delay(100, TestContext.Current.CancellationToken);
             x++;
         }
         catch (OperationCanceledException)
         {
-            await Task.Delay(100);
+            await Task.Delay(100, TestContext.Current.CancellationToken);
             x++;
             Assert.Equal(1, x);
         }
         finally
         {
-            await Task.Delay(1);
+            await Task.Delay(1, TestContext.Current.CancellationToken);
             x++;
             Assert.Equal(2, x);
         }

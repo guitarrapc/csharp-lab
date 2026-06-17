@@ -7,14 +7,14 @@ public class ValueTaskDelayTest
     [Fact]
     public async Task TaskDelayElapsedTest()
     {
-        await Task.Delay(100);
+        await Task.Delay(100, TestContext.Current.CancellationToken);
         Assert.True(true);
     }
 
     [Fact]
     public async Task ValueTaskDelayElapsedTest()
     {
-        await ValueTaskExtension.Delay(100);
+        await ValueTaskExtension.Delay(100, TestContext.Current.CancellationToken);
         Assert.True(true);
     }
 
