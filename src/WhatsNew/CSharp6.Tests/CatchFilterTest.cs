@@ -1,9 +1,11 @@
-﻿namespace CSharp6.Tests;
+﻿using System.Threading.Tasks;
+
+namespace CSharp6.Tests;
 
 public class CatchFilterTest
 {
-    [Fact]
-    public void CatchFilterTests()
+    [Test]
+    public async Task CatchFilterTests()
     {
         try
         {
@@ -11,7 +13,7 @@ public class CatchFilterTest
         }
         catch (ArgumentException ex) when (ex.ParamName == "x")
         {
-            Assert.Equal("x", ex.ParamName);
+            await Assert.That(ex.ParamName).IsEqualTo("x");
         }
         catch (ArgumentException)
         {

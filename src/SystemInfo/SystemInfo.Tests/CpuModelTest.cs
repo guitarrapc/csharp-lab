@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace SystemInfo.Tests;
 
@@ -6,63 +7,63 @@ public class CpuModelTest
 {
     private static CpuModel cpuModel = CpuModel.Current;
 
-    [Fact]
-    public void Windows_x86_64_Test()
+    [Test]
+    public async Task Windows_x86_64_Test()
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && RuntimeInformation.ProcessArchitecture == Architecture.X64)
         {
-            Assert.NotEqual("Unkown", cpuModel.ModelName);
-            Assert.Empty(cpuModel.UnknownReason);
+            await Assert.That(cpuModel.ModelName).IsNotEqualTo("Unkown");
+            await Assert.That(cpuModel.UnknownReason).IsEmpty();
         }
     }
 
-    [Fact]
-    public void Windows_arm64_Test()
+    [Test]
+    public async Task Windows_arm64_Test()
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
         {
-            Assert.NotEqual("Unkown", cpuModel.ModelName);
-            Assert.Empty(cpuModel.UnknownReason);
+            await Assert.That(cpuModel.ModelName).IsNotEqualTo("Unkown");
+            await Assert.That(cpuModel.UnknownReason).IsEmpty();
         }
     }
 
-    [Fact]
-    public void Linux_x86_64_Test()
+    [Test]
+    public async Task Linux_x86_64_Test()
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && RuntimeInformation.ProcessArchitecture == Architecture.X64)
         {
-            Assert.NotEqual("Unkown", cpuModel.ModelName);
-            Assert.Empty(cpuModel.UnknownReason);
+            await Assert.That(cpuModel.ModelName).IsNotEqualTo("Unkown");
+            await Assert.That(cpuModel.UnknownReason).IsEmpty();
         }
     }
 
-    [Fact]
-    public void Linux_arm64_Test()
+    [Test]
+    public async Task Linux_arm64_Test()
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
         {
-            Assert.NotEqual("Unkown", cpuModel.ModelName);
-            Assert.Empty(cpuModel.UnknownReason);
+            await Assert.That(cpuModel.ModelName).IsNotEqualTo("Unkown");
+            await Assert.That(cpuModel.UnknownReason).IsEmpty();
         }
     }
 
-    [Fact]
-    public void OSX_x86_64_Test()
+    [Test]
+    public async Task OSX_x86_64_Test()
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) && RuntimeInformation.ProcessArchitecture == Architecture.X64)
         {
-            Assert.NotEqual("Unkown", cpuModel.ModelName);
-            Assert.Empty(cpuModel.UnknownReason);
+            await Assert.That(cpuModel.ModelName).IsNotEqualTo("Unkown");
+            await Assert.That(cpuModel.UnknownReason).IsEmpty();
         }
     }
 
-    [Fact]
-    public void OSX_arm64_Test()
+    [Test]
+    public async Task OSX_arm64_Test()
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) && RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
         {
-            Assert.NotEqual("Unkown", cpuModel.ModelName);
-            Assert.Empty(cpuModel.UnknownReason);
+            await Assert.That(cpuModel.ModelName).IsNotEqualTo("Unkown");
+            await Assert.That(cpuModel.UnknownReason).IsEmpty();
         }
     }
 }

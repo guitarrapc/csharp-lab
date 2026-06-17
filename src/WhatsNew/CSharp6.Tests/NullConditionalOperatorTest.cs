@@ -1,16 +1,17 @@
-﻿#nullable disable
+﻿using System.Threading.Tasks;
+#nullable disable
 namespace CSharp6.Tests;
 
 public class NullConditionalOperatorTest
 {
-    [Fact]
-    public void NullConditionalTests()
+    [Test]
+    public async Task NullConditionalTests()
     {
         var s5 = SampleCsharp5.X(new SampleCsharp5());
         var s6 = SampleCsharp6.X(new SampleCsharp6());
 
-        Assert.Null(s5);
-        Assert.Null(s6);
+        await Assert.That(s5).IsNull();
+        await Assert.That(s6).IsNull();
     }
 
     public class SampleCsharp5

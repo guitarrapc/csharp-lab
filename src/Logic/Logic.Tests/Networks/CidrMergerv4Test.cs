@@ -1,39 +1,40 @@
 ﻿using Logic.Core.Networks;
+using System.Threading.Tasks;
 
 namespace Logic.Tests.Networks;
 
 public class CidrMergerv4Test
 {
-    [Theory]
-    [InlineData(new[] { "192.168.0.0/27", "192.168.0.32/27", "192.168.0.64/27", "192.168.0.96/27", "192.168.0.128/27", "192.168.0.160/27", "192.168.0.192/27", "192.168.0.224/27", }, new[] { "192.168.0.0/24" })]
-    [InlineData(new[] { "192.168.0.0/22", "192.168.4.0/22", "192.168.8.0/22", "192.168.12.0/22" }, new[] { "192.168.0.0/20" })]
-    [InlineData(new[] { "192.168.0.0/24", "192.168.1.0/24", "192.168.2.0/24", "192.168.3.0/24", "192.168.4.0/24", "192.168.5.0/24", "192.168.6.0/24", "192.168.7.0/24" }, new[] { "192.168.0.0/21" })]
-    [InlineData(new[] { "192.168.0.0/24", "192.168.1.0/24", "192.168.2.0/24", "192.168.3.0/24" }, new[] { "192.168.0.0/22" })]
-    [InlineData(new[] { "192.168.0.0/24", "192.168.1.0/24", }, new[] { "192.168.0.0/23" })]
-    [InlineData(new[] { "10.0.0.0/23", "10.0.2.0/23", }, new[] { "10.0.0.0/22" })]
-    [InlineData(new[] { "10.0.0.0/22", "10.0.4.0/22", }, new[] { "10.0.0.0/21" })]
-    [InlineData(new[] { "10.0.0.0/21", "10.0.8.0/21", }, new[] { "10.0.0.0/20" })]
-    [InlineData(new[] { "10.0.0.0/20", "10.0.16.0/20", }, new[] { "10.0.0.0/19" })]
-    [InlineData(new[] { "10.0.0.0/19", "10.0.32.0/19", }, new[] { "10.0.0.0/18" })]
-    [InlineData(new[] { "10.0.0.0/18", "10.0.64.0/18", }, new[] { "10.0.0.0/17" })]
-    [InlineData(new[] { "10.0.0.0/17", "10.0.128.0/17", }, new[] { "10.0.0.0/16" })]
-    public void SimpleAggregateTest(IEnumerable<string> source, IEnumerable<string> expected)
+    [Test]
+    [Arguments(new[] { "192.168.0.0/27", "192.168.0.32/27", "192.168.0.64/27", "192.168.0.96/27", "192.168.0.128/27", "192.168.0.160/27", "192.168.0.192/27", "192.168.0.224/27", }, new[] { "192.168.0.0/24" })]
+    [Arguments(new[] { "192.168.0.0/22", "192.168.4.0/22", "192.168.8.0/22", "192.168.12.0/22" }, new[] { "192.168.0.0/20" })]
+    [Arguments(new[] { "192.168.0.0/24", "192.168.1.0/24", "192.168.2.0/24", "192.168.3.0/24", "192.168.4.0/24", "192.168.5.0/24", "192.168.6.0/24", "192.168.7.0/24" }, new[] { "192.168.0.0/21" })]
+    [Arguments(new[] { "192.168.0.0/24", "192.168.1.0/24", "192.168.2.0/24", "192.168.3.0/24" }, new[] { "192.168.0.0/22" })]
+    [Arguments(new[] { "192.168.0.0/24", "192.168.1.0/24", }, new[] { "192.168.0.0/23" })]
+    [Arguments(new[] { "10.0.0.0/23", "10.0.2.0/23", }, new[] { "10.0.0.0/22" })]
+    [Arguments(new[] { "10.0.0.0/22", "10.0.4.0/22", }, new[] { "10.0.0.0/21" })]
+    [Arguments(new[] { "10.0.0.0/21", "10.0.8.0/21", }, new[] { "10.0.0.0/20" })]
+    [Arguments(new[] { "10.0.0.0/20", "10.0.16.0/20", }, new[] { "10.0.0.0/19" })]
+    [Arguments(new[] { "10.0.0.0/19", "10.0.32.0/19", }, new[] { "10.0.0.0/18" })]
+    [Arguments(new[] { "10.0.0.0/18", "10.0.64.0/18", }, new[] { "10.0.0.0/17" })]
+    [Arguments(new[] { "10.0.0.0/17", "10.0.128.0/17", }, new[] { "10.0.0.0/16" })]
+    public async Task SimpleAggregateTest(IEnumerable<string> source, IEnumerable<string> expected)
     {
         var merged = CidrAggregatorv4.Aggregate(source);
-        Assert.Equal(expected, merged);
+        await Assert.That(merged).IsEquivalentTo(expected);
     }
 
-    [Theory]
-    [InlineData(new[] { "192.168.0.0/24", "192.168.2.0/24", }, new[] { "192.168.0.0/24", "192.168.2.0/24" })]
-    [InlineData(new[] { "192.168.0.0/24", "192.168.3.0/24", "192.168.4.0/24", "192.168.5.0/24" }, new[] { "192.168.0.0/24", "192.168.3.0/24", "192.168.4.0/23" })]
-    public void NoneAggregateTest(IEnumerable<string> source, IEnumerable<string> expected)
+    [Test]
+    [Arguments(new[] { "192.168.0.0/24", "192.168.2.0/24", }, new[] { "192.168.0.0/24", "192.168.2.0/24" })]
+    [Arguments(new[] { "192.168.0.0/24", "192.168.3.0/24", "192.168.4.0/24", "192.168.5.0/24" }, new[] { "192.168.0.0/24", "192.168.3.0/24", "192.168.4.0/23" })]
+    public async Task NoneAggregateTest(IEnumerable<string> source, IEnumerable<string> expected)
     {
         var merged = CidrAggregatorv4.Aggregate(source);
-        Assert.Equal(expected, merged);
+        await Assert.That(merged).IsEquivalentTo(expected);
     }
 
-    [Fact]
-    public void ComplexAggregateTest()
+    [Test]
+    public async Task ComplexAggregateTest()
     {
         var sampleSource = new[]
         {
@@ -174,121 +175,121 @@ public class CidrMergerv4Test
             "203.0.113.0/24",
         };
         var merged = CidrAggregatorv4.Aggregate(sampleSource);
-        Assert.Equal(expected, merged);
+        await Assert.That(merged).IsEquivalentTo(expected);
     }
 
-    [Fact]
-    public void EdgeCase_EmptyInput()
+    [Test]
+    public async Task EdgeCase_EmptyInput()
     {
         var merged = CidrAggregatorv4.Aggregate([]);
-        Assert.Empty(merged);
+        await Assert.That(merged).IsEmpty();
     }
 
-    [Fact]
-    public void EdgeCase_SingleCidr()
+    [Test]
+    public async Task EdgeCase_SingleCidr()
     {
         var merged = CidrAggregatorv4.Aggregate(["192.168.1.0/24"]);
-        Assert.Equal(["192.168.1.0/24"], merged);
+        await Assert.That(merged).IsEquivalentTo(["192.168.1.0/24"]);
     }
 
-    [Fact]
-    public void EdgeCase_DuplicateCidrs()
+    [Test]
+    public async Task EdgeCase_DuplicateCidrs()
     {
         var merged = CidrAggregatorv4.Aggregate(["192.168.1.0/24", "192.168.1.0/24", "192.168.1.0/24"]);
-        Assert.Equal(["192.168.1.0/24"], merged);
+        await Assert.That(merged).IsEquivalentTo(["192.168.1.0/24"]);
     }
 
-    [Fact]
-    public void EdgeCase_FullIPv4Space()
+    [Test]
+    public async Task EdgeCase_FullIPv4Space()
     {
         var merged = CidrAggregatorv4.Aggregate(["0.0.0.0/0"]);
-        Assert.Equal(["0.0.0.0/0"], merged);
+        await Assert.That(merged).IsEquivalentTo(["0.0.0.0/0"]);
     }
 
-    [Fact]
-    public void EdgeCase_EntireIPv4SpaceFromHalves()
+    [Test]
+    public async Task EdgeCase_EntireIPv4SpaceFromHalves()
     {
         var merged = CidrAggregatorv4.Aggregate(["0.0.0.0/1", "128.0.0.0/1"]);
-        Assert.Equal(["0.0.0.0/0"], merged);
+        await Assert.That(merged).IsEquivalentTo(["0.0.0.0/0"]);
     }
 
-    [Fact]
-    public void EdgeCase_OverlappingRanges()
+    [Test]
+    public async Task EdgeCase_OverlappingRanges()
     {
         // 192.168.0.0/24 contains 192.168.0.0/25
         var merged = CidrAggregatorv4.Aggregate(["192.168.0.0/24", "192.168.0.0/25"]);
-        Assert.Equal(["192.168.0.0/24"], merged);
+        await Assert.That(merged).IsEquivalentTo(["192.168.0.0/24"]);
     }
 
-    [Fact]
-    public void EdgeCase_NonContiguousBlocks()
+    [Test]
+    public async Task EdgeCase_NonContiguousBlocks()
     {
         var merged = CidrAggregatorv4.Aggregate(["192.168.0.0/24", "192.168.2.0/24", "192.168.4.0/24"]);
-        Assert.Equal(["192.168.0.0/24", "192.168.2.0/24", "192.168.4.0/24"], merged);
+        await Assert.That(merged).IsEquivalentTo(["192.168.0.0/24", "192.168.2.0/24", "192.168.4.0/24"]);
     }
 
-    [Fact]
-    public void EdgeCase_UnalignedMerge()
+    [Test]
+    public async Task EdgeCase_UnalignedMerge()
     {
         // These should merge into optimal CIDR blocks
         var merged = CidrAggregatorv4.Aggregate(["192.168.1.0/25", "192.168.1.128/25"]);
-        Assert.Equal(["192.168.1.0/24"], merged);
+        await Assert.That(merged).IsEquivalentTo(["192.168.1.0/24"]);
     }
 
-    [Fact]
-    public void EdgeCase_HighestAddressRange()
+    [Test]
+    public async Task EdgeCase_HighestAddressRange()
     {
         var merged = CidrAggregatorv4.Aggregate(["255.255.255.0/24"]);
-        Assert.Equal(["255.255.255.0/24"], merged);
+        await Assert.That(merged).IsEquivalentTo(["255.255.255.0/24"]);
     }
 
-    [Fact]
-    public void EdgeCase_MaximumPrefixLength()
+    [Test]
+    public async Task EdgeCase_MaximumPrefixLength()
     {
         var merged = CidrAggregatorv4.Aggregate(["192.168.1.1/32", "192.168.1.2/32"]);
-        Assert.Equal(["192.168.1.1/32", "192.168.1.2/32"], merged);
+        await Assert.That(merged).IsEquivalentTo(["192.168.1.1/32", "192.168.1.2/32"]);
     }
 
-    [Fact]
-    public void EdgeCase_AdjacentSingleHosts()
+    [Test]
+    public async Task EdgeCase_AdjacentSingleHosts()
     {
         var merged = CidrAggregatorv4.Aggregate(["192.168.1.0/32", "192.168.1.1/32"]);
-        Assert.Equal(["192.168.1.0/31"], merged);
+        await Assert.That(merged).IsEquivalentTo(["192.168.1.0/31"]);
     }
 
-    [Theory]
-    [InlineData("192.168.1.0/33")]
-    [InlineData("192.168.1.0/-1")]
-    [InlineData("192.168.1.0/abc")]
+    [Test]
+    [Arguments("192.168.1.0/33")]
+    [Arguments("192.168.1.0/-1")]
+    [Arguments("192.168.1.0/abc")]
     public void Validation_InvalidPrefixLength(string invalidCidr)
     {
         Assert.Throws<ArgumentException>(() => CidrAggregatorv4.Aggregate([invalidCidr]));
     }
 
-    [Fact]
+    [Test]
     public void Validation_InvalidCidrFormat()
     {
         Assert.Throws<ArgumentException>(() => CidrAggregatorv4.Aggregate(["192.168.1.0"]));
         Assert.Throws<ArgumentException>(() => CidrAggregatorv4.Aggregate(["192.168.1.0/24/32"]));
     }
 
-    [Fact]
+    [Test]
     public void Validation_IPv6ShouldFail()
     {
         Assert.Throws<ArgumentException>(() => CidrAggregatorv4.Aggregate(["2001:db8::/32"]));
     }
 
-    [Fact]
-    public void Performance_LargeNumberOfSmallBlocks()
+    [Test]
+    public async Task Performance_LargeNumberOfSmallBlocks()
     {
         // Generate 256 /32 blocks that should merge into /24
         var cidrs = Enumerable.Range(0, 256).Select(i => $"192.168.1.{i}/32").ToList();
         var merged = CidrAggregatorv4.Aggregate(cidrs);
-        Assert.Equal(["192.168.1.0/24"], merged);
+        await Assert.That(merged).IsEquivalentTo(["192.168.1.0/24"]);
     }
 
-    [Fact]
-    public void RangeToCIDRs_UnalignedRange()
+    [Test]
+    public async Task RangeToCIDRs_UnalignedRange()
     {
         // Test a range that doesn't start on a power-of-2 boundary
         // 192.168.1.5 to 192.168.1.10 should split into optimal blocks
@@ -303,11 +304,11 @@ public class CidrMergerv4Test
 
         // Expected: optimal split considering alignment
         // 192.168.1.5/32, 192.168.1.6/31, 192.168.1.8/31, 192.168.1.10/32
-        Assert.Equal([
+        await Assert.That(merged).IsEquivalentTo([
             "192.168.1.5/32",
             "192.168.1.6/31",
             "192.168.1.8/31",
             "192.168.1.10/32"
-        ], merged);
+        ]);
     }
 }

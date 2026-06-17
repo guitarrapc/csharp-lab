@@ -1,10 +1,11 @@
 ﻿using Logic.Core;
+using System.Threading.Tasks;
 
 namespace Logic.Tests;
 
 public class ExponentialBackoffTest
 {
-    [Fact]
+    [Test]
     public async Task ExponentialBackoffCompletesAllSteps()
     {
         using var cts = new CancellationTokenSource();
@@ -16,10 +17,10 @@ public class ExponentialBackoffTest
             await backoff.DelayAsync(cts.Token);
         }
 
-        Assert.True(true);
+        await Assert.That(true).IsTrue();
     }
 
-    [Fact]
+    [Test]
     public async Task ExponentialBackoffRespectsCancellation()
     {
         using var cts = new CancellationTokenSource(50);
@@ -28,7 +29,7 @@ public class ExponentialBackoffTest
         await Assert.ThrowsAsync<OperationCanceledException>(async () => await backoff.DelayAsync(cts.Token));
     }
 
-    [Fact]
+    [Test]
     public async Task ExponentialBackoffRespectsMaxRetries()
     {
         using var cts = new CancellationTokenSource();
@@ -42,7 +43,7 @@ public class ExponentialBackoffTest
         await Assert.ThrowsAsync<OperationCanceledException>(async () => await backoff.DelayAsync(cts.Token));
     }
 
-    [Fact]
+    [Test]
     public async Task ExponentialBackoffRespectsTimeout()
     {
         using var cts = new CancellationTokenSource();

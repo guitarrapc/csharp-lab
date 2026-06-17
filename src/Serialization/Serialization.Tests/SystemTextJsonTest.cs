@@ -1,20 +1,21 @@
 ﻿using Serialization.Core;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Serialization.Tests;
 
 public class SystemTextJsonTest
 {
-    [Fact]
-    public void SourceGeneratorSerializeDeserializeTest()
+    [Test]
+    public async Task SourceGeneratorSerializeDeserializeTest()
     {
         {
             var item = new HyperClass();
             item.Initialize();
             var serialized = JsonSerializer.Serialize(item, SourceGenerationJsonSerializerContext.Default.HyperClass);
             var deserialized = JsonSerializer.Deserialize(serialized, SourceGenerationJsonSerializerContext.Default.HyperClass);
-            Assert.Equivalent(deserialized, item);
-            Assert.NotEqual(deserialized, item);
+            await Assert.That(item).IsEquivalentTo(deserialized);
+            await Assert.That(item).IsNotEqualTo(deserialized);
         }
 
         {
@@ -22,8 +23,8 @@ public class SystemTextJsonTest
             item.Initialize();
             var serialized = JsonSerializer.Serialize(item, SourceGenerationJsonSerializerContext.Default.MyClass);
             var deserialized = JsonSerializer.Deserialize(serialized, SourceGenerationJsonSerializerContext.Default.MyClass);
-            Assert.Equivalent(deserialized, item);
-            Assert.NotEqual(deserialized, item);
+            await Assert.That(item).IsEquivalentTo(deserialized);
+            await Assert.That(item).IsNotEqualTo(deserialized);
         }
 
         {
@@ -31,8 +32,8 @@ public class SystemTextJsonTest
             item.Initialize();
             var serialized = JsonSerializer.Serialize(item, SourceGenerationJsonSerializerContext.Default.NestClass);
             var deserialized = JsonSerializer.Deserialize(serialized, SourceGenerationJsonSerializerContext.Default.NestClass);
-            Assert.Equivalent(deserialized, item);
-            Assert.NotEqual(deserialized, item);
+            await Assert.That(item).IsEquivalentTo(deserialized);
+            await Assert.That(item).IsNotEqualTo(deserialized);
         }
 
         {
@@ -40,20 +41,20 @@ public class SystemTextJsonTest
             item.Initialize();
             var serialized = JsonSerializer.Serialize(item, SourceGenerationJsonSerializerContext.Default.Primitives);
             var deserialized = JsonSerializer.Deserialize(serialized, SourceGenerationJsonSerializerContext.Default.Primitives);
-            Assert.Equivalent(deserialized, item);
-            Assert.NotEqual(deserialized, item);
+            await Assert.That(item).IsEquivalentTo(deserialized);
+            await Assert.That(item).IsNotEqualTo(deserialized);
         }
     }
 
-    [Fact]
-    public void NonSourceGeneratorSerializeDeserializeTest()
+    [Test]
+    public async Task NonSourceGeneratorSerializeDeserializeTest()
     {
         {
             var item = new HyperClass();
             item.Initialize();
             var s1 = JsonSerializer.Serialize(item);
             var d1 = JsonSerializer.Deserialize<HyperClass>(s1);
-            Assert.Equivalent(item, d1);
+            await Assert.That(d1).IsEquivalentTo(item);
         }
 
         {
@@ -61,7 +62,7 @@ public class SystemTextJsonTest
             item.Initialize();
             var s1 = JsonSerializer.Serialize(item);
             var d1 = JsonSerializer.Deserialize<MyClass>(s1);
-            Assert.Equivalent(item, d1);
+            await Assert.That(d1).IsEquivalentTo(item);
         }
 
         {
@@ -69,7 +70,7 @@ public class SystemTextJsonTest
             item.Initialize();
             var s1 = JsonSerializer.Serialize(item);
             var d1 = JsonSerializer.Deserialize<NestClass>(s1);
-            Assert.Equivalent(item, d1);
+            await Assert.That(d1).IsEquivalentTo(item);
         }
 
         {
@@ -77,12 +78,12 @@ public class SystemTextJsonTest
             item.Initialize();
             var s1 = JsonSerializer.Serialize(item);
             var d1 = JsonSerializer.Deserialize<Primitives>(s1);
-            Assert.Equivalent(item, d1);
+            await Assert.That(d1).IsEquivalentTo(item);
         }
     }
 
-    [Fact]
-    public void TwoSerializeDeserializeMatchTest()
+    [Test]
+    public async Task TwoSerializeDeserializeMatchTest()
     {
         {
             var item = new HyperClass();
@@ -91,7 +92,7 @@ public class SystemTextJsonTest
             var s2 = JsonSerializer.Serialize(item, SourceGenerationJsonSerializerContext.Default.HyperClass);
             var d1 = JsonSerializer.Deserialize<HyperClass>(s1);
             var d2 = JsonSerializer.Deserialize(s2, SourceGenerationJsonSerializerContext.Default.HyperClass);
-            Assert.Equivalent(d2, d1);
+            await Assert.That(d1).IsEquivalentTo(d2);
         }
 
         {
@@ -101,7 +102,7 @@ public class SystemTextJsonTest
             var s2 = JsonSerializer.Serialize(item, SourceGenerationJsonSerializerContext.Default.MyClass);
             var d1 = JsonSerializer.Deserialize<MyClass>(s1);
             var d2 = JsonSerializer.Deserialize(s2, SourceGenerationJsonSerializerContext.Default.MyClass);
-            Assert.Equivalent(d2, d1);
+            await Assert.That(d1).IsEquivalentTo(d2);
         }
 
         {
@@ -111,7 +112,7 @@ public class SystemTextJsonTest
             var s2 = JsonSerializer.Serialize(item, SourceGenerationJsonSerializerContext.Default.NestClass);
             var d1 = JsonSerializer.Deserialize<NestClass>(s1);
             var d2 = JsonSerializer.Deserialize(s2, SourceGenerationJsonSerializerContext.Default.NestClass);
-            Assert.Equivalent(d2, d1);
+            await Assert.That(d1).IsEquivalentTo(d2);
         }
 
         {
@@ -121,7 +122,7 @@ public class SystemTextJsonTest
             var s2 = JsonSerializer.Serialize(item, SourceGenerationJsonSerializerContext.Default.Primitives);
             var d1 = JsonSerializer.Deserialize<Primitives>(s1);
             var d2 = JsonSerializer.Deserialize(s2, SourceGenerationJsonSerializerContext.Default.Primitives);
-            Assert.Equivalent(d2, d1);
+            await Assert.That(d1).IsEquivalentTo(d2);
         }
     }
 }

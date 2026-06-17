@@ -1,17 +1,18 @@
 ﻿using Logic.Core;
+using System.Threading.Tasks;
 
 namespace Logic.Tests;
 
 public class GuidMergeTest
 {
-    [Fact]
+    [Test]
     public async Task CreateGuidFromNamesTest()
     {
         // Should not throw
         GuidMerge.CreateGuidFromNames("asdfasdfasdfasdf", "takoyakiokonomiyaki");
     }
 
-    [Fact]
+    [Test]
     public async Task MergeGuidTest()
     {
         for (var i = 0; i < 10; i++)
@@ -23,12 +24,12 @@ public class GuidMergeTest
             var fair = GuidMerge.FairMerge(a, b);
             var slow = GuidMerge.SlowMerge(a, b);
 
-            Assert.Equal(fair, fast);
-            Assert.Equal(slow, fast);
-            Assert.Equal(slow, fair);
+            await Assert.That(fast).IsEqualTo(fair);
+            await Assert.That(fast).IsEqualTo(slow);
+            await Assert.That(fair).IsEqualTo(slow);
 
-            Assert.NotEqual(a, fast);
-            Assert.NotEqual(b, fast);
+            await Assert.That(fast).IsNotEqualTo(a);
+            await Assert.That(fast).IsNotEqualTo(b);
         }
     }
 }

@@ -1,22 +1,23 @@
 ﻿using Strings.Core;
+using System.Threading.Tasks;
 
 namespace Strings.Tests;
 
 public class StringFormatTest
 {
-    [Fact]
-    public void CompositeTest()
+    [Test]
+    public async Task CompositeTest()
     {
         var formatter = new StringFormat();
         var datetime = DateTime.Now;
-        Assert.Equal($"{datetime:t}: Hello, foo! I'll give you 100 apples.", formatter.Composite(datetime, "foo", 100));
+        await Assert.That(formatter.Composite(datetime, "foo", 100)).IsEqualTo($"{datetime:t}: Hello, foo! I'll give you 100 apples.");
     }
 
-    [Fact]
-    public void FormatTest()
+    [Test]
+    public async Task FormatTest()
     {
         var formatter = new StringFormat();
         var datetime = DateTime.Now;
-        Assert.Equal($"{datetime:t}: Hello, foo! I'll give you 100 apples.", formatter.Format(datetime, "foo", 100));
+        await Assert.That(formatter.Format(datetime, "foo", 100)).IsEqualTo($"{datetime:t}: Hello, foo! I'll give you 100 apples.");
     }
 }

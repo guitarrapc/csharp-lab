@@ -1,11 +1,12 @@
 ﻿using Strings.Core;
+using System.Threading.Tasks;
 
 namespace Strings.Tests;
 
 public class StringSplitTest
 {
-    [Fact]
-    public void SplitMatchToSplitNoAlloc()
+    [Test]
+    public async Task SplitMatchToSplitNoAlloc()
     {
         var value = "foo.bar.piyo.fuga";
         var actual = new List<string>(8);
@@ -16,7 +17,7 @@ public class StringSplitTest
                 actual.Add(item.Word.ToString());
             }
             var expected = value.Split('.');
-            Assert.True(actual.SequenceEqual(expected));
+            await Assert.That(actual.SequenceEqual(expected)).IsTrue();
             actual.Clear();
         }
 
@@ -26,13 +27,13 @@ public class StringSplitTest
                 actual.Add(item.Word.ToString());
             }
             var expected = value.Split('.');
-            Assert.True(actual.SequenceEqual(expected));
+            await Assert.That(actual.SequenceEqual(expected)).IsTrue();
             actual.Clear();
         }
     }
 
-    [Fact]
-    public void SplitStringTest()
+    [Test]
+    public async Task SplitStringTest()
     {
         var value = "foo.bar.piyo.fuga";
         var actual = new List<string>(8);
@@ -43,7 +44,7 @@ public class StringSplitTest
                 actual.Add(item.Word.ToString());
             }
             var expected = new[] { "foo", "bar", "piyo", "fuga" };
-            Assert.True(actual.SequenceEqual(expected));
+            await Assert.That(actual.SequenceEqual(expected)).IsTrue();
             actual.Clear();
         }
 
@@ -53,13 +54,13 @@ public class StringSplitTest
                 actual.Add(item.Word.ToString());
             }
             var expected = new[] { "foo", "bar", "piyo", "fuga" };
-            Assert.True(actual.SequenceEqual(expected));
+            await Assert.That(actual.SequenceEqual(expected)).IsTrue();
             actual.Clear();
         }
     }
 
-    [Fact]
-    public void SplitIntTest()
+    [Test]
+    public async Task SplitIntTest()
     {
         var value = "1,2,3,4,5,6,7,8,9,10";
         var actual = new List<int>(8);
@@ -70,7 +71,7 @@ public class StringSplitTest
                 actual.Add(int.Parse(item.Word));
             }
             var expected = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            Assert.True(actual.SequenceEqual(expected));
+            await Assert.That(actual.SequenceEqual(expected)).IsTrue();
             actual.Clear();
         }
 
@@ -80,7 +81,7 @@ public class StringSplitTest
                 actual.Add(int.Parse(item.Word));
             }
             var expected = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            Assert.True(actual.SequenceEqual(expected));
+            await Assert.That(actual.SequenceEqual(expected)).IsTrue();
             actual.Clear();
         }
     }

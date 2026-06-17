@@ -1,4 +1,5 @@
 ﻿using Async.Core;
+using System.Threading.Tasks;
 
 namespace Async.Tests;
 
@@ -14,19 +15,19 @@ public class MyClientTest
         _client = new MyClient(httpClient);
     }
 
-    [Theory]
-    [InlineData(1200)]
+    [Test]
+    [Arguments(1200)]
     public async Task SuccessTest(int timeoutMs)
     {
         using var cts = new CancellationTokenSource();
         var timeout = TimeSpan.FromMilliseconds(timeoutMs);
         var result = await _client.RequestAsync(new HttpRequestMessage(HttpMethod.Get, RequestUrl), timeout, cts.Token);
-        Assert.Equal(System.Net.HttpStatusCode.OK, result.StatusCode);
+        await Assert.That(result.StatusCode).IsEqualTo(System.Net.HttpStatusCode.OK);
     }
 
-    [Theory]
-    [InlineData(100)]
-    [InlineData(200)]
+    [Test]
+    [Arguments(100)]
+    [Arguments(200)]
     public async Task TimeoutTest(int timeoutMs)
     {
         using var cts = new CancellationTokenSource();
@@ -34,9 +35,9 @@ public class MyClientTest
         await Assert.ThrowsAsync<TimeoutException>(async () => await _client.RequestAsync(new HttpRequestMessage(HttpMethod.Get, RequestUrl), timeout, cts.Token));
     }
 
-    [Theory]
-    [InlineData(100)]
-    [InlineData(200)]
+    [Test]
+    [Arguments(100)]
+    [Arguments(200)]
     public async Task OperationCancelledTest(int timeoutMs)
     {
         using var cts = new CancellationTokenSource();
