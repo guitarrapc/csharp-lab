@@ -1,35 +1,36 @@
 ﻿using Logic.Core.Networks;
+using System.Threading.Tasks;
 
 namespace Logic.Tests.Networks;
 
 public class Cidrbockv4Test
 {
-    [Fact]
+    [Test]
     public async Task CtorStringTest()
     {
         var cidr = new CidrBlockv4("10.0.0.1/24");
-        Assert.Equal(10, cidr.VpcCidr1);
-        Assert.Equal(0, cidr.VpcCidr2);
-        Assert.Equal(0, cidr.VpcCidr3);
-        Assert.Equal(1, cidr.VpcCidr4);
-        Assert.Equal(24, cidr.VpcCidrSubnet);
+        await Assert.That(cidr.VpcCidr1).IsEqualTo((byte)10);
+        await Assert.That(cidr.VpcCidr2).IsEqualTo((byte)0);
+        await Assert.That(cidr.VpcCidr3).IsEqualTo((byte)0);
+        await Assert.That(cidr.VpcCidr4).IsEqualTo((byte)1);
+        await Assert.That(cidr.VpcCidrSubnet).IsEqualTo((byte)24);
 
         var min = new CidrBlockv4("0.0.0.0/0");
-        Assert.Equal(0, min.VpcCidr1);
-        Assert.Equal(0, min.VpcCidr2);
-        Assert.Equal(0, min.VpcCidr3);
-        Assert.Equal(0, min.VpcCidr4);
-        Assert.Equal(0, min.VpcCidrSubnet);
+        await Assert.That(min.VpcCidr1).IsEqualTo((byte)0);
+        await Assert.That(min.VpcCidr2).IsEqualTo((byte)0);
+        await Assert.That(min.VpcCidr3).IsEqualTo((byte)0);
+        await Assert.That(min.VpcCidr4).IsEqualTo((byte)0);
+        await Assert.That(min.VpcCidrSubnet).IsEqualTo((byte)0);
 
         var max = new CidrBlockv4("255.255.255.255/32");
-        Assert.Equal(255, max.VpcCidr1);
-        Assert.Equal(255, max.VpcCidr2);
-        Assert.Equal(255, max.VpcCidr3);
-        Assert.Equal(255, max.VpcCidr4);
-        Assert.Equal(32, max.VpcCidrSubnet);
+        await Assert.That(max.VpcCidr1).IsEqualTo((byte)255);
+        await Assert.That(max.VpcCidr2).IsEqualTo((byte)255);
+        await Assert.That(max.VpcCidr3).IsEqualTo((byte)255);
+        await Assert.That(max.VpcCidr4).IsEqualTo((byte)255);
+        await Assert.That(max.VpcCidrSubnet).IsEqualTo((byte)32);
     }
 
-    [Fact]
+    [Test]
     public async Task CtorStringThrowTest()
     {
         Assert.Throws<ArgumentOutOfRangeException>(() => new CidrBlockv4("0.0.0.0/-1")); // subnet negative
@@ -46,32 +47,32 @@ public class Cidrbockv4Test
         Assert.Throws<FormatException>(() => new CidrBlockv4("10001/32")); // octed failure
     }
 
-    [Fact]
+    [Test]
     public async Task CtorBytesTest()
     {
         var cidr = new CidrBlockv4(10, 0, 0, 1, 24);
-        Assert.Equal(10, cidr.VpcCidr1);
-        Assert.Equal(0, cidr.VpcCidr2);
-        Assert.Equal(0, cidr.VpcCidr3);
-        Assert.Equal(1, cidr.VpcCidr4);
-        Assert.Equal(24, cidr.VpcCidrSubnet);
+        await Assert.That(cidr.VpcCidr1).IsEqualTo((byte)10);
+        await Assert.That(cidr.VpcCidr2).IsEqualTo((byte)0);
+        await Assert.That(cidr.VpcCidr3).IsEqualTo((byte)0);
+        await Assert.That(cidr.VpcCidr4).IsEqualTo((byte)1);
+        await Assert.That(cidr.VpcCidrSubnet).IsEqualTo((byte)24);
 
         var min = new CidrBlockv4(0, 0, 0, 0, 0);
-        Assert.Equal(0, min.VpcCidr1);
-        Assert.Equal(0, min.VpcCidr2);
-        Assert.Equal(0, min.VpcCidr3);
-        Assert.Equal(0, min.VpcCidr4);
-        Assert.Equal(0, min.VpcCidrSubnet);
+        await Assert.That(min.VpcCidr1).IsEqualTo((byte)0);
+        await Assert.That(min.VpcCidr2).IsEqualTo((byte)0);
+        await Assert.That(min.VpcCidr3).IsEqualTo((byte)0);
+        await Assert.That(min.VpcCidr4).IsEqualTo((byte)0);
+        await Assert.That(min.VpcCidrSubnet).IsEqualTo((byte)0);
 
         var max = new CidrBlockv4(255, 255, 255, 255, 32);
-        Assert.Equal(255, max.VpcCidr1);
-        Assert.Equal(255, max.VpcCidr2);
-        Assert.Equal(255, max.VpcCidr3);
-        Assert.Equal(255, max.VpcCidr4);
-        Assert.Equal(32, max.VpcCidrSubnet);
+        await Assert.That(max.VpcCidr1).IsEqualTo((byte)255);
+        await Assert.That(max.VpcCidr2).IsEqualTo((byte)255);
+        await Assert.That(max.VpcCidr3).IsEqualTo((byte)255);
+        await Assert.That(max.VpcCidr4).IsEqualTo((byte)255);
+        await Assert.That(max.VpcCidrSubnet).IsEqualTo((byte)32);
     }
 
-    [Fact]
+    [Test]
     public async Task CtorBytesThrowTest()
     {
         // byte protect value to 0-255
@@ -79,75 +80,75 @@ public class Cidrbockv4Test
     }
 
 
-    [Fact]
+    [Test]
     public async Task TryParseStringTest()
     {
         var result = CidrBlockv4.TryParse("10.0.0.1/24", out var cidr);
-        Assert.True(result);
-        Assert.Equal(10, cidr.VpcCidr1);
-        Assert.Equal(0, cidr.VpcCidr2);
-        Assert.Equal(0, cidr.VpcCidr3);
-        Assert.Equal(1, cidr.VpcCidr4);
-        Assert.Equal(24, cidr.VpcCidrSubnet);
+        await Assert.That(result).IsTrue();
+        await Assert.That(cidr.VpcCidr1).IsEqualTo((byte)10);
+        await Assert.That(cidr.VpcCidr2).IsEqualTo((byte)0);
+        await Assert.That(cidr.VpcCidr3).IsEqualTo((byte)0);
+        await Assert.That(cidr.VpcCidr4).IsEqualTo((byte)1);
+        await Assert.That(cidr.VpcCidrSubnet).IsEqualTo((byte)24);
 
         var result2 = CidrBlockv4.TryParse("0.0.0.0/0", out var min);
-        Assert.True(result2);
-        Assert.Equal(0, min.VpcCidr1);
-        Assert.Equal(0, min.VpcCidr2);
-        Assert.Equal(0, min.VpcCidr3);
-        Assert.Equal(0, min.VpcCidr4);
-        Assert.Equal(0, min.VpcCidrSubnet);
+        await Assert.That(result2).IsTrue();
+        await Assert.That(min.VpcCidr1).IsEqualTo((byte)0);
+        await Assert.That(min.VpcCidr2).IsEqualTo((byte)0);
+        await Assert.That(min.VpcCidr3).IsEqualTo((byte)0);
+        await Assert.That(min.VpcCidr4).IsEqualTo((byte)0);
+        await Assert.That(min.VpcCidrSubnet).IsEqualTo((byte)0);
 
         var result3 = CidrBlockv4.TryParse("255.255.255.255/32", out var max);
-        Assert.True(result3);
-        Assert.Equal(255, max.VpcCidr1);
-        Assert.Equal(255, max.VpcCidr2);
-        Assert.Equal(255, max.VpcCidr3);
-        Assert.Equal(255, max.VpcCidr4);
-        Assert.Equal(32, max.VpcCidrSubnet);
+        await Assert.That(result3).IsTrue();
+        await Assert.That(max.VpcCidr1).IsEqualTo((byte)255);
+        await Assert.That(max.VpcCidr2).IsEqualTo((byte)255);
+        await Assert.That(max.VpcCidr3).IsEqualTo((byte)255);
+        await Assert.That(max.VpcCidr4).IsEqualTo((byte)255);
+        await Assert.That(max.VpcCidrSubnet).IsEqualTo((byte)32);
 
-        Assert.False(CidrBlockv4.TryParse("0.0.0.0/-1", out _)); // subnet negative
-        Assert.False(CidrBlockv4.TryParse("0.0.0.0/33", out _)); // subnet over 32
-        Assert.False(CidrBlockv4.TryParse("255.255.255.255/33", out _)); // subnet over 32
-        Assert.False(CidrBlockv4.TryParse("256.255.255.255/32", out _)); // octed over 255
-        Assert.False(CidrBlockv4.TryParse("255.256.255.255/32", out _)); // octed over 255
-        Assert.False(CidrBlockv4.TryParse("255.255.256.255/32", out _)); // octed over 255
-        Assert.False(CidrBlockv4.TryParse("255.255.255.256/32", out _)); // octed over 255
+        await Assert.That(CidrBlockv4.TryParse("0.0.0.0/-1", out _)).IsFalse(); // subnet negative
+        await Assert.That(CidrBlockv4.TryParse("0.0.0.0/33", out _)).IsFalse(); // subnet over 32
+        await Assert.That(CidrBlockv4.TryParse("255.255.255.255/33", out _)).IsFalse(); // subnet over 32
+        await Assert.That(CidrBlockv4.TryParse("256.255.255.255/32", out _)).IsFalse(); // octed over 255
+        await Assert.That(CidrBlockv4.TryParse("255.256.255.255/32", out _)).IsFalse(); // octed over 255
+        await Assert.That(CidrBlockv4.TryParse("255.255.256.255/32", out _)).IsFalse(); // octed over 255
+        await Assert.That(CidrBlockv4.TryParse("255.255.255.256/32", out _)).IsFalse(); // octed over 255
 
-        Assert.False(CidrBlockv4.TryParse("10.0.0.1", out _)); // missing subnet
-        Assert.False(CidrBlockv4.TryParse("10.0.01/32", out _)); // octed failure
-        Assert.False(CidrBlockv4.TryParse("10.001/32", out _)); // octed failure
-        Assert.False(CidrBlockv4.TryParse("10001/32", out _)); // octed failure
+        await Assert.That(CidrBlockv4.TryParse("10.0.0.1", out _)).IsFalse(); // missing subnet
+        await Assert.That(CidrBlockv4.TryParse("10.0.01/32", out _)).IsFalse(); // octed failure
+        await Assert.That(CidrBlockv4.TryParse("10.001/32", out _)).IsFalse(); // octed failure
+        await Assert.That(CidrBlockv4.TryParse("10001/32", out _)).IsFalse(); // octed failure
 
     }
 
-    [Fact]
+    [Test]
     public async Task TryParseBytesTest()
     {
         var result = CidrBlockv4.TryParse(10, 0, 0, 1, 24, out var cidr);
-        Assert.True(result);
-        Assert.Equal(10, cidr.VpcCidr1);
-        Assert.Equal(0, cidr.VpcCidr2);
-        Assert.Equal(0, cidr.VpcCidr3);
-        Assert.Equal(1, cidr.VpcCidr4);
-        Assert.Equal(24, cidr.VpcCidrSubnet);
+        await Assert.That(result).IsTrue();
+        await Assert.That(cidr.VpcCidr1).IsEqualTo((byte)10);
+        await Assert.That(cidr.VpcCidr2).IsEqualTo((byte)0);
+        await Assert.That(cidr.VpcCidr3).IsEqualTo((byte)0);
+        await Assert.That(cidr.VpcCidr4).IsEqualTo((byte)1);
+        await Assert.That(cidr.VpcCidrSubnet).IsEqualTo((byte)24);
 
         var result2 = CidrBlockv4.TryParse(0, 0, 0, 0, 0, out var min);
-        Assert.True(result2);
-        Assert.Equal(0, min.VpcCidr1);
-        Assert.Equal(0, min.VpcCidr2);
-        Assert.Equal(0, min.VpcCidr3);
-        Assert.Equal(0, min.VpcCidr4);
-        Assert.Equal(0, min.VpcCidrSubnet);
+        await Assert.That(result2).IsTrue();
+        await Assert.That(min.VpcCidr1).IsEqualTo((byte)0);
+        await Assert.That(min.VpcCidr2).IsEqualTo((byte)0);
+        await Assert.That(min.VpcCidr3).IsEqualTo((byte)0);
+        await Assert.That(min.VpcCidr4).IsEqualTo((byte)0);
+        await Assert.That(min.VpcCidrSubnet).IsEqualTo((byte)0);
 
         var result3 = CidrBlockv4.TryParse(255, 255, 255, 255, 32, out var max);
-        Assert.True(result3);
-        Assert.Equal(255, max.VpcCidr1);
-        Assert.Equal(255, max.VpcCidr2);
-        Assert.Equal(255, max.VpcCidr3);
-        Assert.Equal(255, max.VpcCidr4);
-        Assert.Equal(32, max.VpcCidrSubnet);
+        await Assert.That(result3).IsTrue();
+        await Assert.That(max.VpcCidr1).IsEqualTo((byte)255);
+        await Assert.That(max.VpcCidr2).IsEqualTo((byte)255);
+        await Assert.That(max.VpcCidr3).IsEqualTo((byte)255);
+        await Assert.That(max.VpcCidr4).IsEqualTo((byte)255);
+        await Assert.That(max.VpcCidrSubnet).IsEqualTo((byte)32);
 
-        Assert.False(CidrBlockv4.TryParse(0, 0, 0, 0, 33, out _)); // subnet over 32
+        await Assert.That(CidrBlockv4.TryParse(0, 0, 0, 0, 33, out _)).IsFalse(); // subnet over 32
     }
 }

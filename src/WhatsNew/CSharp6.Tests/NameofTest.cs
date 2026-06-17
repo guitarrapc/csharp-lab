@@ -1,4 +1,6 @@
-﻿namespace CSharp6.Tests;
+﻿using System.Threading.Tasks;
+
+namespace CSharp6.Tests;
 
 public class NameofTest
 {
@@ -7,21 +9,21 @@ public class NameofTest
 
     // C#6 introduce nameof() operator, which can get namespace, class, member and local as constats.
 
-    [Fact]
-    public void NameofTests()
+    [Test]
+    public async Task NameofTests()
     {
         var local = 5;
         // Namespace
-        Assert.Equal("CSharp6", nameof(CSharp6));
+        await Assert.That(nameof(CSharp6)).IsEqualTo("CSharp6");
         // Class
-        Assert.Equal("NameofTest", nameof(NameofTest));
+        await Assert.That(nameof(NameofTest)).IsEqualTo("NameofTest");
         // Method
-        Assert.Equal("NameofTests", nameof(NameofTests));
+        await Assert.That(nameof(NameofTests)).IsEqualTo("NameofTests");
         // Field
-        Assert.Equal("_field", (nameof(_field)));
+        await Assert.That((nameof(_field))).IsEqualTo("_field");
         // Property
-        Assert.Equal("Property", nameof(Property));
+        await Assert.That(nameof(Property)).IsEqualTo("Property");
         // Local
-        Assert.Equal("local", nameof(local));
+        await Assert.That(nameof(local)).IsEqualTo("local");
     }
 }

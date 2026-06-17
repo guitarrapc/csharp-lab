@@ -2,7 +2,7 @@
 
 public class IndexInitializerTest
 {
-    [Fact]
+    [Test]
     public void IndexInitializerTests()
     {
         // C#5

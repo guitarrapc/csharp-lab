@@ -1,28 +1,30 @@
-﻿namespace CSharp6.Tests;
+﻿using System.Threading.Tasks;
+
+namespace CSharp6.Tests;
 
 public class ExpressionBodiesTest
 {
     // C# 6 introduce Expression bodied member.
-    [Fact]
-    public void ExpressionBodiedMethodTest()
+    [Test]
+    public async Task ExpressionBodiedMethodTest()
     {
         var p = new Point(10, 20);
         var q = new Point(10, 20);
         var result = p.Product(q);
         var result2 = p.ProductExpressionBody(q);
 
-        Assert.Equal(result2, result);
+        await Assert.That(result).IsEqualTo(result2);
     }
 
-    [Fact]
-    public void ExpressionBodiedPropertyTest()
+    [Test]
+    public async Task ExpressionBodiedPropertyTest()
     {
         var points = new[] { new Point(10, 20), new Point(20, 30) };
         var csharp5 = new PolygonCSharp5(points);
         var csharp6 = new PolygonCSharp6(points);
 
-        Assert.Equal(csharp6.Count, csharp5.Count);
-        Assert.Equal(csharp6[0], csharp5[0]);
+        await Assert.That(csharp5.Count).IsEqualTo(csharp6.Count);
+        await Assert.That(csharp5[0]).IsEqualTo(csharp6[0]);
     }
 
     public class Point
@@ -71,4 +73,3 @@ public class ExpressionBodiesTest
         }
     }
 }
-

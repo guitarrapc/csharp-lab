@@ -1,32 +1,33 @@
 ﻿using Logic.Core;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Logic.Tests;
 
 public class ValueStopwatchTest
 {
-    [Fact]
-    public void StopwatchMeasuresElapsedTime()
+    [Test]
+    public async Task StopwatchMeasuresElapsedTime()
     {
         var sw = Stopwatch.StartNew();
         Thread.Sleep(50);
 
         // Check that at least the minimum time has elapsed
-        Assert.True(sw.Elapsed.TotalMilliseconds >= 40);
+        await Assert.That(sw.Elapsed.TotalMilliseconds >= 40).IsTrue();
     }
 
-    [Fact]
-    public void ValueStopwatchMeasuresElapsedTime()
+    [Test]
+    public async Task ValueStopwatchMeasuresElapsedTime()
     {
         var sw = ValueStopwatch.StartNew();
         Thread.Sleep(50);
 
         // Check that at least the minimum time has elapsed
-        Assert.True(sw.GetElapsedTime().TotalMilliseconds >= 40);
+        await Assert.That(sw.GetElapsedTime().TotalMilliseconds >= 40).IsTrue();
     }
 
-    [Fact]
-    public void ValueStopwatchTimeIncreases()
+    [Test]
+    public async Task ValueStopwatchTimeIncreases()
     {
         var sw = ValueStopwatch.StartNew();
         var first = sw.GetElapsedTime();
@@ -36,6 +37,6 @@ public class ValueStopwatchTest
         var second = sw.GetElapsedTime();
 
         // Ensure time has progressed
-        Assert.True(second > first);
+        await Assert.That(second > first).IsTrue();
     }
 }

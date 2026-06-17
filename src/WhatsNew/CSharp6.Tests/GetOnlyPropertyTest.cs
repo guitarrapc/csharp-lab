@@ -1,16 +1,18 @@
-﻿namespace CSharp6.Tests;
+﻿using System.Threading.Tasks;
+
+namespace CSharp6.Tests;
 
 public class GetOnlyPropertyTest
 {
-    [Fact]
-    public void GetOnlyPropertyTests()
+    [Test]
+    public async Task GetOnlyPropertyTests()
     {
         var p5 = new PointCsharp5();
         var p6auto = new PointCsharp6Auto();
         var p6 = new PointCsharp6(10, 20);
 
-        Assert.Equivalent(p6, p5);
-        Assert.Equivalent(p6auto, p6);
+        await Assert.That(p5).IsEquivalentTo(p6);
+        await Assert.That(p6).IsEquivalentTo(p6auto);
     }
 
     // Until C# 5, you need backing field.

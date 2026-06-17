@@ -4,21 +4,19 @@ namespace Logic.Tests;
 
 public class ValueTaskDelayTest
 {
-    [Fact]
-    public async Task TaskDelayElapsedTest()
+    [Test]
+    public async Task TaskDelayElapsedTest(CancellationToken cancellationToken)
     {
-        await Task.Delay(100, TestContext.Current.CancellationToken);
-        Assert.True(true);
+        await Task.Delay(100, cancellationToken);
     }
 
-    [Fact]
-    public async Task ValueTaskDelayElapsedTest()
+    [Test]
+    public async Task ValueTaskDelayElapsedTest(CancellationToken cancellationToken)
     {
-        await ValueTaskExtension.Delay(100, TestContext.Current.CancellationToken);
-        Assert.True(true);
+        await ValueTaskExtension.Delay(100, cancellationToken);
     }
 
-    [Fact]
+    [Test]
     public async Task ValueTaskDelayTimeoutTest()
     {
         using var cts = new CancellationTokenSource(TimeSpan.FromMilliseconds(100));
