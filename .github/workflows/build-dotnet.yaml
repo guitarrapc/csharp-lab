@@ -16,9 +16,6 @@ on:
     branches:
       - "main"
 
-env:
-  BUILD_CONFIG: Release
-
 jobs:
   build:
     permissions:
@@ -28,7 +25,7 @@ jobs:
       matrix:
         runs-on:
           - ubuntu-24.04 # x64
-          # - ubuntu-24.04-arm # arm64
+          - ubuntu-24.04-arm # arm64
           - windows-2025 # x64
           - windows-11-arm # arm64
           - macos-15-intel # x64
@@ -48,9 +45,9 @@ jobs:
           dotnet restore
           dotnet tool restore
       - name: dotnet build
-        run: dotnet build -c "${BUILD_CONFIG}"
+        run: dotnet build -c Release
       - name: dotnet test
-        run: dotnet test-rerun --deleteReports --no-build -c "${BUILD_CONFIG}" --logger trx --logger GitHubActions --logger "console;verbosity=normal"
+        run: dotnet test-rerun --deleteReports --no-build -c Release --logger trx --logger GitHubActions --logger "console;verbosity=normal"
 
   run:
     permissions:
@@ -76,4 +73,4 @@ jobs:
           restore-wasm-workload: false
           dotnet-version: "10.0.x"
       - name: Get CPU Model
-        run: dotnet run --project ./src/SystemInfo/SystemInfo.Sandbox/SystemInfo.Sandbox.csproj -c "${BUILD_CONFIG}"
+        run: dotnet run --project ./src/SystemInfo/SystemInfo.Sandbox/SystemInfo.Sandbox.csproj -c Release
