@@ -47,7 +47,7 @@ jobs:
       - name: dotnet build
         run: dotnet build -c Release
       - name: dotnet test
-        run: dotnet test-rerun --deleteReports --no-build -c Release --logger trx --logger GitHubActions --logger "console;verbosity=normal"
+        run: dotnet test-rerun -c Release --report-github
 
   run:
     permissions:
