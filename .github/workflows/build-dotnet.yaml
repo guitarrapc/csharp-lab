@@ -48,9 +48,9 @@ jobs:
           dotnet restore
           dotnet tool restore
       - name: dotnet build
-        run: dotnet build -c "${{ env.BUILD_CONFIG }}"
+        run: dotnet build -c "${BUILD_CONFIG}"
       - name: dotnet test
-        run: dotnet test-rerun --deleteReports --no-build -c "${{ env.BUILD_CONFIG }}" --logger trx --logger GitHubActions --logger "console;verbosity=normal"
+        run: dotnet test-rerun --deleteReports --no-build -c "${BUILD_CONFIG}" --logger trx --logger GitHubActions --logger "console;verbosity=normal"
 
   run:
     permissions:
@@ -76,4 +76,4 @@ jobs:
           restore-wasm-workload: false
           dotnet-version: "10.0.x"
       - name: Get CPU Model
-        run: dotnet run --project ./src/SystemInfo/SystemInfo.Sandbox/SystemInfo.Sandbox.csproj -c "${{ env.BUILD_CONFIG }}"
+        run: dotnet run --project ./src/SystemInfo/SystemInfo.Sandbox/SystemInfo.Sandbox.csproj -c "${BUILD_CONFIG}"

@@ -26,11 +26,11 @@ jobs:
         with:
           restore-wasm-workload: true
       - name: dotnet build
-        run: dotnet build -c "${{ env.BUILD_CONFIG }}"
+        run: dotnet build -c "${BUILD_CONFIG}"
       - name: dotnet test
-        run: dotnet test -c "${{ env.BUILD_CONFIG }}" --logger GitHubActions
+        run: dotnet test -c "${BUILD_CONFIG}" --logger GitHubActions
       - name: dotnet publish
-        run: dotnet publish -c "${{ env.BUILD_CONFIG }}"
+        run: dotnet publish -c "${BUILD_CONFIG}"
       - name: Add comment to PR
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         if: always()
