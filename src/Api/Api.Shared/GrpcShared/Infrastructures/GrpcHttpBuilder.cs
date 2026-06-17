@@ -5,17 +5,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 #pragma warning restore IDE0005 // Using directive is unnecessary.
 using Microsoft.AspNetCore.Server.Kestrel.Core;
-using static Api.Shared.GrpcShared.Infrastructures.Constants;
 
 namespace Api.Shared.GrpcShared.Infrastructures;
 
 public interface IGrpcHttpBuilder
 {
     IServiceCollection Services { get; }
+    ILoggingBuilder Logging { get; }
 }
-public class GrpcHttpBuilder(IServiceCollection services) : IGrpcHttpBuilder
+public class GrpcHttpBuilder(IServiceCollection services, ILoggingBuilder logging) : IGrpcHttpBuilder
 {
     public IServiceCollection Services { get; } = services;
+    public ILoggingBuilder Logging { get; } = logging;
 }
 
 public static class GrpcHttpBuilderExtensions
@@ -34,22 +35,34 @@ public static class GrpcHttpBuilderExtensions
     /// Enable HTTP/2 support
     /// </summary>
     /// <param name="builder"></param>
+    /// <returns></returns>
+    public static IGrpcHttpBuilder ConfigureHttp2Endpoint(this WebApplicationBuilder builder)
+    {
+        var port = GetPort();
+        return ConfigureHttp2Endpoint(builder, port);
+    }
+
+    /// <summary>
+    /// Enable HTTP/2 support
+    /// </summary>
+    /// <param name="builder"></param>
     /// <param name="port"></param>
     /// <returns></returns>
-    public static IGrpcHttpBuilder ConfigureHttp2Endpoint(this WebApplicationBuilder builder, int port = 5000)
+    public static IGrpcHttpBuilder ConfigureHttp2Endpoint(this WebApplicationBuilder builder, int port)
     {
         builder.Logging.ConfigureSingleLineLogger();
 
         // see: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel/http2?view=aspnetcore-8.0
         builder.WebHost.ConfigureKestrel((context, options) =>
         {
-            options.Limits.KeepAliveTimeout = GrpcConstants.ServerKeepConnectionWait;
+            options.Limits.KeepAliveTimeout = Constants.GrpcConstants.ServerKeepConnectionWait;
 
             options.ListenAnyIP(port, listenOptions =>
             {
                 // gRPC is HTTP/2. Set Http2 to accept Insecure HTTP/2
                 listenOptions.Protocols = HttpProtocols.Http2;
-                if (port == 5001)
+                var url = Environment.GetEnvironmentVariable("ASPNETCORE_URLS");
+                if (url?.StartsWith("https") ?? false)
                 {
                     var basePath = Path.GetDirectoryName(AppContext.BaseDirectory);
                     var certPath = Path.Combine(basePath!, TlsFile.Default.PfxFileName);
@@ -58,7 +71,18 @@ public static class GrpcHttpBuilderExtensions
             });
         });
 
-        return new GrpcHttpBuilder(builder.Services);
+        return new GrpcHttpBuilder(builder.Services, builder.Logging);
+    }
+
+    /// <summary>
+    /// Enable HTTP/3 support
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <returns></returns>
+    public static IGrpcHttpBuilder ConfigureHttp3Endpoint(this WebApplicationBuilder builder)
+    {
+        var port = GetPort();
+        return ConfigureHttp3Endpoint(builder, port);
     }
 
     /// <summary>
@@ -67,7 +91,7 @@ public static class GrpcHttpBuilderExtensions
     /// <param name="builder"></param>
     /// <param name="port"></param>
     /// <returns></returns>
-    public static IGrpcHttpBuilder ConfigureHttp3Endpoint(this WebApplicationBuilder builder, int port = 5001)
+    public static IGrpcHttpBuilder ConfigureHttp3Endpoint(this WebApplicationBuilder builder, int port)
     {
         builder.Logging.ConfigureSingleLineLogger();
 
@@ -77,7 +101,7 @@ public static class GrpcHttpBuilderExtensions
         // see: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel/http2?view=aspnetcore-8.0
         builder.WebHost.ConfigureKestrel((context, options) =>
         {
-            options.Limits.KeepAliveTimeout = GrpcConstants.ServerKeepConnectionWait;
+            options.Limits.KeepAliveTimeout = Constants.GrpcConstants.ServerKeepConnectionWait;
 
             options.ListenAnyIP(port, listenOptions =>
             {
@@ -87,7 +111,7 @@ public static class GrpcHttpBuilderExtensions
             });
         });
 
-        return new GrpcHttpBuilder(builder.Services);
+        return new GrpcHttpBuilder(builder.Services, builder.Logging);
     }
 
     /// <summary>
@@ -123,9 +147,29 @@ public static class GrpcHttpBuilderExtensions
         configure(options);
         builder.Services.AddSingleton(options);
         builder.Services.AddSingleton<GrpcSelfcheckUnaryClient>();
-        builder.Services.AddSingleton<GrpcSelfcheckDuplexClient>();
         builder.Services.AddHostedService<GrpcSelfcheckBackgroundService>();
 
         return builder;
+    }
+
+    /// <summary>
+    /// Get Listen Port from Environment Variables
+    /// </summary>
+    /// <returns></returns>
+    private static int GetPort()
+    {
+        var httpsPort = Environment.GetEnvironmentVariable("ASPNETCORE_HTTPS_PORTS");
+        if (int.TryParse(httpsPort, out var p1))
+        {
+            return p1;
+        }
+
+        var httpPort = Environment.GetEnvironmentVariable("ASPNETCORE_HTTP_PORTS");
+        if (int.TryParse(httpPort, out var p2))
+        {
+            return p2;
+        }
+
+        return 5000;
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Api.Shared.ApiShared.Infrastructures;
 
-public class SelfcheckServiceOptions
+public record SelfcheckServiceOptions
 {
     /// <summary>
     /// Selfcheck delay start since ApplicationStarted
@@ -16,6 +16,10 @@ public class SelfcheckServiceOptions
     /// This method will inject proper address for any launch style.
     /// </summary>
     public Uri BaseAddress { get; set; } = new Uri("http://localhost:5000");
+    /// <summary>
+    /// Endpoint path for selfcheck request. Default is /healthz
+    /// </summary>
+    public string EndpointPath { get; set; } = "/healthz";
     /// <summary>
     /// Control how to validate SelfSigned Certificate, won't be used if EnableTls is false and Certificate is not SelfSigned
     /// </summary>

@@ -49,23 +49,23 @@ jobs:
           echo "name=${cpu:1}" | tee -a "${GITHUB_OUTPUT}"
           echo "cores=$(( 1 * cores ))"
           echo "threads=$(grep -c processor /proc/cpuinfo)"
-          echo "execute=$([[ "${cpu:1}" != "${{ env.SKIP_CPU }}" ]] && echo 1 || echo 0)" | tee -a "${GITHUB_OUTPUT}"
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+          echo "execute=$([[ "${cpu:1}" != "${SKIP_CPU}" ]] && echo 1 || echo 0)" | tee -a "${GITHUB_OUTPUT}"
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           persist-credentials: false
       - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
         with:
           restore-wasm-workload: false
       - name: dotnet build
-        run: dotnet build ./${{ matrix.path }}/${{ matrix.project }}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }}
+        run: dotnet build ./${{ matrix.path }}/${{ matrix.project }}/${{ matrix.project }}.csproj -c ${BUILD_CONFIG}
       - name: Run benchmark
         if: ${{ steps.cpu.outputs.execute == 1 }}
         run: |
-          dotnet run --project ./${{ matrix.path }}/${{ matrix.project }}/${{ matrix.project }}.csproj -c ${{ env.BUILD_CONFIG }} --framework net10.0
-          mkdir -p ${{ env.TEMP_UPLOAD_PATH }}/${{ matrix.path }}/${{ matrix.project }}
+          dotnet run --project ./${{ matrix.path }}/${{ matrix.project }}/${{ matrix.project }}.csproj -c ${BUILD_CONFIG} --framework net10.0
+          mkdir -p ${TEMP_UPLOAD_PATH}/${{ matrix.path }}/${{ matrix.project }}
           while read -r file; do
             bench_name=$(echo "$file" | cut -d '/' -f 4 | cut -d '-' -f 1)
-            output_path="${{ env.TEMP_UPLOAD_PATH }}/${{ matrix.path }}/${{ matrix.project }}/${bench_name}.md"
+            output_path="${TEMP_UPLOAD_PATH}/${{ matrix.path }}/${{ matrix.project }}/${bench_name}.md"
 
             echo "Write '$bench_name' in '$file' to GITHUB_STEP_SUMMARY"
             echo "## $bench_name" >> "$GITHUB_STEP_SUMMARY"

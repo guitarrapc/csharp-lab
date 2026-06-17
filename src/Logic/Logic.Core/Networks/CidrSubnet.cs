@@ -397,4 +397,129 @@ public static class CidrSubnet
         var subnetSpan = span[(index + 1)..];
         return (IPAddress.Parse(ipSpan), int.Parse(subnetSpan));
     }
+
+    // IsInRange
+
+    /// <summary>
+    /// Check if an IP address is within a CIDR range.
+    /// </summary>
+    /// <param name="ipAddress">IP address to check</param>
+    /// <param name="cidr">CIDR range (e.g., "192.168.0.0/24")</param>
+    /// <returns>True if the IP address is within the CIDR range</returns>
+    public static bool IsIpInRange(string ipAddress, string cidr) => IsIpInRange(ipAddress.AsSpan(), cidr);
+
+    /// <summary>
+    /// Check if an IP address is within a CIDR range.
+    /// </summary>
+    /// <param name="ipAddress">IP address to check</param>
+    /// <param name="cidr">CIDR range (e.g., "192.168.0.0/24")</param>
+    /// <returns>True if the IP address is within the CIDR range</returns>
+    public static bool IsIpInRange(ReadOnlySpan<char> ipAddress, string cidr) => IsIpInRange(IPAddress.Parse(ipAddress), cidr.AsSpan());
+
+    /// <summary>
+    /// Check if an IP address is within a CIDR range.
+    /// </summary>
+    /// <param name="ipAddress">IP address to check</param>
+    /// <param name="cidr">CIDR range (e.g., "192.168.0.0/24")</param>
+    /// <returns>True if the IP address is within the CIDR range</returns>
+    public static bool IsIpInRange(IPAddress ipAddress, string cidr) => IsIpInRange(ipAddress, cidr.AsSpan());
+
+    /// <summary>
+    /// Check if an IP address is within a CIDR range.
+    /// </summary>
+    /// <param name="ipAddress">IP address to check</param>
+    /// <param name="cidr">CIDR range (e.g., "192.168.0.0/24")</param>
+    /// <returns>True if the IP address is within the CIDR range</returns>
+    public static bool IsIpInRange(IPAddress ipAddress, ReadOnlySpan<char> cidr)
+    {
+        var (cidrAddress, prefixLength) = DeconstructCIDR(cidr);
+        return IsIpInRange(ipAddress, cidrAddress, prefixLength);
+    }
+
+    /// <summary>
+    /// Check if an IP address is within a CIDR range.
+    /// </summary>
+    /// <param name="ipAddress">IP address to check</param>
+    /// <param name="cidrAddress">CIDR network address</param>
+    /// <param name="prefixLength">CIDR prefix length</param>
+    /// <returns>True if the IP address is within the CIDR range</returns>
+    public static bool IsIpInRange(IPAddress ipAddress, IPAddress cidrAddress, int prefixLength)
+    {
+        if (ipAddress.AddressFamily != cidrAddress.AddressFamily)
+        {
+            return false;
+        }
+
+        var (startAddress, endAddress) = GetSubnetRange(cidrAddress, prefixLength);
+        return CompareIpAddress(ipAddress, startAddress) >= 0 && CompareIpAddress(ipAddress, endAddress) <= 0;
+    }
+
+    /// <summary>
+    /// Check if a subnet (CIDR) is completely within another CIDR range.
+    /// </summary>
+    /// <param name="subnet">Subnet to check (e.g., "192.168.1.0/24")</param>
+    /// <param name="cidr">Parent CIDR range (e.g., "192.168.0.0/16")</param>
+    /// <returns>True if the subnet is completely within the CIDR range</returns>
+    public static bool IsSubnetInRange(string subnet, string cidr) => IsSubnetInRange(subnet.AsSpan(), cidr.AsSpan());
+
+    /// <summary>
+    /// Check if a subnet (CIDR) is completely within another CIDR range.
+    /// </summary>
+    /// <param name="subnet">Subnet to check (e.g., "192.168.1.0/24")</param>
+    /// <param name="cidr">Parent CIDR range (e.g., "192.168.0.0/16")</param>
+    /// <returns>True if the subnet is completely within the CIDR range</returns>
+    public static bool IsSubnetInRange(ReadOnlySpan<char> subnet, ReadOnlySpan<char> cidr)
+    {
+        var (subnetAddress, subnetPrefixLength) = DeconstructCIDR(subnet);
+        var (cidrAddress, cidrPrefixLength) = DeconstructCIDR(cidr);
+        return IsSubnetInRange(subnetAddress, subnetPrefixLength, cidrAddress, cidrPrefixLength);
+    }
+
+    /// <summary>
+    /// Check if a subnet (CIDR) is completely within another CIDR range.
+    /// </summary>
+    /// <param name="subnetAddress">Subnet network address</param>
+    /// <param name="subnetPrefixLength">Subnet prefix length</param>
+    /// <param name="cidrAddress">Parent CIDR network address</param>
+    /// <param name="cidrPrefixLength">Parent CIDR prefix length</param>
+    /// <returns>True if the subnet is completely within the CIDR range</returns>
+    public static bool IsSubnetInRange(IPAddress subnetAddress, int subnetPrefixLength, IPAddress cidrAddress, int cidrPrefixLength)
+    {
+        if (subnetAddress.AddressFamily != cidrAddress.AddressFamily)
+        {
+            return false;
+        }
+
+        if (subnetPrefixLength < cidrPrefixLength)
+        {
+            return false;
+        }
+
+        var (subnetStart, subnetEnd) = GetSubnetRange(subnetAddress, subnetPrefixLength);
+        var (cidrStart, cidrEnd) = GetSubnetRange(cidrAddress, cidrPrefixLength);
+
+        return CompareIpAddress(subnetStart, cidrStart) >= 0 && CompareIpAddress(subnetEnd, cidrEnd) <= 0;
+    }
+
+    private static int CompareIpAddress(IPAddress left, IPAddress right)
+    {
+        ReadOnlySpan<byte> leftBytes = left.GetAddressBytes();
+        ReadOnlySpan<byte> rightBytes = right.GetAddressBytes();
+
+        if (leftBytes.Length != rightBytes.Length)
+        {
+            throw new ArgumentException("IP addresses are not of the same family");
+        }
+
+        for (var i = 0; i < leftBytes.Length; i++)
+        {
+            var comparison = leftBytes[i].CompareTo(rightBytes[i]);
+            if (comparison != 0)
+            {
+                return comparison;
+            }
+        }
+
+        return 0;
+    }
 }

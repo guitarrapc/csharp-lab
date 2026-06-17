@@ -7,10 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 // Enable HTTP/1 and 2
-builder.ConfigureHttp12Endpoint() // http
-    .EnableSelfcheck<WeatherForecast>();
-//builder.ConfigureHttp12Endpoint(port: 5001) // https
-//    .EnableSelfcheck<WeatherForecast>();
+builder.ConfigureHttp12Endpoint()
+    .EnableSelfcheck();
+
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
@@ -19,6 +19,8 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+app.UseHttpsRedirection();
 
 var summaries = new[]
 {
@@ -39,6 +41,7 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast");
 
+app.MapHealthChecks("/healthz");
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)

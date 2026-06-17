@@ -1,4 +1,5 @@
 ﻿using Grpc.Core;
+using Grpc.Health.V1;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 #pragma warning disable IDE0005 // Using directive is unnecessary.
@@ -17,7 +18,7 @@ namespace Api.Shared.GrpcShared.Infrastructures;
 /// <param name="hostApplicationLifetime"></param>
 /// <param name="server"></param>
 /// <param name="logger"></param>
-public class GrpcSelfcheckBackgroundService(SelfcheckServiceOptions options, GrpcSelfcheckUnaryClient unaryClient, GrpcSelfcheckDuplexClient duplexClient, IHostApplicationLifetime hostApplicationLifetime, IServer server, ILogger<GrpcSelfcheckBackgroundService> logger) : BackgroundService
+public class GrpcSelfcheckBackgroundService(SelfcheckServiceOptions options, GrpcSelfcheckUnaryClient unaryClient, IHostApplicationLifetime hostApplicationLifetime, IServer server, ILogger<GrpcSelfcheckBackgroundService> logger) : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -43,12 +44,10 @@ public class GrpcSelfcheckBackgroundService(SelfcheckServiceOptions options, Grp
         using var timer = new PeriodicTimer(options.Interval);
         try
         {
-            var duplex = duplexClient.SendAsync(options.Interval, cancellationToken);
             while (await timer.WaitForNextTickAsync(cancellationToken))
             {
                 await unaryClient.SendAsync(cancellationToken);
             }
-            await duplex;
         }
         catch (OperationCanceledException)
         {
@@ -70,19 +69,18 @@ public class GrpcSelfcheckBackgroundService(SelfcheckServiceOptions options, Grp
 
 public class GrpcSelfcheckUnaryClient(SelfcheckServiceOptions options, ILogger<GrpcSelfcheckUnaryClient> logger)
 {
-    private readonly HelloRequest cachedRequest = new HelloRequest
+    private readonly HealthCheckRequest cachedRequest = new HealthCheckRequest
     {
-        Name = "Selfcheck",
     };
     public async Task SendAsync(CancellationToken cancellationToken)
     {
-        var chanel = GrpcChannelPool.Instance.CreateChannel(options.BaseAddress, options.EnableTls, options.UseHttp3, options.SelfCertValidationType);
-        var client = new Greeter.GreeterClient(chanel);
+        var channel = GrpcChannelPool.Instance.CreateChannel(options.BaseAddress, options.EnableTls, options.UseHttp3, options.SelfCertValidationType);
+        var client = new Health.HealthClient(channel);
 
         try
         {
             // to get StatusCode and Trailers, don't await directly, we need AsyncUnaryCall<TResponse> to get them.
-            using var call = client.SayHelloAsync(cachedRequest, cancellationToken: cancellationToken);
+            using var call = client.CheckAsync(cachedRequest, cancellationToken: cancellationToken);
             _ = await call;
             var responseHeaders = (await call.ResponseHeadersAsync).Select(x => $"{{{x.Key}:{string.Join(",", x.Value)}}}");
             logger.LogInformation($"Unary StatusCode={call.GetStatus().StatusCode}, Headers={string.Join(", ", responseHeaders)}");
@@ -95,41 +93,6 @@ public class GrpcSelfcheckUnaryClient(SelfcheckServiceOptions options, ILogger<G
         catch (Exception e)
         {
             logger.LogError(e, $"Error happen when calling {options.BaseAddress}.");
-        }
-    }
-}
-
-public class GrpcSelfcheckDuplexClient(SelfcheckServiceOptions options, ILogger<GrpcSelfcheckDuplexClient> logger)
-{
-    private readonly BidiHelloRequest cachedRequest = new BidiHelloRequest
-    {
-        Name = "Selfcheck",
-    };
-
-    public async Task SendAsync(TimeSpan interval, CancellationToken cancellationToken)
-    {
-        var chanel = GrpcChannelPool.Instance.CreateChannel(options.BaseAddress, options.EnableTls, options.UseHttp3);
-        var client = new Duplexer.DuplexerClient(chanel);
-        using var call = client.Echo(cancellationToken: cancellationToken);
-
-        using var timer = new PeriodicTimer(interval);
-        while (await timer.WaitForNextTickAsync(cancellationToken))
-        {
-            try
-            {
-                await call.RequestStream.WriteAsync(cachedRequest, cancellationToken);
-                await call.ResponseStream.MoveNext(cancellationToken);
-                logger.LogInformation($"Duplex Message={call.ResponseStream.Current.Message}");
-            }
-            catch (RpcException ex)
-            {
-                var trailers = ex.Trailers.Select(x => $"{{{x.Key}:{string.Join(",", x.Value)}}}");
-                logger.LogError(ex, $"Error happen when calling {options.BaseAddress}. StatusCode={ex.StatusCode}, Trailers={string.Join(", ", trailers)}");
-            }
-            catch (Exception e)
-            {
-                logger.LogError(e, $"Error happen when calling {options.BaseAddress}.");
-            }
         }
     }
 }
