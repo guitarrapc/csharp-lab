@@ -43,10 +43,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageVersion>
     <!-- Test -->
-    <PackageVersion Include="GitHubActionsTestLogger" Version="3.0.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageVersion>
     <PackageVersion Include="TUnit" Version="1.56.0" />
   </ItemGroup>
 </Project>

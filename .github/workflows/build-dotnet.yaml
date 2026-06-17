@@ -47,7 +47,7 @@ jobs:
       - name: dotnet build
         run: dotnet build -c Release
       - name: dotnet test
-        run: dotnet test-rerun -c Release --report-github
+        run: dotnet test-rerun -c Release --github-reporter-style full
 
   run:
     permissions:

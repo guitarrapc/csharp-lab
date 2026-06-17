@@ -8,7 +8,6 @@
     <OutputType>Exe</OutputType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="GitHubActionsTestLogger" />
     <PackageReference Include="TUnit" />
   </ItemGroup>
 </Project>
