@@ -1,5 +1,4 @@
 ﻿using Logic.Core;
-using System.Threading.Tasks;
 
 namespace Logic.Tests;
 
@@ -16,8 +15,6 @@ public class ExponentialBackoffTest
         {
             await backoff.DelayAsync(cts.Token);
         }
-
-        await Assert.That(true).IsTrue();
     }
 
     [Test]
