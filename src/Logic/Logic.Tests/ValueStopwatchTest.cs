@@ -1,6 +1,5 @@
 ﻿using Logic.Core;
 using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace Logic.Tests;
 

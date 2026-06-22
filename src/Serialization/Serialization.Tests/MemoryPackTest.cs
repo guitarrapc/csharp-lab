@@ -1,7 +1,6 @@
 ﻿using MemoryPack;
 using Serialization.Core;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Serialization.Tests;
 

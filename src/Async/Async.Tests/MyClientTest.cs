@@ -1,5 +1,4 @@
 ﻿using Async.Core;
-using System.Threading.Tasks;
 
 namespace Async.Tests;
 
