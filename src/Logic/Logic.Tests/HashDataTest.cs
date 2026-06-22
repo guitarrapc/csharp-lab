@@ -1,5 +1,4 @@
 ﻿using Logic.Core;
-using System.Threading.Tasks;
 
 namespace Logic.Tests;
 

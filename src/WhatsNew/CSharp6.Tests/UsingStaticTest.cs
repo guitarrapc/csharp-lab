@@ -1,6 +1,5 @@
 ﻿// C#6 introduce using static. Now you can call static member without class.
 using static System.Math;
-using System.Threading.Tasks;
 
 namespace CSharp6.Tests;
 

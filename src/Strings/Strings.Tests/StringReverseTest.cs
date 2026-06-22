@@ -1,5 +1,4 @@
 ﻿using Strings.Core;
-using System.Threading.Tasks;
 
 namespace Strings.Tests;
 
