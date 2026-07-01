@@ -59,10 +59,10 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: false
       - parallel:
-          - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-            with:
-              persist-credentials: false
           - uses: guitarrapc/actions/.github/actions/git-shortsha@main
             id: sha
           - uses: guitarrapc/actions/.github/actions/to-lower@main
@@ -101,10 +101,10 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: false
       - parallel:
-          - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-            with:
-              persist-credentials: false
           - uses: guitarrapc/actions/.github/actions/git-shortsha@main
             id: sha
           # docker push
