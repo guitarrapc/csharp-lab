@@ -9,7 +9,7 @@ env:
 
 jobs:
   build:
-    if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '@actions /build') }}
+    if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '@actions /build') && (github.event.comment.user.login == 'guitarrapc') }}
     permissions:
       contents: read
     runs-on: ubuntu-24.04
@@ -18,13 +18,14 @@ jobs:
       - name: Get PR branch
         uses: xt0rted/pull-request-comment-branch@e8b8daa837e8ea7331c0003c9c316a64c6d8b0b1 # v3.0.0
         id: comment-branch
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-        with:
-          ref: ${{ steps.comment-branch.outputs.head_ref }}
-          persist-credentials: false
-      - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
-        with:
-          restore-wasm-workload: true
+      - parallel:
+          - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+            with:
+              ref: ${{ steps.comment-branch.outputs.head_ref }}
+              persist-credentials: false
+          - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
+            with:
+              restore-wasm-workload: true
       - name: dotnet build
         run: dotnet build -c "${BUILD_CONFIG}"
       - name: dotnet test

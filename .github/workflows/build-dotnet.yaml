@@ -33,13 +33,14 @@ jobs:
     runs-on: ${{ matrix.runs-on }}
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-        with:
-          persist-credentials: false
-      - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
-        with:
-          restore-wasm-workload: true
-          dotnet-version: "10.0.x"
+      - parallel:
+          - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+            with:
+              persist-credentials: false
+          - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
+            with:
+              restore-wasm-workload: true
+              dotnet-version: "10.0.x"
       - name: dotnet restore
         run: |
           dotnet restore
@@ -65,12 +66,13 @@ jobs:
     runs-on: ${{ matrix.runs-on }}
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-        with:
-          persist-credentials: false
-      - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
-        with:
-          restore-wasm-workload: false
-          dotnet-version: "10.0.x"
+      - parallel:
+          - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+            with:
+              persist-credentials: false
+          - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
+            with:
+              restore-wasm-workload: false
+              dotnet-version: "10.0.x"
       - name: Get CPU Model
         run: dotnet run --project ./src/SystemInfo/SystemInfo.Sandbox/SystemInfo.Sandbox.csproj -c Release

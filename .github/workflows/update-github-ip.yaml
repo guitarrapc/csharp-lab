@@ -26,13 +26,14 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-        with:
-          persist-credentials: false
-      - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
-        with:
-          restore-wasm-workload: true
-          dotnet-version: "10.0.x"
+      - parallel:
+          - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+            with:
+              persist-credentials: false
+          - uses: guitarrapc/actions/.github/actions/setup-dotnet@main
+            with:
+              restore-wasm-workload: true
+              dotnet-version: "10.0.x"
       - name: Update GitHub Public IP Class File
         run: dotnet run --no-launch-profile --project ./sandbox/GitHubPublicIPClassGenerator/GitHubPublicIPClassGenerator.csproj -- --path "${{github.workspace}}/${{ matrix.path }}" --ns ${{ matrix.namespace }} --class-name ${{ matrix.class }} --is-static --is-partial ${{ matrix.dryrun-args }}
         env:
