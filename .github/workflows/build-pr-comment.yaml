@@ -9,7 +9,7 @@ env:
 
 jobs:
   build:
-    if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '@actions /build') }}
+    if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '@actions /build') && (github.event.comment.user.login == 'guitarrapc') }}
     permissions:
       contents: read
     runs-on: ubuntu-24.04
