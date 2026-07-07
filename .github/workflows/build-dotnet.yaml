@@ -76,3 +76,12 @@ jobs:
               dotnet-version: "10.0.x"
       - name: Get CPU Model
         run: dotnet run --project ./src/SystemInfo/SystemInfo.Sandbox/SystemInfo.Sandbox.csproj -c Release
+
+  build-complete:
+    needs: [build, run]
+    permissions: {}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - name: "Pass"
+        run: echo "Dotnet build and run completed."

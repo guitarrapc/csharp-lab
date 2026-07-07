@@ -129,3 +129,12 @@ jobs:
         if: ${{ env.DOCKER_PUSH_ENABLED == 'true' }}
         run: dotnet publish -c Release -p:ContainerImageTag="${{ steps.sha.outputs.sha-short }}-container-containerconsolesdk" -p:ContainerRegistry=docker.io /t:PublishContainer
         working-directory: src/Container/ContainerConsoleSdk
+
+  docker-complete:
+    needs: [docker, dotnet]
+    permissions: {}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - name: "Pass"
+        run: echo "Dotnet build and run completed."
