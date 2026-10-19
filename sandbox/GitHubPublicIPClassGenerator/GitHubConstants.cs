@@ -16,6 +16,8 @@ public static partial class GitHubConstants
     /// GitHub Public IPv4 List. Updated by <see href="https://github.com/guitarrapc/csharp-lab/actions/workflows/update-github-ip.yaml">GitHub Actions</see>
     /// </summary>
     public static readonly IReadOnlyList<string> GitHubIPList = [
+        "3.41.210.0/24",
+        "3.42.157.0/24",
         "3.219.87.128/32",
         "4.148.0.0/14",
         "4.152.0.0/14",
