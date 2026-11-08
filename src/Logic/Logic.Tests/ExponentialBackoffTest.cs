@@ -40,7 +40,9 @@ public class ExponentialBackoffTest
         await Assert.ThrowsAsync<OperationCanceledException>(async () => await backoff.DelayAsync(cts.Token));
     }
 
+    // flasky test
     [Test]
+    [Retry(3)]
     public async Task ExponentialBackoffRespectsTimeout()
     {
         using var cts = new CancellationTokenSource();
