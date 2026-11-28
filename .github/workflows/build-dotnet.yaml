@@ -40,7 +40,7 @@ jobs:
           - uses: guitarrapc/actions/.github/actions/setup-dotnet@ecc29fa73a78e0061e4d686bf61c8eb23260ca49 # v1.3.4
             with:
               dotnet-version: "10.0.x"
-      - run: dotnet workload install wasm-tools
+      - run: dotnet workload install wasm-tools-net10 
       - name: dotnet restore
         run: |
           dotnet restore
