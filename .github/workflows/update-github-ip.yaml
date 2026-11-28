@@ -32,8 +32,8 @@ jobs:
               persist-credentials: false
           - uses: guitarrapc/actions/.github/actions/setup-dotnet@ecc29fa73a78e0061e4d686bf61c8eb23260ca49 # v1.3.4
             with:
-              restore-wasm-workload: true
               dotnet-version: "10.0.x"
+      - run: dotnet workload install wasm-tools
       - name: Update GitHub Public IP Class File
         run: dotnet run --no-launch-profile --project ./sandbox/GitHubPublicIPClassGenerator/GitHubPublicIPClassGenerator.csproj -- --path "${{github.workspace}}/${{ matrix.path }}" --ns ${{ matrix.namespace }} --class-name ${{ matrix.class }} --is-static --is-partial ${{ matrix.dryrun-args }}
         env:
